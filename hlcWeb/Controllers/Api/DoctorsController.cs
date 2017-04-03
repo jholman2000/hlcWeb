@@ -7,27 +7,33 @@ using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
 {
-    public class DoctorsController : ApiController
+    public class DoctorsController : BaseController
     {
-        private SqlConnection _conn;
+        //private SqlConnection _conn;
         public DoctorsController()
         {
-            _conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True");
+           // _conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True");
         }
         
         // GET: api/Doctors
         public List<Doctor> Get()
         {
-            using (_conn)
-            {
-                string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
-                sql += "where Attitude <> 0";
+            string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
+            sql += "where Attitude <> 0";
 
-                _conn.Open();
+            var x = base.GetSQL<Doctor>(sql);
 
-                return  _conn.Query<Doctor>(sql).ToList();
+            return x;
+            //using (_conn)
+            //{
+            //    string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
+            //    sql += "where Attitude <> 0";
 
-            }
+            //    _conn.Open();
+
+            //    return  _conn.Query<Doctor>(sql).ToList();
+
+            //}
 
         }
 
