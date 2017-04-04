@@ -11,8 +11,6 @@ namespace hlcWeb.Controllers
         // GET: Logon
         public ActionResult Logon()
         {
-           // var x = Api.DoctorsController();
-
             System.Web.HttpContext.Current.Session["hlcUser"] = "jholman";
             //return View();
             return RedirectToAction("Index", "Home");

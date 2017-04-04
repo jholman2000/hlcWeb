@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
+﻿using System;
 using System.Web.Http;
-using Dapper;
 using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
@@ -12,35 +9,36 @@ namespace hlcWeb.Controllers.Api
         //private SqlConnection _conn;
         public DoctorsController()
         {
-           // _conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True");
+           
         }
         
-        // GET: api/Doctors
-        public List<Doctor> Get()
+        public IHttpActionResult Get()
         {
+            //base.ClearParameters();
+            //base.AddParameter("@HospitalID", 5);
+            //var x = base.GetListFromSP<Doctor>("hlc_BrowseDoctorsForHospital");
+            //return Ok(x);
+
             string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
             sql += "where Attitude <> 0";
 
-            var x = base.GetSQL<Doctor>(sql);
+            var results = base.GetListFromSQL<Doctor>(sql);
 
-            return x;
-            //using (_conn)
-            //{
-            //    string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
-            //    sql += "where Attitude <> 0";
+            if (results == null)
+                return NotFound();
 
-            //    _conn.Open();
-
-            //    return  _conn.Query<Doctor>(sql).ToList();
-
-            //}
+            return Ok(results);
 
         }
 
-        // GET: api/Doctors/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            var results = base.GetMemberFromId<Doctor>(id);
+
+            if (results == null)
+                return NotFound();
+
+            return Ok(results);
         }
 
         // POST: api/Doctors
