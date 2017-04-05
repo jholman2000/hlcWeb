@@ -217,8 +217,11 @@
     <Content Include="Views\Logon\Logon.cshtml" />
     <Content Include="Views\Shared\_LayoutLogon.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Home\DoctorSearch.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Doctors\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

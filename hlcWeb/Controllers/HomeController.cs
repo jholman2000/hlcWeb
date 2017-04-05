@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using hlcWeb.Models;
 
@@ -26,6 +23,14 @@ namespace hlcWeb.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public virtual PartialViewResult TestSearch(string search)
+        {
+            var x = new hlcWeb.Controllers.Api.DoctorsController();
+            var model = x.Search(search);
+
+            return PartialView("DoctorSearch", model);
         }
     }
 }

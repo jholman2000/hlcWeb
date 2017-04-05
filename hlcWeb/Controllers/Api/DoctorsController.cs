@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using hlcWeb.Models;
 
@@ -29,6 +30,15 @@ namespace hlcWeb.Controllers.Api
 
             return Ok(results);
 
+        }
+
+        [HttpGet]
+        [Route("api/doctors/search")]
+        public List<Doctor> Search(string search)
+        {
+            var results = base.GetListFromSQL<Doctor>($"SELECT FirstName, LastName, Attitude FROM hlc_Doctor WHERE LastName LIKE '{search}%'");
+
+            return results;
         }
 
         public IHttpActionResult Get(int id)
