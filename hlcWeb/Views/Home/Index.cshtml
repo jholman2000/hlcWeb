@@ -27,7 +27,7 @@
                 if (search.val().length > 2) {
                     $.ajax({
                         method: "POST",
-                        url: "@Url.Action("TestSearch", "Home")",
+                        url: "@Url.Action("Search", "Doctors")",
                         data: { search: search.val() }
                       })
                      .done(function (msg) {

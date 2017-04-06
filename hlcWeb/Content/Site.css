@@ -10,12 +10,22 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+/*************************************************************************************
+ * BOOTSTRAP OVERRIDES  
+ *************************************************************************************/
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
     white-space: normal;
 }
+/* Force tablet and desktop to show on same line for Attitude icons*/
+@media (min-width: 768px) {
+    .hidden-xs {
+    display: inline-block !important;
+    }
+}
+
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -164,8 +174,24 @@ textarea {
 .forgot-password:focus{
     color: rgb(12, 97, 33);
 }
-
+/* Doctor Attitude*/
+.Unknown {
+    color: rgb(0, 0, 0);
+    font-weight: bold;    
+}
 .Cooperative {
     color: green;
+    font-weight:bold;
+}
+.Favorable {
+    color: green;
+    font-weight:bold;
+}
+.Limitations {
+    color: #e9c709;
+    font-weight:bold;
+}
+.NotFavorable {
+    color: #ff0000;
     font-weight:bold;
 }

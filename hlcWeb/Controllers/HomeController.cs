@@ -24,13 +24,6 @@ namespace hlcWeb.Controllers
 
             return View();
         }
-
-        public virtual PartialViewResult TestSearch(string search)
-        {
-            var x = new hlcWeb.Controllers.Api.DoctorsController();
-            var model = x.Search(search);
-
-            return PartialView("DoctorSearch", model);
-        }
+      
     }
 }

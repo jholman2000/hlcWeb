@@ -145,6 +145,7 @@
     <Compile Include="Controllers\Api\BaseController.cs" />
     <Compile Include="Controllers\Api\DoctorsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
+    <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogonController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,11 +219,9 @@
     <Content Include="Views\Logon\Logon.cshtml" />
     <Content Include="Views\Shared\_LayoutLogon.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
-    <Content Include="Views\Home\DoctorSearch.cshtml" />
+    <Content Include="Views\Doctors\DoctorSearch.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Doctors\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

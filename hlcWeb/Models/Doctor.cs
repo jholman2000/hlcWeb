@@ -63,6 +63,26 @@ namespace hlcWeb.Models
         {
             get { return Enum.GetName(Attitude.GetType(), Attitude); }
         }
+        public string AttitudeIcon
+        {
+            // FontAwesome icon to display for this attitude
+            get {
+                switch (Attitude)
+                {
+                    case Attitude.Cooperative:
+                        return "fa-thumbs-o-up fa-thumbs-o-up";
+                    case Attitude.Favorable:
+                        return "fa-thumbs-o-up";
+                    case Attitude.Limitations:
+                        return "fa-hand-stop-o";
+                    case Attitude.NotFavorable:
+                        return "fa-thumbs-o-down";
+                    case Attitude.Unknown:
+                    default:
+                        return "fa-question-circle";
+                }
+            }
+        }
         public string StatusText
         {
             get { return Enum.GetName(Status.GetType(), Status); }
