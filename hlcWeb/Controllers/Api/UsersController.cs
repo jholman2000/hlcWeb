@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
 using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
@@ -10,6 +11,15 @@ namespace hlcWeb.Controllers.Api
 
         }
 
+        public User Logon(string email, string password)
+        {
+            var results = base.GetListFromSQL<User>($"SELECT * FROM hlc_User WHERE UPPER(EmailAddress) = '{email.ToUpper()}' AND UPPER(Password) = '{password.ToUpper()}'");
+
+            if (results.Count == 0)
+                return null;
+
+            return results[0];
+        }
         public IHttpActionResult Get()
         {
             string sql = "select * from hlc_User";

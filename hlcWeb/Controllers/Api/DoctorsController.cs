@@ -36,7 +36,7 @@ namespace hlcWeb.Controllers.Api
         [Route("api/doctors/search")]
         public List<Doctor> Search(string search)
         {
-            var results = base.GetListFromSQL<Doctor>($"SELECT FirstName, LastName, Attitude FROM hlc_Doctor WHERE LastName LIKE '{search}%'");
+            var results = base.GetListFromSQL<Doctor>($"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor WHERE LastName LIKE '{search}%'");
 
             return results;
         }

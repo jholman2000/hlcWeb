@@ -23,6 +23,11 @@ namespace hlcWeb.Models
         public DateTime? DateLastOn { get; set; }
         public bool IsActive { get; set; }
         public bool MustChangePassword { get; set; }
+        // Derived fields
+        public string FullName
+        {
+            get { return (FirstName + " " + LastName); }
+        }
 
     }
 }

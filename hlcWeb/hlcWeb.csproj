@@ -156,6 +156,7 @@
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\LogonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\hlcWeb_local.mdf" />
@@ -217,7 +218,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Logon\Logon.cshtml" />
-    <Content Include="Views\Shared\_LayoutLogon.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoNav.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Doctors\DoctorSearch.cshtml" />
   </ItemGroup>

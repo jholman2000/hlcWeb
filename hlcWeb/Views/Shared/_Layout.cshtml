@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using hlcWeb.Models;
+@{ 
+    var user = (User)Session["User"];
+    if (user == null)
+    {
+        user = new User();
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,14 +25,36 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <i class="fa fa-heartbeat fa-2x hlc-brand" style="float: left;margin-top: 11px;margin-right:8px;margin-left:3px;"></i> @Html.ActionLink("Hospital Liaison Committee", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("(Searchbox)", "Index", "Home")</li>
                 </ul>
+                @*BEGIN: User actions*@
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="notifications">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-globe"></i>
+                            <span class="badge js-notifications-count hide"></span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle"></i>
+                             @user.FullName
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">My Upcoming Gigs</a></li>
+                            <li><a href="#">Gigs I'm Going</a></li>
+                            <li><a href="#"><i class="fa fa-cog"></i> Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @*END: User actions*@                
             </div>
         </div>
     </div>
@@ -32,7 +62,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Hospital Liaison Committee</p>
+            <p class="pull-right">&copy; @DateTime.Now.Year - Hospital Liaison Committee</p>
         </footer>
     </div>
 

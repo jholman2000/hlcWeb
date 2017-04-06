@@ -22,5 +22,10 @@ namespace hlcWeb.Controllers
             var model = _doctorRepository.Search(search);
             return PartialView("DoctorSearch", model);
         }
+
+        public ActionResult View(int id)
+        {
+            return null;
+        }
     }
 }
