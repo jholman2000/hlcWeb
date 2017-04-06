@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web.Http;
 using Dapper;
 
@@ -15,8 +16,7 @@ namespace hlcWeb.Controllers.Api
 
         public BaseController()
         {
-            //_conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True");
-            _conn = new SqlConnection(@"Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015");
+            _conn = new SqlConnection(GetConnectionString());
             _parameters = new Dictionary<string, object>();
         }
 
@@ -116,17 +116,45 @@ namespace hlcWeb.Controllers.Api
             }
         }
 
-        public void AddParameter(string name, object value)
+        protected void AddParameter(string name, object value)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name is null or empty");
 
             _parameters.Add(name, value);
         }
-        
-        public void ClearParameters()
+
+        protected void ClearParameters()
         {
             _parameters.Clear();
         }
+
+        protected string GetConnectionString()
+       {
+             var connString = "";
+ 
+             ObjectCache cache = MemoryCache.Default;
+             connString = cache["HLCConnection"]?.ToString();
+ 
+             if (string.IsNullOrEmpty(connString))
+             {
+                 var environment = Environment.GetEnvironmentVariable("APP_ENVIRONMENT");
+                 switch (environment)
+                 {
+                     case "DEV":
+                         connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
+                         break;
+ 
+                     case "PROD":
+                     default:
+                         connString = @"Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015";
+                         break;
+                 }
+ 
+                 cache.Add("HLCConnection", connString, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+             }
+ 
+             return connString;
+         }
     }
 }
