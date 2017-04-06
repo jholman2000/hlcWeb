@@ -15,7 +15,8 @@ namespace hlcWeb.Controllers.Api
 
         public BaseController()
         {
-            _conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True");
+            //_conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True");
+            _conn = new SqlConnection(@"Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015");
             _parameters = new Dictionary<string, object>();
         }
 
