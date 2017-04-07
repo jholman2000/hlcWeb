@@ -13,7 +13,7 @@
                 <h4><strong>Hospital Liaison Committee</strong></h4>
             </div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="input-group margin-bottom-sm" style="margin-bottom: 5px;">
+            <div class="input-group" style="margin-bottom: 5px;">
                 <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email address", required = "required", autofocus = "autofocus" })
             </div>
@@ -50,12 +50,12 @@
     <script>
         $(document).ready(function () {
             var savedEmail = localStorage.HLC_Email;
-            if (savedEmail != "undefined") {
+            if (savedEmail !== "undefined") {
                 $("#Email").val(savedEmail);
                 $("#remember-me").prop("checked", true);
             }
 
-            $(".js-btn-submit").click(function (e) {
+            $(".js-btn-submit").click(function () {
                 if ($("#remember-me").is(":checked")) {
                     localStorage.HLC_Email = $("#Email").val();
                 }

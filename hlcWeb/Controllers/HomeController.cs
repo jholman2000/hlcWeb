@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using hlcWeb.Models;
+﻿using System.Web.Mvc;
 
 namespace hlcWeb.Controllers
 {

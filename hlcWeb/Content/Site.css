@@ -49,6 +49,7 @@ textarea {
  */
 .logonbody {
     height: 100%;
+    -ms-background-repeat: no-repeat;
     background-repeat: no-repeat;
     background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 38, 255));
 }
@@ -82,6 +83,7 @@ i.hlc-brand {
     padding: 15px;
     margin: 0 auto;
     border-color: black;
+    -ms-border-radius: 9px;
     border-radius: 9px;
     border-width: 2px;
 }

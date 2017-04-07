@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web.Http;
@@ -20,7 +21,7 @@ namespace hlcWeb.Controllers.Api
             _parameters = new Dictionary<string, object>();
         }
 
-        protected List<T> GetListFromSQL<T>(string sql) where T: class
+        protected List<T> GetListFromSql<T>(string sql) where T: class
         {
             using (_conn)
             {
@@ -74,10 +75,11 @@ namespace hlcWeb.Controllers.Api
 
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         protected List<T> GetListFromSP<T>(string spName)
         {
             if (string.IsNullOrEmpty(spName))
-                throw new ArgumentNullException("spName is null or empty");
+                throw new ArgumentNullException(nameof(spName));
 
             using (_conn)
             {
@@ -101,8 +103,6 @@ namespace hlcWeb.Controllers.Api
                             case "DateTime":
                                 type = DbType.DateTime;
                                 break;
-                            default:
-                                break;
                         }
                         parms.Add(p.Key, p.Value, dbType: type, direction: ParameterDirection.Input);
                     }
@@ -119,7 +119,7 @@ namespace hlcWeb.Controllers.Api
         protected void AddParameter(string name, object value)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name is null or empty");
+                throw new ArgumentNullException("name");
 
             _parameters.Add(name, value);
         }
@@ -131,10 +131,8 @@ namespace hlcWeb.Controllers.Api
 
         protected string GetConnectionString()
        {
-             var connString = "";
- 
-             ObjectCache cache = MemoryCache.Default;
-             connString = cache["HLCConnection"]?.ToString();
+           ObjectCache cache = MemoryCache.Default;
+             var connString = cache["HLCConnection"]?.ToString();
  
              if (string.IsNullOrEmpty(connString))
              {
@@ -144,8 +142,7 @@ namespace hlcWeb.Controllers.Api
                      case "DEV":
                          connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
                          break;
- 
-                     case "PROD":
+
                      default:
                          connString = @"Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015";
                          break;

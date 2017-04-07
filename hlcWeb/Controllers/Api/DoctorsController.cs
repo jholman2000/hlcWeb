@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using hlcWeb.Models;
 
@@ -8,11 +7,7 @@ namespace hlcWeb.Controllers.Api
     public class DoctorsController : BaseController
     {
         //private SqlConnection _conn;
-        public DoctorsController()
-        {
-           
-        }
-        
+
         public IHttpActionResult Get()
         {
             //base.ClearParameters();
@@ -23,7 +18,7 @@ namespace hlcWeb.Controllers.Api
             string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
             sql += "where Attitude <> 0";
 
-            var results = base.GetListFromSQL<Doctor>(sql);
+            var results = GetListFromSql<Doctor>(sql);
 
             if (results == null)
                 return NotFound();
@@ -36,14 +31,14 @@ namespace hlcWeb.Controllers.Api
         [Route("api/doctors/search")]
         public List<Doctor> Search(string search)
         {
-            var results = base.GetListFromSQL<Doctor>($"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor WHERE LastName LIKE '{search}%'");
+            var results = GetListFromSql<Doctor>($"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor WHERE LastName LIKE '{search}%'");
 
             return results;
         }
 
         public IHttpActionResult Get(int id)
         {
-            var results = base.GetMemberFromId<Doctor>(id);
+            var results = GetMemberFromId<Doctor>(id);
 
             if (results == null)
                 return NotFound();

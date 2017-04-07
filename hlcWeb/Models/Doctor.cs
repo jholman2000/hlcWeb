@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace hlcWeb.Models
 {
@@ -40,7 +38,7 @@ namespace hlcWeb.Models
         public bool ConsultAdultEmergency { get; set; }
         public bool ConsultChildEmergency { get; set; }
         public string NOTES { get; set; }
-        public string DOCNOTES { get; set; }
+        public string Docnotes { get; set; }
         public DateTime DateLastUpdated { get; set; }
         public string LastUpdatedBy { get; set; }
         public Status Status { get; set; }
@@ -50,7 +48,9 @@ namespace hlcWeb.Models
         public YesNoUnknown FrequentlyTreat { get; set; }
         public YesNoUnknown Helpful { get; set; }
         public int TreatYears { get; set; }
+        // ReSharper disable once InconsistentNaming
         public bool IsHRP { get; set; }         // High Risk Pregnancy
+        // ReSharper disable once InconsistentNaming
         public bool IsBSMP { get; set; }        // Bloodless Surgery Management Program
         public string PeerReview { get; set; }
 
@@ -77,7 +77,6 @@ namespace hlcWeb.Models
                         return "fa-hand-stop-o";
                     case Attitude.NotFavorable:
                         return "fa-thumbs-o-down";
-                    case Attitude.Unknown:
                     default:
                         return "fa-question-circle";
                 }
