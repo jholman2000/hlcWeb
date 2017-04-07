@@ -74,6 +74,9 @@ i.hlc-brand {
     color:Red;
     font-size: 30px;
 }
+.hlc-fa {
+    font-size: 18px;
+}
 .form-signin {
     max-width: 330px;
     padding: 15px;
