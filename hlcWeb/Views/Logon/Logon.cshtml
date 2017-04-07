@@ -28,6 +28,11 @@
                 <br />
                 <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
             }
+            if (!string.IsNullOrEmpty(Model.InfoMessage))
+            {
+                <br />
+                <div class="alert alert-info" role="alert">@Model.InfoMessage</div>
+            }
             <div id="remember" class="checkbox">
                 <label>
                     <input id="remember-me" type="checkbox"> Remember me

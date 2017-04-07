@@ -5,6 +5,7 @@ namespace hlcWeb.ViewModels
     public class LogonViewModel
     {
         public string ErrorMessage { get; set; }
+        public string InfoMessage { get; set; }
 
         [Required]
         [Display(Name = "Email")]

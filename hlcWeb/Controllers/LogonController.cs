@@ -11,17 +11,18 @@ namespace hlcWeb.Controllers
             _userRepository = new Api.UsersController();
         }
 
-        public ActionResult Logon(string returnUrl)
+        public ActionResult Logon(string returnUrl, string infoMsg)
         {
             #if DEBUG
             //return RedirectToAction("Index", "Home");
             #endif
             ViewBag.ReturnUrl = returnUrl;
-            System.Web.HttpContext.Current.Session["hlcUser"] = "jholman";
+            //System.Web.HttpContext.Current.Session["hlcUser"] = "jholman";
             var viewModel = new LogonViewModel
             {
                 Email = "",
-                Password = ""
+                Password = "",
+                InfoMessage = infoMsg
             };
 
             return View(viewModel);
@@ -50,6 +51,13 @@ namespace hlcWeb.Controllers
             }
 
             
+        }
+
+        public ActionResult Logoff()
+        {
+            Session.Abandon();
+
+            return RedirectToAction("Logon",new { infoMsg = "You are now signed out."});
         }
     }
 }
