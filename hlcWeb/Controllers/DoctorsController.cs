@@ -11,16 +11,26 @@ namespace hlcWeb.Controllers
             _doctorRepository = new Api.DoctorsController();
         }
 
-        // GET: Doctors
+        /// <summary>
+        /// Home page search for Doctor.  Accesses by the Search box or clicking a Rolodex button
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
         public PartialViewResult Search(string search)
         {
             var model = _doctorRepository.Search(search);
             return PartialView("DoctorSearch", model);
         }
 
+        /// <summary>
+        /// View a Doctor information
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult View(int id)
         {
-            return null;
+            var doctor = _doctorRepository.GetDoctor(id);
+            return View(doctor);
         }
     }
 }

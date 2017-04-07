@@ -19,6 +19,9 @@
 .dl-horizontal dt {
     white-space: normal;
 }
+.panel-heading {
+    padding: 2px 15px; 
+}
 /* Force tablet and desktop to show on same line for Attitude icons*/
 @media (min-width: 768px) {
     .hidden-xs {
@@ -47,17 +50,12 @@ textarea {
 /*
  * General styles
  */
-.logonbody {
+/*.logonbody {
     height: 100%;
     -ms-background-repeat: no-repeat;
     background-repeat: no-repeat;
     background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 38, 255));
-}
-
-.card-container.card {
-    max-width: 350px;
-    padding: 40px 40px;
-}
+}*/
 
 .btn {
     font-weight: 700;
@@ -77,7 +75,7 @@ i.hlc-brand {
 }
 .hlc-div-center {
     width: 100%;
-    margin-left: 0px;
+    margin-left: 0;
     margin-bottom: 5px;
     text-align: center;
     border-width: 1px;

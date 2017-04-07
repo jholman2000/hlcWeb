@@ -21,6 +21,11 @@ namespace hlcWeb.Controllers.Api
             _parameters = new Dictionary<string, object>();
         }
 
+        protected SqlConnection Connection()
+        {
+            return _conn;
+        }
+
         protected List<T> GetListFromSql<T>(string sql) where T: class
         {
             using (_conn)

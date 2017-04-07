@@ -14,18 +14,20 @@ namespace hlcWeb.Controllers
         public ActionResult Logon(string returnUrl, string infoMsg)
         {
             #if DEBUG
-            //return RedirectToAction("Index", "Home");
-            #endif
-            ViewBag.ReturnUrl = returnUrl;
-            //System.Web.HttpContext.Current.Session["hlcUser"] = "jholman";
-            var viewModel = new LogonViewModel
-            {
-                Email = "",
-                Password = "",
-                InfoMessage = infoMsg
-            };
+                var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
+                Session["User"] = user;
+                return RedirectToAction("Index", "Home");
+            #else
+                ViewBag.ReturnUrl = returnUrl;
+                var viewModel = new LogonViewModel
+                {
+                    Email = "",
+                    Password = "",
+                    InfoMessage = infoMsg
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            #endif
         }
 
         [HttpPost]

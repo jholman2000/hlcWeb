@@ -1,0 +1,77 @@
+﻿@model hlcWeb.Models.Doctor
+
+@{
+    ViewBag.Title = "title";
+    //Layout = "_Layout";
+}
+
+<h2><i class="fa fa-user-md fa-2x"></i> @Model.FullName</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Contact info</div>
+                <div class="panel-body">
+                    @Model.MobilePhone
+                    @Model.EmailAddress
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Attitudes</div>
+                <div class="panel-body">
+                    <span class="@Model.AttitudeText fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
+                    </span>
+                    @Model.AttitudeText
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Specialties</div>
+                <div class="panel-body">
+                    <ul>
+                        @foreach (var sp in @Model.Specialties)
+                        {
+                            <li>@sp.SpecialtyName</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Hospitals</div>
+                <div class="panel-body">
+                    <ul>
+                        @foreach (var ho in @Model.Hospitals)
+                        {
+                            <li>@ho.HospitalName</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Notes</div>
+            <div class="panel-body">
+                <ul>
+                    @foreach (var n in @Model.Notes)
+                        {
+                        <li>@n.Notes</li>
+                        }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
