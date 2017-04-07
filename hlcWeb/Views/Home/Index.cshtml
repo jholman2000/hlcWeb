@@ -3,60 +3,83 @@
 }
 <br />
 <br />
-<div class="row">
-    <div class="col-md-10">
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-            <input style="max-width:100%;" type="text" class="form-control js-search" placeholder="Search Doctors..." aria-describedby="basic-addon1">
+<div class="container">
+    <div class="row hidden-xs hlc-div-center">
+        <div class="col-md-12">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary js-search-btn">A</button>
+                <button type="button" class="btn btn-primary js-search-btn">B</button>
+                <button type="button" class="btn btn-primary js-search-btn">C</button>
+                <button type="button" class="btn btn-primary js-search-btn">D</button>
+                <button type="button" class="btn btn-primary js-search-btn">E</button>
+                <button type="button" class="btn btn-primary js-search-btn">F</button>
+                <button type="button" class="btn btn-primary js-search-btn">G</button>
+                <button type="button" class="btn btn-primary js-search-btn">H</button>
+                <button type="button" class="btn btn-primary js-search-btn">I</button>
+                <button type="button" class="btn btn-primary js-search-btn">J</button>
+                <button type="button" class="btn btn-primary js-search-btn">K</button>
+                <button type="button" class="btn btn-primary js-search-btn">L</button>
+                <button type="button" class="btn btn-primary js-search-btn">M</button>
+                <button type="button" class="btn btn-primary js-search-btn">N</button>
+                <button type="button" class="btn btn-primary js-search-btn">O</button>
+                <button type="button" class="btn btn-primary js-search-btn">P</button>
+                <button type="button" class="btn btn-primary js-search-btn">Q</button>
+                <button type="button" class="btn btn-primary js-search-btn">R</button>
+                <button type="button" class="btn btn-primary js-search-btn">S</button>
+                <button type="button" class="btn btn-primary js-search-btn">T</button>
+                <button type="button" class="btn btn-primary js-search-btn">U</button>
+                <button type="button" class="btn btn-primary js-search-btn">V</button>
+                <button type="button" class="btn btn-primary js-search-btn">W</button>
+                <button type="button" class="btn btn-primary js-search-btn">X</button>
+                <button type="button" class="btn btn-primary js-search-btn">Y</button>
+                <button type="button" class="btn btn-primary js-search-btn">Z</button>
+            </div>
+             <br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                <input style="max-width: 100%;" type="text" class="form-control js-search" placeholder="Search Doctors...">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="doctorlist">
+            </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-10">
-        <div id="doctorlist">
-
-        </div>
-    </div>
-</div>
-
 @section scripts {
     <script>
-        $(document).ready(function () {
-            $(".js-search").keyup(function (e) {
+        $(document).ready(function() {
+            $(".js-search-btn").click(function(e) {
+                var btnText = $(e.target).text();
+                DoSearch(btnText);
+            });
+
+            $(".js-search").keyup(function(e) {
                 var search = $(e.target);
                 if (search.val().length > 2) {
-                    $.ajax({
-                        method: "POST",
-                        url: "@Url.Action("Search", "Doctors")",
-                        data: { search: search.val() }
-                      })
-                     .done(function (msg) {
-                        $("#doctorlist").html(msg);
-                      })
-                     .fail(function (jqXHR, textStatus) {
-                        $("#doctorlist").html(jqXHR.responseText);
-                      });
-
-                    @*$.get("@Url.Action("TestSearch", "Home")",
-                        { search: search.val() },
-                        function (data, textStatus, jqXHR) {
-                            debugger;
-                            $("#doctorlist").html(data);
-                        },
-                        "html");*@
-
-                    // This works OK
-                    //$.getJSON("/api/doctors/search", { search: search.val() }, function (result) {
-                    //    var html = "<ul>";
-                    //    for (var i = 0; i < result.length; i++) {
-                    //        html += "<li>" + result[i].LastName + "</li>";
-                    //        }
-                    //    html += "</ul>";
-                    //    $("#doctorlist").html(html);
-                    //});
-                    
+                    DoSearch(search.val());
                 }
             });
         });
+
+        function DoSearch(searchStr) {
+            $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("Search", "Doctors")",
+                data: { search: searchStr }
+                })
+                .done(function(msg) {
+                    $("#doctorlist").html(msg);
+                })
+                .fail(function(jqXhr) {
+                    $("#doctorlist").html(jqXhr.responseText);
+                });
+        }
     </script>    
 }

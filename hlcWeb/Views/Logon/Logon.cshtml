@@ -54,6 +54,14 @@
                 $("#Email").val(savedEmail);
                 $("#remember-me").prop("checked", true);
             }
+            
+            $("#Password").keyup(function (e) {
+                var code = e.which;
+                if (code === 13) {
+                    e.preventDefault();
+                    $(".js-btn-submit").click();
+                }
+            });
 
             $(".js-btn-submit").click(function () {
                 if ($("#remember-me").is(":checked")) {
