@@ -28,7 +28,16 @@ namespace hlcWeb.Controllers.Api
         [Route("api/doctors/search")]
         public List<Doctor> Search(string search)
         {
-            var results = GetListFromSql<Doctor>($"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor WHERE LastName LIKE '{search}%'");
+            List<Doctor> results = null;
+            if (search == "XYZ")
+            {
+                results = GetListFromSql<Doctor>($"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor " + 
+                    "WHERE LastName LIKE 'X%' OR LastName LIKE 'Y%' OR LastName LIKE 'Z%' ORDER BY LastName");
+            }
+            else
+            {
+                results = GetListFromSql<Doctor>($"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor WHERE LastName LIKE '{search}%' ORDER BY LastName");
+            }
 
             return results;
         }
