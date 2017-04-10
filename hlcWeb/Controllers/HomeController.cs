@@ -1,9 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using hlcWeb.Filters;
+using System.Web.Mvc;
 
 namespace hlcWeb.Controllers
 {
     public class HomeController : Controller
     {
+        [HLCUserLoggedOn]
         public ActionResult Index()
         {
             return View();

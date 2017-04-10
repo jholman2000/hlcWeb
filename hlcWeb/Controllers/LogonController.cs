@@ -13,7 +13,7 @@ namespace hlcWeb.Controllers
 
         public ActionResult Logon(string returnUrl, string infoMsg)
         {
-            #if DEBUG
+            #if DEBUGing
                 var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
                 Session["User"] = user;
                 return RedirectToAction("Index", "Home");
