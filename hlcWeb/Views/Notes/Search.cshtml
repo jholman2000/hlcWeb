@@ -1,0 +1,32 @@
+﻿@model List<hlcWeb.Models.DoctorNote>
+
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-comment hlc-fa"></i> Comments
+    </div>
+    <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Doctor</th>
+            <th>Author</th>
+            <th>Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var doctorNote in @Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(doctorNote.DateEntered.ToShortDateString(), "View", "Specialties", new { id = doctorNote.Id }, null) </td>
+                <td>@doctorNote.DoctorName</td>
+                <td>@doctorNote.UserName</td>
+                <td>@doctorNote.Notes</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+

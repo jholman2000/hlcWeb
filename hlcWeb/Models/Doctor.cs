@@ -116,6 +116,7 @@ namespace hlcWeb.Models
         public DateTime DateEntered { get; set; }
         public string Notes { get; set; }
         public string UserName { get; set; }
+        public string DoctorName { get; set; }
     }
     public enum Attitude
     {

@@ -4,24 +4,6 @@
 <br />
 <br />
 <div class="container">
-    @*Search box -- User can switch what is searched via the dropdown button*@
-    <div class="row">
-        <div class="col-md-12">
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i id="search-active-icon" data-search-icon="fa-user-md" class="fa fa-user-md hlc-fa"></i> <span class="caret"></span></button>
-                    <ul class="dropdown-menu js-search-dropdown">
-                        <li><a href="#" data-search-icon ="fa-user-md"><i class="fa fa-user-md hlc-fa"></i> Doctors</a></li>
-                        <li><a href="#" data-search-icon ="fa-stethoscope"><i class="fa fa-stethoscope hlc-fa"></i> Specialties</a></li>
-                        <li><a href="#" data-search-icon ="fa-hospital-o"><i class="fa fa-hospital-o hlc-fa"></i> Hospitals</a></li>
-                        <li><a href="#" data-search-icon ="fa-comment"><i class="fa fa-comment hlc-fa"></i> Notes</a></li>
-                    </ul>
-                </div><!-- /btn-group -->
-                <input id="search-box" style="max-width: 100%; height: 36px;" type="text" class="form-control js-search" placeholder="Find Doctors with name...">
-            </div><!-- /input-group -->
-        </div>
-    </div>
     @*Rolodex buttons -- hidden for mobile*@
     <div class="row hidden-xs hlc-div-center">
         <div class="col-md-12">
@@ -51,7 +33,25 @@
                 <button type="button" class="btn btn-primary js-search-btn">W</button>
                 <button type="button" class="btn btn-primary js-search-btn">XYZ</button>
             </div>
-            <br/>
+            <br />
+        </div>
+    </div>
+    @*Search box -- User can switch what is searched via the dropdown button*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i id="search-active-icon" data-search-icon="fa-user-md" class="fa fa-user-md hlc-fa"></i> <span class="caret"></span></button>
+                    <ul class="dropdown-menu js-search-dropdown">
+                        <li><a href="#" data-search-icon ="fa-user-md"><i class="fa fa-user-md hlc-fa"></i> Doctors</a></li>
+                        <li><a href="#" data-search-icon ="fa-stethoscope"><i class="fa fa-stethoscope hlc-fa"></i> Specialties</a></li>
+                        <li><a href="#" data-search-icon ="fa-hospital-o"><i class="fa fa-hospital-o hlc-fa"></i> Hospitals</a></li>
+                        <li><a href="#" data-search-icon ="fa-comment"><i class="fa fa-comment hlc-fa"></i> Notes</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+                <input id="search-box" style="max-width: 100%; height: 36px;" type="text" class="form-control js-search" placeholder="Find Doctors...">
+            </div><!-- /input-group -->
         </div>
     </div>
     <div class="row">
@@ -90,19 +90,24 @@
                     .data("search-icon", iconSelected);
                 switch (iconSelected) {
                 case 'fa-user-md':
-                    box.prop("placeholder", "Find Doctors with name...").val("");
+                    box.prop("placeholder", "Find Doctors...").val("");
                     break;
                 case 'fa-stethoscope':
-                    box.prop("placeholder", "Find Doctors with Specialty...").val("");
+                    box.prop("placeholder", "Find Specialties...").val("");
                     break;
                 case 'fa-hospital-o':
-                    box.prop("placeholder", "Find Hospitals with name...").val("");
+                    box.prop("placeholder", "Find Hospitals...").val("");
                     break;
                 case 'fa-comment':
-                    box.prop("placeholder", "Find Doctor notes containing...").val("");
+                    box.prop("placeholder", "Find Comments...").val("");
                     break;
                 default:
                 }
+            });
+
+            $(".js-click-row").click(function () {
+                debugger;
+                var row = $(e.target);
             });
         });
 
@@ -119,14 +124,14 @@
                 url = "@Url.Action("Search", "Hospitals")";
                 break;
             case 'fa-comment':
-                url = "@Url.Action("SearchNotes", "Doctors")";
+                url = "@Url.Action("Search", "Notes")";
                 break;
             default:
             }
             $.ajax({
                     method: "POST",
                     url: url,
-                data: { search: searchStr }
+                    data: { search: searchStr }
                 })
                 .done(function(msg) {
                     $("#doctorlist").html(msg);
@@ -134,6 +139,7 @@
                 .fail(function(jqXhr) {
                     $("#doctorlist").html(jqXhr.responseText);
                 });
+
         }
     </script>    
 }

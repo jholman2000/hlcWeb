@@ -6,11 +6,6 @@ namespace hlcWeb.Controllers.Api
 {
     public class HospitalsController : BaseController
     {
-        public HospitalsController()
-        {
-                
-        }
-
         public List<Hospital> Search(string search)
         {
             string where;

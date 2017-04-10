@@ -14,7 +14,7 @@ namespace hlcWeb.Controllers
         }
 
         /// <summary>
-        /// Home page search for Hospitals.  Accesses by the Search box or clicking a Rolodex button
+        /// Home page search for Hospitals.  Accessed by the Search box or clicking a Rolodex button
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>

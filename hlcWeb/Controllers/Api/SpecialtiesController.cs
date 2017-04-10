@@ -5,10 +5,6 @@ namespace hlcWeb.Controllers.Api
 {
     public class SpecialtiesController : BaseController
     {
-        public SpecialtiesController()
-        {
-                
-        }
         public List<Specialty> Search(string search)
         {
             string where;
