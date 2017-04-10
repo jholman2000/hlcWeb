@@ -1,10 +1,12 @@
 ﻿using System.Web.Mvc;
+using hlcWeb.Filters;
 
 namespace hlcWeb.Controllers
 {
+    [HLCUserLoggedOn]
     public class DoctorsController : Controller
     {
-        private Api.DoctorsController _doctorRepository;
+        private readonly Api.DoctorsController _doctorRepository;
 
         public DoctorsController()
         {
@@ -12,14 +14,14 @@ namespace hlcWeb.Controllers
         }
 
         /// <summary>
-        /// Home page search for Doctor.  Accesses by the Search box or clicking a Rolodex button
+        /// Home page search for Doctors.  Accesses by the Search box or clicking a Rolodex button
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
         public PartialViewResult Search(string search)
         {
             var model = _doctorRepository.Search(search);
-            return PartialView("DoctorSearch", model);
+            return PartialView(model);
         }
 
         /// <summary>

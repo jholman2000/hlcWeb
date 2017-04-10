@@ -1,0 +1,29 @@
+﻿@model List<hlcWeb.Models.Hospital>
+
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-hospital-o hlc-fa"></i> Hospitals
+    </div>
+    <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+            <th>Hospital</th>
+            <th>City, State</th>
+            <th>Number Doctors</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var hospital in @Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(hospital.HospitalName, "View", "Hospitals", new { id = hospital.ID }, null) </td>
+                <td>@hospital.City</td>
+                <td>@hospital.NumberOfDoctors.ToString("N0")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+

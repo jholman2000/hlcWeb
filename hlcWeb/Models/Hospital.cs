@@ -24,5 +24,6 @@
         public string BSMPHomePhone { get; set; }
         public string BSMPMobilePhone { get; set; }
         public string BSMPNotes { get; set; }
+        public int NumberOfDoctors { get; set; }
     }
 }

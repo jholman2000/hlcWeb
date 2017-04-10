@@ -1,0 +1,27 @@
+﻿@model List<hlcWeb.Models.Specialty>
+
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-stethoscope hlc-fa"></i> Specialties
+    </div>
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Specialty</th>
+                <th>Number Doctors</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var specialty in @Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(specialty.SpecialtyName, "View", "Specialties", new { id = specialty.ID }, null) </td>
+                    <td>@specialty.NumberOfDoctors.ToString("N0")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

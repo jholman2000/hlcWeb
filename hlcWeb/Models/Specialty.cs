@@ -6,5 +6,6 @@
         public string SpecialtyName { get; set; }
         public string SpecialtyCode { get; set; }
         public string AreaOfExpertise { get; set; }
+        public int NumberOfDoctors { get; set; }
     }
 }

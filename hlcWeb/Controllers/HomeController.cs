@@ -3,9 +3,10 @@ using System.Web.Mvc;
 
 namespace hlcWeb.Controllers
 {
+    [HLCUserLoggedOn]
     public class HomeController : Controller
     {
-        [HLCUserLoggedOn]
+        
         public ActionResult Index()
         {
             return View();

@@ -145,10 +145,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\BaseController.cs" />
     <Compile Include="Controllers\Api\DoctorsController.cs" />
+    <Compile Include="Controllers\Api\HospitalsController.cs" />
+    <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HospitalsController.cs" />
     <Compile Include="Controllers\LogonController.cs" />
+    <Compile Include="Controllers\SpecialtiesController.cs" />
     <Compile Include="Filters\HLCUserLoggedOn.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,8 +165,14 @@
     <Compile Include="ViewModels\LogonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
+    <Content Include="Content\bootstrap-toggle.css" />
+    <Content Include="Content\bootstrap-toggle.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -175,6 +185,8 @@
     <Content Include="hlc_lDm_icon.ico" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap-toggle.js" />
+    <Content Include="Scripts\bootstrap-toggle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -221,8 +233,10 @@
     <Content Include="Views\Logon\Logon.cshtml" />
     <Content Include="Views\Shared\_LayoutNoNav.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
-    <Content Include="Views\Doctors\DoctorSearch.cshtml" />
+    <Content Include="Views\Doctors\Search.cshtml" />
     <Content Include="Views\Doctors\View.cshtml" />
+    <Content Include="Views\Hospitals\Search.cshtml" />
+    <Content Include="Views\Specialties\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
