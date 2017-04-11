@@ -33,12 +33,5 @@
         </tbody>
     </table>
 </div>
-@Scripts.Render("~/Scripts/search.js")
-@*<script>
-    $(document).ready(function() {
-        $(".js-click-row").click(function (e) {
-            var href = $(this).find("a")[0].href;
-            location.href = href;
-        });
-    });
-</script>*@
+<script src="@Url.Content("~/Scripts/hlc_search.js")">
+</script>
