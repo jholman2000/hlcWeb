@@ -50,29 +50,30 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
-        public IHttpActionResult Get(int id)
-        {
-            var results = GetMemberFromId<Doctor>(id);
+        //public IHttpActionResult Get(int id)
+        //{
+        //    var results = GetMemberFromId<Doctor>(id);
 
-            if (results == null)
-                return NotFound();
+        //    if (results == null)
+        //        return NotFound();
 
-            return Ok(results);
-        }
+        //    return Ok(results);
+        //}
 
         /// <summary>
         /// Get all Doctor information (including Hospitals, Specialties and Notes)
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Doctor GetDoctor(int id)
+        public Doctor Get(int id)
         {
             using (var conn = Connection())
             {
                 var sql = $"select * from hlc_Doctor where ID={id};" +
-                          $"select ds.*, s.SpecialtyName from hlc_DoctorSpecialty ds left join hlc_Specialty s on s.ID = ds.SpecialtyID where ds.DoctorID = {id};" +
-                          $"select dh.*, h.HospitalName from hlc_DoctorHospital dh left join hlc_Hospital h on h.ID = dh.HospitalID where dh.DoctorID = {id};" +
-                          $"select dn.*, u.FirstName + ' ' + u.LastName as UserName from hlc_DoctorNote dn left join hlc_User u on u.UserID = dn.UserID where dn.DoctorID = {id};";
+                          $"select ds.*, s.SpecialtyName from hlc_DoctorSpecialty ds left join hlc_Specialty s on s.ID = ds.SpecialtyID where ds.DoctorID = {id} order by SpecialtyName;" +
+                          $"select dh.*, h.HospitalName from hlc_DoctorHospital dh left join hlc_Hospital h on h.ID = dh.HospitalID where dh.DoctorID = {id} order by HospitalName;" +
+                          $"select dn.*, u.FirstName + ' ' + u.LastName as UserName from hlc_DoctorNote dn left join hlc_User u on u.UserID = dn.UserID where dn.DoctorID = {id} order by DateEntered desc;" +
+                          $"select * from hlc_Practice where ID = (select PracticeId from hlc_Doctor where Id={id});";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);
@@ -83,6 +84,7 @@ namespace hlcWeb.Controllers.Api
                     doctor.Specialties = multi.Read<DoctorSpecialty>().ToList();
                     doctor.Hospitals = multi.Read<DoctorHospital>().ToList();
                     doctor.Notes = multi.Read<DoctorNote>().ToList();
+                    doctor.Practice = multi.Read<Practice>().FirstOrDefault();
                 }
 
                 return doctor;

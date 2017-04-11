@@ -1,0 +1,30 @@
+﻿@model List<hlcWeb.Models.Practice>
+
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-medkit hlc-fa text-primary"></i> Practices
+    </div>
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Practice</th>
+                <th>City, State</th>
+                <th>Office Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var practice in @Model)
+            {
+                <tr class="js-click-row">
+                    <td>@Html.ActionLink(practice.PracticeName, "View", "Practices", new { id = practice.Id }, null) </td>
+                    <td>@(practice.City + (!string.IsNullOrEmpty(practice.State) ? " " + practice.State : "") )</td>
+                    <td>@practice.OfficePhone1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+

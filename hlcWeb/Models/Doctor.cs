@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace hlcWeb.Models
 {
@@ -19,10 +20,10 @@ namespace hlcWeb.Models
         }
 
         // hlc_Doctor fields
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int PracticeID { get; set; }
+        public int PracticeId { get; set; }
         public string MobilePhone { get; set; }
         public string HomePhone { get; set; }
         public string Pager { get; set; }
@@ -55,14 +56,10 @@ namespace hlcWeb.Models
         public string PeerReview { get; set; }
 
         // Derived fields
-        public string FullName
-        {
-            get { return (FirstName + " " + LastName); }
-        }
-        public string AttitudeText
-        {
-            get { return Enum.GetName(Attitude.GetType(), Attitude); }
-        }
+        public string FullName => (FirstName + " " + LastName);
+
+        public string AttitudeText => Enum.GetName(Attitude.GetType(), Attitude);
+
         public string AttitudeIcon
         {
             // FontAwesome icon to display for this attitude
@@ -70,7 +67,7 @@ namespace hlcWeb.Models
                 switch (Attitude)
                 {
                     case Attitude.Cooperative:
-                        return "fa-thumbs-o-up fa-thumbs-o-up";
+                        return "fa-thumbs-o-up";
                     case Attitude.Favorable:
                         return "fa-thumbs-o-up";
                     case Attitude.Limitations:
@@ -82,15 +79,13 @@ namespace hlcWeb.Models
                 }
             }
         }
-        public string StatusText
-        {
-            get { return Enum.GetName(Status.GetType(), Status); }
-        }
+        public string StatusText => Enum.GetName(Status.GetType(), Status);
 
         // Related table data
         public List<DoctorSpecialty> Specialties { get; set; }
         public List<DoctorHospital> Hospitals { get; set; }
         public List<DoctorNote> Notes { get; set; }
+        public Practice Practice { get; set; }
     }
 
     public class DoctorSpecialty

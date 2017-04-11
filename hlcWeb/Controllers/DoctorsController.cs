@@ -31,7 +31,7 @@ namespace hlcWeb.Controllers
         /// <returns></returns>
         public ActionResult View(int id)
         {
-            var doctor = _doctorRepository.GetDoctor(id);
+            var doctor = _doctorRepository.Get(id);
             return View(doctor);
         }
     }

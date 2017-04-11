@@ -18,7 +18,7 @@
         @foreach (var d in @Model)
         {
             <tr class="js-click-row">
-                <td>@Html.ActionLink(@d.LastName, "View", "Doctors", new { id = @d.ID }, null) </td>
+                <td>@Html.ActionLink(@d.LastName, "View", "Doctors", new { id = @d.Id }, null) </td>
                 <td>@d.FirstName</td>
                 @*<td><i class="@d.AttitudeText fa @d.AttitudeIcon" title="@d.AttitudeText"></i> <span class="hidden-xs">@d.AttitudeText</span></td>*@
                 <td>
@@ -33,5 +33,4 @@
         </tbody>
     </table>
 </div>
-<script src="@Url.Content("~/Scripts/hlc_search.js")">
-</script>
+<script src="@Url.Content("~/Scripts/hlc_search.js")"></script>

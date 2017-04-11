@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using hlcWeb.Models;
 
-
 namespace hlcWeb.Controllers.Api
 {
     public class HospitalsController : BaseController

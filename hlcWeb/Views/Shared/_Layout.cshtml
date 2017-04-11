@@ -14,6 +14,7 @@
     <title>@ViewBag.Title - Hospital Liaison Committee</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/apple-icon.png")" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -26,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <i class="fa fa-heartbeat fa-2x hlc-brand" style="float: left;margin-top: 11px;margin-right:8px;margin-left:3px;"></i> @Html.ActionLink("Hospital Liaison Committee", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <i class="fa fa-heartbeat fa-3x hlc-brand" style="float: left;margin-top: 11px;margin-right:8px;margin-left:3px;"></i> @Html.ActionLink("Hospital Liaison Committee", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 @*BEGIN: User actions*@

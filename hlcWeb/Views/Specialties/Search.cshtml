@@ -6,7 +6,7 @@
     <div class="panel-heading">
         <i class="fa fa-stethoscope hlc-fa"></i> Specialties
     </div>
-    <table class="table table-condensed table-striped">
+    <table class="table table-condensed table-striped table-hover">
         <thead>
             <tr>
                 <th>Specialty</th>
@@ -16,7 +16,7 @@
         <tbody>
             @foreach (var specialty in @Model)
             {
-                <tr>
+                <tr class="js-click-row">
                     <td>@Html.ActionLink(specialty.SpecialtyName, "View", "Specialties", new { id = specialty.ID }, null) </td>
                     <td>@specialty.NumberOfDoctors.ToString("N0")</td>
             </tr>
@@ -24,4 +24,5 @@
         </tbody>
     </table>
 </div>
+<script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
 

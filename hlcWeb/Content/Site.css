@@ -65,6 +65,11 @@ textarea {
     user-select: none;
     cursor: default;
 }
+/* Make panel edit icon always show*/
+.panel-heading a, a:hover, .panel-heading a:focus {
+    color: #fff;
+    text-decoration: none;
+}
 /************************************************************************************
  * HLC STYLES
  ************************************************************************************/
@@ -80,9 +85,18 @@ i.hlc-brand {
     text-align: center;
     border-width: 1px;
 }
-/*.hlc-fa {
+.hlc-prompt {    
+    font-weight: bold;
+    font-size: 11px;
+    vertical-align: middle;
+    text-align: end;
+}
+.hlc-list-group {
+    padding: 5px 10px;
+}
+.hlc-fa {
     font-size: 18px;
-}*/
+}
 .form-signin {
     max-width: 330px;
     padding: 15px;

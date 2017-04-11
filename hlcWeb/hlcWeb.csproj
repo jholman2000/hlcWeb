@@ -147,6 +147,7 @@
     <Compile Include="Controllers\Api\DoctorsController.cs" />
     <Compile Include="Controllers\Api\HospitalsController.cs" />
     <Compile Include="Controllers\Api\NotesController.cs" />
+    <Compile Include="Controllers\Api\PracticesController.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Controllers\HospitalsController.cs" />
     <Compile Include="Controllers\LogonController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
+    <Compile Include="Controllers\PracticesController.cs" />
     <Compile Include="Controllers\SpecialtiesController.cs" />
     <Compile Include="Filters\HLCUserLoggedOn.cs" />
     <Compile Include="Global.asax.cs">
@@ -161,16 +163,15 @@
     </Compile>
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Hospital.cs" />
+    <Compile Include="Models\Practice.cs" />
+    <Compile Include="Models\PvgMember.cs" />
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LogonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\hlcWeb_local.mdf" />
-    <Content Include="App_Data\hlcWeb_local_log.ldf">
-      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
-    </Content>
+    <Content Include="apple-icon.png" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -241,6 +242,7 @@
     <Content Include="Views\Hospitals\Search.cshtml" />
     <Content Include="Views\Specialties\Search.cshtml" />
     <Content Include="Views\Notes\Search.cshtml" />
+    <Content Include="Views\Practices\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

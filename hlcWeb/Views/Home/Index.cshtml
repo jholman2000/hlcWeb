@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 <br />
 <br />
@@ -44,10 +44,11 @@
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i id="search-active-icon" data-search-icon="fa-user-md" class="fa fa-user-md hlc-fa"></i> <span class="caret"></span></button>
                     <ul class="dropdown-menu js-search-dropdown">
-                        <li><a href="#" data-search-icon ="fa-user-md"><i class="fa fa-user-md hlc-fa"></i> Doctors</a></li>
-                        <li><a href="#" data-search-icon ="fa-stethoscope"><i class="fa fa-stethoscope hlc-fa"></i> Specialties</a></li>
-                        <li><a href="#" data-search-icon ="fa-hospital-o"><i class="fa fa-hospital-o hlc-fa"></i> Hospitals</a></li>
-                        <li><a href="#" data-search-icon ="fa-comment"><i class="fa fa-comment hlc-fa"></i> Notes</a></li>
+                        <li><a href="#" data-search-icon="fa-user-md"><i class="fa fa-user-md hlc-fa"></i> Doctors</a></li>
+                        <li><a href="#" data-search-icon="fa-stethoscope"><i class="fa fa-stethoscope hlc-fa"></i> Specialties</a></li>
+                        <li><a href="#" data-search-icon="fa-hospital-o"><i class="fa fa-hospital-o hlc-fa"></i> Hospitals</a></li>
+                        <li><a href="#" data-search-icon="fa-medkit"><i class="fa fa-medkit hlc-fa"></i> Practices</a></li>
+                        <li><a href="#" data-search-icon="fa-comment"><i class="fa fa-comment hlc-fa"></i> Comments</a></li>
                     </ul>
                 </div><!-- /btn-group -->
                 <input id="search-box" style="max-width: 100%; height: 36px;" type="text" class="form-control js-search" placeholder="Find Doctors...">
@@ -82,9 +83,11 @@
             $(".js-search-dropdown").click(function(e) {
                 var iconSelected = $(e.target).data("search-icon");
                 var box          = $("#search-box");
-                $("#search-active-icon").removeClass("fa-user-md")
+                $("#search-active-icon")
+                    .removeClass("fa-user-md")
                     .removeClass("fa-stethoscope")
                     .removeClass("fa-hospital-o")
+                    .removeClass("fa-medkit")
                     .removeClass("fa-comment")
                     .addClass(iconSelected)
                     .data("search-icon", iconSelected);
@@ -98,16 +101,14 @@
                 case 'fa-hospital-o':
                     box.prop("placeholder", "Find Hospitals...").val("");
                     break;
+                case 'fa-medkit':
+                    box.prop("placeholder", "Find Practices...").val("");
+                    break;
                 case 'fa-comment':
                     box.prop("placeholder", "Find Comments...").val("");
                     break;
                 default:
                 }
-            });
-
-            $(".js-click-row").click(function () {
-                debugger;
-                var row = $(e.target);
             });
         });
 
@@ -122,6 +123,9 @@
                 break;
             case 'fa-hospital-o':
                 url = "@Url.Action("Search", "Hospitals")";
+                break;
+            case 'fa-medkit':
+                url = "@Url.Action("Search", "Practices")";
                 break;
             case 'fa-comment':
                 url = "@Url.Action("Search", "Notes")";
@@ -141,5 +145,6 @@
                 });
 
         }
+
     </script>    
 }
