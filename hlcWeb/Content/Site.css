@@ -9,6 +9,9 @@
     padding-right: 15px;
     font-family: 'Open Sans', sans-serif;
 }
+address {
+    margin-bottom: 0;
+}
 
 /*************************************************************************************
  * BOOTSTRAP OVERRIDES  
@@ -16,6 +19,14 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
+.btn {
+    font-weight: 700;
+    height: 36px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -33,7 +44,12 @@
     font-size:15px;
     }
 }
-
+/*************************************************************************************
+ * FONTAWESOME OVERRIDES  
+ *************************************************************************************/
+.fa-2x {
+    font-size: 40px;
+}
 /*.fa {
     font-size: 18px;
 }*/
@@ -44,32 +60,7 @@ select,
 textarea {
     max-width: 280px;
 }
-/*
- * Specific styles of Logon component
- */
-/*
- * General styles
- */
-/*.logonbody {
-    height: 100%;
-    -ms-background-repeat: no-repeat;
-    background-repeat: no-repeat;
-    background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 38, 255));
-}*/
 
-.btn {
-    font-weight: 700;
-    height: 36px;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
-}
-/* Make panel edit icon always show*/
-.hlc-panel-icon, .hlc-panel-icon:hover {
-    color: white;
-    text-decoration: none;
-}
 /************************************************************************************
  * HLC STYLES
  ************************************************************************************/
@@ -96,6 +87,11 @@ i.hlc-brand {
 }
 .hlc-fa {
     font-size: 18px;
+}
+/* Make panel edit icon always show*/
+.hlc-panel-icon, .hlc-panel-icon:hover {
+    color: white;
+    text-decoration: none;
 }
 .form-signin {
     max-width: 330px;

@@ -17,7 +17,7 @@
             @foreach (var specialty in @Model)
             {
                 <tr class="js-click-row">
-                    <td>@Html.ActionLink(specialty.SpecialtyName, "View", "Specialties", new { id = specialty.ID }, null) </td>
+                    <td>@Html.ActionLink(specialty.SpecialtyName, "ViewDoctors", "Specialties", new { id = specialty.ID, name= specialty.SpecialtyName }, null) </td>
                     <td>@specialty.NumberOfDoctors.ToString("N0")</td>
             </tr>
             }

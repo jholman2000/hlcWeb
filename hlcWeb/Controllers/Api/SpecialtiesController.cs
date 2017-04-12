@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using hlcWeb.Models;
+using hlcWeb.ViewModels;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -33,5 +35,18 @@ namespace hlcWeb.Controllers.Api
 
         }
 
+        internal List<SpecialtyDoctorViewModel> GetDoctors(int id)
+        {
+            var sql =
+                "select d.id, d.FirstName + ' ' +d.LastName as DoctorName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +
+                "from hlc_DoctorSpecialty ds " +
+                "left join hlc_Doctor d on d.ID = ds.DoctorID " +
+                "left join hlc_Practice p on p.ID = d.PracticeID " +
+                $"where ds.SpecialtyID = {id}";
+
+            var results = GetListFromSql<SpecialtyDoctorViewModel>(sql);
+
+            return results;
+        }
     }
 }

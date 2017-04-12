@@ -23,5 +23,18 @@ namespace hlcWeb.Controllers
             var model = _specialtyRepository.Search(search);
             return PartialView(model);
         }
+
+        /// <summary>
+        /// View Doctors having a specified Specialty Id
+        /// </summary>
+        /// <param name="id">Specialty Id</param>
+        /// <param name="name">Specialty name</param>
+        /// <returns></returns>
+        public ActionResult ViewDoctors(int id, string name)
+        {
+            var doctors = _specialtyRepository.GetDoctors(id);
+            ViewBag.Name = name;
+            return View(doctors);
+        }
     }
 }

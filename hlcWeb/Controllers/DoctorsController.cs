@@ -25,7 +25,7 @@ namespace hlcWeb.Controllers
         }
 
         /// <summary>
-        /// View a Doctor information
+        /// View Doctor detailed information
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
