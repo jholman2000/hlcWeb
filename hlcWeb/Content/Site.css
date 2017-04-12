@@ -66,8 +66,8 @@ textarea {
     cursor: default;
 }
 /* Make panel edit icon always show*/
-.panel-heading a, a:hover, .panel-heading a:focus {
-    color: #fff;
+.hlc-panel-icon, .hlc-panel-icon:hover {
+    color: white;
     text-decoration: none;
 }
 /************************************************************************************
