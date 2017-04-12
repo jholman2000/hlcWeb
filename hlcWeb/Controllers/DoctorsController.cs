@@ -25,14 +25,14 @@ namespace hlcWeb.Controllers
         }
 
         /// <summary>
-        /// View Doctor detailed information
+        /// View detailed information for a doctor
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Doctor Id</param>
         /// <returns></returns>
         public ActionResult View(int id)
         {
-            var doctor = _doctorRepository.Get(id);
-            return View(doctor);
+            var model = _doctorRepository.Get(id);
+            return View(model);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Dapper;
 using hlcWeb.Models;
 using hlcWeb.ViewModels;
 
@@ -7,7 +9,7 @@ namespace hlcWeb.Controllers.Api
 {
     public class SpecialtiesController : BaseController
     {
-        public List<Specialty> Search(string search)
+        internal List<Specialty> Search(string search)
         {
             string where;
 
@@ -35,18 +37,25 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-        internal List<SpecialtyDoctorViewModel> GetDoctors(int id)
+        internal SpecialtyViewModel GetDoctors(int id)
         {
-            var sql =
-                "select d.id, d.FirstName + ' ' +d.LastName as DoctorName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +
-                "from hlc_DoctorSpecialty ds " +
-                "left join hlc_Doctor d on d.ID = ds.DoctorID " +
-                "left join hlc_Practice p on p.ID = d.PracticeID " +
-                $"where ds.SpecialtyID = {id}";
+            var model = new SpecialtyViewModel();
+            using (var conn = Connection())
+            {
+                var sql = $"select * from hlc_Specialty where ID={id};" +
+                          "select d.id, d.FirstName + ' ' +d.LastName as DoctorName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +
+                          "from hlc_DoctorSpecialty ds " +
+                          "left join hlc_Doctor d on d.ID = ds.DoctorID " +
+                          "left join hlc_Practice p on p.ID = d.PracticeID " +
+                          $"where ds.SpecialtyID = {id};";
 
-            var results = GetListFromSql<SpecialtyDoctorViewModel>(sql);
+                conn.Open();
+                var multi = conn.QueryMultiple(sql);
 
-            return results;
+                model.Specialty = multi.Read<Specialty>().FirstOrDefault();
+                model.Doctors = multi.Read<DoctorListViewModel>().ToList();
+            }
+            return model;
         }
     }
 }

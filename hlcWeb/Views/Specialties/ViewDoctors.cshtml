@@ -1,48 +1,26 @@
-﻿@model List<hlcWeb.ViewModels.SpecialtyDoctorViewModel>
+﻿@model hlcWeb.ViewModels.SpecialtyViewModel
 
 @{
     ViewBag.Title = "title";
 }
 
-<h2><i class="fa fa-stethoscope fa-2x text-primary"></i> @ViewBag.Name</h2>
+<h2><i class="fa fa-stethoscope fa-2x text-primary"></i> @(Model.Specialty?.SpecialtyName)</h2>
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">Doctors with this specialty</div>
-                @if (Model.Count == 0)
+                <div class="panel-heading">Doctors with this Specialty</div>
+                @if (Model.Doctors.Count == 0)
                 {
                     <div class="panel-body text-center">
-                        <em>There are no doctors assigned this Specialty.</em>
+                        <em>There are no HLC Doctors assigned this Specialty.</em>
                     </div>
                 }
                 else
                 {
-                    <table class="table table-condensed">
-                        <thead>
-                        <tr>
-                            <th>Doctor</th>
-                            <th>Practice</th>
-                            <th class="hidden-xs">Office Phone</th>
-                        </tr>                        
-                        </thead>
-                        <tbody>
-                            @foreach (var d in Model)
-                            {
-                                <tr>
-                                    <td>@d.DoctorName</td>
-                                    <td>
-                                        @d.PracticeName
-                                        <span class="visible-xs"><a href="tel:@d.OfficePhone1">@d.OfficePhone1</a></span>
-                                </td>
-                                    <td class="hidden-xs"><a href="tel:@d.OfficePhone1">@d.OfficePhone1</a></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    {Html.RenderPartial("DoctorList", Model.Doctors);}
                 }
             </div>
         </div>
-    </div>
-    
+    </div>    
 </div>

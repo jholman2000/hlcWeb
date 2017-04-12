@@ -168,8 +168,10 @@
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DoctorListViewModel.cs" />
+    <Compile Include="ViewModels\HospitalViewModel.cs" />
     <Compile Include="ViewModels\LogonViewModel.cs" />
-    <Compile Include="ViewModels\SpecialtyDoctorViewModel.cs" />
+    <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
@@ -249,6 +251,8 @@
     <Content Include="Views\Notes\Search.cshtml" />
     <Content Include="Views\Practices\Search.cshtml" />
     <Content Include="Views\Specialties\ViewDoctors.cshtml" />
+    <Content Include="Views\Hospitals\ViewDoctors.cshtml" />
+    <Content Include="Views\Shared\DoctorList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

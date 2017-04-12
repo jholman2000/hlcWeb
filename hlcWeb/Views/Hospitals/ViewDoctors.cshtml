@@ -1,0 +1,34 @@
+﻿@model hlcWeb.ViewModels.HospitalViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2><i class="fa fa-hospital-o fa-2x text-primary"></i> @(Model.Hospital?.HospitalName) </h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Hospital Information</div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Doctors at this Hospital</div>
+                @if (Model.Doctors.Count == 0)
+                {
+                    <div class="panel-body text-center">
+                        <em>There are no HLC Doctors located at this Hospital.</em>
+                    </div>
+                }
+                else
+                {
+                    {Html.RenderPartial("DoctorList", Model.Doctors);}
+                }
+            </div>
+        </div>
+    </div>            
+</div>

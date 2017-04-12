@@ -50,16 +50,6 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
-        //public IHttpActionResult Get(int id)
-        //{
-        //    var results = GetMemberFromId<Doctor>(id);
-
-        //    if (results == null)
-        //        return NotFound();
-
-        //    return Ok(results);
-        //}
-
         /// <summary>
         /// Get all Doctor information (including Hospitals, Specialties and Notes)
         /// </summary>
@@ -93,7 +83,6 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-        // POST: api/Doctors
         public void Post([FromBody]string value)
         {
         }

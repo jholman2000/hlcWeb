@@ -32,9 +32,9 @@ namespace hlcWeb.Controllers
         /// <returns></returns>
         public ActionResult ViewDoctors(int id, string name)
         {
-            var doctors = _specialtyRepository.GetDoctors(id);
+            var model = _specialtyRepository.GetDoctors(id);
             ViewBag.Name = name;
-            return View(doctors);
+            return View(model);
         }
     }
 }
