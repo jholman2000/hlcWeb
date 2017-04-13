@@ -10,6 +10,20 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Hospital Information</div>
+                <table class="table table-condensed">
+                    <tr>
+                        <td class="hlc-prompt">Address:</td>
+                        <td>
+                            @Model.Hospital.Address1<br />
+                            @if (!string.IsNullOrEmpty(Model.Hospital.Address2))
+                            {
+                                @Model.Hospital.Address2<br />
+                            }
+                            @Model.Hospital.City  @Model.Hospital.State  @Model.Hospital.Zip<br />  
+                            <a href="tel:@Model.Hospital.OfficePhone1">@Model.Hospital.OfficePhone1</a>                          
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         
