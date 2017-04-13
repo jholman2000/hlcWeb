@@ -9,7 +9,7 @@ namespace hlcWeb.Models
         public Doctor()
         {
             Attitude = Attitude.Unknown;
-            Status = Status.Unknown;
+            Status = Status.UnknownStatus;
             RegContacted = YesNoUnknown.Unknown;
             SpecificallyKnown = YesNoUnknown.Unknown;
             FrequentlyTreat = YesNoUnknown.Unknown;
@@ -81,6 +81,22 @@ namespace hlcWeb.Models
         }
         public string StatusText => Enum.GetName(Status.GetType(), Status);
 
+        public string AttitudeAdultsText
+        {
+            get
+            {
+                if (NotFavAdult)
+                    return "Not Favorable for Adults";
+                if (FavAdultEmergency && FavAdultNonEmergency)
+                    return "Adults (Emergency and non-emergency)";
+                if (FavAdultEmergency)
+                    return "Adults (Emergency)";
+                if (FavAdultNonEmergency)
+                    return "Adults (Non-Emergency)";
+                return "Not determined for Adults";
+            }
+        }
+
         // Related table data
         public List<DoctorSpecialty> Specialties { get; set; }
         public List<DoctorHospital> Hospitals { get; set; }
@@ -124,7 +140,7 @@ namespace hlcWeb.Models
 
     public enum Status
     {
-        Unknown = 0,
+        UnknownStatus = 0,
         NewlyIdentified = 1,
         LetterSent = 2,
         Deceased = 7,

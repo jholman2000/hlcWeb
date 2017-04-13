@@ -1,4 +1,5 @@
-﻿@model hlcWeb.Models.Doctor
+﻿@using hlcWeb.Extensions
+@model hlcWeb.Models.Doctor
 
 @{
     ViewBag.Title = "Doctor";
@@ -50,13 +51,31 @@
         <div class="col-md-6 col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">Attitudes</div>
-                <div class="panel-body">
-                    <span class="@Model.AttitudeText fa-stack">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
-                    </span>
-                    @Model.AttitudeText
-                </div>
+                <table class="table table-condensed">
+                    <tbody>
+                    <tr>
+                        <td style="width: 50%">
+                            <span class="@Model.AttitudeText fa-stack">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
+                            </span> @Model.AttitudeText.SplitCamelCase()
+                        </td>
+                        <td style="width: 50%">
+                            @Model.StatusText.SplitCamelCase()
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <i class="fa fa-check"></i> @Model.AttitudeAdultsText
+                        </td>
+                    </tr>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-close"></i> @Model.AttitudeAdultsText
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

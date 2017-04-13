@@ -157,6 +157,7 @@
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PracticesController.cs" />
     <Compile Include="Controllers\SpecialtiesController.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Filters\HLCUserLoggedOn.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
