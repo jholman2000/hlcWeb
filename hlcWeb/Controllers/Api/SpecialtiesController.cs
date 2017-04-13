@@ -37,7 +37,7 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-        internal SpecialtyViewModel GetDoctors(int id)
+        internal SpecialtyViewModel Get(int id)
         {
             var model = new SpecialtyViewModel();
             using (var conn = Connection())
@@ -47,7 +47,8 @@ namespace hlcWeb.Controllers.Api
                           "from hlc_DoctorSpecialty ds " +
                           "left join hlc_Doctor d on d.ID = ds.DoctorID " +
                           "left join hlc_Practice p on p.ID = d.PracticeID " +
-                          $"where ds.SpecialtyID = {id};";
+                          $"where ds.SpecialtyID = {id} " +
+                          "order by d.LastName, d.FirstName;";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);

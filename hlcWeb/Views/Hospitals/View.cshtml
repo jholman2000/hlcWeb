@@ -1,26 +1,29 @@
 ﻿@model hlcWeb.ViewModels.HospitalViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Hospital";
 }
 
-<h2><i class="fa fa-hospital-o fa-2x text-primary"></i> @(Model.Hospital?.HospitalName) </h2>
+<h3><i class="fa fa-hospital-o fa-2x text-primary"></i> @(Model.Hospital?.HospitalName) </h3>
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Hospital Information</div>
-                <table class="table table-condensed">
+                <table class="table table-condensed hlc-table-form">
                     <tr>
                         <td class="hlc-prompt">Address:</td>
                         <td>
-                            @Model.Hospital.Address1<br />
-                            @if (!string.IsNullOrEmpty(Model.Hospital.Address2))
+                            @if (!string.IsNullOrEmpty(Model.Hospital?.Address1))
                             {
-                                @Model.Hospital.Address2<br />
+                                @Model.Hospital.Address1 <br />
                             }
-                            @Model.Hospital.City  @Model.Hospital.State  @Model.Hospital.Zip<br />  
-                            <a href="tel:@Model.Hospital.OfficePhone1">@Model.Hospital.OfficePhone1</a>                          
+                            @if (!string.IsNullOrEmpty(Model.Hospital?.Address2))
+                            {
+                                @Model.Hospital.Address2 <br />
+                            }
+                            @(Model.Hospital?.City)  @(Model.Hospital?.State)  @(Model.Hospital?.Zip) <br />
+                            <a href="tel:@(Model.Hospital?.OfficePhone1)">@(Model.Hospital?.OfficePhone1) </a>
                         </td>
                     </tr>
                 </table>
@@ -35,7 +38,7 @@
                 @if (Model.Doctors.Count == 0)
                 {
                     <div class="panel-body text-center">
-                        <em>There are no HLC Doctors located at this Hospital.</em>
+                        <em>There are no HLC Doctors at this Hospital.</em>
                     </div>
                 }
                 else

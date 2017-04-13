@@ -48,7 +48,7 @@ address {
  * FONTAWESOME OVERRIDES  
  *************************************************************************************/
 .fa-2x {
-    font-size: 40px;
+    font-size: 32px;
 }
 /*.fa {
     font-size: 18px;
@@ -81,6 +81,16 @@ i.hlc-brand {
     font-size: 11px;
     vertical-align: middle;
     text-align: end;
+    width: 60px;
+}
+.hlc-table-form {
+    width: auto;
+}
+.hlc-table-form tr {
+    border-top: none;
+}
+.hlc-table-phone {
+    width: 105px;
 }
 .hlc-list-group {
     padding: 5px 10px;

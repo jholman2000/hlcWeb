@@ -65,56 +65,72 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+            // Switch to the last search icon used
+            var activeIcon = localStorage.HLC_SearchIcon;
+            if (activeIcon === undefined) {
+                activeIcon = "fa-user-md";
+            }
+            SwitchIcon(activeIcon);
+
+            // Search box dropdown - user selects different search type; Change icon and placeholder
+            $(".js-search-dropdown").click(function (e) {
+                //var iconSelected = $(e.target).data("search-icon");
+                SwitchIcon($(e.target).data("search-icon"));
+            });
+
             // Rolodex buttons
-            $(".js-search-btn").click(function(e) {
+            $(".js-search-btn").click(function (e) {
                 var btnText = $(e.target).text();
                 DoSearch(btnText);
             });
 
             // Search box entry
-            $(".js-search").keyup(function(e) {
+            $(".js-search").keyup(function (e) {
                 var search = $(e.target);
                 if (search.val().length > 2) {
                     DoSearch(search.val());
                 }
             });
-
-            // Search box dropdwon - user selects different search type
-            $(".js-search-dropdown").click(function(e) {
-                var iconSelected = $(e.target).data("search-icon");
-                var box          = $("#search-box");
-                $("#search-active-icon")
-                    .removeClass("fa-user-md")
-                    .removeClass("fa-stethoscope")
-                    .removeClass("fa-hospital-o")
-                    .removeClass("fa-medkit")
-                    .removeClass("fa-comment")
-                    .addClass(iconSelected)
-                    .data("search-icon", iconSelected);
-                switch (iconSelected) {
-                case 'fa-user-md':
-                    box.prop("placeholder", "Find Doctors...").val("");
-                    break;
-                case 'fa-stethoscope':
-                    box.prop("placeholder", "Find Specialties...").val("");
-                    break;
-                case 'fa-hospital-o':
-                    box.prop("placeholder", "Find Hospitals...").val("");
-                    break;
-                case 'fa-medkit':
-                    box.prop("placeholder", "Find Practices...").val("");
-                    break;
-                case 'fa-comment':
-                    box.prop("placeholder", "Find Comments...").val("");
-                    break;
-                default:
-                }
-            });
         });
+
+        // Set the correct icon and placeholder
+        function SwitchIcon(activeIcon) {
+            var box = $("#search-box");
+            $("#search-active-icon")
+                .removeClass("fa-user-md")
+                .removeClass("fa-stethoscope")
+                .removeClass("fa-hospital-o")
+                .removeClass("fa-medkit")
+                .removeClass("fa-comment")
+                .addClass(activeIcon)
+                .data("search-icon", activeIcon);
+            switch (activeIcon) {
+            case 'fa-user-md':
+                box.prop("placeholder", "Find Doctors...").val("");
+                break;
+            case 'fa-stethoscope':
+                box.prop("placeholder", "Find Specialties...").val("");
+                break;
+            case 'fa-hospital-o':
+                box.prop("placeholder", "Find Hospitals...").val("");
+                break;
+            case 'fa-medkit':
+                box.prop("placeholder", "Find Practices...").val("");
+                break;
+            case 'fa-comment':
+                box.prop("placeholder", "Find Comments...").val("");
+                break;
+            default:
+            }
+
+        }
 
         function DoSearch(searchStr) {
             var url = "";
-            switch ($("#search-active-icon").data("search-icon")) {
+            var activeIcon = $("#search-active-icon").data("search-icon");
+            localStorage.HLC_SearchIcon = activeIcon;
+            localStorage.HLC_SearchStr = searchStr;
+            switch (activeIcon) {
             case 'fa-user-md':
                 url = "@Url.Action("Search", "Doctors")";
                 break;

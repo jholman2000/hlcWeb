@@ -30,9 +30,9 @@ namespace hlcWeb.Controllers
         /// <param name="id">Specialty Id</param>
         /// <param name="name">Specialty name</param>
         /// <returns></returns>
-        public ActionResult ViewDoctors(int id, string name)
+        public ActionResult View(int id, string name)
         {
-            var model = _specialtyRepository.GetDoctors(id);
+            var model = _specialtyRepository.Get(id);
             ViewBag.Name = name;
             return View(model);
         }

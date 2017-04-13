@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Dapper;
 using hlcWeb.Models;
@@ -42,7 +41,7 @@ namespace hlcWeb.Controllers.Api
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        internal HospitalViewModel GetDoctors(int id)
+        internal HospitalViewModel Get(int id)
         {
             var model = new HospitalViewModel();
 
@@ -53,7 +52,8 @@ namespace hlcWeb.Controllers.Api
                           "from hlc_DoctorHospital dh " +
                           "left join hlc_Doctor d on d.ID = dh.DoctorID " +
                           "left join hlc_Practice p on p.ID = d.PracticeID " +
-                          $"where dh.HospitalID = {id};";
+                          $"where dh.HospitalID = {id} " +
+                           "order by d.LastName, d.FirstName;";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);

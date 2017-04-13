@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th>Practice</th>
-                <th>City, State</th>
+                <th class="hidden-xs">City, State</th>
                 <th>Office Phone</th>
             </tr>
         </thead>
@@ -18,9 +18,12 @@
             @foreach (var practice in @Model)
             {
                 <tr class="js-click-row">
-                    <td>@Html.ActionLink(practice.PracticeName, "View", "Practices", new { id = practice.Id }, null) </td>
-                    <td>@(practice.City + (!string.IsNullOrEmpty(practice.State) ? " " + practice.State : "") )</td>
-                    <td>@practice.OfficePhone1</td>
+                    <td>
+                        @Html.ActionLink(practice.PracticeName, "View", "Practices", new {id = practice.Id}, null)
+                        <span class="visible-xs">@(practice.City + (!string.IsNullOrEmpty(practice.State) ? " " + practice.State : "") )</span>
+                    </td>
+                    <td class="hidden-xs">@(practice.City + (!string.IsNullOrEmpty(practice.State) ? " " + practice.State : "") )</td>
+                    <td class="hlc-table-phone">@practice.OfficePhone1</td>
                 </tr>
             }
         </tbody>

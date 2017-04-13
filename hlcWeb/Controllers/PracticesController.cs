@@ -23,5 +23,10 @@ namespace hlcWeb.Controllers
             var model = _practiceRepository.Search(search);
             return PartialView(model);
         }
+
+        public ActionResult View(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
