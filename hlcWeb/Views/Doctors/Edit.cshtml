@@ -1,0 +1,29 @@
+﻿@model hlcWeb.ViewModels.DoctorViewModel
+
+@{
+    var action = (Model.Id == 0) ? "Add" : "Edit";
+    ViewBag.Title = $"{action} Doctor";
+}
+
+<h3><i class="fa fa-user-md fa-2x text-primary"></i> @action Doctor</h3>
+
+@using (Html.BeginForm("Edit", "Doctors", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class="form-control", autofocus="autofocus" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MobilePhone)
+        @Html.TextBoxFor(m => m.MobilePhone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MobilePhone)
+    </div>
+}

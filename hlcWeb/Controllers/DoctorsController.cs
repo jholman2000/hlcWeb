@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using hlcWeb.Filters;
+using hlcWeb.ViewModels;
 
 namespace hlcWeb.Controllers
 {
@@ -11,6 +12,28 @@ namespace hlcWeb.Controllers
         public DoctorsController()
         {
             _doctorRepository = new Api.DoctorsController();
+        }
+
+        public ActionResult Edit(int id)
+        {
+            DoctorViewModel model;
+
+            if (id == 0)
+            {
+                model = new DoctorViewModel();
+            }
+            else
+            {
+                var doctor = _doctorRepository.Get(id);
+                model = new DoctorViewModel
+                {
+                    Id = doctor.Id,
+                    FirstName = doctor.FirstName,
+                    LastName = doctor.LastName
+                };
+            }
+            return View(model);
+
         }
 
         /// <summary>

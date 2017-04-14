@@ -26,7 +26,8 @@ namespace hlcWeb.Controllers
 
         public ActionResult View(int id)
         {
-            throw new System.NotImplementedException();
+            var model = _practiceRepository.Get(id);
+            return View(model);
         }
     }
 }

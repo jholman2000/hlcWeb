@@ -11,7 +11,12 @@
     <div class="row">
         <div class="col-md-6 col-sm-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">Doctor information<span class="pull-right"><a href="#" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a></span></div>
+                <div class="panel-heading">
+                    Doctor information
+                    <span class="pull-right">
+                        <a href="@Url.Action("Edit","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                    </span>
+                </div>
                 <table class="table table-condensed">
                     <tr>
                         <td class="hlc-prompt">Status:</td>
@@ -38,18 +43,18 @@
                     <tr>
                         <td class="hlc-prompt">Practice:</td>
                         <td>
-                            @Model.Practice.PracticeName<br/>
-                            @Model.Practice.Address1<br/>
+                            @Model.Practice.PracticeName<br />
+                            @Model.Practice.Address1<br />
                             @if (!string.IsNullOrEmpty(Model.Practice.Address2))
                             {
-                                @Model.Practice.Address2<br/>
+                                @Model.Practice.Address2<br />
                             }
                             @if (!string.IsNullOrEmpty(Model.Practice.Address3))
                             {
                                 @Model.Practice.Address3
-                                <br/>
+                                <br />
                             }
-                            @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br/>
+                            @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br />
                             <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
                         </td>
                     </tr>
@@ -70,7 +75,7 @@
                             <td>@Model.PeerReview</td>
                         </tr>
                     }
-                </table>                
+                </table>
             </div>
         </div>
         <div class="col-md-6 col-sm-6">
@@ -78,39 +83,39 @@
                 <div class="panel-heading">Attitudes</div>
                 <table class="table table-condensed">
                     <tbody>
-                    <tr>
-                        <td class="text-center">
-                            <span class="@Model.AttitudeText fa-stack">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
-                            </span> @Model.AttitudeText.SplitCamelCase()
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeAdultText)"></i> @Model.AttitudeAdultText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeChildText)"></i> @Model.AttitudeChildText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultAdultText)"></i> @Model.ConsultAdultText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultChildText)"></i> @Model.ConsultChildText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Utility.IconCheckOrX(Model.AcceptsMedicaidText)"></i> @Model.AcceptsMedicaidText
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="text-center">
+                                <span class="@Model.AttitudeText fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
+                                </span> @Model.AttitudeText.SplitCamelCase()
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeAdultText)"></i> @Model.AttitudeAdultText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeChildText)"></i> @Model.AttitudeChildText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultAdultText)"></i> @Model.ConsultAdultText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultChildText)"></i> @Model.ConsultChildText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Utility.IconCheckOrX(Model.AcceptsMedicaidText)"></i> @Model.AcceptsMedicaidText
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -126,7 +131,8 @@
                         <em>No Specialties have been entered.</em>
                     </div>
                 }
-                else { 
+                else
+                {
                     <table class="table table-condensed">
                         @foreach (var sp in Model.Specialties)
                         {
@@ -177,7 +183,8 @@
                         @foreach (var n in Model.Notes)
                         {
                             <tr>
-                                <td><h6><strong>@n.UserName on @n.DateEntered.ToShortDateString() @n.DateEntered.ToShortTimeString():</strong></h6>
+                                <td>
+                                    <h6><strong>@n.UserName on @n.DateEntered.ToShortDateString() @n.DateEntered.ToShortTimeString():</strong></h6>
                                     @n.Notes
                                 </td>
                             </tr>
@@ -188,4 +195,3 @@
         </div>
     </div>
 </div>
-

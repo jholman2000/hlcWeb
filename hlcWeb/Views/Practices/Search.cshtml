@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Practice</th>
+                <th class="hidden-xs">Street Address</th>
                 <th class="hidden-xs">City, State</th>
                 <th>Office Phone</th>
             </tr>
@@ -20,7 +21,21 @@
                 <tr class="js-click-row">
                     <td>
                         @Html.ActionLink(practice.PracticeName, "View", "Practices", new {id = practice.Id}, null)
-                        <span class="visible-xs">@(practice.City + (!string.IsNullOrEmpty(practice.State) ? " " + practice.State : "") )</span>
+                        <span class="visible-xs">
+                            @practice.Address1<br />
+                            @(practice.City + (!string.IsNullOrEmpty(practice.State) ? " " + practice.State : ""))
+                        </span>
+                    </td>
+                    <td class="hidden-xs">
+                        @practice.Address1
+                        @if (!string.IsNullOrEmpty(practice.Address2))
+                        {
+                            <br/>@practice.Address2
+                        }
+                        @if (!string.IsNullOrEmpty(practice.Address3))
+                        {
+                            <br />@practice.Address3
+                        }
                     </td>
                     <td class="hidden-xs">@(practice.City + (!string.IsNullOrEmpty(practice.State) ? " " + practice.State : "") )</td>
                     <td class="hlc-table-phone">@practice.OfficePhone1</td>

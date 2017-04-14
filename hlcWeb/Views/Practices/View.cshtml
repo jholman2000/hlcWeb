@@ -1,0 +1,51 @@
+﻿@model hlcWeb.ViewModels.PracticeViewModel
+
+@{
+    ViewBag.Title = "Practice";
+}
+
+<h3><i class="fa fa-Practice-o fa-2x text-primary"></i> @(Model.Practice?.PracticeName) </h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Practice Information</div>
+                <table class="table table-condensed hlc-table-form">
+                    <tr>
+                        <td class="hlc-prompt">Address:</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(Model.Practice?.Address1))
+                            {
+                                @Model.Practice.Address1 <br />
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Practice?.Address2))
+                            {
+                                @Model.Practice.Address2 <br />
+                            }
+                            @(Model.Practice?.City)  @(Model.Practice?.State)  @(Model.Practice?.Zip) <br />
+                            <a href="tel:@(Model.Practice?.OfficePhone1)">@(Model.Practice?.OfficePhone1) </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Doctors at this Practice</div>
+                @if (Model.Doctors.Count == 0)
+                {
+                    <div class="panel-body text-center">
+                        <em>There are no HLC Doctors at this Practice.</em>
+                    </div>
+                }
+                else
+                {
+                    { Html.RenderPartial("DoctorList", Model.Doctors); }
+                }
+            </div>
+        </div>
+    </div>
+</div>
