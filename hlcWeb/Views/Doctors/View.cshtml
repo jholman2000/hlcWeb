@@ -1,4 +1,5 @@
-﻿@using hlcWeb.Extensions
+﻿@using hlcWeb.Infrastructure
+
 @model hlcWeb.Models.Doctor
 
 @{
@@ -10,8 +11,12 @@
     <div class="row">
         <div class="col-md-6 col-sm-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">Contact info<span class="pull-right"><a href="#" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a></span></div>
+                <div class="panel-heading">Doctor information<span class="pull-right"><a href="#" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a></span></div>
                 <table class="table table-condensed">
+                    <tr>
+                        <td class="hlc-prompt">Status:</td>
+                        <td>@Model.StatusText.SplitCamelCase()</td>
+                    </tr>
                     <tr>
                         <td class="hlc-prompt">Mobile:</td>
                         <td>@Model.MobilePhone</td>
@@ -26,25 +31,45 @@
                     </tr>
                     <tr>
                         <td class="hlc-prompt">Email:</td>
-                        <td><a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a></td>
+                        <td>
+                            <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a>
+                        </td>
                     </tr>
                     <tr>
                         <td class="hlc-prompt">Practice:</td>
                         <td>
-                            @Model.Practice.PracticeName<br />
-                            @Model.Practice.Address1<br />
+                            @Model.Practice.PracticeName<br/>
+                            @Model.Practice.Address1<br/>
                             @if (!string.IsNullOrEmpty(Model.Practice.Address2))
                             {
-                                @Model.Practice.Address2<br />
+                                @Model.Practice.Address2<br/>
                             }
                             @if (!string.IsNullOrEmpty(Model.Practice.Address3))
                             {
-                                @Model.Practice.Address3 <br />
+                                @Model.Practice.Address3
+                                <br/>
                             }
-                            @Model.Practice.City  @Model.Practice.State  @Model.Practice.Zip<br/>
+                            @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br/>
                             <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
                         </td>
-                </tr>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <i class="fa fa-@Utility.IconCheckOrX(Model.IsBSMP)"></i> Member of BSMP
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <i class="fa fa-@Utility.IconCheckOrX(Model.IsHRP)"></i> High Risk Pregnancy Doctor
+                        </td>
+                    </tr>
+                    @if (!string.IsNullOrEmpty(Model.PeerReview))
+                    {
+                        <tr>
+                            <td class="hlc-prompt">Peer review:</td>
+                            <td>@Model.PeerReview</td>
+                        </tr>
+                    }
                 </table>                
             </div>
         </div>
@@ -54,26 +79,38 @@
                 <table class="table table-condensed">
                     <tbody>
                     <tr>
-                        <td style="width: 50%">
+                        <td class="text-center">
                             <span class="@Model.AttitudeText fa-stack">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
                             </span> @Model.AttitudeText.SplitCamelCase()
                         </td>
-                        <td style="width: 50%">
-                            @Model.StatusText.SplitCamelCase()
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeAdultText)"></i> @Model.AttitudeAdultText
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <i class="fa fa-check"></i> @Model.AttitudeAdultsText
+                        <td>
+                            <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeChildText)"></i> @Model.AttitudeChildText
                         </td>
                     </tr>
-                        <tr>
-                            <td colspan="2">
-                                <i class="fa fa-close"></i> @Model.AttitudeAdultsText
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultAdultText)"></i> @Model.ConsultAdultText
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultChildText)"></i> @Model.ConsultChildText
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-@Utility.IconCheckOrX(Model.AcceptsMedicaidText)"></i> @Model.AcceptsMedicaidText
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

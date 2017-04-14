@@ -50,6 +50,14 @@ address {
 .fa-2x {
     font-size: 32px;
 }
+.fa-check {
+    color: green;
+    padding-left: 5px;
+}
+.fa-close {
+    color: #ff0000;
+    padding-left: 5px;    
+}
 /*.fa {
     font-size: 18px;
 }*/

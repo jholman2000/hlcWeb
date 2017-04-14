@@ -157,11 +157,12 @@
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PracticesController.cs" />
     <Compile Include="Controllers\SpecialtiesController.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Infrastructure\StringExtensions.cs" />
     <Compile Include="Filters\HLCUserLoggedOn.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Utility.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Hospital.cs" />
     <Compile Include="Models\Practice.cs" />

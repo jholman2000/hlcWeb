@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.AccessControl;
 
 namespace hlcWeb.Models
 {
@@ -38,6 +37,7 @@ namespace hlcWeb.Models
         public bool AcceptsMedicaid { get; set; }
         public bool ConsultAdultEmergency { get; set; }
         public bool ConsultChildEmergency { get; set; }
+        // ReSharper disable once InconsistentNaming
         public string NOTES { get; set; }
         public string Docnotes { get; set; }
         public DateTime DateLastUpdated { get; set; }
@@ -55,47 +55,68 @@ namespace hlcWeb.Models
         public bool IsBSMP { get; set; }        // Bloodless Surgery Management Program
         public string PeerReview { get; set; }
 
-        // Derived fields
-        public string FullName => (FirstName + " " + LastName);
+        #region Derived Fields
+            public string FullName => (FirstName + " " + LastName);
 
-        public string AttitudeText => Enum.GetName(Attitude.GetType(), Attitude);
+            public string AttitudeText => Enum.GetName(Attitude.GetType(), Attitude);
 
-        public string AttitudeIcon
-        {
-            // FontAwesome icon to display for this attitude
-            get {
-                switch (Attitude)
-                {
-                    case Attitude.Cooperative:
-                        return "fa-thumbs-o-up";
-                    case Attitude.Favorable:
-                        return "fa-thumbs-o-up";
-                    case Attitude.Limitations:
-                        return "fa-hand-stop-o";
-                    case Attitude.NotFavorable:
-                        return "fa-thumbs-o-down";
-                    default:
-                        return "fa-question-circle";
+            public string AttitudeIcon
+            {
+                // FontAwesome icon to display for this attitude
+                get {
+                    switch (Attitude)
+                    {
+                        case Attitude.Cooperative:
+                            return "fa-thumbs-o-up";
+                        case Attitude.Favorable:
+                            return "fa-thumbs-o-up";
+                        case Attitude.Limitations:
+                            return "fa-hand-stop-o";
+                        case Attitude.NotFavorable:
+                            return "fa-thumbs-o-down";
+                        default:
+                            return "fa-question-circle";
+                    }
                 }
             }
-        }
-        public string StatusText => Enum.GetName(Status.GetType(), Status);
+            public string StatusText => Enum.GetName(Status.GetType(), Status);
 
-        public string AttitudeAdultsText
-        {
-            get
+            public string AttitudeAdultText
             {
-                if (NotFavAdult)
-                    return "Not Favorable for Adults";
-                if (FavAdultEmergency && FavAdultNonEmergency)
-                    return "Adults (Emergency and non-emergency)";
-                if (FavAdultEmergency)
-                    return "Adults (Emergency)";
-                if (FavAdultNonEmergency)
-                    return "Adults (Non-Emergency)";
-                return "Not determined for Adults";
+                get
+                {
+                    if (NotFavAdult)
+                        return "Not favorable for Adults";
+                    if (FavAdultEmergency && FavAdultNonEmergency)
+                        return "Adults (Emergency and non-emergency)";
+                    if (FavAdultEmergency)
+                        return "Adults (Emergency)";
+                    if (FavAdultNonEmergency)
+                        return "Adults (Non-Emergency)";
+                    return "Not determined for Adults";
+                }
             }
-        }
+            public string AttitudeChildText
+            {
+                get
+                {
+                    if (NotFavChild)
+                        return "Not favorable for Child";
+                    if (FavChildEmergency && FavChildNonEmergency)
+                        return "Child (Emergency and non-emergency)";
+                    if (FavChildEmergency)
+                        return "Child (Emergency)";
+                    if (FavChildNonEmergency)
+                        return "Child (Non-Emergency)";
+                    return "Not determined for Child";
+                }
+            }
+            public string AcceptsMedicaidText => AcceptsMedicaid ? "Accepts Medicaid" : "Not accepts Medicaid";
+
+            public string ConsultAdultText => ConsultAdultEmergency ? "Consults for Adult emergencies" : "Not consults for Adult emergencies";
+            public string ConsultChildText => ConsultChildEmergency ? "Consults for Child emergencies" : "Not consults for Child emergencies";
+        
+        #endregion
 
         // Related table data
         public List<DoctorSpecialty> Specialties { get; set; }

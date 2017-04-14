@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace hlcWeb.Extensions
+namespace hlcWeb.Infrastructure
 {
     public static class StringExtensions
     {
