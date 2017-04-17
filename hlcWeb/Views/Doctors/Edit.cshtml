@@ -23,7 +23,44 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.MobilePhone)
-        @Html.TextBoxFor(m => m.MobilePhone, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.MobilePhone, new { @class = "form-control", type = "tel" })
         @Html.ValidationMessageFor(m => m.MobilePhone)
     </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HomePhone)
+        @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control", type = "tel" })
+        @Html.ValidationMessageFor(m => m.HomePhone)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Pager)
+        @Html.TextBoxFor(m => m.Pager, new { @class = "form-control", type = "tel" })
+        @Html.ValidationMessageFor(m => m.Pager)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EmailAddress)
+        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", type = "email" })
+        @Html.ValidationMessageFor(m => m.EmailAddress)
+    </div>
+    <div class="checkbox">
+        @Html.CheckBoxFor(m => m.IsBSMP)
+        @Html.LabelFor(m => m.IsBSMP)
+        @Html.ValidationMessageFor(m => m.IsBSMP)
+    </div>
+    <div class="checkbox">
+        @Html.CheckBoxFor(m => m.IsHRP)
+        @Html.LabelFor(m => m.IsHRP)
+        @Html.ValidationMessageFor(m => m.IsHRP)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PeerReview)
+        @Html.TextBoxFor(m => m.PeerReview, new { @class = "form-control", rows = "3" })
+        @Html.ValidationMessageFor(m => m.PeerReview)        
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-default">Cancel</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
 }
