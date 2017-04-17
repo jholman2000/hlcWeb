@@ -1,0 +1,21 @@
+﻿@model List<hlcWeb.ViewModels.Reports.RptDoctorsViewModel>
+@{
+    ViewBag.Title = "DoctorsAddedRemoved";
+}
+
+<h2>Doctors Added Removed</h2>
+
+<div class="container">
+    <table class="table table-striped">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.DateLastUpdated</td>
+            <td>@item.UserName</td>
+            <td>@item.DoctorName</td>
+            <td>@item.Attitude</td>
+            <td>@item.Status</td>
+        </tr>
+    }
+    </table>
+</div>
