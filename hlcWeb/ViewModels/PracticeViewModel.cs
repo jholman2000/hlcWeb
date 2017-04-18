@@ -8,6 +8,7 @@ namespace hlcWeb.ViewModels
     /// </summary>
     public class PracticeViewModel
     {
+        //TODO: Need to split out the individual fields of Practice instead of the object
         public Practice Practice { get; set; }
         public List<DoctorListViewModel> Doctors { get; set; }
     }

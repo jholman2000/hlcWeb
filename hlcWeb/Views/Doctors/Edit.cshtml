@@ -46,6 +46,11 @@
         @Html.LabelFor(m => m.IsBSMP)
         @Html.ValidationMessageFor(m => m.IsBSMP)
     </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PracticeId)
+        @Html.DropDownListFor(m => m.PracticeId, (SelectList)ViewBag.PracticeList, "Select...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PracticeId)
+    </div>
     <div class="checkbox">
         @Html.CheckBoxFor(m => m.IsHRP)
         @Html.LabelFor(m => m.IsHRP)
@@ -84,14 +89,14 @@
                         }
                     },
                     callback: function (result) {
-                        debugger;
+                        //debugger;
                         if (result) {
                             $.ajax({
                                     method: "DELETE",
                                     url: "/api/doctors/delete?id=" + link.attr("data-hlc-id")
                                 })
                                 .done(function () {
-                                    debugger;
+                                    //debugger;
                                     alert("It worked!");
                                 })
                                 .fail(function () {

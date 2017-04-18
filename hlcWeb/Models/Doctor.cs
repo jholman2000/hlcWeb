@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace hlcWeb.Models
 {
@@ -19,6 +20,7 @@ namespace hlcWeb.Models
         }
 
         // hlc_Doctor fields
+        [Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

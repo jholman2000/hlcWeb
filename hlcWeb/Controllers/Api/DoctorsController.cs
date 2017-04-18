@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Http;
 //using System.Web.Mvc;
 using Dapper;
+using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
@@ -85,9 +86,13 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-        
-        public void Post([FromBody]string value)
+
+        public void Update(Doctor doctor)
         {
+            using (var conn = Connection())
+            {
+                conn.Update(doctor);
+            }
         }
 
         // PUT: api/Doctors/5
