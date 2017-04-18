@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
+//using System.Web.Mvc;
 using Dapper;
 using hlcWeb.Models;
 
@@ -30,7 +32,7 @@ namespace hlcWeb.Controllers.Api
         {
             string where;
 
-            if (search == "XYZ")
+           if (search == "XYZ")
             {
                 where = "LastName LIKE 'X%' OR LastName LIKE 'Y%' OR LastName LIKE 'Z%'";
             }
@@ -93,9 +95,20 @@ namespace hlcWeb.Controllers.Api
         {
         }
 
-        // DELETE: api/Doctors/5
-        public void Delete(int id)
+        /// <summary>
+        /// Mark a Doctor as deleted (soft delete).  Status is set to Status.Deleted (99)
+        /// </summary>
+        /// <param name="id">Doctor Id</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("api/doctors/delete")]
+        public IHttpActionResult Delete(int id)
         {
+            var user = (User)HttpContext.Current.Session["User"];
+            var sql = $"UPDATE HLC_Doctor SET Status = {(int)Status.Deleted}, StatusDate=GetDate(), DateLastUpdated=GetDate(), LastUpdatedBy='{user.UserID}' WHERE Id={id};";
+            var results = ExecuteSql(sql);
+
+            return Ok(results);
         }
     }
 }

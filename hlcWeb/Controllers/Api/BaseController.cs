@@ -121,6 +121,16 @@ namespace hlcWeb.Controllers.Api
             }
         }
 
+        protected int ExecuteSql(string sql)
+        {
+            if (string.IsNullOrEmpty(sql))
+                throw new ArgumentNullException(nameof(sql));
+
+            using (_conn)
+            {
+                return _conn.Execute(sql, commandType: CommandType.Text);
+            }
+        }
         protected void AddParameter(string name, object value)
         {
             if (string.IsNullOrEmpty(name))

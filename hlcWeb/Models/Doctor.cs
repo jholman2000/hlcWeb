@@ -54,6 +54,8 @@ namespace hlcWeb.Models
         // ReSharper disable once InconsistentNaming
         public bool IsBSMP { get; set; }        // Bloodless Surgery Management Program
         public string PeerReview { get; set; }
+        public DateTime? DateAdded { get; set; }  // Per Mark Jones request 4/15/17
+        public string AddedBy { get; set; }
 
         #region Derived Fields
             public string FullName => (FirstName + " " + LastName);
@@ -167,7 +169,8 @@ namespace hlcWeb.Models
         Deceased = 7,
         MovedOutOfArea = 8,
         Active = 9,
-        Retired = 10
+        Retired = 10,
+        Deleted = 99
     }
     public enum YesNoUnknown
     {
