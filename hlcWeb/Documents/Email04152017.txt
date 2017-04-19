@@ -1,0 +1,98 @@
+﻿
+From: Mark Jones <jmarkjones@carolina.rr.com>
+Date: April 18, 2017 at 9:36:45 PM EDT
+To: Jeff Holman <jeff.holman@yahoo.com>
+Subject: Re: HLC website question
+
+Thanks, Jeff!  The spreadsheet is very helpful.
+
+Would it be possible to add the capabilities to edit the “Notes" that have been entered? Would it be possible 
+to Search on “Notes"?
+
+It would also be helpful to add a section in the Doctor’s record for recent activity instead of using 
+the “Notes” field for the JW cases he handles. Could each ‘activity section’ include the following fields 
+to enter the date and free form text?
+
+Date
+Patient Name
+Congregation
+Medical Diagnosis
+Relevant Medical History
+Physician’s Treatment Plan
+Possible Strategies
+Medical Articles Shared
+Contacted Consulting Physician
+Patient Transferred
+Outcome
+
+
+I have attached a document from the Branch that I received Friday requesting specific information on 
+Pediatric cases. We have not been collecting this information, so I’ll need to go through 3 years of 
+emails to answer as many questions as possible. Let me know know if you think it is possible to 
+add a “Pediatric” section within the Doctor’s record.
+
+Thanks very much for everything you do to support us.
+
+Regards
+Mark
+
+
+Possible layout of Case File table (including fields for Pediatrics)
+
+CaseDate              (date of the actual case)
+DateEntered           (date this record was entered into the HLC website)
+EnteredBy			  (HLC user ID of person who entered it)
+DateLastUpdated       (last date any information on this record was changed)
+UpdatedBy             (HLC user ID of person who made the last change)
+CourtOrderSought	  (Yes/No)
+CourtOrderSoughtBy    (short free form 250 chars - who initiated the court order)
+CourtOrderGranted     (Yes/No)
+CourtOrderComments    (short free form 250 chars - could indicate why it was/was not given, etc)
+TransfusionGiven      (Yes/No)
+IsPediatricCase 	  (Yes/No)
+ParentsChargedNeglect (Yes/No)
+ParentsRightsRemoved  (Yes/No)
+PatientTransferred    (Yes/No)
+DoctorAttending       (not free form - select one Doctor from the Doctors on file to link back to a HLC Doctor)
+Hospital              (not free form - select one Hospital from the Hospitals on file to link back to a HLC Hospital)
+First Name            (patient first and last name)
+Last Name
+Congregation		  (free form)
+MedicalDiagnosis	  (free form)
+MedicalHistory		  (free form)
+TreatmentPlan         (free form)
+PossibleStrategies	  (free form)
+ArticlesShared        (free form)
+ConsultingDoctor      (free form text: Indicate who/where/other comments)
+Outcome               (free form text: can include any items not specifically asked for above.  For example 
+                      if transferred then to where, etc)
+					  
+CREATE TABLE [hlc_Case] (
+[ID] int NOT NULL IDENTITY(1,1) ,
+[CaseDate] smalldatetime NULL ,
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL ,
+[DateLastUpdated] smalldatetime NULL ,
+[UpdatedBy] varchar(12) NULL ,
+[FirstName] varchar(50) NULL ,
+[LastName] varchar(50) NULL ,
+[CongregationName] varchar(80) ,
+[IsPediatricCase] bit NULL DEFAULT ((0)) ,
+[CourtOrderSought] bit NULL DEFAULT ((0)) ,
+[CourtOrderSoughtBy] varchar(250) ,
+[CourtOrderGranted] bit NULL DEFAULT ((0)) ,
+[CourtOrderComments] varchar(250) ,
+[TransfusionGiven] bit NULL DEFAULT ((0)) ,
+[ParentsChargedNeglect] bit NULL DEFAULT ((0)) ,
+[ParentsRightsRemoved] bit NULL DEFAULT ((0)) ,
+[PatientTransferred] bit NULL DEFAULT ((0)) ,
+[DoctorId] int NULL ,
+[HospitalId] int NULL ,
+[MedicalDiagnosis] varchar(5000) NULL,
+[MedicalHistory] varchar(5000) NULL,
+[TreatmentPlan] varchar(5000) NULL,
+[PossibleStrategies] varchar(5000) NULL,
+[ArticlesShared] varchar(5000) NULL,
+[ConsultingDoctor] varchar(5000) NULL,
+[Outcome] varchar(5000) NULL
+)
