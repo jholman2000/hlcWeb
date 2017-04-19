@@ -19,7 +19,7 @@
         @foreach (var doctorNote in @Model)
         {
             <tr class="js-click-row">
-                <td>@Html.ActionLink(doctorNote.DateEntered.ToShortDateString(), "View", "Specialties", new { id = doctorNote.Id }, null) </td>
+                <td>@Html.ActionLink(doctorNote.DateEntered.ToShortDateString(), "View", "Notes", new { id = doctorNote.Id }, null) </td>
                 <td>@doctorNote.DoctorName</td>
                 <td>@doctorNote.UserName</td>
                 <td>@doctorNote.Notes</td>
@@ -29,4 +29,3 @@
     </table>
 </div>
 <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
-

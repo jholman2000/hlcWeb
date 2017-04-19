@@ -4,6 +4,12 @@
 <br />
 <br />
 <div class="container">
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="row">
+            <div class="alert alert-info">@ViewBag.Message</div>
+        </div>
+    }
     @*Rolodex buttons -- hidden for mobile*@
     <div class="row hidden-xs hlc-div-center">
         <div class="col-md-12">
@@ -33,7 +39,7 @@
                 <button type="button" class="btn btn-primary js-search-btn">W</button>
                 <button type="button" class="btn btn-primary js-search-btn">XYZ</button>
             </div>
-            <br />
+            <br/>
         </div>
     </div>
     @*Search box -- User can switch what is searched via the dropdown button*@
@@ -163,4 +169,5 @@
         }
 
     </script>    
+    
 }

@@ -1,5 +1,5 @@
 ﻿@model List<hlcWeb.ViewModels.DoctorListViewModel>
-<table class="table table-condensed">
+<table class="table table-condensed table-striped table-hover">
     <thead>
     <tr>
         <th>Doctor</th>
@@ -10,8 +10,8 @@
     <tbody>
     @foreach (var d in Model)
     {
-        <tr>
-            <td>@d.DoctorName</td>
+        <tr class="js-click-row">
+            <td>@Html.ActionLink(d.DoctorName, "View", "Doctors", new { id = d.Id }, null) </td>
             <td>
                 @d.PracticeName
                 <span class="visible-xs"><a href="tel:@d.OfficePhone1">@d.OfficePhone1</a></span>
@@ -21,4 +21,3 @@
     }
     </tbody>
 </table>
-

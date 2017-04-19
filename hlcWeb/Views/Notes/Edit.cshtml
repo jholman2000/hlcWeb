@@ -1,0 +1,25 @@
+﻿@model hlcWeb.Models.DoctorNote
+
+@{
+    var action = (Model.Id == 0) ? "Add" : "Edit";
+    ViewBag.Title = $"{action} Comment";
+}
+
+<h3><i class="fa fa-comment fa-2x text-primary"></i> @action Comment for @Model.DoctorName</h3>
+<div class="container">
+    @using (Html.BeginForm("Edit", "Notes", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.DoctorId)
+        @Html.HiddenFor(m => m.UserId)
+
+        <div class="form-group">
+            @Html.Label("Comments")
+            @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", rows = "8", autofocus = "autofocus" })
+            @Html.ValidationMessageFor(m => m.Notes)
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="@ViewBag.Url" class="btn btn-default">Cancel</a>
+    }
+</div>

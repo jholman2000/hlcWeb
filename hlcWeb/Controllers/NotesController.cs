@@ -1,8 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using hlcWeb.Filters;
+using hlcWeb.Models;
 
 namespace hlcWeb.Controllers
 {
+    [HLCUserLoggedOn]
     public class NotesController : Controller
     {
         private readonly Api.NotesController _noteRepository;
@@ -11,6 +14,45 @@ namespace hlcWeb.Controllers
         {
             _noteRepository = new Api.NotesController();
         }
+
+        public ActionResult Edit(int id = 0, int doctorId = 0, string url = "")
+        {
+            if (id == 0 && doctorId == 0)
+                throw new ArgumentNullException(nameof(doctorId));
+
+            DoctorNote model;
+            ViewBag.Url = url;
+
+            if (id == 0)
+            {
+                model = new DoctorNote();
+            }
+            else
+            {
+                model = _noteRepository.Get(id);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(DoctorNote viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            viewModel.DateEntered = DateTime.Now;
+            viewModel.UserId = (Session["User"] as User)?.UserID;
+
+            _noteRepository.Save(viewModel);
+
+            //return RedirectToAction("Index", "Home", new {msg = "Comment was edited"});
+            return RedirectToAction("View", new {id = viewModel.Id});
+        }
+
         /// <summary>
         /// Home page search for Notes.  Accessed by the Search box or clicking a Rolodex button
         /// </summary>
@@ -20,6 +62,18 @@ namespace hlcWeb.Controllers
         {
             var model = _noteRepository.Search(search);
             return PartialView(model);
+        }
+
+        /// <summary>
+        /// View a Note having a specified Note Id
+        /// </summary>
+        /// <param name="id">Note Id</param>
+        /// <returns></returns>
+        public ActionResult View(int id)
+        {
+            var model = _noteRepository.Get(id);
+            ViewBag.Url = HttpContext?.Request?.Url?.AbsoluteUri;
+            return View(model);
         }
     }
 }

@@ -1,0 +1,38 @@
+﻿On Apr 16, 2017, at 12:48 PM, Jeff Holman <jeff.holman@yahoo.com> wrote:
+
+Hi Mark!
+The data currently isn't capturing the date added or deleted for a doctor.  I will add that this week to capture going forward.  
+What it is capturing is the Date Last Updated on a Doctor record.  I've attached a list of the doctors that have DateLastUpdated 
+in 2017 that you may be able to use to determine who was added and deleted.  For each of these doctors I also included the 
+comments that have been added for them to help you determine their history.  If the comment was entered prior to 2017 then that 
+Doctor was obviously not added this year.
+
+I think for deletions I will set up a new status 99 - Deleted.  That way the doctor's information and history can be saved in 
+our tables (and possibly resurrected later if need be).  We can filter out the Deleted doctors except when we specifically 
+wish to see them.
+
+I've actually been doing some work on a revamped HLC site to brush up on some of my skills/training on the latest 
+website development tools.  It is running in parallel to the existing site and I would like to get with you sometime 
+in the next couple weeks to see what new additions/changes/reports you would like to see finally added to the site.  I 
+apologize that I haven't had much time til now to spend on updating the site but I think you'll like the direction I'm 
+going with the redesign.
+
+
+
+---------------------------------------------------------------------------------------
+From: Mark Jones <jmarkjones@carolina.rr.com>
+To: Jeff Holman <jeff.holman@yahoo.com> 
+Sent: Saturday, April 15, 2017 1:50 PM
+Subject: HLC website question
+
+Jeff,
+
+Is it possible to have a report that shows the names of doctors added and deleted from our database? The Branch is 
+asking whom we added this year and I haven’t kept a record of any doctors I added and the other brothers who may have 
+added names don’t recall either.
+
+If it isn’t possible now, could we add a criterion table to track adds/deletes.
+
+thanks
+
+Mark

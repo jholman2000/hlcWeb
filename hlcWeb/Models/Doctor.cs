@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using Dapper.Contrib.Extensions;
 
 namespace hlcWeb.Models
 {
@@ -20,7 +20,7 @@ namespace hlcWeb.Models
         }
 
         // hlc_Doctor fields
-        [Key]
+        [System.ComponentModel.DataAnnotations.Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -145,13 +145,18 @@ namespace hlcWeb.Models
         public string Notes { get; set; }
         public string HospitalName { get; set; }
     }
+
+    [Table("hlc_DoctorNote")]
     public class DoctorNote
     {
         public int Id { get; set; }
+        public int DoctorId { get; set; }
         public string UserId { get; set; }
         public DateTime DateEntered { get; set; }
         public string Notes { get; set; }
+        [Computed]
         public string UserName { get; set; }
+        [Computed]
         public string DoctorName { get; set; }
     }
     public enum Attitude

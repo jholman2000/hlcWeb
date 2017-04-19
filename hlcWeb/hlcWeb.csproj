@@ -202,6 +202,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Documents\Email04152017.txt" />
+    <Content Include="Documents\Email04162017.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -272,6 +273,8 @@
     <Content Include="Views\Practices\View.cshtml" />
     <Content Include="Views\Doctors\Edit.cshtml" />
     <Content Include="Views\Reports\DoctorsAddedRemoved.cshtml" />
+    <Content Include="Views\Notes\View.cshtml" />
+    <Content Include="Views\Notes\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

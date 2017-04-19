@@ -1,0 +1,27 @@
+﻿@model hlcWeb.Models.DoctorNote
+
+@{
+    ViewBag.Title = "Comment";
+}
+
+<h4><i class="fa fa-comment fa-2x text-primary"></i> Comment for @Model.DoctorName (@Model.UserName on @Model.DateEntered.ToShortDateString()) </h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Comment
+                    <span class="pull-right">
+                        <a href="@Url.Action("Edit","Notes", new {id = Model.Id, url = ViewBag.Url})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <p style="white-space: pre-line;">
+                        @Model.Notes
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

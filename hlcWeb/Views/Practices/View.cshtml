@@ -4,7 +4,7 @@
     ViewBag.Title = "Practice";
 }
 
-<h3><i class="fa fa-Practice-o fa-2x text-primary"></i> @(Model.Practice?.PracticeName) </h3>
+<h3><i class="fa fa-medkit fa-2x text-primary"></i> @(Model.Practice?.PracticeName) </h3>
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -49,3 +49,6 @@
         </div>
     </div>
 </div>
+@section scripts {
+    <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+}
