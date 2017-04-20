@@ -67,7 +67,7 @@ ConsultingDoctor      (free form text: Indicate who/where/other comments)
 Outcome               (free form text: can include any items not specifically asked for above.  For example 
                       if transferred then to where, etc)
 					  
-CREATE TABLE [hlc_Case] (
+CREATE TABLE [hlc_CaseFile] (
 [ID] int NOT NULL IDENTITY(1,1) ,
 [CaseDate] smalldatetime NULL ,
 [DateEntered] smalldatetime NULL ,

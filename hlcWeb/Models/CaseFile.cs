@@ -1,8 +1,12 @@
 ﻿using System;
-
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Dapper.Contrib.Extensions;
+using hlcWeb.Models;
 namespace hlcWeb.Models
 {
-    public class Case
+    [Table("hlc_CaseFile")]
+    public class CaseFile
     {
         public int Id { get; set; }
         public DateTime CaseDate { get; set; }
@@ -31,6 +35,15 @@ namespace hlcWeb.Models
         public string ArticlesShared { get; set; }
         public string ConsultingDoctor { get; set; }
         public string Outcome { get; set; }
-        public string FullName => (FirstName + " " + LastName);
+
+        [Computed]
+        public string PatientName => (FirstName + " " + LastName);
+
+        [Computed]
+        public string DoctorName { get; set; }
+
+        [Computed]
+        public string HospitalName { get; set; }
+        
     }
 }

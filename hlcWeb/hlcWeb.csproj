@@ -150,6 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\BaseController.cs" />
+    <Compile Include="Controllers\Api\CaseFileController.cs" />
     <Compile Include="Controllers\Api\DoctorsController.cs" />
     <Compile Include="Controllers\Api\HospitalsController.cs" />
     <Compile Include="Controllers\Api\NotesController.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
+    <Compile Include="Controllers\CaseFileController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalsController.cs" />
@@ -171,7 +173,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Utility.cs" />
-    <Compile Include="Models\Case.cs" />
+    <Compile Include="Models\CaseFile.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Hospital.cs" />
     <Compile Include="Models\Practice.cs" />
@@ -276,7 +278,9 @@
     <Content Include="Views\Notes\View.cshtml" />
     <Content Include="Views\Notes\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\CaseFile\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

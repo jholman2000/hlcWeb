@@ -22,6 +22,8 @@ namespace hlcWeb.Controllers
 
         public ActionResult EditContact(int id)
         {
+            //TODO: Add a DateEntered field.  Maybe switch back to using the Doctor class as the model
+
             var viewModel= new DoctorContactViewModel();
 
             if (Session["PracticeSelectList"] == null)
