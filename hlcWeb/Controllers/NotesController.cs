@@ -44,13 +44,16 @@ namespace hlcWeb.Controllers
                 return View(viewModel);
             }
 
+            var returnMsg = "There was an error updating this comment.";
+
             viewModel.DateEntered = DateTime.Now;
             viewModel.UserId = (Session["User"] as User)?.UserID;
 
-            _noteRepository.Save(viewModel);
+            if (_noteRepository.Save(viewModel))
+                returnMsg = $"Comment for {viewModel.DoctorName} was edited successfully.";
 
-            //return RedirectToAction("Index", "Home", new {msg = "Comment was edited"});
-            return RedirectToAction("View", new {id = viewModel.Id});
+            return RedirectToAction("Search", "Home", new {msg = returnMsg });
+            //return RedirectToAction("View", new {id = viewModel.Id});
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Web.Http;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
+using hlcWeb.ViewModels;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -114,6 +115,23 @@ namespace hlcWeb.Controllers.Api
             var results = ExecuteSql(sql);
 
             return Ok(results);
+        }
+
+        internal bool Save(DoctorContactViewModel model)
+        {
+
+            if (model.Id == 0)
+            {
+                var x = Connection().Insert(model);
+                return x > 0;
+            }
+            else
+            {
+                return Connection().Update(model);
+            }
+            //sql = "update hlc_DoctorNote set"
+
+            //return ExecuteSql(sql);
         }
     }
 }

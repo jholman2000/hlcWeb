@@ -6,6 +6,9 @@ namespace hlcWeb.Infrastructure
     {
         public static string SplitCamelCase(this string str)
         {
+            if (string.IsNullOrEmpty(str))
+                return "";
+
             return Regex.Replace(
                 Regex.Replace(
                     str,

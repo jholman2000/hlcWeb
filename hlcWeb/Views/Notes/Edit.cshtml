@@ -20,6 +20,6 @@
             @Html.ValidationMessageFor(m => m.Notes)
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
-        <a href="@ViewBag.Url" class="btn btn-default">Cancel</a>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
     }
 </div>
