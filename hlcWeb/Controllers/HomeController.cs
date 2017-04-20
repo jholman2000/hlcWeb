@@ -7,7 +7,7 @@ namespace hlcWeb.Controllers
     public class HomeController : Controller
     {
         
-        public ActionResult Index(string msg = "")
+        public ActionResult Search(string msg = "")
         {
             ViewBag.Message = msg;
             return View();

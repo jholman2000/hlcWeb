@@ -16,7 +16,7 @@ namespace hlcWeb.Controllers
             #if DEBUG
                 var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
                 Session["User"] = user;
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Search", "Home");
             #else
                 ViewBag.ReturnUrl = returnUrl;
                 var viewModel = new LogonViewModel
@@ -49,7 +49,7 @@ namespace hlcWeb.Controllers
             else
             {
                 Session["User"] = user;
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Search", "Home");
             }
 
             

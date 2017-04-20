@@ -20,11 +20,11 @@ namespace hlcWeb.Controllers
             _practiceRepository = new Api.PracticesController();
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult EditContact(int id)
         {
-            var model= new DoctorViewModel(); 
+            var viewModel= new DoctorContactViewModel();
 
-            if (Session["PracticeList"] == null)
+            if (Session["PracticeSelectList"] == null)
             {
                 var practiceList = _practiceRepository.Search("")
                     .Select(s => new
@@ -33,32 +33,54 @@ namespace hlcWeb.Controllers
                         Value = s.Id
                     })
                     .ToList();
-                Session["PracticeList"] = new SelectList(practiceList, "Value", "Text");
+                Session["PracticeSelectList"] = new SelectList(practiceList, "Value", "Text");
             }
-            ViewBag.PracticeList = Session["PracticeList"];
+            ViewBag.PracticeSelectList = Session["PracticeSelectList"];
 
-            if (id != 0)
+            if (id == 0)
             {
-                
-
-                var doctor = _doctorRepository.Get(id);
-                if (doctor == null) throw new ArgumentNullException(nameof(doctor));
-                model = Mapper.Map<DoctorViewModel>(doctor);
+                viewModel.Attitude = Attitude.Unknown;
+                viewModel.Status = Status.NewlyIdentified;
+                viewModel.OriginalStatus = Status.NewlyIdentified;
+                //viewModel.StatusDate = DateTime.Now;
             }
-            return View(model);
+            else
+            {
+                // Retrieve existing data and populate model
+                var doctor = _doctorRepository.Get(id);
+                if (doctor == null)
+                    return RedirectToAction("Search", "Home",
+                           new {msg = $"DoctorId {id} was not found in the database."});
+
+                viewModel = Mapper.Map<DoctorContactViewModel>(doctor);
+                viewModel.OriginalStatus = doctor.Status;
+            }
+            return View(viewModel);
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(DoctorViewModel viewModel)
+        public ActionResult EditContact(DoctorContactViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.PracticeSelectList = Session["PracticeSelectList"];
                 return View(viewModel);
             }
 
-            return RedirectToAction("Index", "Home");
+            var returnMsg = "There was an error updating this Doctor's information.";
+
+            if (viewModel.Status != viewModel.OriginalStatus || viewModel.StatusDate == DateTime.MinValue)
+                viewModel.StatusDate = DateTime.Now;
+
+            viewModel.DateLastUpdated = DateTime.Now;
+            viewModel.LastUpdatedBy = (Session["User"] as User)?.UserID;
+
+            if (_doctorRepository.Save(viewModel))
+                returnMsg = $"Contact information for {viewModel.FirstName + " " + viewModel.LastName} was edited successfully.";
+
+            return RedirectToAction("View", new {id= viewModel.Id});
         }
 
         /// <summary>

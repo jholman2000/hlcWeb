@@ -11,7 +11,7 @@
         </div>
     }
     @*Rolodex buttons -- hidden for mobile*@
-    <div class="row hidden-xs hlc-div-center">
+    @*<div class="row hidden-xs hlc-div-center">
         <div class="col-md-12">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary js-search-btn">A</button>
@@ -39,9 +39,8 @@
                 <button type="button" class="btn btn-primary js-search-btn">W</button>
                 <button type="button" class="btn btn-primary js-search-btn">XYZ</button>
             </div>
-            <br/>
         </div>
-    </div>
+    </div>*@
     @*Search box -- User can switch what is searched via the dropdown button*@
     <div class="row">
         <div class="col-md-12">
@@ -93,7 +92,7 @@
             // Search box entry
             $(".js-search").keyup(function (e) {
                 var search = $(e.target);
-                if (search.val().length > 2) {
+                if (search.val().length > 0) {
                     DoSearch(search.val());
                 }
             });

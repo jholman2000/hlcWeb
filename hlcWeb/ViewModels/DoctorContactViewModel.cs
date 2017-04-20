@@ -1,13 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 
 namespace hlcWeb.ViewModels
 {
-    public class DoctorViewModel
+    [Table("hlc_Doctor")]
+    public class DoctorContactViewModel
     {
         public int Id { get; set; }
+        public DateTime DateLastUpdated { get; set; }
+        public string LastUpdatedBy { get; set; }
+
+        [Required]
+        [DisplayName("Status")]
+        public Status Status { get; set; }
+
+        [Computed]
+        public Status OriginalStatus { get; set; }
+
+        public Attitude Attitude { get; set; }
+
+        public DateTime StatusDate { get; set; }
 
         [Required]
         [StringLength(50)]

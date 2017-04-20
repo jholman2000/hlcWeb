@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Dapper.Contrib.Extensions;
 
 namespace hlcWeb.Models
@@ -9,7 +10,7 @@ namespace hlcWeb.Models
         public Doctor()
         {
             Attitude = Attitude.Unknown;
-            Status = Status.UnknownStatus;
+            Status = Status.Unknown;
             RegContacted = YesNoUnknown.Unknown;
             SpecificallyKnown = YesNoUnknown.Unknown;
             FrequentlyTreat = YesNoUnknown.Unknown;
@@ -165,18 +166,30 @@ namespace hlcWeb.Models
         Cooperative = 1,
         Favorable = 2,
         Limitations = 3,
+
+        [Display(Name = "Not Favorable")]
         NotFavorable = 4
     }
 
     public enum Status
     {
-        UnknownStatus = 0,
+        [Display(Name ="Unknown")]
+        Unknown = 0,
+
+        [Display(Name = "Newly Identified")]
         NewlyIdentified = 1,
+
+        [Display(Name = "Letter Sent")]
         LetterSent = 2,
+
         Deceased = 7,
+        [Display(Name = "Moved Out of Area")]
         MovedOutOfArea = 8,
+
         Active = 9,
+
         Retired = 10,
+
         Deleted = 99
     }
     public enum YesNoUnknown

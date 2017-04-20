@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using Dapper;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
-using hlcWeb.ViewModels;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -46,6 +43,7 @@ namespace hlcWeb.Controllers.Api
 
         internal bool Save(DoctorNote note)
         {
+
             if (note.Id == 0)
             {
                 var x = Connection().Insert(note);

@@ -5,15 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>@ViewBag.Title - Hospital Liaison Committee</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/apple-icon.png")" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body style="background-color:#808080">
+<body style="background-color:#000">
     <div class="container body-content">
         @RenderBody()
-        <hr />
         <footer>
-            <p class="pull-right">&copy; @DateTime.Now.Year - Hospital Liaison Committee</p>
+            <p></p>
+            <p class="text-center text-muted">
+                &copy; @DateTime.Now.Year - Hospital Liaison Committee<br/>
+                Access restricted to authorized users.
+            </p>
         </footer>
     </div>
 

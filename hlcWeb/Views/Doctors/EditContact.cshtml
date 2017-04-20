@@ -1,0 +1,150 @@
+﻿@model hlcWeb.ViewModels.DoctorContactViewModel
+
+@{
+    var action = (Model.Id == 0) ? "Add" : "Edit";
+    ViewBag.Title = $"{action} Doctor";
+}
+
+<h3><i class="fa fa-user-md fa-2x text-primary"></i> @action Doctor</h3>
+<div class="container">
+    @using (Html.BeginForm("EditContact", "Doctors", FormMethod.Post, new { @class="form-horizontal"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.OriginalStatus)
+        @Html.HiddenFor(m => m.StatusDate)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Status, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.EnumDropDownListFor(m => m.Status, optionLabel: "Select...", htmlAttributes: new { @class="form-control"})
+                @Html.ValidationMessageFor(m => m.Status)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.MobilePhone, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.MobilePhone, new { @class = "form-control", type = "tel" })
+                @Html.ValidationMessageFor(m => m.MobilePhone)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.HomePhone, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control", type = "tel" })
+                @Html.ValidationMessageFor(m => m.HomePhone)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Pager, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Pager, new { @class = "form-control", type = "tel" })
+                @Html.ValidationMessageFor(m => m.Pager)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.EmailAddress, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", type = "email" })
+                @Html.ValidationMessageFor(m => m.EmailAddress)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PracticeId, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.PracticeId, (SelectList)ViewBag.PracticeSelectList, "Select...", new { @class = "form-control", style="max-width:100%;" })
+                @Html.ValidationMessageFor(m => m.PracticeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.IsBSMP)
+                    @Html.LabelFor(m => m.IsBSMP)
+                    @Html.ValidationMessageFor(m => m.IsBSMP)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.IsHRP)
+                    @Html.LabelFor(m => m.IsHRP)
+                    @Html.ValidationMessageFor(m => m.IsHRP)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PeerReview, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextAreaFor(m => m.PeerReview, new { @class = "form-control", rows = "3" })
+                @Html.ValidationMessageFor(m => m.PeerReview)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+                @if (Model.Id != 0)
+                {
+                <button type="button" class="btn btn-danger col-md-offset-1 js-delete" data-hlc-id="@Model.Id">Delete</button>
+                }
+            </div>
+        </div>
+    }
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $(".js-delete").click(function (e) {
+                var link = $(e.target);
+                bootbox.confirm({
+                    message: "Are you sure you want mark this Doctor as Deleted?",
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-default'
+                        }
+                    },
+                    callback: function (result) {
+                        //debugger;
+                        if (result) {
+                            $.ajax({
+                                    method: "DELETE",
+                                    url: "/api/doctors/delete?id=" + link.attr("data-hlc-id")
+                                })
+                                .done(function () {
+                                    //debugger;
+                                    alert("It worked!");
+                                })
+                                .fail(function () {
+                                    alert("Something failed!");
+                                });
+                        }
+                    }
+                });
+            });            
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

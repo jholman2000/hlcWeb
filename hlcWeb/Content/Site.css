@@ -65,7 +65,7 @@ address {
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select {
-    max-width: 280px;
+    max-width: 315px;
 }
 
 /************************************************************************************
@@ -104,6 +104,7 @@ i.hlc-brand {
 }
 .hlc-fa {
     font-size: 18px;
+    width: 20px;
 }
 /* Make panel edit icon always show*/
 .hlc-panel-icon, .hlc-panel-icon:hover {
