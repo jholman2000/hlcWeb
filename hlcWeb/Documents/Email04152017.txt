@@ -52,18 +52,19 @@ TransfusionGiven      (Yes/No)
 IsPediatricCase 	  (Yes/No)
 ParentsChargedNeglect (Yes/No)
 ParentsRightsRemoved  (Yes/No)
-PatientTransferred    (Yes/No)
+PatientTransferred    (Yes/No) or is this a short free form? 250 or 500 chars?
 DoctorAttending       (not free form - select one Doctor from the Doctors on file to link back to a HLC Doctor)
+ConsultingDoctor      (short free form? 500 chars: Indicate who/where/other brief comments)
 Hospital              (not free form - select one Hospital from the Hospitals on file to link back to a HLC Hospital)
 First Name            (patient first and last name)
 Last Name
-Congregation		  (free form)
-MedicalDiagnosis	  (free form)
+Age ?                 (numeric - optional: Should we capture this?)
+Congregation		  (free form name of congregation)
+MedicalDiagnosis	  (short free form?  500 chars)
 MedicalHistory		  (free form)
 TreatmentPlan         (free form)
 PossibleStrategies	  (free form)
 ArticlesShared        (free form)
-ConsultingDoctor      (free form text: Indicate who/where/other comments)
 Outcome               (free form text: can include any items not specifically asked for above.  For example 
                       if transferred then to where, etc)
 					  
