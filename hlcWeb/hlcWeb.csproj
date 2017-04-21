@@ -191,10 +191,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
-    <Content Include="App_Data\hlcWeb_local.mdf" />
-    <Content Include="App_Data\hlcWeb_local_log.ldf">
-      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -206,6 +202,8 @@
     <Content Include="Documents\Email04152017.txt" />
     <Content Include="Documents\Email04162017.txt" />
     <Content Include="Documents\EmailCaseFileLayout.txt" />
+    <Content Include="favicon-16x16.png" />
+    <Content Include="favicon-32x32.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
