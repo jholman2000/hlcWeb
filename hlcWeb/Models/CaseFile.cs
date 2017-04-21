@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using Dapper.Contrib.Extensions;
-using hlcWeb.Models;
+
 namespace hlcWeb.Models
 {
     [Table("hlc_CaseFile")]
@@ -19,13 +17,15 @@ namespace hlcWeb.Models
         public string CongregationName { get; set; }
         public bool IsPediatricCase { get; set; }
         public bool CourtOrderSought { get; set; }
-        public string CourtOrderSoughtBy { get; set; }
+        public CourtOrderSoughtBy CourtOrderSoughtBy { get; set; }
         public bool CourtOrderGranted { get; set; }
+        public CourtOrderNotGrantedReason CourtOrderNotGrantedReason { get; set; }
         public string CourtOrderComments { get; set; }
         public bool TransfusionGiven { get; set; }
         public bool ParentsChargedNeglect { get; set; }
         public bool ParentsRightsRemoved { get; set; }
         public bool PatientTransferred { get; set; }
+        public string TransferDetails { get; set; }
         public int DoctorId { get; set; }
         public int HospitalId { get; set; }
         public string MedicalDiagnosis { get; set; }
@@ -36,6 +36,7 @@ namespace hlcWeb.Models
         public string ConsultingDoctor { get; set; }
         public string Outcome { get; set; }
 
+        // Derived fields
         [Computed]
         public string PatientName => (FirstName + " " + LastName);
 

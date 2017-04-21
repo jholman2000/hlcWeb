@@ -150,7 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\BaseController.cs" />
-    <Compile Include="Controllers\Api\CaseFileController.cs" />
+    <Compile Include="Controllers\Api\CaseFilesController.cs" />
     <Compile Include="Controllers\Api\DoctorsController.cs" />
     <Compile Include="Controllers\Api\HospitalsController.cs" />
     <Compile Include="Controllers\Api\NotesController.cs" />
@@ -158,7 +158,7 @@
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
-    <Compile Include="Controllers\CaseFileController.cs" />
+    <Compile Include="Controllers\CaseFilesController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalsController.cs" />
@@ -167,14 +167,14 @@
     <Compile Include="Controllers\PracticesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SpecialtiesController.cs" />
-    <Compile Include="Infrastructure\StringExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Filters\HLCUserLoggedOn.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Utility.cs" />
     <Compile Include="Models\CaseFile.cs" />
     <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Hospital.cs" />
     <Compile Include="Models\Practice.cs" />
     <Compile Include="Models\PvgMember.cs" />
@@ -191,6 +191,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -201,6 +205,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Documents\Email04152017.txt" />
     <Content Include="Documents\Email04162017.txt" />
+    <Content Include="Documents\EmailCaseFileLayout.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -273,10 +278,10 @@
     <Content Include="Views\Reports\DoctorsAddedRemoved.cshtml" />
     <Content Include="Views\Notes\View.cshtml" />
     <Content Include="Views\Notes\Edit.cshtml" />
+    <Content Include="Views\CaseFiles\Search.cshtml" />
+    <Content Include="Views\CaseFiles\View.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\CaseFile\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

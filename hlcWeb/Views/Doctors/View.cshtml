@@ -13,7 +13,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Doctor information
-                    <span class="pull-right">
+                    <span class="pull-right hidden-print">
                         <a href="@Url.Action("EditContact","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
                     </span>
                 </div>
@@ -60,12 +60,12 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <i class="fa fa-@Utility.IconCheckOrX(Model.IsBSMP)"></i> Member of BSMP
+                            <i class="fa fa-@Model.IsBSMP.Icon() fa-fw"></i> Member of BSMP
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <i class="fa fa-@Utility.IconCheckOrX(Model.IsHRP)"></i> High Risk Pregnancy Doctor
+                            <i class="fa fa-@Model.IsHRP.Icon() fa-fw"></i> High Risk Pregnancy Doctor
                         </td>
                     </tr>
                     @if (!string.IsNullOrEmpty(Model.PeerReview))
@@ -88,32 +88,32 @@
                                 <span class="@Model.AttitudeText fa-stack">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
-                                </span> @Model.AttitudeText.SplitCamelCase()
+                                </span> @Model.Attitude.EnumDisplayName()
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeAdultText)"></i> @Model.AttitudeAdultText
+                                <i class="fa fa-@Model.AttitudeAdultText.Icon() fa-fw"></i> @Model.AttitudeAdultText
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <i class="fa fa-@Utility.IconCheckOrX(Model.AttitudeChildText)"></i> @Model.AttitudeChildText
+                                <i class="fa fa-@Model.AttitudeChildText.Icon() fa-fw"></i> @Model.AttitudeChildText
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultAdultText)"></i> @Model.ConsultAdultText
+                                <i class="fa fa-@Model.ConsultAdultText.Icon() fa-fw"></i> @Model.ConsultAdultText
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <i class="fa fa-@Utility.IconCheckOrX(Model.ConsultChildText)"></i> @Model.ConsultChildText
+                                <i class="fa fa-@Model.ConsultChildText.Icon() fa-fw"></i> @Model.ConsultChildText
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <i class="fa fa-@Utility.IconCheckOrX(Model.AcceptsMedicaidText)"></i> @Model.AcceptsMedicaidText
+                                <i class="fa fa-@Model.AcceptsMedicaidText.Icon() fa-fw"></i> @Model.AcceptsMedicaidText
                             </td>
                         </tr>
                     </tbody>

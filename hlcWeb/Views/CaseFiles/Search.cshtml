@@ -1,0 +1,34 @@
+﻿@model List<hlcWeb.Models.CaseFile>
+
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-hospital-o hlc-fa"></i> Hospitals
+    </div>
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Case Date</th>
+                <th>Patient</th>
+                <th>Congregation</th>
+                <th>Doctor</th>
+                <th>Hospital</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var caseFile in @Model)
+            {
+                <tr class="js-click-row">
+                    <td>@Html.ActionLink(caseFile.CaseDate.ToShortDateString(), "View", "CaseFiles", new { id = caseFile.Id }, null) </td>
+                    <td>@caseFile.PatientName</td>
+                    <td>@caseFile.CongregationName</td>
+                    <td>@caseFile.DoctorName</td>
+                    <td>@caseFile.HospitalName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+
