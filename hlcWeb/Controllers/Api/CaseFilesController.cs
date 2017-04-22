@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
@@ -51,5 +52,18 @@ namespace hlcWeb.Controllers.Api
         }
 
 
+        internal bool Save(CaseFile model)
+        {
+            if (model.Id == 0)
+            {
+                var x = Connection().Insert(model);
+                return x > 0;
+            }
+            else
+            {
+                return Connection().Update(model);
+            }
+
+        }
     }
 }

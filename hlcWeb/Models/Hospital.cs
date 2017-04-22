@@ -2,7 +2,7 @@
 {
     public class Hospital
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string HospitalName { get; set; }
         public string City { get; set; }
         public string State { get; set; }

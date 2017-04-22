@@ -50,14 +50,14 @@ namespace hlcWeb.Controllers
 
             if (Session["PracticeSelectList"] == null)
             {
-                var practiceList = _practiceRepository.Search("")
+                var items = _practiceRepository.Search("")
                     .Select(s => new
                     {
                         Text = s.PracticeName + " - " + s.Address1,
                         Value = s.Id
                     })
                     .ToList();
-                Session["PracticeSelectList"] = new SelectList(practiceList, "Value", "Text");
+                Session["PracticeSelectList"] = new SelectList(items, "Value", "Text");
             }
             ViewBag.PracticeSelectList = Session["PracticeSelectList"];
 

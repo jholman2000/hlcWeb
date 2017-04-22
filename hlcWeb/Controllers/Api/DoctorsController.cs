@@ -30,9 +30,12 @@ namespace hlcWeb.Controllers.Api
 
         [HttpGet]
         [Route("api/doctors/search")]
-        public List<Doctor> Search(string search)
+        public List<Doctor> Search(string search, bool includeDeleted = true)
         {
-            var where = $"LastName LIKE '%{search}%' OR FirstName LIKE '%{search}%'";
+            var where = $"(LastName LIKE '%{search}%' OR FirstName LIKE '%{search}%') ";
+
+            if (!includeDeleted)
+                where += " and Status <> 99";
 
             var sql = $"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor WHERE {where} ORDER BY LastName";
 

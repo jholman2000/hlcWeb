@@ -278,6 +278,7 @@
     <Content Include="Views\Notes\Edit.cshtml" />
     <Content Include="Views\CaseFiles\Search.cshtml" />
     <Content Include="Views\CaseFiles\View.cshtml" />
+    <Content Include="Views\CaseFiles\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

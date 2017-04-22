@@ -11,7 +11,7 @@
         <tr>
             <th>Date</th>
             <th>Doctor</th>
-            <th>Author</th>
+            <th class="hidden-xs">Author</th>
             <th>Note</th>
         </tr>
         </thead>
@@ -21,7 +21,7 @@
             <tr class="js-click-row">
                 <td>@Html.ActionLink(doctorNote.DateEntered.ToShortDateString(), "View", "Notes", new { id = doctorNote.Id }, null) </td>
                 <td>@doctorNote.DoctorName</td>
-                <td>@doctorNote.UserName</td>
+                <td class="hidden-xs">@doctorNote.UserName</td>
                 <td>@doctorNote.Notes</td>
             </tr>
         }

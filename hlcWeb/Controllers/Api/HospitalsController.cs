@@ -12,7 +12,7 @@ namespace hlcWeb.Controllers.Api
         {
             var where = $"HospitalName LIKE '%{search}%'";
 
-            var sql = "SELECT ID, HospitalName, City, State, " +
+            var sql = "SELECT Id, HospitalName, City, State, " +
                        "(SELECT COUNT(ID) FROM hlc_DoctorHospital dh WHERE dh.HospitalID = h.ID) as NumberOfDoctors " +
                        "FROM hlc_Hospital h " +
                        $"WHERE {where} ORDER BY HospitalName";

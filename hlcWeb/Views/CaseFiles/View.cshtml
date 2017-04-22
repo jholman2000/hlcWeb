@@ -5,128 +5,236 @@
 }
 <h3><i class="fa fa-address-card-o fa-2x text-primary"></i> @Model.PatientName</h3>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-sm-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Case information
-                    <span class="pull-right hidden-print">
-                        <a href="@Url.Action("EditContact","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
-                    </span>
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Case information
+                <span class="pull-right hidden-print">
+                    <a href="@Url.Action("Edit", "CaseFiles", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <td class="hlc-prompt">Case Date:</td>
+                    <td>@Model.CaseDate.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Entered on:</td>
+                    <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
+                </tr>
+                @if (Model.DateLastUpdated != Model.DateEntered && Model.DateLastUpdated != DateTime.MinValue)
+                {
+                    <tr>
+                        <td class="hlc-prompt">Updated on:</td>
+                        <td>@Model.DateLastUpdated.ToShortDateString() by @Model.UpdatedBy</td>
+                    </tr>
+                }
+                <tr>
+                    <td class="hlc-prompt">Patient:</td>
+                    <td>@Model.PatientName</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Congregation:</td>
+                    <td>@Model.CongregationName</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Doctor:</td>
+                    <td>
+                        <a href="#">@Model.DoctorName</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Hospital:</td>
+                    <td>
+                        <a href="#">@Model.HospitalName</a>
+                    </td>
+                </tr>
+                @if (!string.IsNullOrEmpty(Model.ConsultingDoctor))
+                {
+                    <tr>
+                        <td class="hlc-prompt">Consulting Info:</td>
+                        <td>@Model.ConsultingDoctor</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Pediatric Information</div>
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <td>
+                        <i class="fa fa-@Model.IsPediatricCase.Icon() fa-fw"></i> Pediatric Case
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-@Model.CourtOrderSought.Icon() fa-fw"></i> Court order @Model.CourtOrderSought.Not() sought
+                        @if (Model.CourtOrderSought)
+                        {
+                            <text>by </text>
+                            @Model.CourtOrderSoughtBy.EnumDisplayName()
+                        }
+                        <br/><i class="fa fa-@Model.CourtOrderGranted.Icon() fa-fw"></i> Court order @Model.CourtOrderGranted.Not() granted
+                        @if (!Model.CourtOrderGranted)
+                        {
+                            <text>- </text>
+                            @Model.CourtOrderNotGrantedReason.EnumDisplayName()
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CourtOrderComments))
+                        {
+                            <br/><i class="fa fa-fw"></i>
+                            @Model.CourtOrderComments
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-@Model.ParentsChargedNeglect.Icon() fa-fw"></i> Parents @Model.ParentsChargedNeglect.Not() charged with neglect<br/>
+                        <i class="fa fa-@Model.ParentsRightsRemoved.Icon() fa-fw"></i> Parental rights were @Model.ParentsRightsRemoved.Not() removed
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-@Model.TransfusionGiven.Icon() fa-fw"></i> Transfusion @Model.TransfusionGiven.Not() given
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Medical Diagnosis</div>
+            @if (string.IsNullOrEmpty(Model.MedicalDiagnosis))
+            {
+                <div class="panel-body text-center">
+                    <em>No medical diagnosis entered.</em>
                 </div>
-                <table class="table table-condensed">
-                    <tbody>
-                    <tr>
-                        <td class="hlc-prompt">Case Date:</td>
-                        <td>@Model.CaseDate.ToShortDateString()</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Entered on:</td>
-                        <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
-                    </tr>
-                    @if (Model.DateLastUpdated != Model.DateEntered && Model.DateLastUpdated != DateTime.MinValue)
-                    {
-                        <tr>
-                            <td class="hlc-prompt">Updated on:</td>
-                            <td>@Model.DateLastUpdated.ToShortDateString() by @Model.UpdatedBy</td>
-                        </tr>
-                    }
-                    <tr>
-                        <td class="hlc-prompt">Patient:</td>
-                        <td>@Model.PatientName</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Congregation:</td>
-                        <td>@Model.CongregationName</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Doctor:</td>
-                        <td>
-                            <a href="#">@Model.DoctorName</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Hospital:</td>
-                        <td>
-                            <a href="#">@Model.HospitalName</a>
-                        </td>
-                    </tr>
-                    @if (!string.IsNullOrEmpty(Model.ConsultingDoctor))
-                    {
-                        <tr>
-                            <td class="hlc-prompt">Consulting Info:</td>
-                            <td>@Model.ConsultingDoctor</td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Pediatric Information</div>
-                <table class="table table-condensed">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.IsPediatricCase.Icon() fa-fw"></i> Pediatric Case
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.CourtOrderSought.Icon() fa-fw"></i> Court order @Model.CourtOrderSought.Not() sought
-                            @if (Model.CourtOrderSought)
-                            {
-                                <text>by </text> @Model.CourtOrderSoughtBy.EnumDisplayName()
-
-                            }
-                            <br/><i class="fa fa-@Model.CourtOrderGranted.Icon() fa-fw"></i> Court order @Model.CourtOrderGranted.Not() granted
-                            @if (!Model.CourtOrderGranted)
-                            {
-                                <text>- </text> @Model.CourtOrderNotGrantedReason.EnumDisplayName()
-                            }
-                            @if (!string.IsNullOrEmpty(Model.CourtOrderComments))
-                            {
-                                <br/><i class="fa fa-fw"></i>
-                                @Model.CourtOrderComments
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.ParentsChargedNeglect.Icon() fa-fw"></i> Parents @Model.ParentsChargedNeglect.Not() charged with neglect<br/>
-                            <i class="fa fa-@Model.ParentsRightsRemoved.Icon() fa-fw"></i> Parental rights were @Model.ParentsRightsRemoved.Not() removed
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.TransfusionGiven.Icon() fa-fw"></i> Transfusion @Model.TransfusionGiven.Not() given
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            }
+            else
+            {
+                <div class="panel-body text-center">
+                    <p style="white-space: pre-line;">
+                        @Model.MedicalDiagnosis
+                    </p>
+                </div>
+            }
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Medical History</div>
-                @if (string.IsNullOrEmpty(Model.MedicalHistory))
-                {
-                    <div class="panel-body text-center">
-                        <em>No medical history entered.</em>
-                    </div>
-                }
-                else
-                {
-                    <div class="panel-body text-center">
-                        <p style="white-space: pre-line;">
-                            @Model.MedicalHistory
-                        </p>
-                    </div>
-                }
-            </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Medical History</div>
+            @if (string.IsNullOrEmpty(Model.MedicalHistory))
+            {
+                <div class="panel-body text-center">
+                    <em>No medical history entered.</em>
+                </div>
+            }
+            else
+            {
+                <div class="panel-body text-center">
+                    <p style="white-space: pre-line;">
+                        @Model.MedicalHistory
+                    </p>
+                </div>
+            }
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Treatment Plan</div>
+            @if (string.IsNullOrEmpty(Model.TreatmentPlan))
+            {
+                <div class="panel-body text-center">
+                    <em>No treatment plan entered.</em>
+                </div>
+            }
+            else
+            {
+                <div class="panel-body text-center">
+                    <p style="white-space: pre-line;">
+                        @Model.TreatmentPlan
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Possible Strategies</div>
+            @if (string.IsNullOrEmpty(Model.PossibleStrategies))
+            {
+                <div class="panel-body text-center">
+                    <em>No strategies entered.</em>
+                </div>
+            }
+            else
+            {
+                <div class="panel-body text-center">
+                    <p style="white-space: pre-line;">
+                        @Model.PossibleStrategies
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Articles Shared</div>
+            @if (string.IsNullOrEmpty(Model.ArticlesShared))
+            {
+                <div class="panel-body text-center">
+                    <em>No articles entered.</em>
+                </div>
+            }
+            else
+            {
+                <div class="panel-body text-center">
+                    <p style="white-space: pre-line;">
+                        @Model.ArticlesShared
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Outcome</div>
+            @if (string.IsNullOrEmpty(Model.Outcome))
+            {
+                <div class="panel-body text-center">
+                    <em>No outcome entered.</em>
+                </div>
+            }
+            else
+            {
+                <div class="panel-body text-center">
+                    <p style="white-space: pre-line;">
+                        @Model.Outcome
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 </div>
