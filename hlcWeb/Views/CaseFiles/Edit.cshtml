@@ -7,7 +7,7 @@
 
 <h3><i class="fa fa-address-card-o fa-2x text-primary"></i> @action Case File</h3>
 <div class="container">
-    @using (Html.BeginForm("Edit", "CaseFiles", FormMethod.Post, new { @class="form-horizontal"}))
+    @using (Html.BeginForm("Edit", "CaseFiles", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
@@ -19,45 +19,67 @@
         <div class="form-group">
             <label for="CaseDate" class="col-sm-2 control-label">Case Date:</label>
             <div class="col-sm-10">
-                @Html.EditorFor(m => m.CaseDate, new { type="date", @class = "form-control", autofocus = "autofocus" })
+                @Html.EditorFor(m => m.CaseDate, new {type = "date", @class = "form-control", autofocus = "autofocus"})
                 @Html.ValidationMessageFor(m => m.CaseDate)
             </div>
         </div>
         <div class="form-group">
             <label for="FirstName" class="col-sm-2 control-label">First Name:</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.FirstName)
             </div>
         </div>
         <div class="form-group">
             <label for="LastName" class="col-sm-2 control-label">Last Name:</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.LastName, new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.LastName)
             </div>
         </div>
         <div class="form-group">
             <label for="CongregationName" class="col-sm-2 control-label">Congregation:</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.CongregationName, new { @class = "form-control", type = "tel" })
+                @Html.TextBoxFor(m => m.CongregationName, new {@class = "form-control", type = "tel"})
                 @Html.ValidationMessageFor(m => m.CongregationName)
             </div>
         </div>
         <div class="form-group">
             <label for="DoctorId" class="col-sm-2 control-label">Doctor:</label>
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.DoctorId, (SelectList)ViewBag.DoctorSelectList, "Select attending physician (if known)...", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.DropDownListFor(m => m.DoctorId, (SelectList) ViewBag.DoctorSelectList, "Select attending physician (if known)...", new {@class = "form-control", style = "max-width:100%;"})
                 @Html.ValidationMessageFor(m => m.DoctorId)
             </div>
         </div>
         <div class="form-group">
             <label for="HospitalId" class="col-sm-2 control-label">Hospital:</label>
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.HospitalId, (SelectList)ViewBag.HospitalSelectList, "Select hospital...", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.DropDownListFor(m => m.HospitalId, (SelectList) ViewBag.HospitalSelectList, "Select hospital...", new {@class = "form-control", style = "max-width:100%;"})
                 @Html.ValidationMessageFor(m => m.HospitalId)
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IsPediatricCase)
+                        Check here is this is a Pediatric case and add additional information below if applicable.
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.CourtOrderSought)
+                        Court order sought
+                    </label>
+                </div>
+            </div>
+            <div></div>
+        </div>
+
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Save</button>
