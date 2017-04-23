@@ -63,7 +63,7 @@
                 <div class="checkbox">
                     <label>
                         @Html.CheckBoxFor(m => m.IsPediatricCase)
-                        Check here is this is a Pediatric case and add additional information below if applicable.
+                        Check here if this is a Pediatric case. Add additional information below if applicable.
                     </label>
                 </div>
             </div>
@@ -74,6 +74,17 @@
                     <label>
                         @Html.CheckBoxFor(m => m.CourtOrderSought)
                         Court order sought
+                    </label>
+                </div>
+            </div>
+            <div></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.CourtOrderGranted)
+                        Court order Granted
                     </label>
                 </div>
             </div>
