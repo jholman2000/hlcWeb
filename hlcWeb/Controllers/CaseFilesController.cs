@@ -68,6 +68,7 @@ namespace hlcWeb.Controllers
             {
                 model = new CaseFile
                 {
+                    CaseDate = DateTime.Now,
                     DateEntered = DateTime.Now,
                     EnteredBy = ((User) Session["User"]).UserID
                 };
