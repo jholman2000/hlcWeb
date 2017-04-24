@@ -39,6 +39,13 @@ body {
 .panel-heading {
     padding: 2px 15px; 
 }
+.field-validation-valid {
+    display: none;
+}
+.field-validation-error {
+    color:#ff0000;
+}
+
 /* Force tablet and desktop to show on same line for Attitude icons*/
 @media (min-width: 768px) {
     .hidden-xs {
