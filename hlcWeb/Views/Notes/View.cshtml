@@ -4,13 +4,13 @@
     ViewBag.Title = "Comment";
 }
 
-<h4><i class="fa fa-comment fa-2x text-primary"></i> Comment for @Model.DoctorName (@Model.UserName on @Model.DateEntered.ToShortDateString()) </h4>
+<h4><i class="fa fa-comment-o fa-2x text-primary"></i> Comment for @Model.DoctorName </h4>
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Comment
+                    @Model.UserName on @Model.DateEntered.ToShortDateString()
                     <span class="pull-right">
                         <a href="@Url.Action("Edit","Notes", new {id = Model.Id, url = ViewBag.Url})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
                     </span>

@@ -44,8 +44,8 @@ namespace hlcWeb.Models
 
     public enum CourtOrderSoughtBy
     {
-        [Display(Name = "No court order")]
-        None = 0,
+        [Display(Name = "Not applicable")]
+        NotApplicable = 0,
 
         [Display(Name = "Child Protective Services")]
         ChildProtectiveServices = 1,
@@ -71,7 +71,7 @@ namespace hlcWeb.Models
     public enum CourtOrderNotGrantedReason
     {
         [Display(Name = "Not applicable")]
-        None = 0,
+        NotApplicable = 0,
 
         [Display(Name = "Questionable emergency")]
         Questionable = 1,

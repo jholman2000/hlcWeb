@@ -19,6 +19,12 @@ address {
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
+body {
+    font-size: 14px;
+}
+.form-group {
+    margin-bottom: 12px;
+}
 .btn {
     font-weight: 700;
     height: 36px;
@@ -67,7 +73,6 @@ input,
 select {
     max-width: 315px;
 }
-
 /************************************************************************************
  * HLC STYLES
  ************************************************************************************/
@@ -89,6 +94,9 @@ i.hlc-brand {
     vertical-align: middle;
     text-align: end;
     width: 60px;
+}
+.hlc-pediatric-control {
+    margin-bottom: 3px;
 }
 .hlc-table-form {
     width: auto;
@@ -122,23 +130,22 @@ i.hlc-brand {
 }
 
 /* Doctor Attitude */
+.hlc-attitude-header {
+    font-size: 14px;
+    font-weight:bolder;
+}
 .Unknown {
     color: rgb(0, 0, 0);
-    font-weight: bold;    
 }
 .Cooperative {
-    color: green;
-    font-weight:bold;
+    color: darkgreen;
 }
 .Favorable {
-    color: green;
-    font-weight:bold;
+    color: darkgreen;
 }
 .Limitations {
     color: #e9c709;
-    font-weight:bold;
 }
 .NotFavorable {
     color: #ff0000;
-    font-weight:bold;
 }

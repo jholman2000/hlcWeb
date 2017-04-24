@@ -12,7 +12,7 @@ namespace hlcWeb.Controllers.Api
             var where = $"dn.Notes LIKE '%{search}%'";
 
             var sql = "SELECT dn.ID, dn.DateEntered, " +
-                      $"SUBSTRING(dn.Notes, CHARINDEX('{search}', dn.Notes)-10, 100) as Notes," +
+                      $"SUBSTRING(dn.Notes, CHARINDEX('{search}', dn.Notes), 60) as Notes," +
                       "d.FirstName + ' ' + d.LastName AS DoctorName, " +
                       "u.FirstName + ' ' + u.LastName AS UserName " +
                       "FROM hlc_DoctorNote dn " +

@@ -13,6 +13,7 @@ CourtOrderNotGrantedReason (multiple choice from Society letter)
 CourtOrderComments    (short free form - could indicate why it was/was not given, etc)
 TransfusionGiven      (Yes/No)
 IsPediatricCase 	  (Yes/No)
+ParentNotNotified     (Yes/No)
 ParentsChargedNeglect (Yes/No)
 ParentsRightsRemoved  (Yes/No)
 PatientTransferred    (Yes/No) 
@@ -51,6 +52,7 @@ CREATE TABLE [hlc_CaseFile] (
 [CourtOrderNotGrantedReason] int NULL DEFAULT ((0)) ,
 [CourtOrderComments] varchar(500) ,
 [TransfusionGiven] bit NULL DEFAULT ((0)) ,
+[ParentsNotNotified] bit NULL DEFAULT ((0)) ,
 [ParentsChargedNeglect] bit NULL DEFAULT ((0)) ,
 [ParentsRightsRemoved] bit NULL DEFAULT ((0)) ,
 [PatientTransferred] bit NULL DEFAULT ((0)) ,

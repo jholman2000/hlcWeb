@@ -58,51 +58,121 @@
                 @Html.ValidationMessageFor(m => m.HospitalId)
             </div>
         </div>
-        <div class="form-group">
-            <label for="IsPediatricCase" class="col-sm-2 control-label">Pediatric Case:</label>
+        <div class="form-group hlc-pediatric-control">
+            <label for="IsPediatricCase" class="col-sm-2 control-label">Pediatric:</label>
             <div class="col-sm-10">
                 <div class="checkbox">
                     <label>
                         @Html.CheckBoxFor(m => m.IsPediatricCase)
-                        Check here if this is a Pediatric case. <em class="text-muted">Add additional information below if applicable.</em>
+                        Check here if this is a Pediatric case <span class="text-muted">(Add additional information below if applicable)</span>
                     </label>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
+        <div class="form-group hlc-pediatric-control">
+            <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        @Html.CheckBoxFor(m => m.CourtOrderSought)
-                        Court order sought<br />
-                        Sought by: 
-                        <span class="form-inline">
-                            @Html.EnumDropDownListFor(m => m.CourtOrderSoughtBy, optionLabel: "Select if applicable...", htmlAttributes: new { @class = "form-control", style = "max-width:200px;" })
-                        </span>
+                        @Html.CheckBoxFor(m => m.CourtOrderSought) 
+                        Court order was sought
                     </label>
                 </div>
             </div>
-            <div></div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
+        <div class="form-group hlc-pediatric-control">
+            <div class="col-sm-offset-2 col-sm-2 control-label">If so, sought by </div>
+            <div class="col-sm-8">
+                @Html.EnumDropDownListFor(m => m.CourtOrderSoughtBy, optionLabel: "Select...", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group hlc-pediatric-control">
+            <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        @Html.CheckBoxFor(m => m.CourtOrderGranted)
-                        Court order Granted
+                        @Html.CheckBoxFor(m => m.CourtOrderGranted) 
+                        Court order was granted
                     </label>
                 </div>
             </div>
-            <div></div>
+        </div>
+        <div class="form-group hlc-pediatric-control">
+            <div class="col-sm-offset-2 col-sm-2 control-label">If not, reason </div>
+            <div class="col-sm-8">
+                @Html.EnumDropDownListFor(m => m.CourtOrderNotGrantedReason, optionLabel: "Select...", htmlAttributes: new { @class = "form-control" })
+            </div>
         </div>
         <div class="form-group">
-            @*<label for="CourtOrderComments" class="col-sm-2 control-label">Comments:</label>*@
-            <div class="col-sm-offset-2 col-sm-10">Court order comments:
-                @Html.TextAreaFor(m => m.CourtOrderComments, new { @class = "form-control", rows = "3", placeholder="Enter any comments on the court order" })
+            <div class="col-sm-offset-2 col-sm-10">
+                Court order comments:
+                @Html.TextAreaFor(m => m.CourtOrderComments, new { @class = "form-control", rows = "2", placeholder = "Enter any comments on the court order" })
                 @Html.ValidationMessageFor(m => m.CourtOrderComments)
             </div>
         </div>
 
+        <div class="form-group hlc-pediatric-control">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.CourtOrderSought)
+                        Parent/guardian was not notified in advance of a court hearing
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group hlc-pediatric-control">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ParentsChargedNeglect)
+                        Parents were charged with neglect
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group hlc-pediatric-control">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ParentsRightsRemoved)
+                        Parental rights were removed
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.PatientTransferred)
+                        Patient was transferred to a different hospital or HLC territory
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                Transfer details:
+                @Html.TextAreaFor(m => m.TransferDetails, new { @class = "form-control", rows = "2", placeholder = "Enter any details on the transfer (where, reason, etc)" })
+                @Html.ValidationMessageFor(m => m.TransferDetails)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.TransfusionGiven)
+                        Transfusion was given
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <br />
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Save</button>

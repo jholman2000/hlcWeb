@@ -5,7 +5,7 @@
     ViewBag.Title = $"{action} Comment";
 }
 
-<h3><i class="fa fa-comment fa-2x text-primary"></i> @action Comment for @Model.DoctorName</h3>
+<h3><i class="fa fa-comment-o fa-2x text-primary"></i> @action Comment for @Model.DoctorName</h3>
 <div class="container">
     @using (Html.BeginForm("Edit", "Notes", FormMethod.Post))
     {

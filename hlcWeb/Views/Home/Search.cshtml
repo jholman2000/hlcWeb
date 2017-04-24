@@ -54,7 +54,7 @@
                         <li><a href="#" data-search-icon="fa-stethoscope"><i class="fa fa-stethoscope fa-fw"></i> Specialties</a></li>
                         <li><a href="#" data-search-icon="fa-hospital-o"><i class="fa fa-hospital-o fa-fw"></i> Hospitals</a></li>
                         <li><a href="#" data-search-icon="fa-medkit"><i class="fa fa-medkit fa-fw"></i> Practices</a></li>
-                        <li><a href="#" data-search-icon="fa-comment"><i class="fa fa-comment fa-fw"></i> Comments</a></li>
+                        <li><a href="#" data-search-icon="fa-comment-o"><i class="fa fa-comment-o fa-fw"></i> Comments</a></li>
                     </ul>
                 </div><!-- /btn-group -->
                 <input id="search-box" style="max-width: 100%; height: 36px;" type="text" class="form-control js-search" placeholder="Find Doctors...">
@@ -108,7 +108,7 @@
                 .removeClass("fa-stethoscope")
                 .removeClass("fa-hospital-o")
                 .removeClass("fa-medkit")
-                .removeClass("fa-comment")
+                .removeClass("fa-comment-o")
                 .addClass(activeIcon)
                 .data("search-icon", activeIcon);
             switch (activeIcon) {
@@ -127,7 +127,7 @@
             case 'fa-medkit':
                 box.prop("placeholder", "Find Practices...").val("");
                 break;
-            case 'fa-comment':
+            case 'fa-comment-o':
                 box.prop("placeholder", "Find Comments...").val("");
                 break;
             default:
@@ -156,7 +156,7 @@
             case 'fa-medkit':
                 url = "@Url.Action("Search", "Practices")";
                 break;
-            case 'fa-comment':
+            case 'fa-comment-o':
                 url = "@Url.Action("Search", "Notes")";
                 break;
             default:

@@ -71,7 +71,7 @@ namespace hlcWeb.Models
                     switch (Attitude)
                     {
                         case Attitude.Cooperative:
-                            return "fa-thumbs-o-up";
+                            return "fa-handshake-o";
                         case Attitude.Favorable:
                             return "fa-thumbs-o-up";
                         case Attitude.Limitations:
