@@ -4,6 +4,7 @@ using Dapper.Contrib.Extensions;
 
 namespace hlcWeb.Models
 {
+    [Table("hlc_Doctor")]
     public class Doctor
     {
         public Doctor()
@@ -60,104 +61,93 @@ namespace hlcWeb.Models
         public string AddedBy { get; set; }
 
         #region Derived Fields
-            public string FullName => (FirstName + " " + LastName);
+        [Computed]
+        public string FullName => (FirstName + " " + LastName);
 
-            public string AttitudeText => Enum.GetName(Attitude.GetType(), Attitude);
+        [Computed]
+        public string AttitudeText => Enum.GetName(Attitude.GetType(), Attitude);
 
-            public string AttitudeIcon
+        [Computed]
+        public string AttitudeIcon
+        {
+            // FontAwesome icon to display for this attitude
+            get
             {
-                // FontAwesome icon to display for this attitude
-                get {
-                    switch (Attitude)
-                    {
-                        case Attitude.Cooperative:
-                            return "fa-handshake-o";
-                        case Attitude.Favorable:
-                            return "fa-thumbs-o-up";
-                        case Attitude.Limitations:
-                            return "fa-hand-stop-o";
-                        case Attitude.NotFavorable:
-                            return "fa-thumbs-o-down";
-                        default:
-                            return "fa-question-circle";
-                    }
-                }
-            }
-            public string StatusText => Enum.GetName(Status.GetType(), Status);
-
-            public string AttitudeAdultText
-            {
-                get
+                switch (Attitude)
                 {
-                    if (NotFavAdult)
-                        return "Not favorable for Adults";
-                    if (FavAdultEmergency && FavAdultNonEmergency)
-                        return "Adults (Emergency and non-emergency)";
-                    if (FavAdultEmergency)
-                        return "Adults (Emergency)";
-                    if (FavAdultNonEmergency)
-                        return "Adults (Non-Emergency)";
-                    return "Not determined for Adults";
+                    case Attitude.Cooperative:
+                        return "fa-handshake-o";
+                    case Attitude.Favorable:
+                        return "fa-thumbs-o-up";
+                    case Attitude.Limitations:
+                        return "fa-hand-stop-o";
+                    case Attitude.NotFavorable:
+                        return "fa-thumbs-o-down";
+                    default:
+                        return "fa-question-circle";
                 }
             }
-            public string AttitudeChildText
-            {
-                get
-                {
-                    if (NotFavChild)
-                        return "Not favorable for Child";
-                    if (FavChildEmergency && FavChildNonEmergency)
-                        return "Child (Emergency and non-emergency)";
-                    if (FavChildEmergency)
-                        return "Child (Emergency)";
-                    if (FavChildNonEmergency)
-                        return "Child (Non-Emergency)";
-                    return "Not determined for Child";
-                }
-            }
-            public string AcceptsMedicaidText => AcceptsMedicaid ? "Accepts Medicaid" : "Not accepts Medicaid";
+        }
+        [Computed]
+        public string StatusText => Enum.GetName(Status.GetType(), Status);
 
-            public string ConsultAdultText => ConsultAdultEmergency ? "Consults for Adult emergencies" : "Not consults for Adult emergencies";
-            public string ConsultChildText => ConsultChildEmergency ? "Consults for Child emergencies" : "Not consults for Child emergencies";
-        
+        [Computed]
+        public string AttitudeAdultText
+        {
+            get
+            {
+                if (NotFavAdult)
+                    return "Not favorable for Adults";
+                if (FavAdultEmergency && FavAdultNonEmergency)
+                    return "Adults (Emergency and non-emergency)";
+                if (FavAdultEmergency)
+                    return "Adults (Emergency)";
+                if (FavAdultNonEmergency)
+                    return "Adults (Non-Emergency)";
+                return "Not determined for Adults";
+            }
+        }
+
+        [Computed]
+        public string AttitudeChildText
+        {
+            get
+            {
+                if (NotFavChild)
+                    return "Not favorable for Child";
+                if (FavChildEmergency && FavChildNonEmergency)
+                    return "Child (Emergency and non-emergency)";
+                if (FavChildEmergency)
+                    return "Child (Emergency)";
+                if (FavChildNonEmergency)
+                    return "Child (Non-Emergency)";
+                return "Not determined for Child";
+            }
+        }
+
+        [Computed]
+        public string AcceptsMedicaidText => AcceptsMedicaid ? "Accepts Medicaid" : "Not accepts Medicaid";
+
+        [Computed]
+        public string ConsultAdultText => ConsultAdultEmergency
+            ? "Consults for Adult emergencies"
+            : "Not consults for Adult emergencies";
+
+        [Computed]
+        public string ConsultChildText => ConsultChildEmergency
+            ? "Consults for Child emergencies"
+            : "Not consults for Child emergencies";
+
         #endregion
 
         // Related table data
+        [Computed]
         public List<DoctorSpecialty> Specialties { get; set; }
+        [Computed]
         public List<DoctorHospital> Hospitals { get; set; }
+        [Computed]
         public List<DoctorNote> Notes { get; set; }
+        [Computed]
         public Practice Practice { get; set; }
     }
-
-    public class DoctorSpecialty
-    {
-        public int Id { get; set; }
-        public int DoctorId { get; set; }
-        public int SpecialtyId { get; set; }
-        public string AreaOfExpertise { get; set; }
-        public string SpecialtyName { get; set; }
-    }
-    public class DoctorHospital
-    {
-        public int Id { get; set; }
-        public int DoctorId { get; set; }
-        public int HospitalId { get; set; }
-        public string Notes { get; set; }
-        public string HospitalName { get; set; }
-    }
-
-    [Table("hlc_DoctorNote")]
-    public class DoctorNote
-    {
-        public int Id { get; set; }
-        public int DoctorId { get; set; }
-        public string UserId { get; set; }
-        public DateTime DateEntered { get; set; }
-        public string Notes { get; set; }
-        [Computed]
-        public string UserName { get; set; }
-        [Computed]
-        public string DoctorName { get; set; }
-    }
- 
 }

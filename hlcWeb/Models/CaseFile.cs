@@ -7,6 +7,11 @@ namespace hlcWeb.Models
     [Table("hlc_CaseFile")]
     public class CaseFile
     {
+        public CaseFile()
+        {
+            CaseDate = DateTime.Now;
+            DateEntered = DateTime.Now;
+        }
         public int Id { get; set; }
 
         [Required]
