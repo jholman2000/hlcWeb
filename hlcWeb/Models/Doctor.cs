@@ -21,7 +21,7 @@ namespace hlcWeb.Models
         }
 
         // hlc_Doctor fields
-        [System.ComponentModel.DataAnnotations.Key]
+       
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -18,42 +18,42 @@
         @*@Html.ValidationSummary(true, "Please enter all required fields");*@
 
         <div class="form-group">
-            <label for="CaseDate" class="col-sm-2 control-label">Case Date:</label>
+            @Html.LabelFor(m => m.CaseDate, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.EditorFor(m => m.CaseDate, new {type = "date", @class = "form-control", autofocus = "autofocus"})
-                @Html.ValidationMessageFor(m => m.CaseDate, "")
+                @Html.ValidationMessageFor(m => m.CaseDate)
             </div>
         </div>
         <div class="form-group">
-            <label for="FirstName" class="col-sm-2 control-label">First Name:</label>
+            @Html.LabelFor(m => m.FirstName, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.FirstName, "Required")
+                @Html.ValidationMessageFor(m => m.FirstName)
             </div>
         </div>
         <div class="form-group">
-            <label for="LastName" class="col-sm-2 control-label">Last Name:</label>
+            @Html.LabelFor(m => m.LastName, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.LastName, new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.LastName)
             </div>
         </div>
         <div class="form-group">
-            <label for="CongregationName" class="col-sm-2 control-label">Congregation:</label>
+            @Html.LabelFor(m => m.CongregationName, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.CongregationName, new {@class = "form-control"})
                 @Html.ValidationMessageFor(m => m.CongregationName)
             </div>
         </div>
         <div class="form-group">
-            <label for="DoctorId" class="col-sm-2 control-label">Doctor:</label>
+            @Html.LabelFor(m => m.DoctorId, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.DoctorId, (SelectList) ViewBag.DoctorSelectList, "Select attending physician (if known)...", new {@class = "form-control", style = "max-width:100%;"})
                 @Html.ValidationMessageFor(m => m.DoctorId)
             </div>
         </div>
         <div class="form-group">
-            <label for="HospitalId" class="col-sm-2 control-label">Hospital:</label>
+            @Html.LabelFor(m => m.HospitalId, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.HospitalId, (SelectList) ViewBag.HospitalSelectList, "Select hospital...", new {@class = "form-control", style = "max-width:100%;"})
                 @Html.ValidationMessageFor(m => m.HospitalId)
@@ -107,7 +107,6 @@
             <div class="col-sm-offset-2 col-sm-10">
                 Court order comments:
                 @Html.TextAreaFor(m => m.CourtOrderComments, new { @class = "form-control", rows = "2", placeholder = "Enter any comments on the court order" })
-                @Html.ValidationMessageFor(m => m.CourtOrderComments)
             </div>
         </div>
 
@@ -158,7 +157,6 @@
             <div class="col-sm-offset-2 col-sm-10">
                 Transfer details:
                 @Html.TextAreaFor(m => m.TransferDetails, new { @class = "form-control", rows = "2", placeholder = "Enter any details on the transfer (where, reason, etc)" })
-                @Html.ValidationMessageFor(m => m.TransferDetails)
             </div>
         </div>
 

@@ -100,8 +100,8 @@ namespace hlcWeb.Controllers.Api
         [Route("api/doctors/delete")]
         public IHttpActionResult Delete(int id)
         {
-            var user = (User)HttpContext.Current.Session["User"];
-            var sql = $"UPDATE HLC_Doctor SET Status = {(int)Status.Deleted}, StatusDate=GetDate(), DateLastUpdated=GetDate(), LastUpdatedBy='{user.UserID}' WHERE Id={id};";
+            var userId = (User)HttpContext.Current.Session["UserId"];
+            var sql = $"UPDATE HLC_Doctor SET Status = {(int)Status.Deleted}, StatusDate=GetDate(), DateLastUpdated=GetDate(), LastUpdatedBy='{userId}' WHERE Id={id};";
             var results = ExecuteSql(sql);
 
             return Ok(results);

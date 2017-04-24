@@ -43,7 +43,7 @@ namespace hlcWeb.Controllers
                 var items = _doctorRepository.Search("", false)
                     .Select(s => new
                     {
-                        Text = s.LastName + ", " + s.LastName,
+                        Text = s.LastName + ", " + s.FirstName,
                         Value = s.Id
                     })
                     .ToList();
@@ -66,12 +66,8 @@ namespace hlcWeb.Controllers
 
             if (id == 0)
             {
-                model = new CaseFile
-                {
-                    CaseDate = DateTime.Now,
-                    DateEntered = DateTime.Now,
-                    EnteredBy = ((User) Session["User"]).UserID
-                };
+                model = new CaseFile();
+                model.EnteredBy = Session["UserId"].ToString();
             }
             else
             {
