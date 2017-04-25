@@ -53,9 +53,9 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/casefiles/savetext")]
-        public string SaveText(string fieldName, string textValue)
+        public string SaveText([FromBody]string fieldName) //, [FromBody]string textValue)
         {
             return "OK";
         }

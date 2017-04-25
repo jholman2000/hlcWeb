@@ -248,7 +248,7 @@
             value: initValue,
             callback: function (result) {
                 $.ajax({
-                        method: "GET",
+                        method: "POST",
                         url: "/api/" + controller + "/savetext",
                         data: { fieldName: field, textValue: result }
                     })

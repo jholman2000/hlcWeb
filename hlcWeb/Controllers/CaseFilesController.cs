@@ -152,10 +152,5 @@ namespace hlcWeb.Controllers
             return RedirectToAction("View", new { id = model.Id });
         }
 
-        public string SaveText(string fieldName, string textValue)
-        {
-            _caseFileRepository.SaveText(fieldName, textValue);
-            return "OK";
-        }
     }
 }
