@@ -59,6 +59,13 @@
                 @Html.ValidationMessageFor(m => m.HospitalId)
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                Consultation details: 
+                @Html.TextAreaFor(m => m.ConsultingDoctor, new { @class = "form-control", rows = "2", placeholder = "Enter any details on doctor(s) consulted, if applicable" })
+            </div>
+        </div>
+
         <div class="form-group hlc-pediatric-control">
             <label for="IsPediatricCase" class="col-sm-2 control-label">Pediatric:</label>
             <div class="col-sm-10">
@@ -70,6 +77,7 @@
                 </div>
             </div>
         </div>
+
         <div class="form-group hlc-pediatric-control">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
@@ -103,24 +111,16 @@
                 @Html.EnumDropDownListFor(m => m.CourtOrderNotGrantedReason, optionLabel: "Select...", htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                Court order comments:
-                @Html.TextAreaFor(m => m.CourtOrderComments, new { @class = "form-control", rows = "2", placeholder = "Enter any comments on the court order" })
-            </div>
-        </div>
-
         <div class="form-group hlc-pediatric-control">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        @Html.CheckBoxFor(m => m.CourtOrderSought)
-                        Parent/guardian was not notified in advance of a court hearing
+                        @Html.CheckBoxFor(m => m.ParentsNotified)
+                        Parent/guardian was notified in advance of a court hearing
                     </label>
                 </div>
             </div>
         </div>
-
         <div class="form-group hlc-pediatric-control">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
@@ -131,7 +131,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-group hlc-pediatric-control">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
@@ -157,6 +156,12 @@
             <div class="col-sm-offset-2 col-sm-10">
                 Transfer details:
                 @Html.TextAreaFor(m => m.TransferDetails, new { @class = "form-control", rows = "2", placeholder = "Enter any details on the transfer (where, reason, etc)" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                Court order comments:
+                @Html.TextAreaFor(m => m.CourtOrderComments, new { @class = "form-control", rows = "2", placeholder = "Enter any comments on the court order" })
             </div>
         </div>
 
@@ -185,5 +190,16 @@
     }
 </div>
 @section scripts {
+    <script>
+        $("form").submit(function () {
+            if ($(this).valid() == false)
+            {
+                $(this).find("div.form-group").each(function () {
+                    if ($(this).find("span.field-validation-error").length > 0)
+                        $(this).addClass("has-error");
+                });
+            }
+        });
+    </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

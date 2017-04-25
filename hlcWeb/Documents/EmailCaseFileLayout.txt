@@ -1,37 +1,38 @@
 ﻿
-Possible layout of Case File table (including fields for Pediatrics)
+Possible layout of Case File table (including fields for Pediatric info)
+- all Yes/No below default to No
+- short free form would be limited to 500 characters max; free form is 5000 characters
 
 CaseDate              (date of the actual case)
 DateEntered           (date this record was entered into the HLC website)
 EnteredBy			  (HLC user ID of person who entered it)
 DateLastUpdated       (last date any information on this record was changed)
 UpdatedBy             (HLC user ID of person who made the last change)
-CourtOrderSought	  (Yes/No)
-CourtOrderSoughtBy    (multiple choice taken from Society letter)
-CourtOrderGranted     (Yes/No)
-CourtOrderNotGrantedReason (multiple choice from Society letter)
-CourtOrderComments    (short free form - could indicate why it was/was not given, etc)
-TransfusionGiven      (Yes/No)
-IsPediatricCase 	  (Yes/No)
-ParentNotNotified     (Yes/No)
-ParentsChargedNeglect (Yes/No)
-ParentsRightsRemoved  (Yes/No)
-PatientTransferred    (Yes/No) 
-TransferDetails       (short free form)
-DoctorAttending       (not free form - select one Doctor from the Doctors on file to link back to a HLC Doctor)
-ConsultingDoctor      (short free form? Indicate who/where/other brief comments)
-Hospital              (not free form - select one Hospital from the Hospitals on file to link back to a HLC Hospital)
 First Name            (patient first and last name)
 Last Name
 Age ?                 (numeric - optional: Should we capture this?)
 Congregation		  (free form name of congregation)
+Doctor                (select one Doctor from the Doctors on file to link back to a HLC Doctor)
+ConsultingDoctor      (short free form - Indicate if other doctor consulted, details, etc)
+Hospital              (select one Hospital from the Hospitals on file to link back to a HLC Hospital)
+IsPediatricCase 	  (Yes/No)  Below fields would capture additional info.  (Even if No checked these fields are available)
+  CourtOrderSought	         (Yes/No)
+  CourtOrderSoughtBy         (multiple choice selection taken from Society letter)
+  CourtOrderGranted          (Yes/No)
+  CourtOrderNotGrantedReason (multiple choice from Society letter)
+  CourtOrderComments         (short free form - could indicate why it was/was not given, etc)
+  ParentsNotified            (Yes/No - Parent was notified prior to hearing)
+  ParentsChargedNeglect      (Yes/No)
+  ParentsRightsRemoved       (Yes/No)
+  PatientTransferred         (Yes/No) 
+  TransferDetails            (short free form - where transferred, other HLC territory, etc)
+  TransfusionGiven           (Yes/No)
 MedicalDiagnosis	  (short free form?  500 chars)
 MedicalHistory		  (free form)
 TreatmentPlan         (free form)
 PossibleStrategies	  (free form)
 ArticlesShared        (free form)
-Outcome               (free form text: can include any items not specifically asked for above.  For example 
-                      if transferred then to where, etc)
+Outcome               (free form text: can include any items not specifically asked for above.)
 					  
 CREATE TABLE [hlc_CaseFile] (
 [ID] int NOT NULL IDENTITY(1,1) ,
@@ -52,7 +53,7 @@ CREATE TABLE [hlc_CaseFile] (
 [CourtOrderNotGrantedReason] int NULL DEFAULT ((0)) ,
 [CourtOrderComments] varchar(500) ,
 [TransfusionGiven] bit NULL DEFAULT ((0)) ,
-[ParentsNotNotified] bit NULL DEFAULT ((0)) ,
+[ParentsNotified] bit NULL DEFAULT ((0)) ,
 [ParentsChargedNeglect] bit NULL DEFAULT ((0)) ,
 [ParentsRightsRemoved] bit NULL DEFAULT ((0)) ,
 [PatientTransferred] bit NULL DEFAULT ((0)) ,

@@ -1,0 +1,24 @@
+﻿Jeff Holman <jeff.holman@yahoo.com>  Today at 8:11 PM
+To	
+Mark Jones
+Message body
+Hi Mark,
+
+Searching and editing on Notes is a good idea and i will add that.  Editing I will limit to the System Admin and the 
+individual who initially entered the Note.
+
+I've looked at the Society's form you provided as well as your thoughts on an activity section and I think maybe it 
+would work to add a new "Case File" table that would capture this information.  This would be entered separate from 
+the Doctor's record but would have a field for Doctor and Hospital.  That way a Doctor could have multiple cases and 
+you would also be able to change the case doctor to someone else if needed.  I've attached a proposed layout of what 
+the table could look like.  I think it covers what you want to capture as well as provide the ability to generate 
+data that could be used to fill the Society's form in the future.  I'm not sure that it has every detail the Society 
+may ask but with the free form text fields I think you can cover most of the bases.
+
+Take a look at the attached and let me know if you see any additional fields that you would like to capture on a 
+case basis or any that I show that you do not need.
+
+Regards,
+Jeff
+
+(attached EmailCaseFileLoayout.txt)

@@ -26,7 +26,7 @@
                     <td class="hlc-prompt">Entered on:</td>
                     <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
                 </tr>
-                @if (Model.DateLastUpdated != Model.DateEntered && Model.DateLastUpdated != DateTime.MinValue)
+                @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
                 {
                     <tr>
                         <td class="hlc-prompt">Updated on:</td>
@@ -77,28 +77,28 @@
                 <tr>
                     <td>
                         <i class="fa fa-@Model.CourtOrderSought.Icon() fa-fw"></i> Court order @Model.CourtOrderSought.Not() sought
-                        @if (Model.CourtOrderSought)
-                        {
-                            <text>by </text>
-                            @Model.CourtOrderSoughtBy.EnumDisplayName()
+                        @{
+                            if (Model.CourtOrderSought)
+                            {
+                                <text>by </text> @Model.CourtOrderSoughtBy.EnumDisplayName()
+                                <br /><i class="fa fa-@Model.CourtOrderGranted.Icon() fa-fw"></i> <text>Court order </text>@Model.CourtOrderGranted.Not() <text>granted</text>
+                            }
+                            if (!Model.CourtOrderGranted)
+                            {
+                                <text>- </text>
+                                @Model.CourtOrderNotGrantedReason.EnumDisplayName()
+                            }
+                            if (Model.CourtOrderSought && Model.CourtOrderGranted)
+                            {
+                                <text><br /><i class="fa fa-@Model.ParentsNotified.Icon() fa-fw"></i> Parent/guardian was @Model.ParentsNotified.Not() notified prior to hearing</text>
+                                <text><br /><i class="fa fa-@Model.ParentsChargedNeglect.Icon() fa-fw"></i> Parents @Model.ParentsChargedNeglect.Not() charged with neglect</text>
+                                <text><br /><i class="fa fa-@Model.ParentsRightsRemoved.Icon() fa-fw"></i> Parental rights were @Model.ParentsRightsRemoved.Not() removed  </text>
+                            }
+                            if (!string.IsNullOrEmpty(Model.CourtOrderComments))
+                            {
+                                <br /><br />@Model.CourtOrderComments
+                            }
                         }
-                        <br/><i class="fa fa-@Model.CourtOrderGranted.Icon() fa-fw"></i> Court order @Model.CourtOrderGranted.Not() granted
-                        @if (!Model.CourtOrderGranted)
-                        {
-                            <text>- </text>
-                            @Model.CourtOrderNotGrantedReason.EnumDisplayName()
-                        }
-                        @if (!string.IsNullOrEmpty(Model.CourtOrderComments))
-                        {
-                            <br/><i class="fa fa-fw"></i>
-                            @Model.CourtOrderComments
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-@Model.ParentsChargedNeglect.Icon() fa-fw"></i> Parents @Model.ParentsChargedNeglect.Not() charged with neglect<br/>
-                        <i class="fa fa-@Model.ParentsRightsRemoved.Icon() fa-fw"></i> Parental rights were @Model.ParentsRightsRemoved.Not() removed
                     </td>
                 </tr>
                 <tr>

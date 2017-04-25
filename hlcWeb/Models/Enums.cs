@@ -65,6 +65,7 @@ namespace hlcWeb.Models
         [Display(Name = "Treating Physician")]
         TreatingPhysician = 6,
 
+        [Display(Name = "Other")]
         Other                   = 99
     }
 
@@ -76,19 +77,19 @@ namespace hlcWeb.Models
         [Display(Name = "Questionable emergency")]
         Questionable = 1,
 
-        [Display(Name = "Unlikely blood needed")]
+        [Display(Name = "Blood unlikely")]
         UnlikelyBloodNeeded = 2,
 
-        [Display(Name = "Child transferred different facility")]
+        [Display(Name = "Child transferred")]
         ChildTransferred = 3,
 
-        [Display(Name = "Succesful legal representation")]
+        [Display(Name = "Successful legal rep")]
         SuccessLegal = 4,
 
         [Display(Name = "Mature Minor")]
         MatureMinor = 5,
 
-        [Display(Name = "")]
+        [Display(Name = "Other")]
         Other = 99
     }
 }

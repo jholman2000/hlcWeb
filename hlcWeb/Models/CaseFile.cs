@@ -13,6 +13,7 @@ namespace hlcWeb.Models
             DateEntered = DateTime.Now;
             DateLastUpdated = DateTime.Now;
         }
+
         public int Id { get; set; }
 
         [Required]
@@ -22,7 +23,9 @@ namespace hlcWeb.Models
         public DateTime CaseDate { get; set; }
 
         public DateTime DateEntered { get; set; }
+
         public string EnteredBy { get; set; }
+
         public DateTime DateLastUpdated { get; set; }
         public string UpdatedBy { get; set; }
 
@@ -50,6 +53,7 @@ namespace hlcWeb.Models
         [StringLength(500)]
         public string CourtOrderComments { get; set; }
         public bool TransfusionGiven { get; set; }
+        public bool ParentsNotified { get; set; }
         public bool ParentsChargedNeglect { get; set; }
         public bool ParentsRightsRemoved { get; set; }
         public bool PatientTransferred { get; set; }
