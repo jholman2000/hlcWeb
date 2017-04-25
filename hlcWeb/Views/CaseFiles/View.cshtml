@@ -10,7 +10,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 Case information
-                <span class="pull-right hidden-print">
+                <span class="pull-right hidden-print hidden-xs">
                     <a href="@Url.Action("Edit", "CaseFiles", new {id = Model.Id})" class="hlc-panel-icon js-edit">
                         <i class="fa fa-edit" title="Edit"></i>
                     </a>
@@ -44,13 +44,19 @@
                 <tr>
                     <td class="hlc-prompt">Doctor:</td>
                     <td>
-                        <a href="#">@Model.DoctorName</a>
+                        @Model.DoctorName
                     </td>
                 </tr>
                 <tr>
                     <td class="hlc-prompt">Hospital:</td>
                     <td>
-                        <a href="#">@Model.HospitalName</a>
+                        @Model.HospitalName
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Diagnosis:</td>
+                    <td>
+                        @Model.DiagnosisName
                     </td>
                 </tr>
                 @if (!string.IsNullOrEmpty(Model.ConsultingDoctor))
@@ -94,6 +100,14 @@
                                 <text><br /><i class="fa fa-@Model.ParentsChargedNeglect.Icon() fa-fw"></i> Parents @Model.ParentsChargedNeglect.Not() charged with neglect</text>
                                 <text><br /><i class="fa fa-@Model.ParentsRightsRemoved.Icon() fa-fw"></i> Parental rights were @Model.ParentsRightsRemoved.Not() removed  </text>
                             }
+                            if (Model.PatientTransferred)
+                            {
+                                <text><br /><i class="fa fa-@Model.PatientTransferred.Icon() fa-fw"></i> Patient was transferred</text>
+                                if (!string.IsNullOrEmpty(Model.TransferDetails))
+                                {
+                                    <text> - </text>@Model.TransferDetails
+                                }
+                            }
                             if (!string.IsNullOrEmpty(Model.CourtOrderComments))
                             {
                                 <br /><br />@Model.CourtOrderComments
@@ -113,43 +127,27 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Medical Diagnosis</div>
-            @if (string.IsNullOrEmpty(Model.MedicalDiagnosis))
-            {
-                <div class="panel-body text-center">
-                    <em>No medical diagnosis entered.</em>
-                </div>
-            }
-            else
-            {
-                <div class="panel-body text-center">
-                    <p style="white-space: pre-line;">
-                        @Model.MedicalDiagnosis
-                    </p>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Medical History</div>
-            @if (string.IsNullOrEmpty(Model.MedicalHistory))
-            {
-                <div class="panel-body text-center">
-                    <em>No medical history entered.</em>
-                </div>
-            }
-            else
-            {
-                <div class="panel-body text-center">
-                    <p style="white-space: pre-line;">
+        <div id="MedicalHistory" class="panel panel-primary">
+            <div class="panel-heading">
+                Medical History
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('CaseFiles', 'MedicalHistory');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body text-center hlc-panel-body">
+                <p style="white-space: pre-line;">
+                    @if (string.IsNullOrEmpty(Model.MedicalHistory))
+                    {
+                        <em>No medical history entered.</em>
+                    }
+                    else
+                    {
                         @Model.MedicalHistory
-                    </p>
-                </div>
-            }
+                    }
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -238,3 +236,31 @@
     </div>
 </div>
 </div>
+<script>
+    function hlcEditText(controller, field) {
+        var title = $("#" + field + " > .panel-heading").text();
+        var initValue = "This is the initial value";
+        bootbox.prompt({
+            title: title,
+            className: "hlc-textarea",
+            size: "large",
+            inputType: 'textarea',
+            value: initValue,
+            callback: function (result) {
+                $.ajax({
+                        method: "GET",
+                        url: "/api/" + controller + "/savetext",
+                        data: { fieldName: field, textValue: result }
+                    })
+                    .done(function (msg) {
+                        debugger;
+                        $("#" + field + " > .panel-body").removeClass("text-center");
+                        $("#" + field + " > .panel-body p").text(result);
+                    })
+                    .fail(function (jqXhr) {
+                        alert(jqXhr.responseText);
+                    });
+            }
+        });
+    }
+</script>

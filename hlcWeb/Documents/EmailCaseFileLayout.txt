@@ -15,6 +15,7 @@ Congregation		  (free form name of congregation)
 Doctor                (select one Doctor from the Doctors on file to link back to a HLC Doctor)
 ConsultingDoctor      (short free form - Indicate if other doctor consulted, details, etc)
 Hospital              (select one Hospital from the Hospitals on file to link back to a HLC Hospital)
+Diagnosis	          (select from a list of available diagnoses; User can enter Other if not found)
 IsPediatricCase 	  (Yes/No)  Below fields would capture additional info.  (Even if No checked these fields are available)
   CourtOrderSought	         (Yes/No)
   CourtOrderSoughtBy         (multiple choice selection taken from Society letter)
@@ -27,7 +28,6 @@ IsPediatricCase 	  (Yes/No)  Below fields would capture additional info.  (Even 
   PatientTransferred         (Yes/No) 
   TransferDetails            (short free form - where transferred, other HLC territory, etc)
   TransfusionGiven           (Yes/No)
-MedicalDiagnosis	  (short free form?  500 chars)
 MedicalHistory		  (free form)
 TreatmentPlan         (free form)
 PossibleStrategies	  (free form)
@@ -35,7 +35,7 @@ ArticlesShared        (free form)
 Outcome               (free form text: can include any items not specifically asked for above.)
 					  
 CREATE TABLE [hlc_CaseFile] (
-[ID] int NOT NULL IDENTITY(1,1) ,
+[Id] int NOT NULL IDENTITY(1,1) ,
 [CommitteeId] int NULL DEFAULT((1)),
 [CaseDate] smalldatetime NULL ,
 [DateEntered] smalldatetime NULL ,
@@ -46,6 +46,9 @@ CREATE TABLE [hlc_CaseFile] (
 [LastName] varchar(50) NULL ,
 [Age] int NULL,
 [CongregationName] varchar(80) ,
+[DoctorId] int NULL ,
+[HospitalId] int NULL ,
+[DiagnosisId] int NULL ,
 [IsPediatricCase] bit NULL DEFAULT ((0)) ,
 [CourtOrderSought] bit NULL DEFAULT ((0)) ,
 [CourtOrderSoughtBy] int NULL DEFAULT ((0)) ,
@@ -58,13 +61,17 @@ CREATE TABLE [hlc_CaseFile] (
 [ParentsRightsRemoved] bit NULL DEFAULT ((0)) ,
 [PatientTransferred] bit NULL DEFAULT ((0)) ,
 [TransferDetails] varchar(500) ,
-[DoctorId] int NULL ,
-[HospitalId] int NULL ,
-[MedicalDiagnosis] varchar(5000) NULL,
 [MedicalHistory] varchar(5000) NULL,
 [TreatmentPlan] varchar(5000) NULL,
 [PossibleStrategies] varchar(5000) NULL,
 [ArticlesShared] varchar(5000) NULL,
 [ConsultingDoctor] varchar(5000) NULL,
 [Outcome] varchar(5000) NULL
+)
+
+CREATE TABLE [hlc_Diagnosis] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[DiagnosisName] varchar(80),
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL 
 )

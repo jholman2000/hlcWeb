@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Dapper.Contrib.Extensions;
@@ -9,7 +10,7 @@ namespace hlcWeb.Controllers.Api
     public class CaseFilesController : BaseController
     {
         [HttpGet]
-        [Route("api/case/search")]
+        [Route("api/casefiles/search")]
         public List<CaseFile> Search(string search)
         {
             var where = $"cf.LastName LIKE '%{search}%' OR " +
@@ -39,10 +40,11 @@ namespace hlcWeb.Controllers.Api
         {
             
             var sql = "select cf.*, " +
-                      "d.FirstName + ' ' + d.LastName as DoctorName, h.HospitalName " +
+                      "d.FirstName + ' ' + d.LastName as DoctorName, h.HospitalName, dg.DiagnosisName " +
                       "from hlc_CaseFile cf " +
                       "left join hlc_Doctor d on d.id = cf.DoctorId " +
                       "left join hlc_Hospital h on h.ID = cf.HospitalId " +
+                      "left join hlc_Diagnosis dg on dg.Id = cf.DiagnosisId " +
                       $" WHERE cf.Id = {id}";
 
             var results = GetListFromSql<CaseFile>(sql).FirstOrDefault();
@@ -51,6 +53,12 @@ namespace hlcWeb.Controllers.Api
 
         }
 
+        [HttpGet]
+        [Route("api/casefiles/savetext")]
+        public string SaveText(string fieldName, string textValue)
+        {
+            return "OK";
+        }
 
         internal bool Save(CaseFile model)
         {
@@ -65,5 +73,6 @@ namespace hlcWeb.Controllers.Api
             }
 
         }
+
     }
 }

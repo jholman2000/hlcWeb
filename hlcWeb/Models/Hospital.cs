@@ -1,5 +1,8 @@
-﻿namespace hlcWeb.Models
+﻿using Dapper.Contrib.Extensions;
+
+namespace hlcWeb.Models
 {
+    [Table("hlc_Hospital")]
     public class Hospital
     {
         public int Id { get; set; }

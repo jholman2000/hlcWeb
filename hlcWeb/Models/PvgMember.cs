@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Dapper.Contrib.Extensions;
 
 namespace hlcWeb.Models
 {
+    [Table("hlc_PvgMember")]
     public class PvgMember
     {
         public int Id { get; set; }

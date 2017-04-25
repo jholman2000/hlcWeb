@@ -12,6 +12,7 @@ namespace hlcWeb.Models
             CaseDate = DateTime.Now;
             DateEntered = DateTime.Now;
             DateLastUpdated = DateTime.Now;
+            DiagnosisId = -1;
         }
 
         public int Id { get; set; }
@@ -65,14 +66,21 @@ namespace hlcWeb.Models
         [Display(Name = "Doctor")]
         public int DoctorId { get; set; }
 
-        [StringLength(500)]
-        public string ConsultingDoctor { get; set; }
-
         [Required]
         [Display(Name = "Hospital")]
         public int HospitalId { get; set; }
 
-        public string MedicalDiagnosis { get; set; }
+        [Display(Name="Diagnosis")]
+        public int DiagnosisId { get; set; }
+
+        [Computed]
+        [StringLength(80)]
+        [Display(Name="Other diagnosis")]
+        public string DiagnosisOther { get; set; }
+
+        [StringLength(500)]
+        public string ConsultingDoctor { get; set; }
+
         public string MedicalHistory { get; set; }
         public string TreatmentPlan { get; set; }
         public string PossibleStrategies { get; set; }
@@ -88,6 +96,8 @@ namespace hlcWeb.Models
 
         [Computed]
         public string HospitalName { get; set; }
-        
+
+        [Computed]
+        public string DiagnosisName { get; set; }
     }
 }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Dapper.Contrib.Extensions;
 
 namespace hlcWeb.Models
 {
+    [Table("hlc_Practice")]
     public class Practice
     {
         public int Id { get; set; }

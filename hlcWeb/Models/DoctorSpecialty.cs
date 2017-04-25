@@ -2,7 +2,7 @@
 
 namespace hlcWeb.Models
 {
-    [Table("DoctorSpecialty")]
+    [Table("hlc_DoctorSpecialty")]
     public class DoctorSpecialty
     {
         public int Id { get; set; }

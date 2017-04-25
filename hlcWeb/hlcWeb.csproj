@@ -151,6 +151,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\BaseController.cs" />
     <Compile Include="Controllers\Api\CaseFilesController.cs" />
+    <Compile Include="Controllers\Api\DiagnosisController.cs" />
     <Compile Include="Controllers\Api\DoctorsController.cs" />
     <Compile Include="Controllers\Api\HospitalsController.cs" />
     <Compile Include="Controllers\Api\NotesController.cs" />
@@ -173,6 +174,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CaseFile.cs" />
+    <Compile Include="Models\Diagnosis.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\DoctorHospital.cs" />
     <Compile Include="Models\DoctorNote.cs" />
@@ -194,6 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />

@@ -117,6 +117,20 @@ i.hlc-brand {
 .hlc-list-group {
     padding: 5px 10px;
 }
+.hlc-panel-body {
+    padding: 10px;
+    /*white-space: pre-line;*/
+}
+.hlc-textarea textarea {
+    height: 400px;
+}
+.modal-dialog {
+    right: auto;
+    left: 50%;
+    width: 60%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
 .hlc-fa {
     font-size: 18px;
     width: 20px;

@@ -74,20 +74,23 @@ namespace hlcWeb.Models
         [Display(Name = "Not applicable")]
         NotApplicable = 0,
 
+        [Display(Name = "Request pending")]
+        RequestPending = 1,
+
         [Display(Name = "Questionable emergency")]
-        Questionable = 1,
+        Questionable = 2,
 
         [Display(Name = "Blood unlikely")]
-        UnlikelyBloodNeeded = 2,
+        UnlikelyBloodNeeded = 3,
 
         [Display(Name = "Child transferred")]
-        ChildTransferred = 3,
+        ChildTransferred = 4,
 
         [Display(Name = "Successful legal rep")]
-        SuccessLegal = 4,
+        SuccessLegal = 5,
 
         [Display(Name = "Mature Minor")]
-        MatureMinor = 5,
+        MatureMinor = 6,
 
         [Display(Name = "Other")]
         Other = 99
