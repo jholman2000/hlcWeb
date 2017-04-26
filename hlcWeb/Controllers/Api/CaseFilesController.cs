@@ -52,14 +52,7 @@ namespace hlcWeb.Controllers.Api
 
 
         }
-
-        [HttpPost]
-        [Route("api/casefiles/savetext")]
-        public string SaveText([FromBody]string fieldName) //, [FromBody]string textValue)
-        {
-            return "OK";
-        }
-
+    
         internal bool Save(CaseFile model)
         {
             if (model.Id == 0)
@@ -73,6 +66,26 @@ namespace hlcWeb.Controllers.Api
             }
 
         }
+
+        #region Free-form text edit functions
+        [HttpPost]
+        [Route("api/casefiles/gettext")]
+        public string getText(SaveTextDto text) 
+        {
+            var sql = $"select {text.FieldName} as FieldText from hlc_CaseFile where Id={text.Id}";
+
+            return (GetMemberFromSql<SaveTextDto>(sql).FieldText);
+        }
+
+        [HttpPost]
+        [Route("api/casefiles/savetext")]
+        public string SaveText(SaveTextDto text) 
+        {
+            var sql = $"update hlc_CaseFile set {text.FieldName} = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
+
+            return (ExecuteSql(sql) >= 1 ? "OK" : "ERROR");
+        }
+        #endregion
 
     }
 }

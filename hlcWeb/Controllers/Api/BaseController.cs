@@ -26,17 +26,22 @@ namespace hlcWeb.Controllers.Api
             return _conn;
         }
 
+        protected T GetMemberFromSql<T>(string sql) where T : class
+        {
+            using (_conn)
+            {
+                _conn.Open();
+                return _conn.Query<T>(sql).FirstOrDefault();
+            }
+
+        }
         protected List<T> GetListFromSql<T>(string sql) where T: class
         {
             using (_conn)
             {
-
                 _conn.Open();
-
                 return _conn.Query<T>(sql).ToList();
-
             }
-
         }
 
         protected T GetMemberFromId<T>(int id) where T: class

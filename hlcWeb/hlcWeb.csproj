@@ -183,6 +183,7 @@
     <Compile Include="Models\Hospital.cs" />
     <Compile Include="Models\Practice.cs" />
     <Compile Include="Models\PvgMember.cs" />
+    <Compile Include="Models\SaveTextDto.cs" />
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -196,10 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
-    <Content Include="App_Data\hlcWeb_local.mdf" />
-    <Content Include="App_Data\hlcWeb_local_log.ldf">
-      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -253,6 +250,7 @@
     <Content Include="Documents\Email04162017.txt" />
     <Content Include="Documents\Email04242017.txt" />
     <Content Include="Documents\EmailCaseFileLayout.txt" />
+    <Content Include="Documents\Email04252017.txt" />
     <Content Include="favicon-16x16.png" />
     <Content Include="favicon-32x32.png" />
     <Content Include="favicon.ico" />

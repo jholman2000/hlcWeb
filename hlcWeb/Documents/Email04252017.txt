@@ -1,0 +1,32 @@
+﻿Apr 25, 2017
+jeff.holman@yahoo.com  Today at 8:27 AM
+To	
+Mark Jones
+Message body
+Sure Mark. If you can send me a list of diagnoses I will set up an initial table. 
+
+I do plan on having reports (finally) that can be filtered different ways and that will be one of them. I've 
+already planned a simple search ability for cases, doctors, etc but the purpose of the search is really to aid 
+in quickly finding a specific case/doctor, etc for viewing. The reports will handle the slicing and dicing. 
+
+BTW, what browser and version do you use?  Do you know offhand what the other brothers are using?  Do you have 
+an iPad or Android tablet?
+
+Jeff Holman
+Sent from my iPhone 6
+
+On Apr 25, 2017, at 8:01 AM, Mark Jones <jmarkjones@carolina.rr.com> wrote:
+
+Jeff,
+
+Thank you for reviewing. I like the idea of a Case File table and thank you for preparing the layout. Yes, we 
+should include a field for the age of the patient . It would be helpful if the field “MedicalDiagnosis” could 
+be moved closer to the beginning of the record entry or make it a mandatory entry field. For consistency, could 
+it be a drop down list of diagnosis types with the ability for each user to add to the list? We can start with 
+a list of most common diagnosis and hopefully limit what is added by others.
+
+Would it be possible to view all cases (listed by date entered, starting with most recent date) with the option 
+to filter the view by Doctor, Entered by, Hospital, Pediatric Case, Diagnosis? 
+
+Thank you!
+Mark

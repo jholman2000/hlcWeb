@@ -131,68 +131,81 @@
             <div class="panel-heading">
                 Medical History
                 <span class="pull-right hidden-print hidden-xs">
-                    <a href="#" onclick="hlcEditText('CaseFiles', 'MedicalHistory');" class="hlc-panel-icon">
+                    <a href="#" onclick="hlcEditText('CaseFiles', '@Model.Id', 'MedicalHistory');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body hlc-panel-body">                
+            @if (string.IsNullOrEmpty(Model.MedicalHistory))
+            {
+                <div class="text-center" >
+                    <em>No medical history entered.</em>
+                </div>
+            }
+            else
+            {
+                <p style="white-space: pre-line;">
+                    @Model.MedicalHistory
+                </p>
+            }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="TreatmentPlan" class="panel panel-primary">
+            <div class="panel-heading">
+                Treatment Plan
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('CaseFiles', '@Model.Id', 'TreatmentPlan');" class="hlc-panel-icon">
                         <i class="fa fa-edit" title="Edit"></i>
                     </a>
                 </span>
             </div>
             <div class="panel-body text-center hlc-panel-body">
-                <p style="white-space: pre-line;">
-                    @if (string.IsNullOrEmpty(Model.MedicalHistory))
-                    {
-                        <em>No medical history entered.</em>
-                    }
-                    else
-                    {
-                        @Model.MedicalHistory
-                    }
-                </p>
+            @if (string.IsNullOrEmpty(Model.TreatmentPlan))
+            {
+                <em>No treatment plan entered.</em>
+            }
+            else
+            {
+            <p style="white-space: pre-line;">
+                @Model.TreatmentPlan
+            </p>
+            }
             </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Treatment Plan</div>
-            @if (string.IsNullOrEmpty(Model.TreatmentPlan))
-            {
-                <div class="panel-body text-center">
-                    <em>No treatment plan entered.</em>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="PossibleStrategies" class="panel panel-primary">
+                <div class="panel-heading">
+                    Possible Strategies
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('CaseFiles', '@Model.Id', 'PossibleStrategies');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
                 </div>
-            }
-            else
-            {
-                <div class="panel-body text-center">
-                    <p style="white-space: pre-line;">
-                        @Model.TreatmentPlan
-                    </p>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Possible Strategies</div>
-            @if (string.IsNullOrEmpty(Model.PossibleStrategies))
-            {
-                <div class="panel-body text-center">
+                <div class="panel-body text-center hlc-panel-body">                    
+                @if (string.IsNullOrEmpty(Model.PossibleStrategies))
+                {
                     <em>No strategies entered.</em>
+                }
+                else
+                {
+                <p style="white-space: pre-line;">
+                    @Model.PossibleStrategies
+                </p>
+                }                    
                 </div>
-            }
-            else
-            {
-                <div class="panel-body text-center">
-                    <p style="white-space: pre-line;">
-                        @Model.PossibleStrategies
-                    </p>
-                </div>
-            }
+            </div>
         </div>
     </div>
-</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">
@@ -237,9 +250,28 @@
 </div>
 </div>
 <script>
-    function hlcEditText(controller, field) {
-        var title = $("#" + field + " > .panel-heading").text();
-        var initValue = "This is the initial value";
+    function hlcEditText(controller, id, field) {
+
+        var title = $("#" + field + " > .panel-heading").text().trim();
+        var initValue = $("#" + field + " > .panel-body > p").text().trim();
+
+        //$.ajax({
+        //    method: "POST",
+        //    url: "/api/" + controller + "/gettext",
+        //    data: { Id: id, FieldName: field, FieldText: null }
+        //})
+        //.done(function (msg) {
+        //    initValue = msg;
+        //})
+        //.fail(function (jqXhr) {
+        //    alert("An error occurred:<br>" + jqXhr.responseText);
+        //    return false;
+        //});
+
+        //alert(initValue);
+        console.log("title: " + title);
+        console.log("initValue: " + initValue);
+
         bootbox.prompt({
             title: title,
             className: "hlc-textarea",
@@ -247,19 +279,23 @@
             inputType: 'textarea',
             value: initValue,
             callback: function (result) {
-                $.ajax({
+                console.log("Bootbox returned: " + result);
+                if (result !== null) {
+                    $.ajax({
                         method: "POST",
                         url: "/api/" + controller + "/savetext",
-                        data: { fieldName: field, textValue: result }
+                        data: { Id: id, FieldName: field, FieldText: result }
                     })
                     .done(function (msg) {
-                        debugger;
+                        console.log("api returned: "+ msg)
                         $("#" + field + " > .panel-body").removeClass("text-center");
-                        $("#" + field + " > .panel-body p").text(result);
+                        $("#" + field + " > .panel-body").text(result);
                     })
                     .fail(function (jqXhr) {
                         alert(jqXhr.responseText);
                     });
+
+                }
             }
         });
     }
