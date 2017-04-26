@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using hlcWeb.Filters;
 using hlcWeb.Models;
-using hlcWeb.ViewModels;
 
 namespace hlcWeb.Controllers
 {
@@ -20,33 +18,23 @@ namespace hlcWeb.Controllers
             _practiceRepository = new Api.PracticesController();
         }
 
-        /// <summary>
-        /// Home page search for Doctors.  Accessed by the Search box or clicking a Rolodex button
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
         public PartialViewResult Search(string search)
         {
             var model = _doctorRepository.Search(search);
             return PartialView(model);
         }
 
-        /// <summary>
-        /// View detailed information for a doctor
-        /// </summary>
-        /// <param name="id">Doctor Id</param>
-        /// <returns></returns>
         public ActionResult View(int id)
         {
             var model = _doctorRepository.Get(id);
             return View(model);
         }
 
-        public ActionResult EditContact(int id)
+        public ActionResult EditInfo(int id)
         {
             //TODO: Add a DateEntered field.  Maybe switch back to using the Doctor class as the model
 
-            var viewModel= new DoctorContactViewModel();
+            var model= new Doctor();
 
             if (Session["PracticeSelectList"] == null)
             {
@@ -63,10 +51,10 @@ namespace hlcWeb.Controllers
 
             if (id == 0)
             {
-                viewModel.Attitude = Attitude.Unknown;
-                viewModel.Status = Status.NewlyIdentified;
-                viewModel.OriginalStatus = Status.NewlyIdentified;
-                //viewModel.StatusDate = DateTime.Now;
+                model.Attitude = Attitude.Unknown;
+                model.Status = Status.NewlyIdentified;
+                model.OriginalStatus = Status.NewlyIdentified;
+                //model.StatusDate = DateTime.Now;
             }
             else
             {
@@ -76,35 +64,37 @@ namespace hlcWeb.Controllers
                     return RedirectToAction("Search", "Home",
                            new {msg = $"DoctorId {id} was not found in the database."});
 
-                viewModel = Mapper.Map<DoctorContactViewModel>(doctor);
-                viewModel.OriginalStatus = doctor.Status;
+                //model = Mapper.Map<Doctor>(doctor);
+                model.OriginalStatus = doctor.Status;
             }
-            return View(viewModel);
+            return View(model);
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditContact(DoctorContactViewModel viewModel)
+        public ActionResult EditInfo(Doctor model)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.PracticeSelectList = Session["PracticeSelectList"];
-                return View(viewModel);
+                return View(model);
             }
 
-            var returnMsg = "There was an error updating this Doctor's information.";
+            //var returnMsg = "There was an error updating this Doctor's information.";
 
-            if (viewModel.Status != viewModel.OriginalStatus || viewModel.StatusDate == DateTime.MinValue)
-                viewModel.StatusDate = DateTime.Now;
+            if (model.Status != model.OriginalStatus || model.StatusDate == DateTime.MinValue)
+                model.StatusDate = DateTime.Now;
 
-            viewModel.DateLastUpdated = DateTime.Now;
-            viewModel.LastUpdatedBy = (Session["User"] as User)?.UserID;
+            model.DateLastUpdated = DateTime.Now;
+            model.LastUpdatedBy = (Session["User"] as User)?.UserID;
 
-            if (_doctorRepository.Save(viewModel))
-                returnMsg = $"Contact information for {viewModel.FirstName + " " + viewModel.LastName} was edited successfully.";
+            _doctorRepository.Save(model);
 
-            return RedirectToAction("View", new {id= viewModel.Id});
+            //if (_doctorRepository.Save(model))
+            //    returnMsg = $"Contact information for {model.FirstName + " " + model.LastName} was edited successfully.";
+
+            return RedirectToAction("View", new {id= model.Id});
         }
 
     }

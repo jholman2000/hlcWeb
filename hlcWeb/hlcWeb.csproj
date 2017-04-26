@@ -188,7 +188,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DoctorListViewModel.cs" />
-    <Compile Include="ViewModels\DoctorContactViewModel.cs" />
+    <Compile Include="ViewModels\DoctorViewModel.cs" />
     <Compile Include="ViewModels\HospitalViewModel.cs" />
     <Compile Include="ViewModels\LogonViewModel.cs" />
     <Compile Include="ViewModels\PracticeViewModel.cs" />
@@ -197,6 +197,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -325,7 +329,7 @@
     <Content Include="Views\Hospitals\View.cshtml" />
     <Content Include="Views\Shared\DoctorList.cshtml" />
     <Content Include="Views\Practices\View.cshtml" />
-    <Content Include="Views\Doctors\EditContact.cshtml" />
+    <Content Include="Views\Doctors\EditInfo.cshtml" />
     <Content Include="Views\Reports\DoctorsAddedRemoved.cshtml" />
     <Content Include="Views\Notes\View.cshtml" />
     <Content Include="Views\Notes\Edit.cshtml" />

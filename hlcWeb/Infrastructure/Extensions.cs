@@ -23,6 +23,12 @@ namespace hlcWeb.Infrastructure
             );
         }
 
+        public static string ToHtml(this string str)
+        {
+            str = str?.Replace("\n", "<br />");
+            return str;
+        }
+
         public static string EnumDisplayName(this Enum item)
         {
             var type = item.GetType();
@@ -36,10 +42,11 @@ namespace hlcWeb.Infrastructure
         {
             return value ? "check" : "close";
         }
-
+        
         public static string Icon(this string str)
         {
-           return str.ToUpper().StartsWith("NOT") ? "close" : "check";
+            // Check/X icon for strings that start with "Not..."
+            return str.ToUpper().StartsWith("NOT") ? "close" : "check";
         }
 
         public static string Not(this bool value)

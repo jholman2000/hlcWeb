@@ -136,17 +136,17 @@
                     </a>
                 </span>
             </div>
-            <div class="panel-body hlc-panel-body">                
+            <div class="panel-body" data-hlc-text="@Model.MedicalHistory">                
             @if (string.IsNullOrEmpty(Model.MedicalHistory))
             {
-                <div class="text-center" >
-                    <em>No medical history entered.</em>
-                </div>
+                <p>
+                    No medical history entered.
+                </p>
             }
             else
             {
-                <p style="white-space: pre-line;">
-                    @Model.MedicalHistory
+                <p>
+                    @Html.Raw(Model.MedicalHistory.ToHtml())
                 </p>
             }
             </div>
@@ -164,111 +164,115 @@
                     </a>
                 </span>
             </div>
-            <div class="panel-body text-center hlc-panel-body">
+            <div class="panel-body" data-hlc-text="@Model.TreatmentPlan">
             @if (string.IsNullOrEmpty(Model.TreatmentPlan))
             {
-                <em>No treatment plan entered.</em>
+                <p>
+                    No treatment plan entered.
+                </p>
             }
             else
             {
-            <p style="white-space: pre-line;">
-                @Model.TreatmentPlan
-            </p>
+                <p>
+                    @Html.Raw(Model.TreatmentPlan.ToHtml())
+                </p>
             }
             </div>
         </div>
     </div>
 </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="PossibleStrategies" class="panel panel-primary">
-                <div class="panel-heading">
-                    Possible Strategies
-                    <span class="pull-right hidden-print hidden-xs">
-                        <a href="#" onclick="hlcEditText('CaseFiles', '@Model.Id', 'PossibleStrategies');" class="hlc-panel-icon">
-                            <i class="fa fa-edit" title="Edit"></i>
-                        </a>
-                    </span>
-                </div>
-                <div class="panel-body text-center hlc-panel-body">                    
-                @if (string.IsNullOrEmpty(Model.PossibleStrategies))
+<div class="row">
+    <div class="col-md-12">
+        <div id="PossibleStrategies" class="panel panel-primary">
+            <div class="panel-heading">
+                Possible Strategies
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('CaseFiles', '@Model.Id', 'PossibleStrategies');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.PossibleStrategies">                    
+            @if (string.IsNullOrEmpty(Model.PossibleStrategies))
+            {
+                <p>
+                    No strategies entered.
+                </p>
+            }
+            else
+            {
+                    @Html.Raw(Model.PossibleStrategies.ToHtml())
+            }                    
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id ="ArticlesShared" class="panel panel-primary">
+            <div class="panel-heading">
+                Articles Shared
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('CaseFiles', '@Model.Id', 'ArticlesShared');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.ArticlesShared">                    
+                @if (string.IsNullOrEmpty(Model.ArticlesShared))
                 {
-                    <em>No strategies entered.</em>
+                    <p>
+                        No articles shared have been entered.
+                    </p>
                 }
                 else
                 {
-                <p style="white-space: pre-line;">
-                    @Model.PossibleStrategies
-                </p>
-                }                    
-                </div>
-            </div>
-        </div>
-    </div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Articles Shared</div>
-            @if (string.IsNullOrEmpty(Model.ArticlesShared))
-            {
-                <div class="panel-body text-center">
-                    <em>No articles entered.</em>
-                </div>
-            }
-            else
-            {
-                <div class="panel-body text-center">
-                    <p style="white-space: pre-line;">
-                        @Model.ArticlesShared
+                    <p>
+                        @Html.Raw(Model.ArticlesShared.ToHtml())
                     </p>
-                </div>
-            }
+                }                    
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Outcome</div>
-            @if (string.IsNullOrEmpty(Model.Outcome))
-            {
-                <div class="panel-body text-center">
-                    <em>No outcome entered.</em>
-                </div>
-            }
-            else
-            {
-                <div class="panel-body text-center">
-                    <p style="white-space: pre-line;">
-                        @Model.Outcome
+        <div id="Outcome" class="panel panel-primary">
+            <div class="panel-heading">
+                Outcome
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('CaseFiles', '@Model.Id', 'Outcome');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.Outcome">
+                @if (string.IsNullOrEmpty(Model.Outcome))
+                {
+                    <p>
+                        No outcome entered.
                     </p>
-                </div>
-            }
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.Outcome.ToHtml())
+                    </p>
+                }
+            </div>
         </div>
     </div>
 </div>
 </div>
 <script>
+    $(document).ready(function() {
+
+    });
+
     function hlcEditText(controller, id, field) {
 
         var title = $("#" + field + " > .panel-heading").text().trim();
-        var initValue = $("#" + field + " > .panel-body > p").text().trim();
-
-        //$.ajax({
-        //    method: "POST",
-        //    url: "/api/" + controller + "/gettext",
-        //    data: { Id: id, FieldName: field, FieldText: null }
-        //})
-        //.done(function (msg) {
-        //    initValue = msg;
-        //})
-        //.fail(function (jqXhr) {
-        //    alert("An error occurred:<br>" + jqXhr.responseText);
-        //    return false;
-        //});
-
-        //alert(initValue);
+        var initValue = $("#" + field + " > .panel-body").data("hlc-text");
         console.log("title: " + title);
         console.log("initValue: " + initValue);
 
@@ -278,22 +282,22 @@
             size: "large",
             inputType: 'textarea',
             value: initValue,
-            callback: function (result) {
+            callback: function(result) {
                 console.log("Bootbox returned: " + result);
                 if (result !== null) {
                     $.ajax({
-                        method: "POST",
-                        url: "/api/" + controller + "/savetext",
-                        data: { Id: id, FieldName: field, FieldText: result }
-                    })
-                    .done(function (msg) {
-                        console.log("api returned: "+ msg)
-                        $("#" + field + " > .panel-body").removeClass("text-center");
-                        $("#" + field + " > .panel-body").text(result);
-                    })
-                    .fail(function (jqXhr) {
-                        alert(jqXhr.responseText);
-                    });
+                            method: "POST",
+                            url: "/api/" + controller + "/savetext",
+                            data: { Id: id, FieldName: field, FieldText: result }
+                        })
+                        .done(function(msg) {
+                            console.log("api returned: " + msg);
+                            $("#" + field + " > .panel-body").html(result.replace(/(?:\r\n|\r|\n)/g, '<br />'));
+                            $("#" + field + " > .panel-body").data("hlc-text", result);
+                        })
+                        .fail(function(jqXhr) {
+                            alert(jqXhr.responseText);
+                        });
 
                 }
             }

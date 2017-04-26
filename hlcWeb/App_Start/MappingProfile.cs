@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using hlcWeb.Models;
 using hlcWeb.ViewModels;
+using Doctor = hlcWeb.ViewModels.DoctorViewModel;
 
 namespace hlcWeb.App_Start
 {
@@ -12,7 +13,7 @@ namespace hlcWeb.App_Start
     {
         public MappingProfile()
         {
-            Mapper.CreateMap<Doctor, DoctorContactViewModel>();
+            Mapper.CreateMap<Models.Doctor, Doctor>();
         }
     }
 }

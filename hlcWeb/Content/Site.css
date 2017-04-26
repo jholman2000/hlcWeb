@@ -117,10 +117,6 @@ i.hlc-brand {
 .hlc-list-group {
     padding: 5px 10px;
 }
-.hlc-panel-body {
-    padding: 10px;
-    /*white-space: pre-line;*/
-}
 .hlc-textarea textarea {
     height: 400px;
 }

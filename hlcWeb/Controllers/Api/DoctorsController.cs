@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-//using System.Web.Mvc;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
-using hlcWeb.ViewModels;
+//using System.Web.Mvc;
+
+//using Doctor = hlcWeb.ViewModels.Doctor;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -107,18 +108,14 @@ namespace hlcWeb.Controllers.Api
             return Ok(results);
         }
 
-        internal bool Save(DoctorContactViewModel model)
+        internal bool Save(Doctor model)
         {
-
             if (model.Id == 0)
             {
                 var x = Connection().Insert(model);
                 return x > 0;
             }
-            else
-            {
-                return Connection().Update(model);
-            }
+            return Connection().Update(model);
             //sql = "update hlc_DoctorNote set"
 
             //return ExecuteSql(sql);

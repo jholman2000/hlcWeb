@@ -55,7 +55,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2 control-label">Other diagnosis: </div>
             <div class="col-sm-8">
-                @Html.TextBoxFor(m => m.DiagnosisOther, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.DiagnosisOther, new { @class = "form-control", disabled = "disabled" })
             </div>
         </div>
         <div class="form-group">
@@ -104,7 +104,7 @@
         <div class="form-group hlc-pediatric-control">
             <div class="col-sm-offset-2 col-sm-2 control-label">If so, sought by </div>
             <div class="col-sm-8">
-                @Html.EnumDropDownListFor(m => m.CourtOrderSoughtBy, optionLabel: "Select...", htmlAttributes: new { @class = "form-control" })
+                @Html.EnumDropDownListFor(m => m.CourtOrderSoughtBy, optionLabel: "Select...", htmlAttributes: new { @class = "form-control", disabled = "disabled" })
             </div>
         </div>
 
@@ -204,54 +204,86 @@
 </div>
 @section scripts {
     <script>
-        $("form").submit(function(e) {
-            var form = $(this);
-            // Highlight errors
-            if (form.valid() === false) {
-                form.find("div.form-group").each(function() {
-                    if ($(this).find("span.field-validation-error").length > 0)
-                        $(this).addClass("has-error");
-                    if ($(this).find("span.field-validation-valid").length > 0)
-                        $(this).removeClass("has-error");
-                });
-            } else {
-                // Required fields passed.  Perform special checks. 
-                if ($("#DiagnosisId").val() === "0" && $("#DiagnosisOther").val().trim() === "") {
-                    bootbox.alert("<b>You did not enter anything in the Other Diagnosis box.</b>  " +
-                        "<br><br>You indicated you did not see the correct diagnosis in the list and " +
-                        "wish to create a new one.  Please review again carefully the existing list and " +
-                        "then enter a new diagnosis if needed.",
-                        function() { $("#DiagnosisOther").focus(); });
-                    e.preventDefault();
-                    return false;
-                }
-                if ($("#CourtOrderSought").prop('checked') && $("#CourtOrderSoughtBy").val() === "0") {
+        $(document).ready(function () {
 
-                    bootbox.alert("<b>You did not indicate who sought the court order.</b>" +
-                        "<br><br>" +
-                        "If you check the 'Court order was sought' checkbox you must select who " +
-                        "initiated the court order from the choices given.  If you do not see " +
-                        "the correct choice choose 'Other' and provide more information below.",
-                        function() { $("#CourtOrderSoughtBy").focus(); });
-                    e.preventDefault();
-                    return false;
+            $("#DiagnosisId").change(function () {
+                if ($(this).val() === "0") {
+                    $("#DiagnosisOther").prop("disabled", "");
+                } else {
+                    $("#DiagnosisOther").val("");
+                    $("#DiagnosisOther").prop("disabled", "disabled");
                 }
-                if ($("#CourtOrderSought").prop('checked') && !$("#CourtOrderGranted").prop('checked') &&
-                    $("#CourtOrderNotGrantedReason").val() === "0") {
+            });
 
-                    bootbox.alert("<b>You must indicate the reason not granted.</b>" +
-                        "<br><br>" +
-                        "If you check the Court order was sought checkbox and do NOT check the Court " +
-                        "order granted checkbox then you must select the reason it was not granted" +
-                        "from the choices given.  If you do not see the correct choice choose 'Other' " +
-                        "and provide more information below.",
-                        function () { $("#CourtOrderNotGrantedReason").focus(); });
-                    e.preventDefault();
-                    return false;
+            $("#CourtOrderSought").click(function() {
+                if ($(this).prop('checked')) {
+                    $("#CourtOrderSoughtBy").prop("disabled", "");
+                } else {                    
+                    $("#CourtOrderSoughtBy").val("0");
+                    $("#CourtOrderSoughtBy").prop("disabled","disabled");
                 }
-            }
-            return true;
+            });
+
+            $("#CourtOrderGranted").click(function () {
+                if ($(this).prop('checked')) {
+                    $("#CourtOrderNotGrantedReason").val("0");
+                    $("#CourtOrderNotGrantedReason").prop("disabled", "disabled");
+                } else {
+                    $("#CourtOrderNotGrantedReason").prop("disabled", "");
+                }
+            });
+
+            $("form").submit(function (e) {
+                var form = $(this);
+                // Highlight errors
+                if (form.valid() === false) {
+                    form.find("div.form-group").each(function () {
+                        if ($(this).find("span.field-validation-error").length > 0)
+                            $(this).addClass("has-error");
+                        if ($(this).find("span.field-validation-valid").length > 0)
+                            $(this).removeClass("has-error");
+                    });
+                } else {
+                    // Required fields passed.  Perform special checks. 
+                    if ($("#DiagnosisId").val() === "0" && $("#DiagnosisOther").val().trim() === "") {
+                        bootbox.alert("<b>You did not enter anything in the Other Diagnosis box.</b>  " +
+                            "<br><br>You indicated you did not see the correct diagnosis in the list and " +
+                            "wish to create a new one.  Please review again carefully the existing list and " +
+                            "then enter a new diagnosis if needed.",
+                            function () { $("#DiagnosisOther").focus(); });
+                        e.preventDefault();
+                        return false;
+                    }
+                    if ($("#CourtOrderSought").prop('checked') && $("#CourtOrderSoughtBy").val() === "0") {
+
+                        bootbox.alert("<b>You did not indicate who sought the court order.</b>" +
+                            "<br><br>" +
+                            "If you check the 'Court order was sought' checkbox you must select who " +
+                            "initiated the court order from the choices given.  If you do not see " +
+                            "the correct choice choose 'Other' and provide more information below.",
+                            function () { $("#CourtOrderSoughtBy").focus(); });
+                        e.preventDefault();
+                        return false;
+                    }
+                    if ($("#CourtOrderSought").prop('checked') && !$("#CourtOrderGranted").prop('checked') &&
+                        $("#CourtOrderNotGrantedReason").val() === "0") {
+
+                        bootbox.alert("<b>You must indicate the reason not granted.</b>" +
+                            "<br><br>" +
+                            "If you check the Court order was sought checkbox and do NOT check the Court " +
+                            "order granted checkbox then you must select the reason it was not granted" +
+                            "from the choices given.  If you do not see the correct choice choose 'Other' " +
+                            "and provide more information below.",
+                            function () { $("#CourtOrderNotGrantedReason").focus(); });
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+                return true;
+            });
+
         });
+
     </script>
-    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryval")
 }

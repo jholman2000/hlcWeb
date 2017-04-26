@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Dapper.Contrib.Extensions;
 
 namespace hlcWeb.Models
@@ -23,13 +25,48 @@ namespace hlcWeb.Models
         // hlc_Doctor fields
        
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
+
+        [Required]
+        [DisplayName("Practice")]
         public int PracticeId { get; set; }
+
+        [StringLength(12)]
+        [DisplayName("Mobile Phone")]
         public string MobilePhone { get; set; }
+
+        [StringLength(12)]
+        [DisplayName("Home Phone")]
         public string HomePhone { get; set; }
+
+        [StringLength(12)]
+        [DisplayName("Pager")]
         public string Pager { get; set; }
+
+        [StringLength(80)]
+        [DisplayName("Email Address")]
         public string EmailAddress { get; set; }
+
+        [DisplayName("Member of BSMP")]
+        // ReSharper disable once InconsistentNaming
+        public bool IsBSMP { get; set; }
+
+        [DisplayName("High Risk Pregnancy doctor")]
+        // ReSharper disable once InconsistentNaming
+        public bool IsHRP { get; set; }
+
+        [DisplayName("Peer review")]
+        public string PeerReview { get; set; }
+
         public Attitude Attitude { get; set; }
         public bool FavAdultEmergency { get; set; }
         public bool FavAdultNonEmergency { get; set; }
@@ -45,6 +82,13 @@ namespace hlcWeb.Models
         public string Docnotes { get; set; }
         public DateTime DateLastUpdated { get; set; }
         public string LastUpdatedBy { get; set; }
+
+        [Required]
+        [DisplayName("Status")]
+
+        [Computed]
+        public Status OriginalStatus { get; set; }
+
         public Status Status { get; set; }
         public DateTime StatusDate { get; set; }
         public YesNoUnknown RegContacted { get; set; }
@@ -53,12 +97,8 @@ namespace hlcWeb.Models
         public YesNoUnknown Helpful { get; set; }
         public int TreatYears { get; set; }
         // ReSharper disable once InconsistentNaming
-        public bool IsHRP { get; set; }         // High Risk Pregnancy
-        // ReSharper disable once InconsistentNaming
-        public bool IsBSMP { get; set; }        // Bloodless Surgery Management Program
-        public string PeerReview { get; set; }
-        public DateTime? DateAdded { get; set; }  // Per Mark Jones request 4/15/17
-        public string AddedBy { get; set; }
+        public DateTime? DateEntered { get; set; }  // Per Mark Jones request 4/15/17
+        public string EnteredBy { get; set; }
 
         #region Derived Fields
         [Computed]

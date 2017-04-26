@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 using hlcWeb.Controllers.Api;
 using hlcWeb.Filters;
@@ -107,11 +105,11 @@ namespace hlcWeb.Controllers
 
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CaseFile model)
         {
-            string returnMsg;
+            //string returnMsg;
 
             if (!ModelState.IsValid)
             {
@@ -146,8 +144,10 @@ namespace hlcWeb.Controllers
                 Session["DiagnosisSelectList"] = null;  // force refresh on next use
             }
 
-            if (_caseFileRepository.Save(model))
-                returnMsg = $"Case File for {model.FirstName + " " + model.LastName} was edited successfully.";
+            _caseFileRepository.Save(model);
+
+            //if (_caseFileRepository.Save(model)) 
+            //    returnMsg = $"Case File for {model.FirstName + " " + model.LastName} was edited successfully.";
 
             return RedirectToAction("View", new { id = model.Id });
         }
