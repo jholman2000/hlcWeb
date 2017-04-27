@@ -13,6 +13,7 @@ namespace hlcWeb.App_Start
         public MappingProfile()
         {
             Mapper.CreateMap<Models.Doctor, DoctorContactViewModel>();
+            Mapper.CreateMap<Models.Doctor, DoctorAttitudesViewModel>();
         }
     }
 }

@@ -1,0 +1,162 @@
+﻿@model hlcWeb.ViewModels.DoctorAttitudesViewModel
+
+@{
+    
+    ViewBag.Title = $"Doctor Attitudes";
+}
+<div class="well">
+    <i class="fa fa-user-md fa-2x fa-fw text-primary"></i> <span class="h3">Attitudes for @Model.FullName</span>
+</div>
+<div class="container">
+@using (Html.BeginForm("EditAttitudes", "Doctors", FormMethod.Post, new {@class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.DateEntered)
+    @Html.HiddenFor(m => m.EnteredBy)
+    @Html.HiddenFor(m => m.DateLastUpdated)
+    @Html.HiddenFor(m => m.LastUpdatedBy)
+
+    <div class="alert alert-info" role="alert">
+        Choose the most appropriate overall attitude for this Doctor and then check/select the supporting criteria below:
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Attitude, new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.EnumDropDownListFor(m => m.Attitude, optionLabel: "Select...", htmlAttributes: new { @class="form-control"})
+            @Html.ValidationMessageFor(m => m.Attitude)
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <label class="col-sm-3 control-label">Adults</label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.FavAdultEmergency)
+                    @Html.LabelFor(m => m.FavAdultEmergency, new {@class = "control-label"})
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.FavAdultNonEmergency)
+                    @Html.LabelFor(m => m.FavAdultNonEmergency, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.NotFavAdult)
+                    @Html.LabelFor(m => m.NotFavAdult, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.ConsultAdultEmergency)
+                    @Html.LabelFor(m => m.ConsultAdultEmergency, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <label class="col-sm-3 control-label">Children</label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.FavChildEmergency)
+                    @Html.LabelFor(m => m.FavChildEmergency, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.FavChildNonEmergency)
+                    @Html.LabelFor(m => m.FavChildNonEmergency, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.NotFavChild)
+                    @Html.LabelFor(m => m.NotFavChild, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.NotFavChild)
+                    @Html.LabelFor(m => m.NotFavChild, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group hlc-pediatric-control">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.ConsultChildEmergency)
+                    @Html.LabelFor(m => m.ConsultChildEmergency, new { @class = "control-label" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.RegContacted, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.EnumDropDownListFor(m => m.RegContacted, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.RegContacted)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SpecificallyKnown, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.EnumDropDownListFor(m => m.SpecificallyKnown, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SpecificallyKnown)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Helpful, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.EnumDropDownListFor(m => m.Helpful, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Helpful)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.FrequentlyTreat, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.EnumDropDownListFor(m => m.FrequentlyTreat, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FrequentlyTreat)
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+        </div>
+    </div>
+
+}
+</div>

@@ -33,6 +33,9 @@ body {
     user-select: none;
     cursor: default;
 }
+.well {
+    margin-top: 10px;
+}
 .dl-horizontal dt {
     white-space: normal;
 }

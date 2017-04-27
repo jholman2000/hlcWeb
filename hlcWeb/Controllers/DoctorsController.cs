@@ -34,10 +34,9 @@ namespace hlcWeb.Controllers
 
         public ActionResult EditContact(int id)
         {
-            //TODO: Add a DateEntered field.  Maybe switch back to using the Doctor class as the model
 
-            //var model= new Doctor();
-            var model = new DoctorContactViewModel();
+            var viewModel = new DoctorContactViewModel();
+
             if (Session["PracticeSelectList"] == null)
             {
                 var items = _practiceRepository.Search("")
@@ -53,9 +52,9 @@ namespace hlcWeb.Controllers
 
             if (id == 0)
             {
-                model.Attitude = Attitude.Unknown;
-                model.Status = Status.NewlyIdentified;
-                model.OriginalStatus = Status.NewlyIdentified;
+                viewModel.Attitude = Attitude.Unknown;
+                viewModel.Status = Status.NewlyIdentified;
+                viewModel.OriginalStatus = Status.NewlyIdentified;
             }
             else
             {
@@ -65,48 +64,71 @@ namespace hlcWeb.Controllers
                     return RedirectToAction("Search", "Home",
                            new {msg = $"DoctorId {id} was not found in the database."});
 
-                model = Mapper.Map<DoctorContactViewModel>(doctor);
-                model.OriginalStatus = doctor.Status;
+                viewModel = Mapper.Map<DoctorContactViewModel>(doctor);
+                viewModel.OriginalStatus = doctor.Status;
             }
-            return View(model);
+            return View(viewModel);
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditContact(DoctorContactViewModel model)
+        public ActionResult EditContact(DoctorContactViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.PracticeSelectList = Session["PracticeSelectList"];
-                return View(model);
+                return View(viewModel);
             }
 
             //var returnMsg = "There was an error updating this Doctor's information.";
 
-            if (model.Status != model.OriginalStatus || model.StatusDate == DateTime.MinValue)
-                model.StatusDate = DateTime.Now;
+            if (viewModel.Status != viewModel.OriginalStatus || viewModel.StatusDate == DateTime.MinValue)
+                viewModel.StatusDate = DateTime.Now;
 
-            if (model.Id == 0)
+            if (viewModel.Id == 0)
             {
-                model.DateEntered = DateTime.Now;
-                model.EnteredBy = Session["UserId"].ToString();
-                model.DateLastUpdated = model.DateEntered;
-                model.LastUpdatedBy = model.EnteredBy;
+                viewModel.DateEntered = DateTime.Now;
+                viewModel.EnteredBy = Session["UserId"].ToString();
+                viewModel.DateLastUpdated = viewModel.DateEntered;
+                viewModel.LastUpdatedBy = viewModel.EnteredBy;
             }
             else
             {
-                model.DateLastUpdated = DateTime.Now;
-                model.LastUpdatedBy = Session["UserId"].ToString();
+                viewModel.DateLastUpdated = DateTime.Now;
+                viewModel.LastUpdatedBy = Session["UserId"].ToString();
             }
 
-            _doctorRepository.SaveContact(model);
+            _doctorRepository.SaveContact(viewModel);
 
             //if (_doctorRepository.Save(model))
             //    returnMsg = $"Contact information for {model.FirstName + " " + model.LastName} was edited successfully.";
 
-            return RedirectToAction("View", new {id= model.Id});
+            return RedirectToAction("View", new {id= viewModel.Id});
         }
 
+        public ActionResult EditAttitudes(int id)
+        {
+            var viewModel = new DoctorAttitudesViewModel();
+
+            // Retrieve existing data and populate model
+            var doctor = _doctorRepository.Get(id);
+            if (doctor == null)
+                return RedirectToAction("Search", "Home",
+                    new { msg = $"DoctorId {id} was not found in the database." });
+
+            viewModel = Mapper.Map<DoctorAttitudesViewModel>(doctor);
+            //viewModel.OriginalStatus = doctor.Status;
+
+            return View(viewModel);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAttitudes(DoctorAttitudesViewModel viewModel)
+        {
+            return RedirectToAction("View", new { id = viewModel.Id });
+        }
     }
 }

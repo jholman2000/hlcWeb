@@ -5,8 +5,9 @@
 @{
     ViewBag.Title = "Doctor";
 }
-
-<h3><i class="fa fa-user-md fa-2x text-primary"></i> @Model.FullName</h3>
+<div class="well">
+    <i class="fa fa-user-md fa-2x fa-fw text-primary"></i><span class="h3"> @Model.FullName</span>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-sm-6">
@@ -83,7 +84,7 @@
                 <div class="panel-heading">
                     Attitudes
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="#" onclick="hlcEditAttitudes('@Model.Id');" class="hlc-panel-icon">
+                        <a href="@Url.Action("EditAttitudes","Doctors", new {id = Model.Id})" class="hlc-panel-icon">
                             <i class="fa fa-edit" title="Edit"></i>
                         </a>
                     </span>

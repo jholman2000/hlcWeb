@@ -187,6 +187,7 @@
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DoctorAttitudesViewModel.cs" />
     <Compile Include="ViewModels\DoctorListViewModel.cs" />
     <Compile Include="ViewModels\DoctorContactViewModel.cs" />
     <Compile Include="ViewModels\HospitalViewModel.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Views\CaseFiles\Search.cshtml" />
     <Content Include="Views\CaseFiles\View.cshtml" />
     <Content Include="Views\CaseFiles\Edit.cshtml" />
+    <Content Include="Views\Doctors\EditAttitudes.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
