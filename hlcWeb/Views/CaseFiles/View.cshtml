@@ -37,6 +37,13 @@
                     <td class="hlc-prompt">Patient:</td>
                     <td>@Model.PatientName</td>
                 </tr>
+                @if (Model.Age != null)
+                {
+                    <tr>
+                        <td class="hlc-prompt">Age:</td>
+                        <td>@Model.Age.ToString()</td>
+                    </tr>                    
+                }
                 <tr>
                     <td class="hlc-prompt">Congregation:</td>
                     <td>@Model.CongregationName</td>
@@ -265,10 +272,6 @@
 </div>
 </div>
 <script>
-    $(document).ready(function() {
-
-    });
-
     function hlcEditText(controller, id, field) {
 
         var title = $("#" + field + " > .panel-heading").text().trim();

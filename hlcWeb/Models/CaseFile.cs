@@ -40,11 +40,15 @@ namespace hlcWeb.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Age")]
+        public int? Age { get; set; }
+
         [Required]
         [StringLength(80)]
         [Display(Name="Congregation")]
         public string CongregationName { get; set; }
 
+        [Display(Name = "Pediatric")]
         public bool IsPediatricCase { get; set; }
         public bool CourtOrderSought { get; set; }
         public CourtOrderSoughtBy CourtOrderSoughtBy { get; set; }

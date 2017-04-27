@@ -39,6 +39,13 @@
             </div>
         </div>
         <div class="form-group">
+            @Html.LabelFor(m => m.Age, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Age, new { @class = "form-control", placeholder = "(Leave blank if unknown)" })
+                @*@Html.ValidationMessageFor(m => m.Age)*@
+            </div>
+        </div>
+        <div class="form-group">
             @Html.LabelFor(m => m.CongregationName, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.CongregationName, new {@class = "form-control"})
@@ -80,7 +87,7 @@
         </div>
 
         <div class="form-group hlc-pediatric-control">
-            <label for="IsPediatricCase" class="col-sm-2 control-label">Pediatric:</label>
+            @Html.LabelFor(m => m.IsPediatricCase, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 <div class="checkbox">
                     <label>
