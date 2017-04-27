@@ -123,6 +123,8 @@ namespace hlcWeb.Controllers
             {
                 model.DateEntered = DateTime.Now;
                 model.EnteredBy = Session["UserId"].ToString();
+                model.DateLastUpdated = model.DateEntered;
+                model.UpdatedBy = model.EnteredBy;
             }
             else
             {

@@ -86,8 +86,18 @@ namespace hlcWeb.Controllers
             if (model.Status != model.OriginalStatus || model.StatusDate == DateTime.MinValue)
                 model.StatusDate = DateTime.Now;
 
-            model.DateLastUpdated = DateTime.Now;
-            model.LastUpdatedBy = (Session["User"] as User)?.UserID;
+            if (model.Id == 0)
+            {
+                model.DateEntered = DateTime.Now;
+                model.EnteredBy = Session["UserId"].ToString();
+                model.DateLastUpdated = model.DateEntered;
+                model.LastUpdatedBy = model.EnteredBy;
+            }
+            else
+            {
+                model.DateLastUpdated = DateTime.Now;
+                model.LastUpdatedBy = Session["UserId"].ToString();
+            }
 
             _doctorRepository.Save(model);
 

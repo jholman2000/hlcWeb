@@ -19,7 +19,7 @@ namespace hlcWeb.Models
             Helpful = YesNoUnknown.Unknown;
             Specialties = new List<DoctorSpecialty>();
             Hospitals = new List<DoctorHospital>();
-            Notes = new List<DoctorNote>();
+            Comments = new List<DoctorNote>();
         }
 
         // hlc_Doctor fields
@@ -85,11 +85,11 @@ namespace hlcWeb.Models
 
         [Required]
         [DisplayName("Status")]
+        public Status Status { get; set; }
 
         [Computed]
         public Status OriginalStatus { get; set; }
 
-        public Status Status { get; set; }
         public DateTime StatusDate { get; set; }
         public YesNoUnknown RegContacted { get; set; }
         public YesNoUnknown SpecificallyKnown { get; set; }
@@ -97,7 +97,7 @@ namespace hlcWeb.Models
         public YesNoUnknown Helpful { get; set; }
         public int TreatYears { get; set; }
         // ReSharper disable once InconsistentNaming
-        public DateTime? DateEntered { get; set; }  // Per Mark Jones request 4/15/17
+        public DateTime DateEntered { get; set; }  // Per Mark Jones request 4/15/17
         public string EnteredBy { get; set; }
 
         #region Derived Fields
@@ -186,7 +186,7 @@ namespace hlcWeb.Models
         [Computed]
         public List<DoctorHospital> Hospitals { get; set; }
         [Computed]
-        public List<DoctorNote> Notes { get; set; }
+        public List<DoctorNote> Comments { get; set; }
         [Computed]
         public Practice Practice { get; set; }
     }

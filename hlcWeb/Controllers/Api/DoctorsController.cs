@@ -68,7 +68,7 @@ namespace hlcWeb.Controllers.Api
                 {
                     doctor.Specialties = multi.Read<DoctorSpecialty>().ToList();
                     doctor.Hospitals = multi.Read<DoctorHospital>().ToList();
-                    doctor.Notes = multi.Read<DoctorNote>().ToList();
+                    doctor.Comments = multi.Read<DoctorNote>().ToList();
                     doctor.Practice = multi.Read<Practice>().FirstOrDefault();
                 }
 
@@ -110,15 +110,22 @@ namespace hlcWeb.Controllers.Api
 
         internal bool Save(Doctor model)
         {
-            if (model.Id == 0)
+            try
             {
-                var x = Connection().Insert(model);
-                return x > 0;
+                if (model.Id == 0)
+                {
+                    var newId = Connection().Insert(model);
+                    return newId > 0;
+                }
+                else
+                {
+                    return Connection().Update(model);
+                }
             }
-            return Connection().Update(model);
-            //sql = "update hlc_DoctorNote set"
-
-            //return ExecuteSql(sql);
+            catch (System.Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

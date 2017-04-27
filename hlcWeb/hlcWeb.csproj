@@ -197,10 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
-    <Content Include="App_Data\hlcWeb_local.mdf" />
-    <Content Include="App_Data\hlcWeb_local_log.ldf">
-      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -276,6 +272,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="App_Data\hlcWeb_local.mdf.test" />
     <Content Include="Documents\Pediatric Questionnaire Form-Final.pdf" />
+    <Content Include="Documents\HLCScreens.doc" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

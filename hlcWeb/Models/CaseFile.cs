@@ -10,8 +10,8 @@ namespace hlcWeb.Models
         public CaseFile()
         {
             CaseDate = DateTime.Now;
-            //DateEntered = DateTime.Now;
-            //DateLastUpdated = DateTime.Now;
+            DateEntered = DateTime.MinValue;
+            DateLastUpdated = DateTime.MinValue;
             DiagnosisId = -1;
         }
 

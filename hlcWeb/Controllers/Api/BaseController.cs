@@ -35,6 +35,7 @@ namespace hlcWeb.Controllers.Api
             }
 
         }
+
         protected List<T> GetListFromSql<T>(string sql) where T: class
         {
             using (_conn)
@@ -136,6 +137,7 @@ namespace hlcWeb.Controllers.Api
                 return _conn.Execute(sql, commandType: CommandType.Text);
             }
         }
+
         protected void AddParameter(string name, object value)
         {
             if (string.IsNullOrEmpty(name))
@@ -173,5 +175,7 @@ namespace hlcWeb.Controllers.Api
  
              return connString;
          }
+
+        //TODO: Add method to write out exception to a table
     }
 }
