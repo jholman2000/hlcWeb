@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using hlcWeb.Filters;
 using hlcWeb.Models;
+using hlcWeb.ViewModels;
 
 namespace hlcWeb.Controllers
 {
@@ -30,12 +32,12 @@ namespace hlcWeb.Controllers
             return View(model);
         }
 
-        public ActionResult EditInfo(int id)
+        public ActionResult EditContact(int id)
         {
             //TODO: Add a DateEntered field.  Maybe switch back to using the Doctor class as the model
 
-            var model= new Doctor();
-
+            //var model= new Doctor();
+            var model = new DoctorContactViewModel();
             if (Session["PracticeSelectList"] == null)
             {
                 var items = _practiceRepository.Search("")
@@ -54,7 +56,6 @@ namespace hlcWeb.Controllers
                 model.Attitude = Attitude.Unknown;
                 model.Status = Status.NewlyIdentified;
                 model.OriginalStatus = Status.NewlyIdentified;
-                //model.StatusDate = DateTime.Now;
             }
             else
             {
@@ -64,7 +65,7 @@ namespace hlcWeb.Controllers
                     return RedirectToAction("Search", "Home",
                            new {msg = $"DoctorId {id} was not found in the database."});
 
-                //model = Mapper.Map<Doctor>(doctor);
+                model = Mapper.Map<DoctorContactViewModel>(doctor);
                 model.OriginalStatus = doctor.Status;
             }
             return View(model);
@@ -73,7 +74,7 @@ namespace hlcWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditInfo(Doctor model)
+        public ActionResult EditContact(DoctorContactViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -99,7 +100,7 @@ namespace hlcWeb.Controllers
                 model.LastUpdatedBy = Session["UserId"].ToString();
             }
 
-            _doctorRepository.Save(model);
+            _doctorRepository.SaveContact(model);
 
             //if (_doctorRepository.Save(model))
             //    returnMsg = $"Contact information for {model.FirstName + " " + model.LastName} was edited successfully.";

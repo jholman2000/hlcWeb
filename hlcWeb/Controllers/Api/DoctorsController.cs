@@ -5,6 +5,8 @@ using System.Web.Http;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
+using hlcWeb.ViewModels;
+
 //using System.Web.Mvc;
 
 //using Doctor = hlcWeb.ViewModels.Doctor;
@@ -68,7 +70,7 @@ namespace hlcWeb.Controllers.Api
                 {
                     doctor.Specialties = multi.Read<DoctorSpecialty>().ToList();
                     doctor.Hospitals = multi.Read<DoctorHospital>().ToList();
-                    doctor.Comments = multi.Read<DoctorNote>().ToList();
+                    doctor.DoctorNotes = multi.Read<DoctorNote>().ToList();
                     doctor.Practice = multi.Read<Practice>().FirstOrDefault();
                 }
 
@@ -108,7 +110,7 @@ namespace hlcWeb.Controllers.Api
             return Ok(results);
         }
 
-        internal bool Save(Doctor model)
+        internal bool SaveContact(DoctorContactViewModel model)
         {
             try
             {

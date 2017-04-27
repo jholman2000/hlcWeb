@@ -7,11 +7,13 @@ using hlcWeb.Models;
 namespace hlcWeb.ViewModels
 {
     [Table("hlc_Doctor")]
-    public class DoctorViewModel
+    public class DoctorContactViewModel
     {
         public int Id { get; set; }
         public DateTime DateLastUpdated { get; set; }
         public string LastUpdatedBy { get; set; }
+        public DateTime DateEntered { get; set; }  // Per Mark Jones request 4/15/17
+        public string EnteredBy { get; set; }
 
         [Required]
         [DisplayName("Status")]

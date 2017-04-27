@@ -19,7 +19,7 @@ namespace hlcWeb.Models
             Helpful = YesNoUnknown.Unknown;
             Specialties = new List<DoctorSpecialty>();
             Hospitals = new List<DoctorHospital>();
-            Comments = new List<DoctorNote>();
+            DoctorNotes = new List<DoctorNote>();
         }
 
         // hlc_Doctor fields
@@ -186,7 +186,7 @@ namespace hlcWeb.Models
         [Computed]
         public List<DoctorHospital> Hospitals { get; set; }
         [Computed]
-        public List<DoctorNote> Comments { get; set; }
+        public List<DoctorNote> DoctorNotes { get; set; }
         [Computed]
         public Practice Practice { get; set; }
     }

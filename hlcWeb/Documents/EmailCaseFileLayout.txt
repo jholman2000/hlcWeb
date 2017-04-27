@@ -41,7 +41,7 @@ CREATE TABLE [hlc_CaseFile] (
 [DateEntered] smalldatetime NULL ,
 [EnteredBy] varchar(12) NULL ,
 [DateLastUpdated] smalldatetime NULL ,
-[UpdatedBy] varchar(12) NULL ,
+[LastUpdatedBy] varchar(12) NULL ,
 [FirstName] varchar(50) NULL ,
 [LastName] varchar(50) NULL ,
 [Age] int NULL,
@@ -75,3 +75,12 @@ CREATE TABLE [hlc_Diagnosis] (
 [DateEntered] smalldatetime NULL ,
 [EnteredBy] varchar(12) NULL 
 )
+
+-- Modify existing hlc_Doctor
+ALTER TABLE hlc_Doctor ADD DateEntered DATETIME NULL DEFAULT GetDate();
+UPDATE hlc_Doctor SET DateEntered = DateLastUpdated;
+ALTER TABLE hlc_Doctor ADD EnteredBy varchar(12) NULL;
+UPDATE hlc_Doctor SET EnteredBy = LastUpdatedBy;
+
+
+Note to self:  Drop hlc_CaseFile and recreate (changed UpdatedBy to LastUpdatedBy)

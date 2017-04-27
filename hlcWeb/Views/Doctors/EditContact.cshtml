@@ -1,4 +1,4 @@
-﻿@model hlcWeb.Models.Doctor
+﻿@model hlcWeb.ViewModels.DoctorContactViewModel
 
 @{
     var action = (Model.Id == 0) ? "Add" : "Edit";
@@ -7,7 +7,7 @@
 
 <h3><i class="fa fa-user-md fa-2x text-primary"></i> @action Doctor</h3>
 <div class="container">
-    @using (Html.BeginForm("EditInfo", "Doctors", FormMethod.Post, new { @class="form-horizontal"}))
+    @using (Html.BeginForm("EditContact", "Doctors", FormMethod.Post, new { @class="form-horizontal"}))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
@@ -15,6 +15,8 @@
         @Html.HiddenFor(m => m.StatusDate)
         @Html.HiddenFor(m => m.DateEntered)
         @Html.HiddenFor(m => m.EnteredBy)
+        @Html.HiddenFor(m => m.DateLastUpdated)
+        @Html.HiddenFor(m => m.LastUpdatedBy)
 
         <div class="form-group">
             @Html.LabelFor(m => m.Status, new { @class = "col-sm-2 control-label" })

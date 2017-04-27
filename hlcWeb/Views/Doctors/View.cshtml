@@ -14,7 +14,7 @@
                 <div class="panel-heading">
                     Doctor information
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("EditInfo","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                        <a href="@Url.Action("EditContact","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
                     </span>
                 </div>
                 <table class="table table-condensed">
@@ -187,7 +187,7 @@
                 else
                 {
                     <table class="table table-condensed">
-                        @foreach (var n in Model.Notes)
+                        @foreach (var n in Model.DoctorNotes)
                         {
                             <tr>
                                 <td>
@@ -202,34 +202,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-
-    });
-
-    function hlcEditAttitudes(id) {
-
-        var title = "Doctor Attitudes";
-        var prompt = bootbox.prompt({
-            title: title,
-            inputType: 'checkbox',
-            inputOptions: [
-                {
-                    text: 'Favorable for Adults (Emergency)',
-                    value: 'FavAdultEmergency',
-                },
-                {
-                    text: 'Favorable for Adults (Emergency)',
-                    value: 'FavAdultNonEmergency',
-                },
-                {
-                    text: 'Choice Three',
-                    value: '3',
-                }
-            ],
-            callback: function (result) {
-                console.log(result);
-            }
-        });
-    }
-</script>
