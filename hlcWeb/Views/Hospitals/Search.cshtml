@@ -18,7 +18,7 @@
         @foreach (var hospital in @Model)
         {
             <tr class="js-click-row">
-                <td>@Html.ActionLink(hospital.HospitalName, "View", "Hospitals", new { id = hospital.ID }, null) </td>
+                <td>@Html.ActionLink(hospital.HospitalName, "View", "Hospitals", new { id = hospital.Id }, null) </td>
                 <td>@(hospital.City + (!string.IsNullOrEmpty(hospital.State)? " " + hospital.State : "") )</td>
                 <td>@hospital.NumberOfDoctors.ToString("N0")</td>
             </tr>

@@ -199,9 +199,6 @@
   <ItemGroup>
     <Content Include="apple-icon.png" />
     <Content Include="App_Data\hlcWeb_local.mdf" />
-    <Content Include="App_Data\hlcWeb_local_log.ldf">
-      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -339,6 +336,7 @@
     <Content Include="Views\CaseFiles\View.cshtml" />
     <Content Include="Views\CaseFiles\Edit.cshtml" />
     <Content Include="Views\Doctors\EditAttitudes.cshtml" />
+    <Content Include="Views\Hospitals\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

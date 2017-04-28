@@ -84,3 +84,8 @@ UPDATE hlc_Doctor SET EnteredBy = LastUpdatedBy;
 
 
 Note to self:  Drop hlc_CaseFile and recreate (changed UpdatedBy to LastUpdatedBy)
+
+CREATE TABLE [hlc_ErrorLog] (
+[DateEntered] smalldatetime NULL ,
+[]
+)

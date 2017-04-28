@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace hlcWeb.Models
 {
@@ -6,7 +7,11 @@ namespace hlcWeb.Models
     public class Hospital
     {
         public int Id { get; set; }
+
+        [Required]
+        [Display(Name ="Hospital Name")]
         public string HospitalName { get; set; }
+
         public string City { get; set; }
         public string State { get; set; }
         public int CommitteeID { get; set; }
@@ -27,6 +32,8 @@ namespace hlcWeb.Models
         public string BSMPHomePhone { get; set; }
         public string BSMPMobilePhone { get; set; }
         public string BSMPNotes { get; set; }
+
+        [Computed]
         public int NumberOfDoctors { get; set; }
     }
 }

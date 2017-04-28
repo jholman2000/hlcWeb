@@ -8,10 +8,6 @@ using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 using hlcWeb.ViewModels;
 
-//using System.Web.Mvc;
-
-//using Doctor = hlcWeb.ViewModels.Doctor;
-
 namespace hlcWeb.Controllers.Api
 {
     public class DoctorsController : BaseController
