@@ -128,6 +128,16 @@ namespace hlcWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditAttitudes(DoctorAttitudesViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            viewModel.DateLastUpdated = DateTime.Now;
+            viewModel.LastUpdatedBy = Session["UserId"].ToString();
+
+            _doctorRepository.SaveAttitudes(viewModel);
+
             return RedirectToAction("View", new { id = viewModel.Id });
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -111,6 +112,26 @@ namespace hlcWeb.Controllers.Api
         }
 
         internal bool SaveContact(DoctorContactViewModel model)
+        {
+            try
+            {
+                if (model.Id == 0)
+                {
+                    var newId = Connection().Insert(model);
+                    return newId > 0;
+                }
+                else
+                {
+                    return Connection().Update(model);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
+        }
+
+        internal bool SaveAttitudes(DoctorAttitudesViewModel model)
         {
             try
             {
