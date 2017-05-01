@@ -95,4 +95,17 @@ namespace hlcWeb.Models
         [Display(Name = "Other")]
         Other = 99
     }
+
+    public enum HospitalType
+    {
+        Unknown = 0,
+        ChildrensHospital = 1,
+        Level1TraumaCenter = 2,
+        Level2TraumaCenter = 3,
+        Level3TraumaCenter = 4,
+        PublicHospital = 5,
+        UniversityHospital = 6,
+        SpecializedCare = 7,
+        Other = 9,
+    }
 }

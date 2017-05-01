@@ -33,6 +33,13 @@ namespace hlcWeb.Models
         public string BSMPMobilePhone { get; set; }
         public string BSMPNotes { get; set; }
 
+        public HospitalType HospitalType { get; set; }
+        public string CoordName { get; set; }
+        public string CoordPhone { get; set; }
+        public bool CoordIsWitness { get; set; }
+        public string BSMPCommitment { get; set; }
+        public string BSMPPhone { get; set; }
+
         [Computed]
         public int NumberOfDoctors { get; set; }
     }
