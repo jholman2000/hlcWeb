@@ -109,15 +109,13 @@ namespace hlcWeb.Controllers
 
         public ActionResult EditAttitudes(int id)
         {
-            var viewModel = new DoctorAttitudesViewModel();
-
             // Retrieve existing data and populate model
             var doctor = _doctorRepository.Get(id);
             if (doctor == null)
                 return RedirectToAction("Search", "Home",
                     new { msg = $"DoctorId {id} was not found in the database." });
 
-            viewModel = Mapper.Map<DoctorAttitudesViewModel>(doctor);
+            var viewModel = Mapper.Map<DoctorAttitudesViewModel>(doctor);
             //viewModel.OriginalStatus = doctor.Status;
 
             return View(viewModel);

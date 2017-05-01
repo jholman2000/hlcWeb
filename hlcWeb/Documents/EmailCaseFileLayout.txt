@@ -89,3 +89,12 @@ CREATE TABLE [hlc_ErrorLog] (
 [DateEntered] smalldatetime NULL ,
 []
 )
+
+ALTER TABLE hlc_Hospital ADD HospitalType int NULL;
+ALTER TABLE hlc_Hospital ADD HasPediatrics bit NULL DEFAULT ((0));
+ALTER TABLE hlc_Hospital ADD BSMPCoordName varchar(80) NULL;
+ALTER TABLE hlc_Hospital ADD BSMPCoordPhone varchar(12) NULL;
+ALTER TABLE hlc_Hospital ADD BSMPCoordIsWitness bit NULL DEFAULT ((0));
+ALTER TABLE hlc_Hospital ADD BSMPCommitment varchar(5000) NULL;
+ALTER TABLE hlc_Hospital ADD BSMPPhone varchar(12) NULL;
+ALTER TABLE hlc_Hospital ADD BSMPNumberOfDoctors int NULL;

@@ -5,7 +5,7 @@
 }
 
 <div class="well">
-    <i class="fa hospital-o fa-2x fa-fw text-primary"></i><span class="h3"> @action Doctor</span>
+    <i class="fa fa-hospital-o fa-2x fa-fw text-primary"></i><span class="h3"> @action Hospital</span>
 </div>
 <div class="container">
     @using (Html.BeginForm("Edit", "Hospitals", FormMethod.Post, new { @class = "form-horizontal" }))
@@ -18,6 +18,29 @@
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.Hospital.HospitalName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Hospital.HospitalName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Hospital.Address1, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Hospital.Address1, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                @Html.TextBoxFor(m => m.Hospital.Address2, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Hospital.City, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Hospital.City, new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Hospital.State, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Hospital.State, new { @class = "form-control", style = "width:60px;" })
             </div>
         </div>
 
