@@ -116,14 +116,12 @@ namespace hlcWeb.Controllers.Api
                     var newId = Connection.Insert(model);
                     return newId > 0;
                 }
-                else
-                {
-                    return Connection.Update(model);
-                }
+                return Connection.Update(model);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw;
+                LogException(ex, model);
+                return false;
             }
         }
 

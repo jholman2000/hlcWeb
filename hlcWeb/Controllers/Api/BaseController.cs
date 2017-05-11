@@ -6,7 +6,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 using Dapper;
+using Dapper.Contrib.Extensions;
+
+//using Microsoft.SqlServer.Server;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -21,13 +25,7 @@ namespace hlcWeb.Controllers.Api
             _parameters = new Dictionary<string, object>();
         }
 
-        protected SqlConnection Connection
-        {
-            get
-            {
-                return _conn;
-            }
-        }
+        protected SqlConnection Connection => _conn;
 
         private string GetConnectionString()
         {
@@ -55,6 +53,8 @@ namespace hlcWeb.Controllers.Api
 
             return connString;
         }
+
+        #region Generic SQL calls
 
         protected T GetMemberFromSql<T>(string sql) where T : class
         {
@@ -181,7 +181,40 @@ namespace hlcWeb.Controllers.Api
             _parameters.Clear();
         }
 
+        #endregion
 
-        //TODO: Add method to write out exception to a table
+        #region Exception processing
+
+        protected void LogException(Exception ex, object data = null)
+        {
+            try
+            {
+                var json = new JavaScriptSerializer().Serialize(data);
+
+                var error = new HlcError()
+                {
+                    DateError = DateTime.Now,
+                    Message = ex.Message.Length < 5000 ? ex.Message : ex.Message.Substring(0, 5000),
+                    Data = json.Length < 5000 ? json : json.Substring(0,5000),
+                    StackTrace = ex.StackTrace.Length < 5000 ? ex.StackTrace : ex.StackTrace.Substring(0,5000)
+                };
+
+                _conn.Insert(error);
+            }
+            catch (Exception xex)
+            {
+                // ignored
+            }
+        }
+        #endregion
+    }
+
+    [Table("hlc_ErrorLog")]
+    internal class HlcError
+    {
+        public DateTime DateError { get; set; }
+        public string Message { get; set; }
+        public string Data { get; set; }
+        public string StackTrace { get; set; }
     }
 }

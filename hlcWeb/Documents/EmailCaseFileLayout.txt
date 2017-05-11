@@ -85,11 +85,6 @@ UPDATE hlc_Doctor SET EnteredBy = LastUpdatedBy;
 
 Note to self:  Drop hlc_CaseFile and recreate (changed UpdatedBy to LastUpdatedBy)
 
-CREATE TABLE [hlc_ErrorLog] (
-[DateEntered] smalldatetime NULL ,
-[]
-)
-
 ALTER TABLE hlc_Hospital ADD HospitalType int NULL;
 ALTER TABLE hlc_Hospital ADD HasPediatrics bit NULL DEFAULT ((0));
 ALTER TABLE hlc_Hospital ADD BSMPCoordName varchar(80) NULL;
@@ -98,3 +93,10 @@ ALTER TABLE hlc_Hospital ADD BSMPCoordIsWitness bit NULL DEFAULT ((0));
 ALTER TABLE hlc_Hospital ADD BSMPCommitment varchar(5000) NULL;
 ALTER TABLE hlc_Hospital ADD BSMPPhone varchar(12) NULL;
 ALTER TABLE hlc_Hospital ADD BSMPNumberOfDoctors int NULL;
+
+CREATE TABLE [hlc_ErrorLog] (
+[DateError] smalldatetime NULL ,
+[Message] varchar(5000) NULL,
+[Data] varchar(5000) NULL,
+[StackTrace] varchar(50000) NULL
+)
