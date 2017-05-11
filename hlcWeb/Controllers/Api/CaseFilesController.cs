@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Dapper.Contrib.Extensions;
@@ -57,19 +56,19 @@ namespace hlcWeb.Controllers.Api
         {
             if (model.Id == 0)
             {
-                var newId = Connection().Insert(model);
+                var newId = Connection.Insert(model);
                 return newId > 0;
             }
             else
             {
-                return Connection().Update(model);
+                return Connection.Update(model);
             }
         }
 
         #region Free-form text edit functions
         [HttpPost]
         [Route("api/casefiles/gettext")]
-        public string getText(SaveTextDto text) 
+        public string GetText(SaveTextDto text) 
         {
             var sql = $"select {text.FieldName} as FieldText from hlc_CaseFile where Id={text.Id}";
 

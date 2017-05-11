@@ -40,6 +40,11 @@ namespace hlcWeb.Models
         //[DisplayName("Practice")]
         public int PracticeId { get; set; }
 
+        [Computed]
+        public string PracticeName { get; set; }
+        [Computed]
+        public string OfficePhone1 { get; set; }
+
         //[StringLength(12)]
         //[DisplayName("Mobile Phone")]
         public string MobilePhone { get; set; }

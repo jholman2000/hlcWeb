@@ -44,7 +44,7 @@ namespace hlcWeb.Controllers.Api
         {
             var model = new PracticeViewModel();
 
-            using (var conn = Connection())
+            using (var conn = Connection)
             {
                 var sql = $"select * from hlc_Practice where ID={id};" +
                           "select d.id, d.FirstName + ' ' + d.LastName as DoctorName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +

@@ -1,5 +1,4 @@
-﻿using hlcWeb.Models;
-using hlcWeb.ViewModels.Reports;
+﻿using hlcWeb.ViewModels.Reports;
 using System;
 using System.Collections.Generic;
 

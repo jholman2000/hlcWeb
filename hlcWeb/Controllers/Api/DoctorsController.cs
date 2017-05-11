@@ -51,7 +51,7 @@ namespace hlcWeb.Controllers.Api
         /// <returns></returns>
         public Doctor Get(int id)
         {
-            using (var conn = Connection())
+            using (var conn = Connection)
             {
                 var sql = $"select * from hlc_Doctor where ID={id};" +
                           $"select ds.*, s.SpecialtyName from hlc_DoctorSpecialty ds left join hlc_Specialty s on s.ID = ds.SpecialtyID where ds.DoctorID = {id} order by SpecialtyName;" +
@@ -80,7 +80,7 @@ namespace hlcWeb.Controllers.Api
 
         public void Update(Doctor doctor)
         {
-            using (var conn = Connection())
+            using (var conn = Connection)
             {
                 conn.Update(doctor);
             }
@@ -113,12 +113,12 @@ namespace hlcWeb.Controllers.Api
             {
                 if (model.Id == 0)
                 {
-                    var newId = Connection().Insert(model);
+                    var newId = Connection.Insert(model);
                     return newId > 0;
                 }
                 else
                 {
-                    return Connection().Update(model);
+                    return Connection.Update(model);
                 }
             }
             catch (System.Exception ex)
@@ -133,12 +133,12 @@ namespace hlcWeb.Controllers.Api
             {
                 if (model.Id == 0)
                 {
-                    var newId = Connection().Insert(model);
+                    var newId = Connection.Insert(model);
                     return newId > 0;
                 }
                 else
                 {
-                    return Connection().Update(model);
+                    return Connection.Update(model);
                 }
             }
             catch (System.Exception ex)

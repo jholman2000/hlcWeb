@@ -1,22 +1,31 @@
-﻿@model List<hlcWeb.ViewModels.DoctorListViewModel>
+﻿@using hlcWeb.Infrastructure
+@model List<hlcWeb.Models.Doctor>
 <table class="table table-condensed table-striped table-hover">
     <thead>
     <tr>
         <th>Doctor</th>
+        <th>Attitude</th>
         <th>Practice</th>
         <th class="hidden-xs">Office Phone</th>
     </tr>                        
     </thead>
     <tbody>
-    @foreach (var d in Model)
+    @foreach (var doctor in Model)
     {
         <tr class="js-click-row">
-            <td>@Html.ActionLink(d.DoctorName, "View", "Doctors", new { id = d.Id }, null) </td>
+            <td>@Html.ActionLink(doctor.FullName, "View", "Doctors", new { id = doctor.Id }, null) </td>
             <td>
-                @d.PracticeName
-                <span class="visible-xs"><a href="tel:@d.OfficePhone1">@d.OfficePhone1</a></span>
+                <span class="@doctor.AttitudeText fa-stack">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa @doctor.AttitudeIcon fa-stack-1x fa-inverse" title="@doctor.AttitudeText"></i>
+                </span>
+                <span class="hidden-xs" style="width:100px;text-align:left">@doctor.AttitudeText.SplitCamelCase()</span>
             </td>
-            <td class="hidden-xs hlc-table-phone"><a href="tel:@d.OfficePhone1">@d.OfficePhone1</a></td>
+            <td>
+                @doctor.PracticeName
+                <span class="visible-xs"><a href="tel:@doctor.OfficePhone1">@doctor.OfficePhone1</a></span>
+            </td>
+            <td class="hidden-xs hlc-table-phone"><a href="tel:@doctor.OfficePhone1">@doctor.OfficePhone1</a></td>
         </tr>
     }
     </tbody>

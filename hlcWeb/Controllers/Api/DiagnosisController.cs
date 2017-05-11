@@ -46,12 +46,12 @@ namespace hlcWeb.Controllers.Api
         {
             if (model.Id == 0)
             {
-                var x = Connection().Insert(model);
+                var x = Connection.Insert(model);
                 return x > 0;
             }
             else
             {
-                return Connection().Update(model);
+                return Connection.Update(model);
             }
 
         }

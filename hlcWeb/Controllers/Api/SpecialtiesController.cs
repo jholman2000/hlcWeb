@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Dapper;
 using hlcWeb.Models;
@@ -40,10 +39,10 @@ namespace hlcWeb.Controllers.Api
         internal SpecialtyViewModel Get(int id)
         {
             var model = new SpecialtyViewModel();
-            using (var conn = Connection())
+            using (var conn = Connection)
             {
                 var sql = $"select * from hlc_Specialty where ID={id};" +
-                          "select d.id, d.FirstName + ' ' +d.LastName as DoctorName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +
+                          "select d.id, d.FirstName, d.LastName, d.MobilePhone, d.Attitude, p.PracticeName, p.OfficePhone1 " +
                           "from hlc_DoctorSpecialty ds " +
                           "left join hlc_Doctor d on d.ID = ds.DoctorID " +
                           "left join hlc_Practice p on p.ID = d.PracticeID " +
@@ -54,7 +53,8 @@ namespace hlcWeb.Controllers.Api
                 var multi = conn.QueryMultiple(sql);
 
                 model.Specialty = multi.Read<Specialty>().FirstOrDefault();
-                model.Doctors = multi.Read<DoctorListViewModel>().ToList();
+                //model.Doctors = multi.Read<DoctorListViewModel>().ToList();
+                model.Doctors = multi.Read<Doctor>().ToList();
             }
             return model;
         }

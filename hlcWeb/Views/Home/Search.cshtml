@@ -10,37 +10,6 @@
             <div class="alert alert-info">@ViewBag.Message</div>
         </div>
     }
-    @*Rolodex buttons -- hidden for mobile*@
-    @*<div class="row hidden-xs hlc-div-center">
-        <div class="col-md-12">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary js-search-btn">A</button>
-                <button type="button" class="btn btn-primary js-search-btn">B</button>
-                <button type="button" class="btn btn-primary js-search-btn">C</button>
-                <button type="button" class="btn btn-primary js-search-btn">D</button>
-                <button type="button" class="btn btn-primary js-search-btn">E</button>
-                <button type="button" class="btn btn-primary js-search-btn">F</button>
-                <button type="button" class="btn btn-primary js-search-btn">G</button>
-                <button type="button" class="btn btn-primary js-search-btn">H</button>
-                <button type="button" class="btn btn-primary js-search-btn">I</button>
-                <button type="button" class="btn btn-primary js-search-btn">J</button>
-                <button type="button" class="btn btn-primary js-search-btn">K</button>
-                <button type="button" class="btn btn-primary js-search-btn">L</button>
-                <button type="button" class="btn btn-primary js-search-btn">M</button>
-                <button type="button" class="btn btn-primary js-search-btn">N</button>
-                <button type="button" class="btn btn-primary js-search-btn">O</button>
-                <button type="button" class="btn btn-primary js-search-btn">P</button>
-                <button type="button" class="btn btn-primary js-search-btn">Q</button>
-                <button type="button" class="btn btn-primary js-search-btn">R</button>
-                <button type="button" class="btn btn-primary js-search-btn">S</button>
-                <button type="button" class="btn btn-primary js-search-btn">T</button>
-                <button type="button" class="btn btn-primary js-search-btn">U</button>
-                <button type="button" class="btn btn-primary js-search-btn">V</button>
-                <button type="button" class="btn btn-primary js-search-btn">W</button>
-                <button type="button" class="btn btn-primary js-search-btn">XYZ</button>
-            </div>
-        </div>
-    </div>*@
     @*Search box -- User can switch what is searched via the dropdown button*@
     <div class="row">
         <div class="col-md-12">
@@ -136,45 +105,45 @@
         }
 
         function DoSearch(searchStr) {
-            var url = "";
-            var activeIcon = $("#search-active-icon").data("search-icon");
-            localStorage.HLC_SearchIcon = activeIcon;
-            localStorage.HLC_SearchStr = searchStr;
-            switch (activeIcon) {
-            case 'fa-user-md':
-                url = "@Url.Action("Search", "Doctors")";
-                break;
-            case 'fa-address-card-o':
-                url = "@Url.Action("Search", "CaseFiles")";
-                break;
-            case 'fa-stethoscope':
-                url = "@Url.Action("Search", "Specialties")";
-                break;
-            case 'fa-hospital-o':
-                url = "@Url.Action("Search", "Hospitals")";
-                break;
-            case 'fa-medkit':
-                url = "@Url.Action("Search", "Practices")";
-                break;
-            case 'fa-comment-o':
-                url = "@Url.Action("Search", "Notes")";
-                break;
-            default:
+            if (searchStr.length > 2) {
+                var url = "";
+                var activeIcon = $("#search-active-icon").data("search-icon");
+                localStorage.HLC_SearchIcon = activeIcon;
+                localStorage.HLC_SearchStr = searchStr;
+                switch (activeIcon) {
+                case 'fa-user-md':
+                    url = "@Url.Action("Search", "Doctors")";
+                    break;
+                case 'fa-address-card-o':
+                    url = "@Url.Action("Search", "CaseFiles")";
+                    break;
+                case 'fa-stethoscope':
+                    url = "@Url.Action("Search", "Specialties")";
+                    break;
+                case 'fa-hospital-o':
+                    url = "@Url.Action("Search", "Hospitals")";
+                    break;
+                case 'fa-medkit':
+                    url = "@Url.Action("Search", "Practices")";
+                    break;
+                case 'fa-comment-o':
+                    url = "@Url.Action("Search", "Notes")";
+                    break;
+                default:
+                }
+                $.ajax({
+                        method: "POST",
+                        url: url,
+                        data: { search: searchStr }
+                    })
+                    .done(function(msg) {
+                        $("#doctorlist").html(msg);
+                    })
+                    .fail(function(jqXhr) {
+                        $("#doctorlist").html(jqXhr.responseText);
+                    });                
             }
-            $.ajax({
-                    method: "POST",
-                    url: url,
-                    data: { search: searchStr }
-                })
-                .done(function(msg) {
-                    $("#doctorlist").html(msg);
-                })
-                .fail(function(jqXhr) {
-                    $("#doctorlist").html(jqXhr.responseText);
-                });
-
         }
-
     </script>    
     
 }

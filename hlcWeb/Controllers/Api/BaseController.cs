@@ -21,9 +21,39 @@ namespace hlcWeb.Controllers.Api
             _parameters = new Dictionary<string, object>();
         }
 
-        protected SqlConnection Connection()
+        protected SqlConnection Connection
         {
-            return _conn;
+            get
+            {
+                return _conn;
+            }
+        }
+
+        private string GetConnectionString()
+        {
+            ObjectCache cache = MemoryCache.Default;
+            var connString = cache["HLCConnection"]?.ToString();
+
+            if (string.IsNullOrEmpty(connString))
+            {
+                // To develop against the local .mdf, set an APP_ENVIRONMENT=DEV environment variable in Windows and 
+                // change the path below
+                var environment = Environment.GetEnvironmentVariable("APP_ENVIRONMENT");
+                switch (environment)
+                {
+                    case "DEV":
+                        connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
+                        break;
+
+                    default:
+                        connString = @"Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015";
+                        break;
+                }
+
+                cache.Add("HLCConnection", connString, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+            }
+
+            return connString;
         }
 
         protected T GetMemberFromSql<T>(string sql) where T : class
@@ -151,30 +181,6 @@ namespace hlcWeb.Controllers.Api
             _parameters.Clear();
         }
 
-        protected string GetConnectionString()
-       {
-           ObjectCache cache = MemoryCache.Default;
-             var connString = cache["HLCConnection"]?.ToString();
- 
-             if (string.IsNullOrEmpty(connString))
-             {
-                 var environment = Environment.GetEnvironmentVariable("APP_ENVIRONMENT");
-                 switch (environment)
-                 {
-                     case "DEV":
-                         connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
-                         break;
-
-                     default:
-                         connString = @"Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015";
-                         break;
-                 }
- 
-                 cache.Add("HLCConnection", connString, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
-             }
- 
-             return connString;
-         }
 
         //TODO: Add method to write out exception to a table
     }

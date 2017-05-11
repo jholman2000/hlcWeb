@@ -46,12 +46,12 @@ namespace hlcWeb.Controllers.Api
 
             if (note.Id == 0)
             {
-                var x = Connection().Insert(note);
+                var x = Connection.Insert(note);
                 return x > 0;
             }
             else
             {
-                return Connection().Update(note);
+                return Connection.Update(note);
             }
             //sql = "update hlc_DoctorNote set"
             
