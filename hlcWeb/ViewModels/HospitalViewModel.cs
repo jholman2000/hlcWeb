@@ -9,6 +9,6 @@ namespace hlcWeb.ViewModels
     public class HospitalViewModel
     {
         public Hospital Hospital { get; set; }
-        public List<DoctorListViewModel> Doctors { get; set; }
+        public List<Doctor> Doctors { get; set; }
     }
 }

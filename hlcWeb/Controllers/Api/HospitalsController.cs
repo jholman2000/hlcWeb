@@ -35,7 +35,7 @@ namespace hlcWeb.Controllers.Api
             using (var conn = Connection)
             {
                 var sql = $"select * from hlc_Hospital where ID={id};" +
-                          "select d.id, d.FirstName + ' ' + d.LastName as DoctorName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +
+                          "select d.id, d.FirstName, d.LastName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +
                           "from hlc_DoctorHospital dh " +
                           "left join hlc_Doctor d on d.ID = dh.DoctorID " +
                           "left join hlc_Practice p on p.ID = d.PracticeID " +
@@ -46,7 +46,7 @@ namespace hlcWeb.Controllers.Api
                 var multi = conn.QueryMultiple(sql);
 
                 model.Hospital = multi.Read<Hospital>().FirstOrDefault();
-                model.Doctors = multi.Read<DoctorListViewModel>().ToList();
+                model.Doctors = multi.Read<Doctor>().ToList();
             }
             return model;
         }

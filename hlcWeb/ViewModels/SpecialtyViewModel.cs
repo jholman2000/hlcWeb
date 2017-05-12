@@ -9,7 +9,6 @@ namespace hlcWeb.ViewModels
     public class SpecialtyViewModel
     {
         public Specialty Specialty { get; set; }
-        //public List<DoctorListViewModel> Doctors { get; set; }
         public List<Doctor> Doctors { get; set; }
     }
 }
