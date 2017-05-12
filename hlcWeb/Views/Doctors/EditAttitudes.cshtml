@@ -29,7 +29,7 @@
             @Html.ValidationMessageFor(m => m.Attitude)
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <label class="col-sm-3 control-label">Adults</label>
         <div class="col-sm-9">
             <div class="checkbox">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
@@ -70,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <label class="col-sm-3 control-label">Children</label>
         <div class="col-sm-9">
             <div class="checkbox">
@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
@@ -101,7 +101,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
@@ -111,7 +111,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group hlc-pediatric-control">
+    <div class="form-group hlc-control">
         <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
@@ -127,28 +127,24 @@
         @Html.LabelFor(m => m.RegContacted, new { @class = "col-sm-4 control-label" })
         <div class="col-sm-8">
             @Html.EnumDropDownListFor(m => m.RegContacted, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.RegContacted)
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.SpecificallyKnown, new { @class = "col-sm-4 control-label" })
         <div class="col-sm-8">
             @Html.EnumDropDownListFor(m => m.SpecificallyKnown, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.SpecificallyKnown)
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Helpful, new { @class = "col-sm-4 control-label" })
         <div class="col-sm-8">
             @Html.EnumDropDownListFor(m => m.Helpful, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Helpful)
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.FrequentlyTreat, new { @class = "col-sm-4 control-label" })
         <div class="col-sm-8">
             @Html.EnumDropDownListFor(m => m.FrequentlyTreat, optionLabel: "Please answer...", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FrequentlyTreat)
         </div>
     </div>
 

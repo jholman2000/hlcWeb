@@ -69,6 +69,7 @@ CREATE TABLE [hlc_CaseFile] (
 [Outcome] varchar(5000) NULL
 )
 
+-- New Diagnosis table.  (Note: Need list from Mark)
 CREATE TABLE [hlc_Diagnosis] (
 [Id] int NOT NULL IDENTITY(1,1) ,
 [DiagnosisName] varchar(80),
@@ -76,7 +77,7 @@ CREATE TABLE [hlc_Diagnosis] (
 [EnteredBy] varchar(12) NULL 
 )
 
--- Modify existing hlc_Doctor
+-- Modify existing hlc_Doctor to track when entered
 ALTER TABLE hlc_Doctor ADD DateEntered DATETIME NULL DEFAULT GetDate();
 UPDATE hlc_Doctor SET DateEntered = DateLastUpdated;
 ALTER TABLE hlc_Doctor ADD EnteredBy varchar(12) NULL;
@@ -85,15 +86,18 @@ UPDATE hlc_Doctor SET EnteredBy = LastUpdatedBy;
 
 Note to self:  Drop hlc_CaseFile and recreate (changed UpdatedBy to LastUpdatedBy)
 
+-- Hospital changes: Added new fields from HLC Questionnaire
 ALTER TABLE hlc_Hospital ADD HospitalType int NULL;
 ALTER TABLE hlc_Hospital ADD HasPediatrics bit NULL DEFAULT ((0));
-ALTER TABLE hlc_Hospital ADD BSMPCoordName varchar(80) NULL;
-ALTER TABLE hlc_Hospital ADD BSMPCoordPhone varchar(12) NULL;
-ALTER TABLE hlc_Hospital ADD BSMPCoordIsWitness bit NULL DEFAULT ((0));
-ALTER TABLE hlc_Hospital ADD BSMPCommitment varchar(5000) NULL;
-ALTER TABLE hlc_Hospital ADD BSMPPhone varchar(12) NULL;
-ALTER TABLE hlc_Hospital ADD BSMPNumberOfDoctors int NULL;
+ALTER TABLE hlc_Hospital ADD BMSPCoordName varchar(80) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPCoordPhone varchar(12) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPCoordIsWitness bit NULL DEFAULT ((0));
+ALTER TABLE hlc_Hospital ADD BMSPCommitment varchar(5000) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPSpecialties varchar(5000) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPPhone varchar(12) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPNumberOfDoctors varchar(12);
 
+-- ErrorLog table (created in Azure 5/11)
 CREATE TABLE [hlc_ErrorLog] (
 [DateError] smalldatetime NULL ,
 [Message] varchar(5000) NULL,

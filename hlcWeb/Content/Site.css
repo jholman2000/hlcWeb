@@ -79,10 +79,10 @@ body {
 }*/
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select {
     max-width: 315px;
-}
+}*/
 /************************************************************************************
  * HLC STYLES
  ************************************************************************************/
@@ -105,8 +105,11 @@ i.hlc-brand {
     text-align: end;
     width: 60px;
 }
-.hlc-pediatric-control {
+.hlc-control {
     margin-bottom: 3px;
+}
+.hlc-bmsp {
+    font-size: 12px;
 }
 .hlc-table-form {
     width: auto;

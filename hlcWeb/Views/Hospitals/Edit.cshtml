@@ -12,6 +12,7 @@
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Hospital.Id)
+        @Html.HiddenFor(m => m.Hospital.CommitteeId)
 
         <div class="form-group">
             @Html.LabelFor(m => m.Hospital.HospitalName, new { @class = "col-sm-2 control-label" })
@@ -24,37 +25,110 @@
             @Html.LabelFor(m => m.Hospital.Address1, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.Hospital.Address1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Hospital.Address1)
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 @Html.TextBoxFor(m => m.Hospital.Address2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Hospital.Address2)
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Hospital.City, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.Hospital.City, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Hospital.City)
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Hospital.State, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.Hospital.State, new { @class = "form-control", style = "width:60px;" })
+                @Html.ValidationMessageFor(m => m.Hospital.State)
+            </div>
+        </div>
+        <div class="form-group hlc-control">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.Hospital.HasBSMP)
+                        @Html.LabelFor(m => m.Hospital.HasBSMP)
+                    </label>
+                </div>
             </div>
         </div>
 
+        <fieldset class="well panel-info">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Hospital.BmspCoordName, new { @class = "col-sm-2 control-label hlc-bmsp" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Hospital.BmspCoordName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Hospital.BmspCoordName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Hospital.BmspCoordPhone, new { @class = "col-sm-2 control-label hlc-bmsp" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Hospital.BmspCoordPhone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Hospital.BmspCoordPhone)
+                </div>
+            </div>
+            <div class="form-group hlc-control">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.Hospital.BmspCoordIsWitness)
+                            @Html.LabelFor(m => m.Hospital.BmspCoordIsWitness, new { @class = "control-label hlc-bmsp" })
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    @Html.LabelFor(m => m.Hospital.BmspCommitment, new { @class = "control-label hlc-bmsp" }))
+                    @Html.TextAreaFor(m => m.Hospital.BmspCommitment, new { @class = "form-control", rows = "4", placeholder = "Describe the level of commitment from the hospital administration" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    @Html.LabelFor(m => m.Hospital.BmspSpecialties, new { @class = "control-label hlc-bmsp" }))
+                    @Html.TextAreaFor(m => m.Hospital.BmspSpecialties, new { @class = "form-control", rows = "4", placeholder = "List the specialties represented in the program and describe those that have a high level of experience in a particular type of surgery or medical care" })
+                </div>
+            </div>
+            
+        </fieldset>
         <br />
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
-                @*@if (Model.Id != 0)
-                    {
-                        <button type="button" class="btn btn-danger col-md-offset-1 js-delete" data-hlc-id="@Model.Id">Delete</button>
-                    }*@
             </div>
         </div>
 
     }
 </div>
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+
+            $("form").submit(function() {
+                var form = $(this);
+                // Highlight errors
+                if (form.valid() === false) {
+                    form.find("div.form-group").each(function() {
+                        if ($(this).find("span.field-validation-error").length > 0)
+                            $(this).addClass("has-error");
+                        if ($(this).find("span.field-validation-valid").length > 0)
+                            $(this).removeClass("has-error");
+                    });
+                }
+                return true;
+            });
+
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

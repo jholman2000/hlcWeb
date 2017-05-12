@@ -29,6 +29,7 @@ namespace hlcWeb.Controllers
 
         public ActionResult Edit(int id)
         {
+            // Use HospitalViewModel and reference .Hospital portion because the .Get() returns this model
             var model = new HospitalViewModel();
 
             if (id == 0)
@@ -54,6 +55,11 @@ namespace hlcWeb.Controllers
             {
                 return View(model);
             }
+
+            _hospitalRepository.Save(model);
+
+            //if (_hospitalRepository.Save(model)) 
+            //    returnMsg = $"Case File for {model.FirstName + " " + model.LastName} was edited successfully.";
 
             return RedirectToAction("View", new { id = model.Hospital.Id });
         }

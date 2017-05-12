@@ -33,7 +33,6 @@ namespace hlcWeb.Controllers
         {
             var model = _caseFileRepository.Get(id);
             return View(model);
-
         }
 
         public ActionResult Edit(int id)
@@ -80,7 +79,7 @@ namespace hlcWeb.Controllers
                 // Add an item to top of list for user to indicate they will enter a new value
                 items.Insert(0, new
                 {
-                    Text = "(Select this choice if the correct diagnosis is not in the list and enter in Other below)",
+                    Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)",
                     Value =0
                 });
 
