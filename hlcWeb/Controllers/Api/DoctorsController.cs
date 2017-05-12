@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using Dapper;
 using Dapper.Contrib.Extensions;
@@ -28,6 +27,12 @@ namespace hlcWeb.Controllers.Api
 
         }
 
+        /// <summary>
+        /// Search Doctors by FirstName or LastName (Ajax call from Search page)
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="includeDeleted"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/doctors/search")]
         public List<Doctor> Search(string search, bool includeDeleted = true)
@@ -77,36 +82,6 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-
-        public void Update(Doctor doctor)
-        {
-            using (var conn = Connection)
-            {
-                conn.Update(doctor);
-            }
-        }
-
-        // PUT: api/Doctors/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        /// <summary>
-        /// Mark a Doctor as deleted (soft delete).  Status is set to Status.Deleted (99)
-        /// </summary>
-        /// <param name="id">Doctor Id</param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("api/doctors/delete")]
-        public IHttpActionResult Delete(int id)
-        {
-            var userId = (User)HttpContext.Current.Session["UserId"];
-            var sql = $"UPDATE HLC_Doctor SET Status = {(int)Status.Deleted}, StatusDate=GetDate(), DateLastUpdated=GetDate(), LastUpdatedBy='{userId}' WHERE Id={id};";
-            var results = ExecuteSql(sql);
-
-            return Ok(results);
-        }
-
         internal bool SaveContact(DoctorContactViewModel model)
         {
             try
@@ -139,9 +114,10 @@ namespace hlcWeb.Controllers.Api
                     return Connection.Update(model);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw;
+                LogException(ex, model);
+                return false;
             }
         }
     }

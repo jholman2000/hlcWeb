@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Web.Http;
 using System.Web.Script.Serialization;
+using System.Xml.Linq;
 using Dapper;
 using Dapper.Contrib.Extensions;
 

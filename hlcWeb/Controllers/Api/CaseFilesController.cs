@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Dapper.Contrib.Extensions;
@@ -54,14 +55,19 @@ namespace hlcWeb.Controllers.Api
     
         internal bool Save(CaseFile model)
         {
-            if (model.Id == 0)
+            try
             {
-                var newId = Connection.Insert(model);
-                return newId > 0;
-            }
-            else
-            {
+                if (model.Id == 0)
+                {
+                    var newId = Connection.Insert(model);
+                    return newId > 0;
+                }
                 return Connection.Update(model);
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, model);
+                return false;
             }
         }
 
@@ -80,8 +86,16 @@ namespace hlcWeb.Controllers.Api
         public string SaveText(SaveTextDto text) 
         {
             var sql = $"update hlc_CaseFile set {text.FieldName} = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
-
-            return (ExecuteSql(sql) >= 1 ? "OK" : "ERROR");
+            try
+            {
+                ExecuteSql(sql);
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, text);
+                return "ERROR";
+            }
         }
         #endregion
 

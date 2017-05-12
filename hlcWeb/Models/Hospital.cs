@@ -30,6 +30,8 @@ namespace hlcWeb.Models
 
         [Display(Name = "Has BSMP?")]
         public bool HasBSMP { get; set; }
+
+        // These are old fields that can be removed from the table at a later date.
         public string BSMPFirstName { get; set; }
         public string BSMPLastName { get; set; }
         public string BSMPAddress { get; set; }
@@ -40,6 +42,7 @@ namespace hlcWeb.Models
         public string BSMPHomePhone { get; set; }
         public string BSMPMobilePhone { get; set; }
         public string BSMPNotes { get; set; }
+        // (End old fields)
 
         public HospitalType HospitalType { get; set; }
         public bool HasPediatrics { get; set; }

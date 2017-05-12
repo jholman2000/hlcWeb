@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 using hlcWeb.ViewModels;
 
@@ -50,5 +52,24 @@ namespace hlcWeb.Controllers.Api
             }
             return model;
         }
+
+        internal bool Save(HospitalViewModel model)
+        {
+            try
+            {
+                if (model.Hospital.Id == 0)
+                {
+                    var newId = Connection.Insert(model.Hospital);
+                    return newId > 0;
+                }
+                return Connection.Update(model.Hospital);
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, model.Hospital);
+                return false;
+            }
+        }
+
     }
 }
