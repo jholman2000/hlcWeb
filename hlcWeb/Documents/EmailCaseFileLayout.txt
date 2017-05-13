@@ -77,16 +77,16 @@ CREATE TABLE [hlc_Diagnosis] (
 [EnteredBy] varchar(12) NULL 
 )
 
--- Modify existing hlc_Doctor to track when entered
+-- Doctor changes: Modify existing hlc_Doctor to track when entered
+-- (Modified 5/13 and verified that does not affect old site)
 ALTER TABLE hlc_Doctor ADD DateEntered DATETIME NULL DEFAULT GetDate();
 UPDATE hlc_Doctor SET DateEntered = DateLastUpdated;
 ALTER TABLE hlc_Doctor ADD EnteredBy varchar(12) NULL;
 UPDATE hlc_Doctor SET EnteredBy = LastUpdatedBy;
 
 
-Note to self:  Drop hlc_CaseFile and recreate (changed UpdatedBy to LastUpdatedBy)
-
 -- Hospital changes: Added new fields from HLC Questionnaire
+-- (Modified 5/13 and verified that does not affect old site)
 ALTER TABLE hlc_Hospital ADD HospitalType int NULL;
 ALTER TABLE hlc_Hospital ADD HasPediatrics bit NULL DEFAULT ((0));
 ALTER TABLE hlc_Hospital ADD BMSPCoordName varchar(80) NULL;
