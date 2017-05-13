@@ -59,10 +59,11 @@ namespace hlcWeb.Models
         /***************************************************
          * New fields used for the Annual HLC Questionnaire
          ***************************************************/
+        [Required]
         [Display(Name = "Hospital Type")]
         public HospitalType HospitalType { get; set; }
 
-        [Display(Name = "This hospital has Pediatrics")]
+        [Display(Name = "This hospital has Pediatrics care")]
         public bool HasPediatrics { get; set; }
 
         [Display(Name = "Coordinator")]
