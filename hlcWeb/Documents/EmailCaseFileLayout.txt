@@ -97,7 +97,8 @@ ALTER TABLE hlc_Hospital ADD BMSPSpecialties varchar(5000) NULL;
 ALTER TABLE hlc_Hospital ADD BMSPPhone varchar(12) NULL;
 ALTER TABLE hlc_Hospital ADD BMSPNumberOfDoctors varchar(12);
 
--- ErrorLog table (created in Azure 5/11)
+-- ErrorLog table 
+--(created in Azure 5/11)
 CREATE TABLE [hlc_ErrorLog] (
 [DateError] smalldatetime NULL ,
 [Message] varchar(5000) NULL,

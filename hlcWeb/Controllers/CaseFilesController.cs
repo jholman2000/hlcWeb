@@ -123,12 +123,12 @@ namespace hlcWeb.Controllers
                 model.DateEntered = DateTime.Now;
                 model.EnteredBy = Session["UserId"].ToString();
                 model.DateLastUpdated = model.DateEntered;
-                model.UpdatedBy = model.EnteredBy;
+                model.LastUpdatedBy = model.EnteredBy;
             }
             else
             {
                 model.DateLastUpdated = DateTime.Now;
-                model.UpdatedBy = Session["UserId"].ToString();
+                model.LastUpdatedBy = Session["UserId"].ToString();
             }
 
             // See if user added a new Diagnosis on the fly

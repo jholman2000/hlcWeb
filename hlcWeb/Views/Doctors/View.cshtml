@@ -20,8 +20,12 @@
                 </div>
                 <table class="table table-condensed">
                     <tr>
-                        <td class="hlc-prompt">Status:</td>
+                        <td class="hlc-prompt" style="width: 75px;">Status:</td>
                         <td>@Model.StatusText.SplitCamelCase()</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Entered on:</td>
+                        <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
                     </tr>
                     <tr>
                         <td class="hlc-prompt">Mobile:</td>

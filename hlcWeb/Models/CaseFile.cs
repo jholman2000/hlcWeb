@@ -28,7 +28,7 @@ namespace hlcWeb.Models
         public string EnteredBy { get; set; }
 
         public DateTime DateLastUpdated { get; set; }
-        public string UpdatedBy { get; set; }
+        public string LastUpdatedBy { get; set; }
 
         [Required]
         [StringLength(50)]
