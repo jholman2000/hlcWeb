@@ -96,6 +96,15 @@ ALTER TABLE hlc_Hospital ADD BMSPCommitment varchar(5000) NULL;
 ALTER TABLE hlc_Hospital ADD BMSPSpecialties varchar(5000) NULL;
 ALTER TABLE hlc_Hospital ADD BMSPPhone varchar(12) NULL;
 ALTER TABLE hlc_Hospital ADD BMSPNumberOfDoctors varchar(12);
+-- ...and additional fields for entered/updated
+ALTER TABLE hlc_Hospital ADD DateEntered DATETIME NULL DEFAULT GetDate();
+UPDATE hlc_Hospital SET DateEntered = '12/31/2016';
+ALTER TABLE hlc_Hospital ADD EnteredBy varchar(12) NULL;
+UPDATE hlc_Hospital SET EnteredBy = 'admin';
+ALTER TABLE hlc_Hospital ADD DateLastUpdated DATETIME NULL DEFAULT GetDate();
+UPDATE hlc_Hospital SET DateLastUpdated = DateEntered;
+ALTER TABLE hlc_Hospital ADD LastUpdatedBy varchar(12) NULL;
+UPDATE hlc_Hospital SET LastUpdatedBy = EnteredBy;
 
 -- ErrorLog table 
 --(created in Azure 5/11)

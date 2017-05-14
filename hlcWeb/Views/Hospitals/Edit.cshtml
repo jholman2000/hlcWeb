@@ -140,6 +140,21 @@
     <script>
         $(document).ready(function() {
 
+            // Form loaded: set correct state for dependent dropdowns and textareas
+            if ($("#Hospital_HasBSMP").prop('checked')) {
+                $("#BmspDetails").show();
+            }
+
+            // React to user selection and set states
+            $("#Hospital_HasBSMP").click(function () {
+                if ($(this).prop('checked')) {
+                    $("#BmspDetails").show();
+                    $("#Hospital_BmspCoordName").focus();
+                } else {
+                    $("#BmspDetails").hide();
+                }
+            });
+
             $("form").submit(function() {
                 var form = $(this);
                 // Highlight errors
@@ -153,16 +168,6 @@
                 }
                 return true;
             });
-
-            $("#Hospital_HasBSMP").click(function () {
-                if ($(this).prop('checked')) {
-                    $("#BmspDetails").show();
-                    $("#Hospital_BmspCoordName").focus();
-                } else {
-                    $("#BmspDetails").hide();
-                }
-            });
-
         });
     </script>
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,4 +1,5 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using System;
+using Dapper.Contrib.Extensions;
 using System.ComponentModel.DataAnnotations;
 
 namespace hlcWeb.Models
@@ -7,6 +8,11 @@ namespace hlcWeb.Models
     public class Hospital
     {
         public int Id { get; set; }
+
+        public DateTime DateEntered { get; set; }
+        public string EnteredBy { get; set; }
+        public DateTime DateLastUpdated { get; set; }
+        public string LastUpdatedBy { get; set; }
 
         [Required]
         [Display(Name ="Hospital Name")]
@@ -40,7 +46,7 @@ namespace hlcWeb.Models
         public string Fax { get; set; }
         public string Notes { get; set; }
 
-        [Display(Name = "This hospital has a Bloodless Management Surgery Program (BMSP)")]
+        [Display(Name = "This hospital has a Blood Management Surgery Program (BMSP)")]
         public bool HasBSMP { get; set; }
 
         // These are old fields that can be removed from the table at a later date.

@@ -19,14 +19,12 @@ namespace hlcWeb.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Case Date")]
         public DateTime CaseDate { get; set; }
 
         public DateTime DateEntered { get; set; }
-
         public string EnteredBy { get; set; }
-
         public DateTime DateLastUpdated { get; set; }
         public string LastUpdatedBy { get; set; }
 

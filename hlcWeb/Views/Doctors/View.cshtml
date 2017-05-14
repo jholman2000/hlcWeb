@@ -19,67 +19,76 @@
                     </span>
                 </div>
                 <table class="table table-condensed">
-                    <tr>
-                        <td class="hlc-prompt" style="width: 75px;">Status:</td>
-                        <td>@Model.StatusText.SplitCamelCase()</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Entered on:</td>
-                        <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Mobile:</td>
-                        <td>@Model.MobilePhone</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Home:</td>
-                        <td>@Model.HomePhone</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Pager:</td>
-                        <td>@Model.Pager</td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Email:</td>
-                        <td>
-                            <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="hlc-prompt">Practice:</td>
-                        <td>
-                            @Model.Practice.PracticeName<br />
-                            @Model.Practice.Address1<br />
-                            @if (!string.IsNullOrEmpty(Model.Practice.Address2))
-                            {
-                                @Model.Practice.Address2<br />
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Practice.Address3))
-                            {
-                                @Model.Practice.Address3
-                                <br />
-                            }
-                            @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br />
-                            <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <i class="fa fa-@Model.IsBSMP.Icon() fa-fw"></i> Member of BSMP
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <i class="fa fa-@Model.IsHRP.Icon() fa-fw"></i> High Risk Pregnancy Doctor
-                        </td>
-                    </tr>
-                    @if (!string.IsNullOrEmpty(Model.PeerReview))
-                    {
+                    <tbody>
                         <tr>
-                            <td class="hlc-prompt">Peer review:</td>
-                            <td>@Model.PeerReview</td>
+                            <td class="hlc-prompt" style="width: 75px;">Status:</td>
+                            <td>@Model.StatusText.SplitCamelCase()</td>
                         </tr>
-                    }
+                        <tr>
+                            <td class="hlc-prompt">Entered on:</td>
+                            <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
+                        </tr>
+                        @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
+                        {
+                            <tr>
+                                <td class="hlc-prompt">Updated on:</td>
+                                <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td class="hlc-prompt">Mobile:</td>
+                            <td>@Model.MobilePhone</td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Home:</td>
+                            <td>@Model.HomePhone</td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Pager:</td>
+                            <td>@Model.Pager</td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Email:</td>
+                            <td>
+                                <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Practice:</td>
+                            <td>
+                                @Model.Practice.PracticeName<br />
+                                @Model.Practice.Address1<br />
+                                @if (!string.IsNullOrEmpty(Model.Practice.Address2))
+                                {
+                                    @Model.Practice.Address2<br />
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Practice.Address3))
+                                {
+                                    @Model.Practice.Address3
+                                    <br />
+                                }
+                                @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br />
+                                <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-@Model.IsBSMP.Icon() fa-fw"></i> Member of BSMP
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-@Model.IsHRP.Icon() fa-fw"></i> High Risk Pregnancy Doctor
+                            </td>
+                        </tr>
+                        @if (!string.IsNullOrEmpty(Model.PeerReview))
+                        {
+                            <tr>
+                                <td class="hlc-prompt">Peer review:</td>
+                                <td>@Model.PeerReview</td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>

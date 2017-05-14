@@ -1,33 +1,71 @@
-﻿@model hlcWeb.ViewModels.HospitalViewModel
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.ViewModels.HospitalViewModel
 
 @{
     ViewBag.Title = "Hospital";
 }
 
 <div class="well">
-    <i class="fa fa-hospital-o fa-2x fa-fw text-primary"></i><span class="h3"> @(Model.Hospital?.HospitalName)</span>
+    <i class="fa fa-hospital-o fa-2x fa-fw text-primary"></i><span class="h3"> @(Model.Hospital.HospitalName)</span>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">Hospital Information</div>
-                <table class="table table-condensed hlc-table-form">
+                <div class="panel-heading">
+                    Hospital Information
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("Edit","Hospitals", new {id = Model.Hospital.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                    </span>
+                </div>
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <td class="hlc-prompt" style="width: 86px;">Hospital Type:</td>
+                            <td>@Model.Hospital.HospitalType.EnumDisplayName()</td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Entered on:</td>
+                            <td>@Model.Hospital.DateEntered.ToShortDateString() by @Model.Hospital.EnteredBy</td>
+                        </tr>
+                        @if (Model.Hospital.DateLastUpdated.Date != Model.Hospital.DateEntered.Date && Model.Hospital.DateLastUpdated != DateTime.MinValue)
+                        {
+                            <tr>
+                                <td class="hlc-prompt">Updated on:</td>
+                                <td>@Model.Hospital.DateLastUpdated.ToShortDateString() by @Model.Hospital.LastUpdatedBy</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td class="hlc-prompt">Address:</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(Model.Hospital?.Address1))
+                                {
+                                    @Model.Hospital.Address1
+                                    <br />
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Hospital?.Address2))
+                                {
+                                    @Model.Hospital.Address2
+                                    <br />
+                                }
+                                @(Model.Hospital?.City) @(Model.Hospital?.State) @(Model.Hospital?.Zip) <br />
+                                <a href="tel:@(Model.Hospital?.OfficePhone1)">@(Model.Hospital?.OfficePhone1) </a>
+                            </td>
+                        </tr>
                     <tr>
-                        <td class="hlc-prompt">Address:</td>
-                        <td>
-                            @if (!string.IsNullOrEmpty(Model.Hospital?.Address1))
-                            {
-                                @Model.Hospital.Address1 <br />
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Hospital?.Address2))
-                            {
-                                @Model.Hospital.Address2 <br />
-                            }
-                            @(Model.Hospital?.City)  @(Model.Hospital?.State)  @(Model.Hospital?.Zip) <br />
-                            <a href="tel:@(Model.Hospital?.OfficePhone1)">@(Model.Hospital?.OfficePhone1) </a>
+                        <td colspan="2">
+                            <i class="fa fa-@Model.Hospital.HasPediatrics.Icon() fa-fw"></i> Hospital does @Model.Hospital.HasPediatrics.Not() have Pediatrics care
                         </td>
                     </tr>
+                    @if (!Model.Hospital.HasBSMP)
+                    {
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-@Model.Hospital.HasBSMP.Icon() fa-fw"></i> Hospital does @Model.Hospital.HasBSMP.Not() have BMSP
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
                 </table>
             </div>
         </div>
