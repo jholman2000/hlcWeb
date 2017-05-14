@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using hlcWeb.Filters;
 using hlcWeb.ViewModels;
 using hlcWeb.Models;
@@ -54,6 +55,19 @@ namespace hlcWeb.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            if (model.Hospital.Id == 0)
+            {
+                model.Hospital.DateEntered = DateTime.Now;
+                model.Hospital.EnteredBy = Session["UserId"].ToString();
+                model.Hospital.DateLastUpdated = model.Hospital.DateEntered;
+                model.Hospital.LastUpdatedBy = model.Hospital.EnteredBy;
+            }
+            else
+            {
+                model.Hospital.DateLastUpdated = DateTime.Now;
+                model.Hospital.LastUpdatedBy = Session["UserId"].ToString();
             }
 
             _hospitalRepository.Save(model);

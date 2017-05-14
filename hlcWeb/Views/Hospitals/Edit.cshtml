@@ -13,6 +13,10 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Hospital.Id)
         @Html.HiddenFor(m => m.Hospital.CommitteeId)
+        @Html.HiddenFor(m => m.Hospital.DateEntered)
+        @Html.HiddenFor(m => m.Hospital.EnteredBy)
+        @Html.HiddenFor(m => m.Hospital.DateLastUpdated)
+        @Html.HiddenFor(m => m.Hospital.LastUpdatedBy)
 
         <div class="form-group">
             @Html.LabelFor(m => m.Hospital.HospitalName, new { @class = "col-sm-2 control-label" })
