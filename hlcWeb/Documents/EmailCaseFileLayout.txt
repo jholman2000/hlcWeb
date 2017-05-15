@@ -1,4 +1,6 @@
-﻿
+﻿C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(4276,5): Error : Web deployment task failed. (The synchronization is being stopped because the maximum number of sync passes '2' has been exceeded even though all the changes could not be applied. This could occur if there are external changes being made to the destination.)
+1>Publish failed to deploy.
+
 Possible layout of Case File table (including fields for Pediatric info)
 - all Yes/No below default to No
 - short free form would be limited to 500 characters max; free form is 5000 characters
