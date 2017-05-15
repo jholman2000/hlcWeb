@@ -11,9 +11,9 @@
             <tr>
                 <th>Case Date</th>
                 <th>Patient</th>
-                <th>Congregation</th>
+                <th class="hidden-xs">Congregation</th>
                 <th>Doctor</th>
-                <th>Hospital</th>
+                <th class="hidden-xs">Hospital</th>
             </tr>
         </thead>
         <tbody>
@@ -21,10 +21,16 @@
             {
                 <tr class="js-click-row">
                     <td>@Html.ActionLink(caseFile.CaseDate.ToShortDateString(), "View", "CaseFiles", new { id = caseFile.Id }, null) </td>
-                    <td>@caseFile.PatientName</td>
-                    <td>@caseFile.CongregationName</td>
-                    <td>@caseFile.DoctorName</td>
-                    <td>@caseFile.HospitalName</td>
+                    <td>
+                        @caseFile.PatientName
+                        <span class="visible-xs">@caseFile.CongregationName</span>
+                    </td>
+                    <td class="hidden-xs">@caseFile.CongregationName</td>
+                    <td>
+                        @caseFile.DoctorName
+                        <span class="visible-xs">@caseFile.HospitalName</span>
+                    </td>
+                    <td class="hidden-xs">@caseFile.HospitalName</td>
                 </tr>
             }
         </tbody>
