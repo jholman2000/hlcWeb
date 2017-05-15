@@ -53,5 +53,10 @@ namespace hlcWeb.Infrastructure
         {
             return value ? "" : "not ";
         }
+
+        public static string Has(this bool value)
+        {
+            return value ? "has " : "does not have ";
+        }
     }
 }

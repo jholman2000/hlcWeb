@@ -88,6 +88,7 @@ UPDATE hlc_Doctor SET EnteredBy = LastUpdatedBy;
 -- Hospital changes: Added new fields from HLC Questionnaire
 -- (Modified 5/13 and verified that does not affect old site)
 ALTER TABLE hlc_Hospital ADD HospitalType int NULL;
+UPDATE hlc_Hospital SET HospitalType=0 WHERE HospitalType = null;
 ALTER TABLE hlc_Hospital ADD HasPediatrics bit NULL DEFAULT ((0));
 ALTER TABLE hlc_Hospital ADD BMSPCoordName varchar(80) NULL;
 ALTER TABLE hlc_Hospital ADD BMSPCoordPhone varchar(12) NULL;

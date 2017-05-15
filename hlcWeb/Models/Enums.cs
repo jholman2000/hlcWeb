@@ -75,6 +75,7 @@ namespace hlcWeb.Models
         Other = 99
     }
 
+    // Copied in hlc_HospitalType
     public enum HospitalType
     {
         Unknown = 0,

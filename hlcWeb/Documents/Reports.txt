@@ -1,0 +1,33 @@
+﻿Reports
+=======
+
+
+-- HospitalType count
+with GroupData as
+ (select HospitalType, count(*) as GroupCount from hlc_Hospital group by HospitalType)
+select ht.Id, Description, coalesce(GroupCount,0)
+from hlc_HospitalType ht
+left join GroupData gd on gd.HospitalType = ht.Id
+
+-- Cooperative Specialty count
+select s.SpecialtyName, count(s.ID)
+from hlc_Doctor d
+left join hlc_DoctorSpecialty ds on ds.DoctorID = d.ID
+left join hlc_Specialty s on s.ID = ds.SpecialtyID
+where d.Attitude = 1
+group by s.SpecialtyName
+order by 1
+
+CREATE TABLE [hlc_HospitalType] (
+[Id] int NULL ,
+[Description] varchar(50) NULL
+)
+INSERT INTO hlc_HospitalType VALUES(0,'Unknown');
+INSERT INTO hlc_HospitalType VALUES(1,'Children''s Hospital');
+INSERT INTO hlc_HospitalType VALUES(2,'Level 1 Trauma Center');
+INSERT INTO hlc_HospitalType VALUES(3,'Level 2 Trauma Center');
+INSERT INTO hlc_HospitalType VALUES(4,'Level 3 Trauma Center');
+INSERT INTO hlc_HospitalType VALUES(5,'Public Hospital');
+INSERT INTO hlc_HospitalType VALUES(6,'University Hospital');
+INSERT INTO hlc_HospitalType VALUES(7,'Specialized Care');
+INSERT INTO hlc_HospitalType VALUES(9,'Other');
