@@ -53,6 +53,7 @@ namespace hlcWeb.ViewModels
         public string Pager { get; set; }
 
         [StringLength(80)]
+        [EmailAddress]
         [DisplayName("Email Address")]
         public string EmailAddress { get; set; }
 

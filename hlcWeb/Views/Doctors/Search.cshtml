@@ -20,7 +20,6 @@
             <tr class="js-click-row">
                 <td>@Html.ActionLink(doctor.LastName, "View", "Doctors", new { id = doctor.Id }, null) </td>
                 <td>@doctor.FirstName</td>
-                @*<td><i class="@d.AttitudeText fa @d.AttitudeIcon" title="@d.AttitudeText"></i> <span class="hidden-xs">@d.AttitudeText</span></td>*@
                 <td>
                     <span class="@doctor.AttitudeText fa-stack">
                         <i class="fa fa-circle fa-stack-2x"></i>

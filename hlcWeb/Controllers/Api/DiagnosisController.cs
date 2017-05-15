@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Dapper.Contrib.Extensions;
@@ -44,14 +45,19 @@ namespace hlcWeb.Controllers.Api
 
         internal bool Save(Diagnosis model)
         {
-            if (model.Id == 0)
+            try
             {
-                var x = Connection.Insert(model);
-                return x > 0;
-            }
-            else
-            {
+                if (model.Id == 0)
+                {
+                    var x = Connection.Insert(model);
+                    return x > 0;
+                }
                 return Connection.Update(model);
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, model);
+                return false;
             }
 
         }

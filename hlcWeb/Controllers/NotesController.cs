@@ -47,7 +47,7 @@ namespace hlcWeb.Controllers
             var returnMsg = "There was an error updating this comment.";
 
             viewModel.DateEntered = DateTime.Now;
-            viewModel.UserId = (Session["User"] as User)?.UserID;
+            viewModel.UserId = (Session["User"] as User)?.UserId;
 
             if (_noteRepository.Save(viewModel))
                 returnMsg = $"Comment for {viewModel.DoctorName} was edited successfully.";

@@ -168,6 +168,7 @@
     <Compile Include="Controllers\PracticesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SpecialtiesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Filters\HLCUserLoggedOn.cs" />
     <Compile Include="Global.asax.cs">
@@ -183,6 +184,7 @@
     <Compile Include="Models\Hospital.cs" />
     <Compile Include="Models\Practice.cs" />
     <Compile Include="Models\PvgMember.cs" />
+    <Compile Include="Models\PvgMemberHospital.cs" />
     <Compile Include="Models\SaveTextDto.cs" />
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\User.cs" />
@@ -198,6 +200,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -339,6 +345,7 @@
     <Content Include="Views\CaseFiles\Edit.cshtml" />
     <Content Include="Views\Doctors\EditAttitudes.cshtml" />
     <Content Include="Views\Hospitals\Edit.cshtml" />
+    <Content Include="Views\Users\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

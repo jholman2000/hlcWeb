@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
 using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
@@ -14,6 +15,22 @@ namespace hlcWeb.Controllers.Api
 
             return results[0];
         }
+
+        [HttpGet]
+        [Route("api/users/search")]
+        public List<User> Search(string search)
+        {
+            var where = $"u.LastName LIKE '%{search}%' OR " +
+                        $"u.FirstName LIKE '%{search}%' ";
+
+            var sql = "select u.* from hlc_User " +
+                      $" WHERE {where} ORDER BY LastName, FirstName";
+
+            var results = GetListFromSql<User>(sql);
+
+            return results;
+        }
+
         public IHttpActionResult Get()
         {
             string sql = "select * from hlc_User";

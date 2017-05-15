@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using Dapper.Contrib.Extensions;
 
 namespace hlcWeb.Models
@@ -19,7 +20,7 @@ namespace hlcWeb.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Case Date")]
         public DateTime CaseDate { get; set; }
 
@@ -83,10 +84,15 @@ namespace hlcWeb.Models
         [StringLength(500)]
         public string ConsultingDoctor { get; set; }
 
+        [AllowHtml]
         public string MedicalHistory { get; set; }
+        [AllowHtml]
         public string TreatmentPlan { get; set; }
+        [AllowHtml]
         public string PossibleStrategies { get; set; }
+        [AllowHtml]
         public string ArticlesShared { get; set; }
+        [AllowHtml]
         public string Outcome { get; set; }
 
         // Derived fields

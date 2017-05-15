@@ -1,0 +1,31 @@
+﻿@model List<hlcWeb.Models.User>
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-user-o hlc-fa"></i> Users
+    </div>
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Last On</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in @Model)
+            {
+                <tr class="js-click-row">
+                    <td>@Html.ActionLink(user.LastName, "View", "Users", new { id = user.UserId }, null) </td>
+                    <td>@user.FirstName</td>
+                    <td>@user.EmailAddress</td>
+                    <td>@(user.DateLastOn?.ToShortDateString() ?? "(Never)")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+
