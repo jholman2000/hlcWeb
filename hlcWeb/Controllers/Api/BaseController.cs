@@ -202,7 +202,7 @@ namespace hlcWeb.Controllers.Api
 
                 _conn.Insert(error);
             }
-            catch (Exception xex)
+            catch 
             {
                 // ignored
             }

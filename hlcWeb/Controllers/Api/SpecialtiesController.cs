@@ -60,34 +60,5 @@ namespace hlcWeb.Controllers.Api
             }
             return model;
         }
-
-        internal bool SaveDoctorSpecialties(DoctorSpecialtiesViewModel viewModel)
-        {
-            // First, delete all specialties assigned to this doctor and then
-            // add back in the ones that are not marked as Remove
-            try
-            {
-                var sql = $"delete from hlc_DoctorSpecialty where DoctorId={viewModel.DoctorId}";
-                ExecuteSql(sql);
-
-                foreach (var spec in viewModel.Specialties)
-                {
-                    if (!spec.Remove && spec.SpecialtyId != 0)
-                    {
-                        spec.DoctorId = viewModel.DoctorId;
-                        spec.Id = 0;
-                        var newId = Connection.Insert(spec);
-                        spec.Id = (int)newId;
-                    }
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LogException(ex, viewModel);
-                return false;
-            }
-
-        }
     }
 }

@@ -192,7 +192,12 @@
         </div>
         <div class="col-md-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">Hospitals</div>
+                <div class="panel-heading">
+                    Hospitals
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("EditHospitals","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                    </span>
+                </div>
                 @if (Model.Specialties.Count == 0)
                 {
                     <div class="panel-body text-center">

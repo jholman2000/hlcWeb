@@ -14,12 +14,14 @@ namespace hlcWeb.Controllers
         private readonly Api.DoctorsController _doctorRepository;
         private readonly Api.PracticesController _practiceRepository;
         private readonly Api.SpecialtiesController _specialtyRepository;
+        private readonly Api.HospitalsController _hospitalRepository;
 
         public DoctorsController()
         {
             _doctorRepository = new Api.DoctorsController();
             _practiceRepository = new Api.PracticesController();
             _specialtyRepository = new Api.SpecialtiesController();
+            _hospitalRepository = new Api.HospitalsController();
         }
 
         public PartialViewResult Search(string search)
@@ -151,7 +153,7 @@ namespace hlcWeb.Controllers
                 Specialties = doctor.Specialties
             };
 
-            // Extend the SPecialties to a total of 6 for data entry
+            // Extend the Specialties to a total of 6 for data entry
             while (viewModel.Specialties.Count < 6)
             {
                 viewModel.Specialties.Add(new DoctorSpecialty());
@@ -184,9 +186,51 @@ namespace hlcWeb.Controllers
             //}
 
             // Pass to repository to update
-            _specialtyRepository.SaveDoctorSpecialties(viewModel);
+            _doctorRepository.SaveDoctorSpecialties(viewModel);
 
             return RedirectToAction("View", new { id = viewModel.DoctorId });
+        }
+
+        public ActionResult EditHospitals(int id)
+        {
+            var doctor = _doctorRepository.Get(id);
+            var viewModel = new DoctorHospitalsViewModel()
+            {
+                DoctorId = doctor.Id,
+                FullName = doctor.FullName,
+                Hospitals = doctor.Hospitals
+            };
+
+            // Extend the Hospitals to a total of 6 for data entry
+            while (viewModel.Hospitals.Count < 6)
+            {
+                viewModel.Hospitals.Add(new DoctorHospital());
+            }
+
+            if (Session["HospitalItems"] == null)
+            {
+                var items = _hospitalRepository.Search("")
+                    .Select(s => new
+                    {
+                        Text = s.HospitalName,
+                        Value = s.Id
+                    })
+                    .ToList();
+                Session["HospitalItems"] = items;
+            }
+            ViewBag.HospitalItems = Session["HospitalItems"];
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditHospitals(DoctorHospitalsViewModel viewModel)
+        {
+            _doctorRepository.SaveDoctorHospitals(viewModel);
+
+            return RedirectToAction("View", new { id = viewModel.DoctorId });
+
         }
     }
 }
