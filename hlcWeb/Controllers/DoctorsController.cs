@@ -13,11 +13,13 @@ namespace hlcWeb.Controllers
     {
         private readonly Api.DoctorsController _doctorRepository;
         private readonly Api.PracticesController _practiceRepository;
+        private readonly Api.SpecialtiesController _specialtyRepository;
 
         public DoctorsController()
         {
             _doctorRepository = new Api.DoctorsController();
             _practiceRepository = new Api.PracticesController();
+            _specialtyRepository = new Api.SpecialtiesController();
         }
 
         public PartialViewResult Search(string search)
@@ -137,6 +139,54 @@ namespace hlcWeb.Controllers
             _doctorRepository.SaveAttitudes(viewModel);
 
             return RedirectToAction("View", new { id = viewModel.Id });
+        }
+
+        public ActionResult EditSpecialties(int id)
+        {
+            var doctor = _doctorRepository.Get(id);
+            var viewModel = new DoctorSpecialtiesViewModel()
+            {
+                DoctorId = doctor.Id,
+                FullName = doctor.FullName,
+                Specialties = doctor.Specialties
+            };
+
+            // Extend the SPecialties to a total of 6 for data entry
+            while (viewModel.Specialties.Count < 6)
+            {
+                viewModel.Specialties.Add(new DoctorSpecialty());
+            }
+
+            if (Session["SpecialtyItems"] == null)
+            {
+                var items = _specialtyRepository.Search("")
+                    .Select(s => new
+                    {
+                        Text = s.SpecialtyName,
+                        Value = s.ID
+                    })
+                    .ToList();
+                Session["SpecialtyItems"] = items;
+            }
+            ViewBag.SpecialtyItems = Session["SpecialtyItems"];
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSpecialties(DoctorSpecialtiesViewModel viewModel)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    ViewBag.SpecialtyItems = Session["SpecialtyItems"];
+            //    return View(viewModel);
+            //}
+
+            // Pass to repository to update
+            _specialtyRepository.SaveDoctorSpecialties(viewModel);
+
+            return RedirectToAction("View", new { id = viewModel.DoctorId });
         }
     }
 }

@@ -1,0 +1,78 @@
+﻿@using System.Collections
+@model hlcWeb.ViewModels.DoctorSpecialtiesViewModel
+
+@{    
+    ViewBag.Title = $"Doctor Attitudes";
+}
+<div class="well">
+    <i class="fa fa-stethoscope fa-2x fa-fw text-primary"></i> <span class="h3">Specialties for @Model.FullName</span>
+</div>
+<div class="container">
+    @using (Html.BeginForm("EditSpecialties", "Doctors", FormMethod.Post, new {@class = "form-horizontal"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.DoctorId)
+        @Html.HiddenFor(m => m.FullName)
+
+        <div class="alert alert-info" role="alert">
+            Select up to six Specialties associated with this Doctor and enter any additional Area of Expertise notes.
+        </div>
+        for (var i = 0; i < Model.Specialties.Count; i++)
+        {
+            @*<div @if (Model.Specialties[i].SpecialtyId == 0) {<text>style="display: none;"</text>} >*@
+                @Html.HiddenFor(m => m.Specialties[i].Id)
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.Specialties[i].Remove, new { data_hlc_index = @i })
+                            @Html.LabelFor(m => m.Specialties[i].Remove)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Specialties[i].SpecialtyId, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.Specialties[i].SpecialtyId, new SelectList((IEnumerable)ViewBag.SpecialtyItems, "Value", "Text", Model.Specialties[i].SpecialtyId), "Select...", new { @class = "form-control", style = "max-width:100%;" })
+                        @Html.ValidationMessageFor(m => m.Specialties[i].SpecialtyId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Specialties[i].AreaOfExpertise, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(m => m.Specialties[i].AreaOfExpertise, new { @class = "form-control", placeholder = "Area of expertise, limitations, etc." })
+                        @Html.ValidationMessageFor(m => m.Specialties[i].AreaOfExpertise)
+                    </div>
+                </div>
+                <hr/>
+            @*</div>*@
+            @*<div class="col-sm-offset-2 col-sm-10" @if (Model.Specialties[i].SpecialtyId != 0) {<text>style="display: none;"</text>}>
+                <button id="addButton" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Add</button><br/>
+            </div>*@
+        }
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+            </div>
+        </div>
+
+    }
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function() {
+
+            // User clicks a remove button
+            $("[id$='_Remove']").click(function() {
+                var i = $(this).data("hlc-index");
+                if ($(this).prop('checked')) {
+                    $("#Specialties_" + i + "__SpecialtyId").prop("disabled", "disabled");
+                    $("#Specialties_" + i + "__AreaOfExpertise").prop("disabled", "disabled");
+                } else {
+                    $("#Specialties_" + i + "__SpecialtyId").prop("disabled", "");
+                    $("#Specialties_" + i + "__AreaOfExpertise").prop("disabled", "");
+                }
+            });
+        });
+    </script>
+}

@@ -163,10 +163,10 @@ namespace hlcWeb.Controllers.Api
             if (string.IsNullOrEmpty(sql))
                 throw new ArgumentNullException(nameof(sql));
 
-            using (_conn)
-            {
+            //using (_conn)
+            //{
                 return _conn.Execute(sql, commandType: CommandType.Text);
-            }
+            //}
         }
 
         protected void AddParameter(string name, object value)

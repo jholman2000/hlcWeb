@@ -165,7 +165,12 @@
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">Specialties</div>
+                <div class="panel-heading">
+                    Specialties
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("EditSpecialties","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                    </span>
+                </div>
                 @if (Model.Specialties.Count == 0)
                 {
                     <div class="panel-body text-center">
@@ -178,7 +183,7 @@
                         @foreach (var sp in Model.Specialties)
                         {
                             <tr>
-                                <td>@sp.SpecialtyName @sp.AreaOfExpertise</td>
+                                <td>@sp.SpecialtyName @(string.IsNullOrEmpty(sp.AreaOfExpertise) ? "" : " - ") @sp.AreaOfExpertise</td>
                             </tr>
                         }
                     </table>
@@ -200,7 +205,7 @@
                         @foreach (var ho in Model.Hospitals)
                         {
                             <tr>
-                                <td>@ho.HospitalName</td>
+                                <td>@ho.HospitalName @(string.IsNullOrEmpty(ho.Notes) ? "" : " - ") @ho.Notes </td>
                             </tr>
                         }
                     </table>

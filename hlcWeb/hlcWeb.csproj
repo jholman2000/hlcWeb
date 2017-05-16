@@ -192,6 +192,7 @@
     <Compile Include="ViewModels\DoctorAttitudesViewModel.cs" />
     <Compile Include="ViewModels\DoctorListViewModel.cs" />
     <Compile Include="ViewModels\DoctorContactViewModel.cs" />
+    <Compile Include="ViewModels\DoctorSpecialtiesViewModel.cs" />
     <Compile Include="ViewModels\HospitalViewModel.cs" />
     <Compile Include="ViewModels\LogonViewModel.cs" />
     <Compile Include="ViewModels\PracticeViewModel.cs" />
@@ -346,6 +347,7 @@
     <Content Include="Views\Doctors\EditAttitudes.cshtml" />
     <Content Include="Views\Hospitals\Edit.cshtml" />
     <Content Include="Views\Users\Search.cshtml" />
+    <Content Include="Views\Doctors\EditSpecialties.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
