@@ -1,10 +1,6 @@
 ﻿@using hlcWeb.Models;
 @{ 
-    var user = (User)Session["User"];
-    if (user == null)
-    {
-        user = new User();
-    }
+    var user = (User)Session["User"] ?? new User();
 }
 <!DOCTYPE html>
 <html>

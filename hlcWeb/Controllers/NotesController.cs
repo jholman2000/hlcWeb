@@ -23,14 +23,7 @@ namespace hlcWeb.Controllers
             DoctorNote model;
             ViewBag.Url = url;
 
-            if (id == 0)
-            {
-                model = new DoctorNote();
-            }
-            else
-            {
-                model = _noteRepository.Get(id);
-            }
+            model = id == 0 ? new DoctorNote() : _noteRepository.Get(id);
 
             return View(model);
         }

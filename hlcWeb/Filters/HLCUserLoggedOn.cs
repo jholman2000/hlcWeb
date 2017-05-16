@@ -11,7 +11,7 @@ namespace hlcWeb.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Session["User"] == null)
+            if (filterContext.HttpContext.Session != null && filterContext.HttpContext.Session["User"] == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary

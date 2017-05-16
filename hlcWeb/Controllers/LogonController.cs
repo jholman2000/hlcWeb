@@ -5,7 +5,7 @@ namespace hlcWeb.Controllers
 {
     public class LogonController : Controller
     {
-        private Api.UsersController _userRepository;
+        private readonly Api.UsersController _userRepository;
         public LogonController()
         {
             _userRepository = new Api.UsersController();

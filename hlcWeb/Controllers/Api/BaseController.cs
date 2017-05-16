@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using System.Xml.Linq;
 using Dapper;
 using Dapper.Contrib.Extensions;
 
@@ -17,8 +16,8 @@ namespace hlcWeb.Controllers.Api
 {
     public class BaseController : ApiController
     {
-        private SqlConnection _conn;
-        private Dictionary<string, object> _parameters;
+        private readonly SqlConnection _conn;
+        private readonly Dictionary<string, object> _parameters;
 
         public BaseController()
         {
@@ -127,7 +126,7 @@ namespace hlcWeb.Controllers.Api
             {
                 _conn.Open();
 
-                if (_parameters.Count() > 0)
+                if (_parameters.Any())
                 {
                     var parms = new DynamicParameters();
                     DbType type = new DbType();
@@ -172,7 +171,7 @@ namespace hlcWeb.Controllers.Api
         protected void AddParameter(string name, object value)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             _parameters.Add(name, value);
         }

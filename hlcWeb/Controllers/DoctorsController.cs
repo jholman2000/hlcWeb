@@ -165,7 +165,7 @@ namespace hlcWeb.Controllers
                     .Select(s => new
                     {
                         Text = s.SpecialtyName,
-                        Value = s.ID
+                        Value = s.Id
                     })
                     .ToList();
                 Session["SpecialtyItems"] = items;
