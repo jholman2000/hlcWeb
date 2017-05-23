@@ -1,0 +1,74 @@
+﻿@model hlcWeb.ViewModels.PracticeViewModel
+@{
+    var action = (Model.Practice.Id == 0) ? "Add" : "Edit";
+    ViewBag.Title = $"{action} Practice";
+}
+
+<div class="well">
+    <i class="fa fa-medkit fa-2x fa-fw text-primary"></i><span class="h3"> @action Practice</span>
+</div>
+<div class="container">
+    @using (Html.BeginForm("Edit", "Practices", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Practice.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Practice.PracticeName, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Practice.PracticeName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Practice.PracticeName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Practice.Address1, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Practice.Address1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Practice.Address1)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                @Html.TextBoxFor(m => m.Practice.Address2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Practice.Address2)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Practice.City, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Practice.City, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Practice.City)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Practice.State, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Practice.State, new { @class = "form-control", style = "width:60px;" })
+                @Html.ValidationMessageFor(m => m.Practice.State)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Practice.Zip, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Practice.Zip, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Practice.Zip)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Practice.OfficePhone1, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Practice.OfficePhone1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Practice.OfficePhone1)
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+            </div>
+        </div>
+
+    }
+</div>

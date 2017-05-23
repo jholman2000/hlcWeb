@@ -37,6 +37,7 @@ namespace hlcWeb.Models
         public string Address2 { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Zip")]
         public string Zip { get; set; }
 
         [StringLength(14)]
