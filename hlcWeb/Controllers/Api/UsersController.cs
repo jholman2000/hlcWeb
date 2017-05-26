@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
@@ -16,14 +19,23 @@ namespace hlcWeb.Controllers.Api
             return results[0];
         }
 
+        public User CheckUserId(User user)
+        {
+            var sql = $"select UserID, FirstName, LastName from hlc_User where UserId='{user.UserId}'";
+
+            var results = GetListFromSql<User>(sql).FirstOrDefault();
+
+            return results;
+        }
+
         [HttpGet]
         [Route("api/users/search")]
         public List<User> Search(string search)
         {
-            var where = $"u.LastName LIKE '%{search}%' OR " +
-                        $"u.FirstName LIKE '%{search}%' ";
+            var where = $"LastName LIKE '%{search}%' OR " +
+                        $"FirstName LIKE '%{search}%' ";
 
-            var sql = "select u.* from hlc_User " +
+            var sql = "select * from hlc_User " +
                       $" WHERE {where} ORDER BY LastName, FirstName";
 
             var results = GetListFromSql<User>(sql);
@@ -31,26 +43,43 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
-        public IHttpActionResult Get()
+        //public IHttpActionResult Get()
+        //{
+        //    string sql = "select * from hlc_User";
+
+        //    var results = GetListFromSql<User>(sql);
+
+        //    if (results == null)
+        //        return NotFound();
+
+        //    return Ok(results);
+        //}
+
+        internal User Get(string id)
         {
-            string sql = "select * from hlc_User";
+            var sql = $"select * from hlc_User where UserId='{id}'";
 
-            var results = GetListFromSql<User>(sql);
+            var results = GetListFromSql<User>(sql).FirstOrDefault();
 
-            if (results == null)
-                return NotFound();
-
-            return Ok(results);
+            return (results);
         }
 
-        public IHttpActionResult Get(string id)
+        internal bool Save(User model)
         {
-            var results = GetMemberFromId<User>(id);
-
-            if (results == null)
-                return NotFound();
-
-            return Ok(results);
+            try
+            {
+                if (model.OriginalUserId == "")
+                {
+                    var newId = Connection.Insert(model);
+                    return newId > 0;
+                }
+                return Connection.Update(model);
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, model);
+                return false;
+            }
         }
 
     }

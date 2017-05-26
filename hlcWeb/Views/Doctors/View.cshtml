@@ -198,7 +198,7 @@
                         <a href="@Url.Action("EditHospitals","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
                     </span>
                 </div>
-                @if (Model.Specialties.Count == 0)
+                @if (Model.Hospitals.Count == 0)
                 {
                     <div class="panel-body text-center">
                         <em>No Hospitals have been entered.</em>
@@ -222,7 +222,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Comments</div>
-                @if (Model.Specialties.Count == 0)
+                @if (Model.DoctorNotes.Count == 0)
                 {
                     <div class="panel-body text-center">
                         <em>No Comments have been entered.</em>

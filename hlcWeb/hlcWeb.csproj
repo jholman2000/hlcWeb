@@ -351,6 +351,8 @@
     <Content Include="Views\Doctors\EditSpecialties.cshtml" />
     <Content Include="Views\Doctors\EditHospitals.cshtml" />
     <Content Include="Views\Practices\Edit.cshtml" />
+    <Content Include="Views\Users\View.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -61,19 +61,6 @@ namespace hlcWeb.Controllers
                 return View(model);
             }
 
-            if (model.Practice.Id == 0)
-            {
-                //model.Hospital.DateEntered = DateTime.Now;
-                //model.Hospital.EnteredBy = Session["UserId"].ToString();
-                //model.Hospital.DateLastUpdated = model.Hospital.DateEntered;
-                //model.Hospital.LastUpdatedBy = model.Hospital.EnteredBy;
-            }
-            else
-            {
-                //model.Hospital.DateLastUpdated = DateTime.Now;
-                //model.Hospital.LastUpdatedBy = Session["UserId"].ToString();
-            }
-
             _practiceRepository.Save(model);
 
             //if (_hospitalRepository.Save(model)) 

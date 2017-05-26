@@ -12,21 +12,9 @@ namespace hlcWeb.Controllers.Api
     {
         public List<Practice> Search(string search)
         {
-            string where;
 
-            if (search == "XYZ")
-            {
-                where = "PracticeName LIKE 'X%' OR PracticeName LIKE 'Y%' OR PracticeName LIKE 'Z%'";
-            }
-            else if (search.Length == 1)
-            {
-                where = $"PracticeName LIKE '{search}%'";
-            }
-            else
-            {
-                where = $"PracticeName LIKE '%{search}%'";
+            var   where = $"PracticeName LIKE '%{search}%'";
 
-            }
             var sql = "SELECT Id, PracticeName, Address1, City, State, OfficePhone1 " +
                       "FROM hlc_Practice " +
                       $"WHERE {where} ORDER BY PracticeName";
@@ -49,7 +37,7 @@ namespace hlcWeb.Controllers.Api
             using (var conn = Connection)
             {
                 var sql = $"select * from hlc_Practice where ID={id};" +
-                          "select d.id, d.FirstName, d.LastName, d.MobilePhone, p.PracticeName, p.OfficePhone1 " +
+                          "select d.id, d.FirstName, d.LastName, d.MobilePhone, d.Attitude, p.PracticeName, p.OfficePhone1 " +
                           "from hlc_Doctor d " +
                           "left join hlc_Practice p on p.ID = d.PracticeID " +
                           $"where d.PracticeId = {id} " +

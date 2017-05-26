@@ -71,5 +71,8 @@ namespace hlcWeb.Models
         // Derived fields
         [Computed]
         public string FullName => (FirstName + " " + LastName);
+
+        [Computed]
+        public string OriginalUserId { get; set; }
     }
 }

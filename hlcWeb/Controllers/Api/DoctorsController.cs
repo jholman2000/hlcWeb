@@ -12,20 +12,20 @@ namespace hlcWeb.Controllers.Api
     public class DoctorsController : BaseController
     {
 
-        public IHttpActionResult Get()
-        {
+        //public IHttpActionResult Get()
+        //{
 
-            string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
-            sql += "where Attitude <> 0";
+        //    string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
+        //    sql += "where Attitude <> 0";
 
-            var results = GetListFromSql<Doctor>(sql);
+        //    var results = GetListFromSql<Doctor>(sql);
 
-            if (results == null)
-                return NotFound();
+        //    if (results == null)
+        //        return NotFound();
 
-            return Ok(results);
+        //    return Ok(results);
 
-        }
+        //}
 
         /// <summary>
         /// Search Doctors by FirstName or LastName (Ajax call from Search page)

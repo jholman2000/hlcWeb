@@ -8,9 +8,9 @@
     <table class="table table-condensed table-striped table-hover">
         <thead>
             <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Email</th>
+                <th>User</th>
+                <th>Mobile</th>
+                <th class="hidden-xs">Email</th>
                 <th>Last On</th>
             </tr>
         </thead>
@@ -18,14 +18,14 @@
             @foreach (var user in @Model)
             {
                 <tr class="js-click-row">
-                    <td>@Html.ActionLink(user.LastName, "View", "Users", new { id = user.UserId }, null) </td>
-                    <td>@user.FirstName</td>
-                    <td>@user.EmailAddress</td>
+                    <td>@Html.ActionLink(user.FullName, "View", "Users", new { id = user.UserId }, null) </td>
+                    <td><a href="tel:@user.CellPhone">@user.CellPhone</a></td>
+                    <td class="hidden-xs">@user.EmailAddress</td>
                     <td>@(user.DateLastOn?.ToShortDateString() ?? "(Never)")</td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-<script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+<script class="hidden-xs" src="@Url.Content("~/Scripts/hlc_search.js")"></script>
 
