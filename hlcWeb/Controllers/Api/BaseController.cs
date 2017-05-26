@@ -16,7 +16,7 @@ namespace hlcWeb.Controllers.Api
 {
     public class BaseController : ApiController
     {
-        private readonly SqlConnection _conn;
+        private SqlConnection _conn;
         private readonly Dictionary<string, object> _parameters;
 
         public BaseController()
@@ -25,7 +25,20 @@ namespace hlcWeb.Controllers.Api
             _parameters = new Dictionary<string, object>();
         }
 
-        protected SqlConnection Connection => _conn;
+        //protected SqlConnection Connection => _conn;
+
+        //public SqlConnection Connection => _conn ?? (_conn = new SqlConnection(GetConnectionString()));
+        protected SqlConnection Connection
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_conn?.ConnectionString))
+                {
+                    _conn = new SqlConnection(GetConnectionString());
+                }
+                return _conn;
+            }
+        }
 
         private string GetConnectionString()
         {
