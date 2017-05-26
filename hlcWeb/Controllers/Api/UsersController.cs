@@ -68,7 +68,7 @@ namespace hlcWeb.Controllers.Api
         {
             try
             {
-                if (model.OriginalUserId == "")
+                if (string.IsNullOrEmpty(model.OriginalUserId))
                 {
                     var newId = Connection.Insert(model);
                     return newId > 0;

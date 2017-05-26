@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using hlcWeb.Filters;
 using hlcWeb.Models;
 
@@ -31,6 +32,17 @@ namespace hlcWeb.Controllers
 
             var model = new User();
 
+            if (Session["UserRoleSelectList"] == null)
+            {
+                Session["UserRoleSelectList"] = new SelectList(
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "HLC Member", Value = "HLC Member"},
+                        new SelectListItem { Text = "Admin", Value = "Admin"},
+                    }, "Value", "Text");
+            }
+            ViewBag.UserRoleSelectList = Session["UserRoleSelectList"];
+
             if (string.IsNullOrEmpty(id))
             {
                 model.OriginalUserId = "";
@@ -40,13 +52,13 @@ namespace hlcWeb.Controllers
             }
             else
             {
-                ViewBag.Action = "Edit";
+                //ViewBag.Action = "Edit";
                 // Retrieve existing data and populate model
                 model = _usersRepository.Get(id);
                 model.OriginalUserId = model.UserId;
-                if (model == null)
-                    return RedirectToAction("Search", "Home",
-                        new { msg = $"UserId {id} was not found in the database." });
+                //if (model == null)
+                //    return RedirectToAction("Search", "Home",
+                //        new { msg = $"UserId {id} was not found in the database." });
 
             }
             return View(model);
@@ -58,19 +70,19 @@ namespace hlcWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.UserRoleSelectList = Session["UserRoleSelectList"];
                 return View(model);
             }
 
-            //if (model.Status != model.OriginalStatus || model.StatusDate == DateTime.MinValue)
-            //    model.StatusDate = DateTime.Now;
 
             if (string.IsNullOrEmpty(model.OriginalUserId))
             {
-                // Check to make sure the UserId entered for this new user is not already used
+                // New User: Check to make sure the UserId entered for this new user is not already used
                 var checkUser = _usersRepository.CheckUserId(model);
-                if (checkUser.UserId != null)
+                if (checkUser?.UserId != null)
                 {
                     model.UserId = "";
+                    ViewBag.UserRoleSelectList = Session["UserRoleSelectList"];
                     ViewBag.ErrorMessage = $"User Id {checkUser.UserId} has already been assigned to {checkUser.FullName}.  Please choose another User Id.";
                     return View(model);
                 }
