@@ -6,7 +6,8 @@ namespace hlcWeb
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            // I disabled this to allow YSOD oon server.  Uncomment to direct to generic error page
+            //filters.Add(new HandleErrorAttribute());
         }
     }
 }

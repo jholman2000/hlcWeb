@@ -12,21 +12,6 @@ namespace hlcWeb.Controllers.Api
     public class DoctorsController : BaseController
     {
 
-        //public IHttpActionResult Get()
-        //{
-
-        //    string sql = "select d.ID, d.FirstName, d.LastName, d.Attitude, d.EmailAddress, d.MobilePhone, d.Pager from hlc_Doctor d ";
-        //    sql += "where Attitude <> 0";
-
-        //    var results = GetListFromSql<Doctor>(sql);
-
-        //    if (results == null)
-        //        return NotFound();
-
-        //    return Ok(results);
-
-        //}
-
         /// <summary>
         /// Search Doctors by FirstName or LastName (Ajax call from Search page)
         /// </summary>
@@ -37,7 +22,9 @@ namespace hlcWeb.Controllers.Api
         [Route("api/doctors/search")]
         public List<Doctor> Search(string search, bool includeDeleted = true)
         {
-            var where = $"(LastName LIKE '%{search}%' OR FirstName LIKE '%{search}%') ";
+            var where = search == "*"
+                ? "1=1"
+                : $"(LastName LIKE '%{search}%' OR FirstName LIKE '%{search}%') ";
 
             if (!includeDeleted)
                 where += " and Status <> 99";

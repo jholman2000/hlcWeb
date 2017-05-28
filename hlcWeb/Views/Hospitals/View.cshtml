@@ -57,14 +57,11 @@
                             <i class="fa fa-@Model.Hospital.HasPediatrics.Icon() fa-fw"></i> Hospital @Model.Hospital.HasPediatrics.Has() Pediatrics care
                         </td>
                     </tr>
-                    @if (!Model.Hospital.HasBSMP)
-                    {
-                        <tr>
-                            <td colspan="2">
-                                <i class="fa fa-@Model.Hospital.HasBSMP.Icon() fa-fw"></i> Hospital @Model.Hospital.HasBSMP.Has() BMSP
-                            </td>
-                        </tr>
-                    }
+                    <tr>
+                        <td colspan="2">
+                            <i class="fa fa-@Model.Hospital.HasBSMP.Icon() fa-fw"></i> Hospital @Model.Hospital.HasBSMP.Has() BMSP
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

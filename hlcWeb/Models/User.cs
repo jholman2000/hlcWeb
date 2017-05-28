@@ -7,6 +7,7 @@ namespace hlcWeb.Models
     [Table("hlc_User")]
     public class User
     {
+        [Dapper.Contrib.Extensions.Key]
         [Required]
         [Display(Name = "User Id")]
         [StringLength(12)]
@@ -30,6 +31,7 @@ namespace hlcWeb.Models
         public string Password { get; set; }
 
         [Required]
+        [Display(Name = "User Type")]
         public string UserRole { get; set; }
 
         [Display(Name = "Address")]

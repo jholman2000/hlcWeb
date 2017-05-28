@@ -32,8 +32,10 @@ namespace hlcWeb.Controllers.Api
         [Route("api/users/search")]
         public List<User> Search(string search)
         {
-            var where = $"LastName LIKE '%{search}%' OR " +
-                        $"FirstName LIKE '%{search}%' ";
+            var where = search == "*"
+                ? "1=1"
+                : $"LastName LIKE '%{search}%' OR " +
+                  $"FirstName LIKE '%{search}%' ";
 
             var sql = "select * from hlc_User " +
                       $" WHERE {where} ORDER BY LastName, FirstName";

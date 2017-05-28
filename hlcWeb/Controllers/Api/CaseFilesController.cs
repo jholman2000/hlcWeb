@@ -13,11 +13,13 @@ namespace hlcWeb.Controllers.Api
         [Route("api/casefiles/search")]
         public List<CaseFile> Search(string search)
         {
-            var where = $"cf.LastName LIKE '%{search}%' OR " +
-                        $"cf.FirstName LIKE '%{search}%' OR " +
-                        $"d.LastName LIKE '%{search}%' OR " +
-                        $"h.HospitalName LIKE '%{search}%' OR " +
-                        $"cf.CongregationName LIKE '%{search}%'";
+            var where = search == "*"
+                ? "1=1"
+                : $"cf.LastName LIKE '%{search}%' OR " +
+                  $"cf.FirstName LIKE '%{search}%' OR " +
+                  $"d.LastName LIKE '%{search}%' OR " +
+                  $"h.HospitalName LIKE '%{search}%' OR " +
+                  $"cf.CongregationName LIKE '%{search}%'";
 
             var sql = "select cf.ID, cf.CaseDate, cf.FirstName, cf.LastName, cf.CongregationName, cf.DoctorId, cf.HospitalId, " +
                       "d.FirstName + ' ' + d.LastName as DoctorName, h.HospitalName " +

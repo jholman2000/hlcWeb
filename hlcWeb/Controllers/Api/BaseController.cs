@@ -25,9 +25,6 @@ namespace hlcWeb.Controllers.Api
             _parameters = new Dictionary<string, object>();
         }
 
-        //protected SqlConnection Connection => _conn;
-
-        //public SqlConnection Connection => _conn ?? (_conn = new SqlConnection(GetConnectionString()));
         protected SqlConnection Connection
         {
             get

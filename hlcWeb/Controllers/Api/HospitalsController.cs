@@ -12,7 +12,9 @@ namespace hlcWeb.Controllers.Api
     {
         internal List<Hospital> Search(string search)
         {
-            var where = $"HospitalName LIKE '%{search}%'";
+            var where = search == "*"
+                ? "1=1"
+                : $"HospitalName LIKE '%{search}%'";
 
             var sql = "SELECT Id, HospitalName, City, State, " +
                        "(SELECT COUNT(ID) FROM hlc_DoctorHospital dh WHERE dh.HospitalID = h.ID) as NumberOfDoctors " +

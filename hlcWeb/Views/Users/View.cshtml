@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "User";
+    var userRole = (string)Session["UserRole"];
+    var currentUserId = (string)Session["UserId"];
 }
 
 <div class="well">
@@ -13,11 +15,18 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     User Information
-                    <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit","Users", new {id = Model.UserId})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
-                    </span>
+                    @if (userRole == "Admin" || currentUserId == Model.UserId)
+                    {
+                        <span class="pull-right hidden-print hidden-xs">
+                            <a href="@Url.Action("Edit","Users", new {id = Model.UserId})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                        </span>
+                    }
                 </div>
                 <table class="table table-condensed">
+                    <tr>
+                        <td class="hlc-prompt" style="width: 88px;">User Type:</td>
+                        <td>@Model.UserRole</td>
+                    </tr>
                     <tr>
                         <td class="hlc-prompt" style="width: 88px;">User Id:</td>
                         <td>@Model.UserId</td>
@@ -52,6 +61,21 @@
                             </td>
                         </tr>
                     }
+                    <tr>
+                        <td class="hlc-prompt" style="width: 88px;">Email Address:</td>
+                        <td>@Model.EmailAddress</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Address:</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(Model.Address))
+                            {
+                                @Model.Address
+                                <br />
+                            }
+                            @(Model.City) @(Model.State) @(Model.Zip) <br />
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

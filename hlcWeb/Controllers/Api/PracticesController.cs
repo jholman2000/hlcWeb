@@ -12,8 +12,9 @@ namespace hlcWeb.Controllers.Api
     {
         public List<Practice> Search(string search)
         {
-
-            var   where = $"PracticeName LIKE '%{search}%'";
+            var where = search == "*"
+                ? "1=1"
+                : $"PracticeName LIKE '%{search}%'";
 
             var sql = "SELECT Id, PracticeName, Address1, City, State, OfficePhone1 " +
                       "FROM hlc_Practice " +
