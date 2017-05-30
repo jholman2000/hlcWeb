@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Reports";
+}
+
+<div class="well">
+    <i class="fa fa-file-text-o fa-2x fa-fw text-primary"></i><span class="h3"> HLC Reports</span>
+</div>
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        Select a report from the list below.  You may then enter the criteria for running the report if needed.
+    </div>
+
+    <div class="list-group">
+        <a href="@Url.Action("DoctorsAddedRemoved", "Reports", new {dateFrom = "01/01/2017", dateTo = DateTime.Now})" class="list-group-item">
+            Doctors Added and Removed
+        </a>
+        <a href="@Url.Action("CaseFiles","Reports")" class="list-group-item">Case Files</a>
+        <a href="#" class="list-group-item">Annual HLC Report</a>
+        <a href="#" class="list-group-item">Another report</a>
+        <a href="#" class="list-group-item">Another report</a>
+    </div>
+</div>
+
+

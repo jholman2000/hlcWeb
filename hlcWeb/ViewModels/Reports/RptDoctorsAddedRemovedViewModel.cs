@@ -3,7 +3,7 @@ using System;
 
 namespace hlcWeb.ViewModels.Reports
 {
-    public class RptDoctorsViewModel
+    public class RptDoctorsAddedRemovedViewModel
     {
         public DateTime DateLastUpdated { get; set; }
         public string UserName { get; set; }

@@ -6,7 +6,7 @@ namespace hlcWeb.Controllers.Api
 {
     public class ReportsController : BaseController
     {
-        public List<RptDoctorsViewModel> Report(DateTime dateFrom, DateTime dateTo)
+        public List<RptDoctorsAddedRemovedViewModel> Report(DateTime dateFrom, DateTime dateTo)
         {
             var sql = "select d.DateLastUpdated, u.FirstName + ' ' + u.LastName as UserName, d.FirstName + ' ' + d.LastName as DoctorName, " +
             "d.Attitude, d.Status, p.PracticeName, dn.DateEntered, dn.Notes " +
@@ -17,7 +17,7 @@ namespace hlcWeb.Controllers.Api
             $"where d.DateLastUpdated >= '{dateFrom}' and d.DateLastUpdated <= '{dateTo}' " +
             "order by d.DateLastUpdated, d.LastName, d.FirstName, DateEntered";
 
-            return GetListFromSql<RptDoctorsViewModel>(sql);
+            return GetListFromSql<RptDoctorsAddedRemovedViewModel>(sql);
 
         }
     }

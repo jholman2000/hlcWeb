@@ -14,7 +14,21 @@ namespace hlcWeb.Controllers
             _reportRepository = new Api.ReportsController();
         }
 
-        // GET: Reports
+        public ActionResult List()
+        {
+            // Show main list of reports for user to select from
+            return View();
+        }
+
+        #region: Report: Case Files
+
+        public ActionResult CaseFiles()
+        {
+            return View("Reports/SetupCaseFiles");
+        }
+        #endregion
+
+        #region Report: Doctors Added/Removed
         public ActionResult DoctorsAddedRemoved(DateTime dateFrom, DateTime? dateTo)
         {
             if (dateTo == null)
@@ -24,5 +38,7 @@ namespace hlcWeb.Controllers
 
             return View(model);
         }
+        #endregion
+
     }
 }
