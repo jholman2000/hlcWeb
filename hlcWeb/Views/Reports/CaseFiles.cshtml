@@ -1,7 +1,56 @@
-﻿
+﻿@using hlcWeb.Infrastructure
+@model List<hlcWeb.ViewModels.Reports.RptCaseFilesViewModel>
 @{
     ViewBag.Title = "Report: Case Files";
+
+    // TODO: Pass in the filter parameters in View Bag somehow
+    var filters = ViewBag.Filters;
 }
 
-<h2>CaseFiles</h2>
+<div class="container">
+    <table class="table table-striped" style="font-size: 10px;">
+        <thead>
+        <tr>
+            <th colspan="99">
+                <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">Case Files</span>
+                @if (!string.IsNullOrEmpty(filters))
+                {
+                    <br/>
+                    <br/>
+                    @Html.Raw(filters)
+                }
+            </th>
+        </tr>
+        <tr>
+            <th>Case Date</th>
+            <th>Entered By</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Hospital</th>
+            <th>Diagnosis</th>
+            <th class="text-center">P</th>
+            <th class="text-center">CO</th>
+            <th class="text-center">G</th>
+            <th class="text-center">T</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CaseDate.ToShortDateString()</td>
+                <td>@item.UserName</td>
+                <td>@item.PatientName</td>
+                <td>@item.DoctorName</td>
+                <td>@item.HospitalName</td>
+                <td>@item.DiagnosisName</td>
+                <td class="text-center"><i class="fa fa-@item.IsPediatricCase.Icon() fa-fw"></i></td>
+                <td class="text-center"><i class="fa fa-@item.CourtOrderSought.Icon() fa-fw"></i></td>
+                <td class="text-center"><i class="fa fa-@item.CourtOrderGranted.Icon() fa-fw"></i></td>
+                <td class="text-center"><i class="fa fa-@item.TransfusionGiven.Icon() fa-fw"></i></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
 

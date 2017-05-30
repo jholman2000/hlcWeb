@@ -126,6 +126,12 @@ i.hlc-brand {
 .hlc-textarea textarea {
     height: 400px;
 }
+.hlc-report-hdg {
+    width: 80%;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+}
 .modal-dialog {
     right: auto;
     left: 50%;

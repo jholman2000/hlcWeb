@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
 
 namespace hlcWeb.Infrastructure
 {
@@ -57,6 +58,18 @@ namespace hlcWeb.Infrastructure
         public static string Has(this bool value)
         {
             return value ? "has " : "does not have ";
+        }
+
+        public static string LookupValue(this SelectList list, int value)
+        {
+            if (list == null || !list.Any())
+            {
+                return "";
+            }
+            else
+            {
+                return list.Where(i => i.Value == value.ToString()).Select(i => i.Text).FirstOrDefault();
+            }
         }
     }
 }

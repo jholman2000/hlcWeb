@@ -1,6 +1,19 @@
 ﻿Reports
 =======
 
+-- Report: Case Files
+select cf.Id, cf.CaseDate, cf.DateEntered, 
+       u.FirstName + ' ' + u.LastName    as UserName, 
+       d.FirstName + ' ' + d.LastName    as DoctorName, 
+       cf.LastName + ', ' + cf.FirstName as PatientName, 
+	   h.HospitalName, i.DiagnosisName,
+	   cf.IsPediatricCase, cf.CourtOrderSought, cf.CourtOrderGranted, cf.TransfusionGiven
+from hlc_CaseFile cf
+left join hlc_Doctor d    on d.ID = cf.DoctorId
+left join hlc_Hospital h  on  h.ID = cf.HospitalId
+left join hlc_Diagnosis i on i.ID = cf.DiagnosisId
+left join hlc_User u      on u.UserID = cf.EnteredBy
+where (cast(cf.DateEntered as Date) between '04/25/2017' and '05/09/2017')
 
 -- HospitalType count
 with GroupData as

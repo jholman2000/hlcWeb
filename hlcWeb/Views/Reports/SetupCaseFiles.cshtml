@@ -3,5 +3,58 @@
     ViewBag.Title = "Report: Case Files";
 }
 
-<h2>SetupCaseFiles</h2>
+<div class="well">
+    <i class="fa fa-address-card-o fa-2x fa-fw text-primary"></i><span class="h3"> HLC Report: Case File</span>
+</div>
+<div class="container">
+@using (Html.BeginForm("CaseFiles", "Reports", FormMethod.Post, new {@class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
 
+    <div class="alert alert-info" role="alert">
+        Select one or more criteria to limit this report and then click 'Run Report'.
+    </div>
+
+    <div class="form-group">
+        <div class = "col-sm-2 control-label"><strong>Case Date</strong> @Html.LabelFor(m => m.DateFrom)</div>
+        @*Case Date @Html.LabelFor(m => m.DateFrom, new {@class = "col-sm-2 control-label"})*@
+        <div class="col-sm-10">
+            @Html.EditorFor(m => m.DateFrom, new {type = "date", @class = "form-control"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DateTo, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.EditorFor(m => m.DateTo, new { type = "date", @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DoctorId, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.DoctorId, (SelectList)ViewBag.DoctorSelectList, "(All Doctors)", new { @class = "form-control", style = "max-width:100%;" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HospitalId, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.HospitalId, (SelectList)ViewBag.HospitalSelectList, "(All Hospitals)", new { @class = "form-control", style = "max-width:100%;" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DiagnosisId, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.DiagnosisId, (SelectList)ViewBag.DiagnosisSelectList, "(All Diagnoses)", new { @class = "form-control", style = "max-width:100%;" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Run Report</button>
+            <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+        </div>
+    </div>
+
+}
+</div>

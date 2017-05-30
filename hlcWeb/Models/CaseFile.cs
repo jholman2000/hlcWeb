@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Dapper.Contrib.Extensions;
+using hlcWeb.Infrastructure;
 
 namespace hlcWeb.Models
 {
@@ -47,7 +48,7 @@ namespace hlcWeb.Models
         [Display(Name="Congregation")]
         public string CongregationName { get; set; }
 
-        [Display(Name = "Pediatric")]
+        [Display(Name = Constants.IsPediatricCase)]
         public bool IsPediatricCase { get; set; }
         public bool CourtOrderSought { get; set; }
         public CourtOrderSoughtBy CourtOrderSoughtBy { get; set; }
@@ -66,14 +67,14 @@ namespace hlcWeb.Models
         public string TransferDetails { get; set; }
 
         [Required]
-        [Display(Name = "Doctor")]
+        [Display(Name = Constants.DoctorId)]
         public int DoctorId { get; set; }
 
         [Required]
-        [Display(Name = "Hospital")]
+        [Display(Name = Constants.HospitalId)]
         public int HospitalId { get; set; }
 
-        [Display(Name="Diagnosis")]
+        [Display(Name= Constants.DiagnosisId)]
         public int DiagnosisId { get; set; }
 
         [Computed]
