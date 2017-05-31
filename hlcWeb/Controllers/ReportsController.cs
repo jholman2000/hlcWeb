@@ -38,32 +38,8 @@ namespace hlcWeb.Controllers
         {
             var viewModel = new RptSetupViewModel();
 
-            // TODO: Refactor to pull this from the Api and cache
-            if (Session["DoctorSelectList"] == null)
-            {
-                var items = _doctorRepository.Search("", false)
-                    .Select(s => new
-                    {
-                        Text = s.LastName + ", " + s.FirstName,
-                        Value = s.Id
-                    })
-                    .ToList();
-                Session["DoctorSelectList"] = new SelectList(items, "Value", "Text");
-            }
-            ViewBag.DoctorSelectList = Session["DoctorSelectList"];
-
-            if (Session["HospitalSelectList"] == null)
-            {
-                var items = _hospitalRepository.Search("")
-                    .Select(s => new
-                    {
-                        Text = s.HospitalName + " - " + s.City + " " + s.State,
-                        Value = s.Id
-                    })
-                    .ToList();
-                Session["HospitalSelectList"] = new SelectList(items, "Value", "Text");
-            }
-            ViewBag.HospitalSelectList = Session["HospitalSelectList"];
+            ViewBag.DoctorSelectList = _doctorRepository.GetSelectList();
+            ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
 
             if (Session["DiagnosisSelectList"] == null)
             {
@@ -100,11 +76,11 @@ namespace hlcWeb.Controllers
 
             if (viewModel.DoctorId != 0)
             {
-                filters += "Doctor: " + ((SelectList) Session["DoctorSelectList"]).LookupValue(viewModel.DoctorId) + "<br />";
+                filters += "Doctor: " + _doctorRepository.GetSelectList().LookupValue(viewModel.DoctorId) + "<br />";
             }
             if (viewModel.HospitalId != 0)
             {
-                filters += "Hospital: " + ((SelectList)Session["HospitalSelectList"]).LookupValue(viewModel.HospitalId) + "<br />";
+                filters += "Hospital: " + _hospitalRepository.GetSelectList().LookupValue(viewModel.HospitalId) + "<br />";
             }
             if (viewModel.DiagnosisId != 0)
             {

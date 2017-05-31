@@ -5,6 +5,8 @@ using Dapper;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 using hlcWeb.ViewModels;
+using System.Web.Mvc;
+using System.Runtime.Caching;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -71,6 +73,31 @@ namespace hlcWeb.Controllers.Api
                 LogException(ex, model.Hospital);
                 return false;
             }
+        }
+
+        internal SelectList GetSelectList(bool refresh = false)
+        {
+            SelectList list;
+            ObjectCache cache = MemoryCache.Default;
+
+            list = (SelectList)cache["HospitalSelectList"];
+
+            if (refresh || list == null)
+            {
+                var items = Search("")
+                        .Select(s => new
+                        {
+                            Text = s.HospitalName + " - " + s.City + " " + s.State,
+                            Value = s.Id
+                        })
+                        .ToList();
+                list = new SelectList(items, "Value", "Text");
+
+                if (refresh) cache.Remove("HospitalSelectList");
+                cache.Add("HospitalSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+            }
+
+            return list;
         }
 
     }

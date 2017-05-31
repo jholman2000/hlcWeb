@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using hlcWeb.Controllers.Api;
 using hlcWeb.Filters;
 using hlcWeb.Models;
+using System.Collections.Generic;
 
 namespace hlcWeb.Controllers
 {
@@ -39,53 +40,12 @@ namespace hlcWeb.Controllers
         {
             CaseFile model;
 
-            //TODO: Can this be moved to inside the API controller?
-            if (Session["DoctorSelectList"] == null)
-            {
-                var items = _doctorRepository.Search("", false)
-                    .Select(s => new
-                    {
-                        Text = s.LastName + ", " + s.FirstName,
-                        Value = s.Id
-                    })
-                    .ToList();
-                Session["DoctorSelectList"] = new SelectList(items, "Value", "Text");
-            }
-            ViewBag.DoctorSelectList = Session["DoctorSelectList"];
+            ViewBag.DoctorSelectList = _doctorRepository.GetSelectList();
+            ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
 
-            if (Session["HospitalSelectList"] == null)
-            {
-                var items = _hospitalRepository.Search("")
-                    .Select(s => new
-                    {
-                        Text = s.HospitalName + " - " + s.City + " " + s.State,
-                        Value = s.Id
-                    })
-                    .ToList();
-                Session["HospitalSelectList"] = new SelectList(items, "Value", "Text");
-            }
-            ViewBag.HospitalSelectList = Session["HospitalSelectList"];
-
-            if (Session["DiagnosisSelectList"] == null)
-            {
-                var items = _diagnosisController.Search("")
-                    .Select(s => new
-                    {
-                        Text = s.DiagnosisName,
-                        Value = s.Id
-                    })
-                    .ToList();
-
-                // Add an item to top of list for user to indicate they will enter a new value
-                items.Insert(0, new
-                {
-                    Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)",
-                    Value =0
-                });
-
-                Session["DiagnosisSelectList"] = new SelectList(items, "Value", "Text");
-            }
-            ViewBag.DiagnosisSelectList = Session["DiagnosisSelectList"];
+            var temp = _diagnosisController.GetSelectList().ToList();
+            temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)" });
+            ViewBag.DiagnosisSelectList = new SelectList((IEnumerable<SelectListItem>)temp, "Value", "Text");
 
             if (id == 0)
             {
@@ -112,9 +72,11 @@ namespace hlcWeb.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.DoctorSelectList = Session["DoctorSelectList"];
-                ViewBag.HospitalSelectList = Session["HospitalSelectList"];
-                ViewBag.DiagnosisSelectList = Session["DiagnosisSelectList"];
+                ViewBag.DoctorSelectList = _doctorRepository.GetSelectList();
+                ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
+                var temp = _diagnosisController.GetSelectList().ToList();
+                temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)" });
+                ViewBag.DiagnosisSelectList = new SelectList((IEnumerable<SelectListItem>)temp, "Value", "Text");
                 return View(model);
             }
 

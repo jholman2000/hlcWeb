@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using System.Runtime.Caching;
+using System.Web.Mvc;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
@@ -18,8 +19,8 @@ namespace hlcWeb.Controllers.Api
         /// <param name="search"></param>
         /// <param name="includeDeleted"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("api/doctors/search")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/doctors/search")]
         public List<Doctor> Search(string search, bool includeDeleted = true)
         {
             var where = search == "*"
@@ -163,6 +164,31 @@ namespace hlcWeb.Controllers.Api
                 LogException(ex, viewModel);
                 return false;
             }
+        }
+
+        internal SelectList GetSelectList(bool refresh = false)
+        {
+            SelectList list;
+            ObjectCache cache = MemoryCache.Default;
+
+            list = (SelectList)cache["DoctorSelectList"];
+
+            if ( refresh || list == null)
+            {
+                var items = Search("", false)
+                        .Select(s => new
+                        {
+                            Text = s.LastName + ", " + s.FirstName,
+                            Value = s.Id
+                        })
+                        .ToList();
+                list = new SelectList(items, "Value", "Text");
+
+                if (refresh) cache.Remove("DoctorSelectList");
+                cache.Add("DoctorSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+            }
+
+            return list;
         }
     }
 }

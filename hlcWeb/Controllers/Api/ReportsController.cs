@@ -26,7 +26,8 @@ namespace hlcWeb.Controllers.Api
         {
             var where = "" +
                 (doctorId != 0   ? $" and cf.DoctorId = {doctorId} " : "") + 
-                (hospitalId != 0 ? $" and cf.HospitalId = {hospitalId} " : "");
+                (hospitalId != 0 ? $" and cf.HospitalId = {hospitalId} " : "") +
+                (diagnosisId != 0 ? $" and cf.DiagnosisId = {diagnosisId} " : "");
 
             var sql =
                 "select cf.Id, cf.CaseDate, cf.DateEntered, " +

@@ -4,13 +4,15 @@ using System.Linq;
 using System.Web.Http;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
+using System.Web.Mvc;
+using System.Runtime.Caching;
 
 namespace hlcWeb.Controllers.Api
 {
     public class DiagnosisController : BaseController
     {
-        [HttpGet]
-        [Route("api/diagnosis/search")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/diagnosis/search")]
         public List<Diagnosis> Search(string search)
         {
             var where = $"DiagnosisName LIKE '%{search}%' ";
@@ -60,6 +62,31 @@ namespace hlcWeb.Controllers.Api
                 return false;
             }
 
+        }
+
+        internal SelectList GetSelectList(bool refresh = false)
+        {
+            SelectList list;
+            ObjectCache cache = MemoryCache.Default;
+
+            list = (SelectList)cache["DiagnosisSelectList"];
+
+            if (refresh || list == null)
+            {
+                var items = Search("")
+                        .Select(s => new
+                        {
+                            Text = s.DiagnosisName,
+                            Value = s.Id
+                        })
+                        .ToList();
+                list = new SelectList(items, "Value", "Text");
+
+                if (refresh) cache.Remove("DiagnosisSelectList");
+                cache.Add("DiagnosisSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+            }
+
+            return list;
         }
 
     }
