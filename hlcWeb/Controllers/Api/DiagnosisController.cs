@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 using System.Web.Mvc;
@@ -66,10 +65,9 @@ namespace hlcWeb.Controllers.Api
 
         internal SelectList GetSelectList(bool refresh = false)
         {
-            SelectList list;
             ObjectCache cache = MemoryCache.Default;
 
-            list = (SelectList)cache["DiagnosisSelectList"];
+            var list = (SelectList)cache["DiagnosisSelectList"];
 
             if (refresh || list == null)
             {

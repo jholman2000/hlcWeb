@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using hlcWeb.Models;
+﻿using AutoMapper;
 using hlcWeb.ViewModels;
 
 namespace hlcWeb.App_Start

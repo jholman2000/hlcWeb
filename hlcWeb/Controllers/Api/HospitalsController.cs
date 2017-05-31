@@ -77,10 +77,9 @@ namespace hlcWeb.Controllers.Api
 
         internal SelectList GetSelectList(bool refresh = false)
         {
-            SelectList list;
             ObjectCache cache = MemoryCache.Default;
 
-            list = (SelectList)cache["HospitalSelectList"];
+            var list = (SelectList)cache["HospitalSelectList"];
 
             if (refresh || list == null)
             {

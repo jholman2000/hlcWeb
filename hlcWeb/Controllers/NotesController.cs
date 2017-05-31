@@ -20,10 +20,9 @@ namespace hlcWeb.Controllers
             if (id == 0 && doctorId == 0)
                 throw new ArgumentNullException(nameof(doctorId));
 
-            DoctorNote model;
             ViewBag.Url = url;
 
-            model = id == 0 ? new DoctorNote() : _noteRepository.Get(id);
+            var model = id == 0 ? new DoctorNote() : _noteRepository.Get(id);
 
             return View(model);
         }
