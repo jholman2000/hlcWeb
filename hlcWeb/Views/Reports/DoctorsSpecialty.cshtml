@@ -47,10 +47,11 @@
                     </tr>
                 }
                 <tr class="js-click-row">
-                    <td>@Html.ActionLink(item.DoctorName, "View", "Doctors", new { id = item.Id }, null)</td>
+                    <td class="hidden-print">@Html.ActionLink(item.DoctorName, "View", "Doctors", new {id = item.Id}, null)</td>
+                    <td class="visible-print">@item.DoctorName</td>
                     <td>@item.Status</td>
                     <td>@item.PracticeName<br/>@item.PracticeCityState<br/>@item.OfficePhone1</td>
-                    <td>@Html.Raw(!string.IsNullOrEmpty(item.Hospitals) ? item.Hospitals.Replace("|", "<br />") : "")  </td>
+                    <td>@Html.Raw(!string.IsNullOrEmpty(item.Hospitals) ? item.Hospitals.Replace("|", "<br />") : "") </td>
                 </tr>
             }
         </tbody>
