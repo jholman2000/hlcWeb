@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Dapper.Contrib.Extensions;
+using hlcWeb.Infrastructure;
 using hlcWeb.Models;
 
 namespace hlcWeb.ViewModels
@@ -18,7 +19,7 @@ namespace hlcWeb.ViewModels
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name="Overall Attitude")]
+        [Display(Name= Constants.Attitude)]
         public Attitude Attitude { get; set; }
 
         [Display(Name="Favorable for adults (emergency)")]

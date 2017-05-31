@@ -1,0 +1,61 @@
+﻿@using hlcWeb.Infrastructure
+@model List<hlcWeb.ViewModels.Reports.RptDoctorsSpecialtyViewModel>
+@{
+    ViewBag.Title = "Report: Case Files";
+    // TODO: Pass in the filter parameters in View Bag somehow
+    var filters = ViewBag.Filters;
+    var currGroup = "";
+}
+
+<div class="container">
+    <div class="visible-print" style="margin-top: -40px;"></div>
+    <table class="table table-striped table-hover" style="font-size: 10px;">
+        <thead>
+            <tr>
+                <th colspan="99">
+                    <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">@ViewBag.ReportName</span>
+                    @if (!string.IsNullOrEmpty(filters))
+                    {
+                        <br />
+                        <br />
+                        @Html.Raw(filters)
+                    }
+                </th>
+            </tr>
+            <tr>
+                <th>@Constants.DoctorId</th>
+                <th>Status</th>
+                <th>Practice</th>
+                <th>Hospitals</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="10">P = Pediatric Case &bull; CO = Court order sought &bull; G = Court order granted &bull; T = Transfusion given</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (currGroup != item.SpecialtyName)
+                {
+                    currGroup = item.SpecialtyName;
+                    <tr>
+                        <td colspan="4">
+                            <span style="font-size: 14px; font-weight: bold;">@currGroup</span>
+                        </td>
+                    </tr>
+                }
+                <tr class="js-click-row">
+                    <td>@Html.ActionLink(item.DoctorName, "View", "Doctors", new { id = item.Id }, null)</td>
+                    <td>@item.Status</td>
+                    <td>@item.PracticeName<br/>@item.PracticeCityState<br/>@item.OfficePhone1</td>
+                    <td>@Html.Raw(!string.IsNullOrEmpty(item.Hospitals) ? item.Hospitals.Replace("|", "<br />") : "")  </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+}

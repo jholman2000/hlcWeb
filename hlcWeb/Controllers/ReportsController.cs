@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using hlcWeb.Controllers.Api;
 using hlcWeb.Filters;
@@ -12,18 +11,20 @@ namespace hlcWeb.Controllers
     public class ReportsController : Controller
     {
         private readonly Api.ReportsController _reportRepository;
-        private readonly Api.CaseFilesController _caseFileRepository;
         private readonly Api.DoctorsController _doctorRepository;
         private readonly Api.HospitalsController _hospitalRepository;
-        private readonly Api.DiagnosisController _diagnosisController;
+        private readonly DiagnosisController _diagnosisRepository;
+        private readonly Api.UsersController _userRepository;
+        private readonly Api.SpecialtiesController _specialtyRepository;
 
         public ReportsController()
         {
             _reportRepository = new Api.ReportsController();
-            _caseFileRepository = new Api.CaseFilesController();
             _doctorRepository = new Api.DoctorsController();
             _hospitalRepository = new Api.HospitalsController();
-            _diagnosisController = new DiagnosisController();
+            _diagnosisRepository = new DiagnosisController();
+            _userRepository = new Api.UsersController();
+            _specialtyRepository = new Api.SpecialtiesController();
         }
 
         public ActionResult List()
@@ -32,35 +33,54 @@ namespace hlcWeb.Controllers
             return View();
         }
 
+        #region Report: Doctors by Specialty
+
+        public ActionResult DoctorsSpecialty()
+        {
+            var viewModel = new RptSetupViewModel();
+
+            ViewBag.SpecialtySelectList = _specialtyRepository.GetSelectList();
+            return View("SetupDoctorsSpecialty", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DoctorsSpecialty(RptSetupViewModel viewModel)
+        {
+            string specialtyList = viewModel.Specialties.Count > 0 ? string.Join(",", viewModel.Specialties) : "";
+            var rptData = _reportRepository.DoctorsSpecialty(viewModel.Attitude, specialtyList);
+
+            ViewBag.ReportName = "Doctors by Specialty";
+
+            var filters = "Attitude: " + viewModel.Attitude.EnumDisplayName() + "<br />";
+            if (viewModel.Specialties.Count > 0)
+            {
+                filters += $"{Constants.SpecialtyId}: ";
+                for (int i = 0; i < viewModel.Specialties.Count; i++)
+                {
+                    filters += _specialtyRepository.GetSelectList().LookupValue(viewModel.Specialties[i]) + ", ";
+                }
+                filters = filters.Substring(0, filters.Length - 2) + "<br />";
+            }
+            filters += rptData.Count.ToString() + " doctors found" + "<br />";
+
+            ViewBag.Filters = filters;
+
+            return View(rptData);
+        }
+        #endregion
+
+
         #region Report: Case Files
 
         public ActionResult CaseFiles()
         {
             var viewModel = new RptSetupViewModel();
 
-            ViewBag.DoctorSelectList = _doctorRepository.GetSelectList();
-            ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
-
-            if (Session["DiagnosisSelectList"] == null)
-            {
-                var items = _diagnosisController.Search("")
-                    .Select(s => new
-                    {
-                        Text = s.DiagnosisName,
-                        Value = s.Id
-                    })
-                    .ToList();
-
-                // Add an item to top of list for user to indicate they will enter a new value
-                //items.Insert(0, new
-                //{
-                //    Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)",
-                //    Value = 0
-                //});
-
-                Session["DiagnosisSelectList"] = new SelectList(items, "Value", "Text");
-            }
-            ViewBag.DiagnosisSelectList = Session["DiagnosisSelectList"];
+            ViewBag.DoctorSelectList    = _doctorRepository.GetSelectList();
+            ViewBag.HospitalSelectList  = _hospitalRepository.GetSelectList();
+            ViewBag.DiagnosisSelectList = _diagnosisRepository.GetSelectList();
+            ViewBag.UserSelectList      = _userRepository.GetSelectList();
 
             return View("SetupCaseFiles", viewModel);
         }
@@ -74,19 +94,29 @@ namespace hlcWeb.Controllers
 
             var filters = "Case Dates: " + viewModel.DateFrom.ToShortDateString() + " thru " + viewModel.DateTo.ToShortDateString() + "<br />";
 
+            ViewBag.ReportName = "Case Files";
+
             if (viewModel.DoctorId != 0)
             {
-                filters += "Doctor: " + _doctorRepository.GetSelectList().LookupValue(viewModel.DoctorId) + "<br />";
+                filters += $"{Constants.DoctorId}: " + _doctorRepository.GetSelectList().LookupValue(viewModel.DoctorId) + "<br />";
             }
             if (viewModel.HospitalId != 0)
             {
-                filters += "Hospital: " + _hospitalRepository.GetSelectList().LookupValue(viewModel.HospitalId) + "<br />";
+                filters += $"{Constants.HospitalId}: " + _hospitalRepository.GetSelectList().LookupValue(viewModel.HospitalId) + "<br />";
             }
             if (viewModel.DiagnosisId != 0)
             {
-                filters += "Diagnosis: " + ((SelectList)Session["DiagnosisSelectList"]).LookupValue(viewModel.DiagnosisId) + "<br />";
+                filters += $"{Constants.DiagnosisId}: " + _diagnosisRepository.GetSelectList().LookupValue(viewModel.DiagnosisId) + "<br />";
             }
-
+            if (!string.IsNullOrEmpty(viewModel.EnteredBy) )
+            {
+                filters += $"{Constants.EnteredBy}: " + _userRepository.GetSelectList().LookupValue(viewModel.EnteredBy) + "<br />";
+            }
+            if (viewModel.IsPediatricCase)
+            {
+                filters += $"{Constants.IsPediatricCase} only<br />" ;
+            }
+            filters += rptData.Count.ToString() + " case files found" + "<br />";
             ViewBag.Filters = filters;
 
             return View(rptData);

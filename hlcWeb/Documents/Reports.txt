@@ -1,7 +1,34 @@
 ﻿Reports
 =======
 
--- Report: Case Files
+-- Reports: Doctors by Specialty
+select d.ID, s.SpecialtyName,
+       case when Status = 0 then 'Unknown'
+	   when Status = 1 then 'Newly Identified'
+	   when Status = 2 then 'Letter Sent'
+	   when Status = 7 then 'Deceased'
+	   when Status = 8 then 'Moved'
+	   when Status = 9 then 'Active'
+	   when Status = 10 then 'Retired'
+	   when Status = 99 then 'Deleted'
+	   end as Status,
+       d.FirstName + ' ' + d.LastName    as DoctorName, 
+       p.PracticeName, p.City + ' ' + p.State as PracticeCityState, p.OfficePhone1,
+	   Hospitals = (select h.HospitalName + '|' as [text()]
+					from hlc_DoctorHospital dh
+					left join hlc_Hospital h on h.Id = dh.HospitalID
+					where dh.DoctorID = d.Id
+					for xml path (''))
+from hlc_Doctor d
+left join hlc_DoctorSpecialty ds on ds.DoctorID = d.Id
+left join hlc_Specialty s        on s.ID = ds.SpecialtyID
+left join hlc_Practice p         on p.ID = d.PracticeID
+where ds.SpecialtyID is not null
+  and ds.SpecialtyID in (2,29)
+order by s.SpecialtyName, d.LastName, d.FirstName
+
+
+-- Report: Case Files-------------------------------------------------------------------------------------
 select cf.Id, cf.CaseDate, cf.DateEntered, 
        u.FirstName + ' ' + u.LastName    as UserName, 
        d.FirstName + ' ' + d.LastName    as DoctorName, 
@@ -14,7 +41,10 @@ left join hlc_Hospital h  on  h.ID = cf.HospitalId
 left join hlc_Diagnosis i on i.ID = cf.DiagnosisId
 left join hlc_User u      on u.UserID = cf.EnteredBy
 where (cast(cf.DateEntered as Date) between '04/25/2017' and '05/09/2017')
+order by cf.CaseDate
 
+
+-- Report: Annual report ---------------------------------------------------------------------------------
 -- HospitalType count
 with GroupData as
  (select HospitalType, count(*) as GroupCount from hlc_Hospital group by HospitalType)

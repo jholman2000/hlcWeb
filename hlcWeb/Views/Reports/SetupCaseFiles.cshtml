@@ -1,10 +1,11 @@
-﻿@model hlcWeb.ViewModels.Reports.RptSetupViewModel
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.ViewModels.Reports.RptSetupViewModel
 @{
     ViewBag.Title = "Report: Case Files";
 }
 
 <div class="well">
-    <i class="fa fa-address-card-o fa-2x fa-fw text-primary"></i><span class="h3"> HLC Report: Case File</span>
+    <i class="fa fa-file-text-o fa-2x fa-fw text-primary"></i><span class="h3"> HLC Report: Case File</span>
 </div>
 <div class="container">
 @using (Html.BeginForm("CaseFiles", "Reports", FormMethod.Post, new {@class = "form-horizontal"}))
@@ -32,19 +33,36 @@
     <div class="form-group">
         @Html.LabelFor(m => m.DoctorId, new { @class = "col-sm-2 control-label" })
         <div class="col-sm-10">
-            @Html.DropDownListFor(m => m.DoctorId, (SelectList)ViewBag.DoctorSelectList, "(All Doctors)", new { @class = "form-control", style = "max-width:100%;" })
+            @Html.DropDownListFor(m => m.DoctorId, (SelectList)ViewBag.DoctorSelectList, "(Any Doctor)", new { @class = "form-control", style = "max-width:100%;" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.HospitalId, new { @class = "col-sm-2 control-label" })
         <div class="col-sm-10">
-            @Html.DropDownListFor(m => m.HospitalId, (SelectList)ViewBag.HospitalSelectList, "(All Hospitals)", new { @class = "form-control", style = "max-width:100%;" })
+            @Html.DropDownListFor(m => m.HospitalId, (SelectList)ViewBag.HospitalSelectList, "(Any Hospital)", new { @class = "form-control", style = "max-width:100%;" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.DiagnosisId, new { @class = "col-sm-2 control-label" })
         <div class="col-sm-10">
-            @Html.DropDownListFor(m => m.DiagnosisId, (SelectList)ViewBag.DiagnosisSelectList, "(All Diagnoses)", new { @class = "form-control", style = "max-width:100%;" })
+            @Html.DropDownListFor(m => m.DiagnosisId, (SelectList)ViewBag.DiagnosisSelectList, "(Any Diagnosis)", new { @class = "form-control", style = "max-width:100%;" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EnteredBy, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.EnteredBy, (SelectList)ViewBag.UserSelectList, "(Any HLC User)", new { @class = "form-control", style = "max-width:100%;" })
+        </div>
+    </div>
+    <div class="form-group hlc-control">
+        @Html.LabelFor(m => m.IsPediatricCase, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.IsPediatricCase)
+                    @Constants.IsPediatricCase only
+                </label>
+            </div>
         </div>
     </div>
 

@@ -10,15 +10,34 @@
         Select a report from the list below.  You may then enter the criteria for running the report if needed.
     </div>
 
-    <div class="list-group">
-        <a href="@Url.Action("DoctorsAddedRemoved", "Reports", new {dateFrom = "01/01/2017", dateTo = DateTime.Now})" class="list-group-item">
-            Doctors Added and Removed
-        </a>
-        <a href="@Url.Action("CaseFiles","Reports")" class="list-group-item">Case Files</a>
-        <a href="#" class="list-group-item">Annual HLC Report</a>
-        <a href="#" class="list-group-item">Another report</a>
-        <a href="#" class="list-group-item">Another report</a>
-    </div>
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Report</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="js-click-row">
+                <td><a href="#">Annual HLC Questionnaire</a></td>
+                <td>Calculated information for the annual form to be sent to the Society</td>
+            </tr>
+            <tr class="js-click-row">
+                <td><a href="@Url.Action("CaseFiles","Reports")">Case Files</a></td>
+                <td>List of Case files filtered by Doctor, Hospital, Diagnosis, Entered by and/or Pediatric</td>
+            </tr>
+            <tr class="js-click-row">
+                <td><a href="@Url.Action("DoctorsAddedRemoved", "Reports", new {dateFrom = "01/01/2017", dateTo = DateTime.Now})">Doctors Added and Removed</a></td>
+                <td>List of Doctors added or removed during a specific time period</td>
+            </tr>
+        <tr class="js-click-row">
+            <td><a href="@Url.Action("DoctorsSpecialty","Reports")">Doctors by Specialty</a></td>
+            <td>List of Doctors by Specialty with a selected Attitude</td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
-
-
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+}

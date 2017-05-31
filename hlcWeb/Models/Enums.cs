@@ -19,6 +19,7 @@ namespace hlcWeb.Models
         No = 2
     }
 
+    // If adding to Status then need to update the SQL in Api.ReportsController.DoctorsSpecialty()
     public enum Status
     {
         [Display(Name = "Unknown")]

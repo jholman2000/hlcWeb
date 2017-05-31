@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using System.Runtime.Caching;
+using System.Web.Mvc;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 
@@ -28,8 +29,8 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
-        [HttpGet]
-        [Route("api/users/search")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/users/search")]
         public List<User> Search(string search)
         {
             var where = search == "*"
@@ -44,18 +45,6 @@ namespace hlcWeb.Controllers.Api
 
             return results;
         }
-
-        //public IHttpActionResult Get()
-        //{
-        //    string sql = "select * from hlc_User";
-
-        //    var results = GetListFromSql<User>(sql);
-
-        //    if (results == null)
-        //        return NotFound();
-
-        //    return Ok(results);
-        //}
 
         internal User Get(string id)
         {
@@ -84,5 +73,32 @@ namespace hlcWeb.Controllers.Api
             }
         }
 
+        internal SelectList GetSelectList(bool refresh = false)
+        {
+            SelectList list;
+            ObjectCache cache = MemoryCache.Default;
+
+            list = (SelectList)cache["UserSelectList"];
+
+            if (refresh || list == null)
+            {
+                var items = Search("")
+                    .Select(s => new
+                    {
+                        Text = s.FullName,
+                        Value = s.UserId
+                    })
+                    .ToList();
+                list = new SelectList(items, "Value", "Text");
+
+                if (refresh) cache.Remove("UserSelectList");
+                cache.Add("UserSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+            }
+
+            return list;
+        }
+
     }
+
 }
+

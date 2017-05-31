@@ -8,6 +8,7 @@ namespace hlcWeb.Infrastructure
 {
     public static class Extensions
     {
+        // TODO: Document these extensions with /// comments
         public static string SplitCamelCase(this string str)
         {
             if (string.IsNullOrEmpty(str))
@@ -71,5 +72,18 @@ namespace hlcWeb.Infrastructure
                 return list.Where(i => i.Value == value.ToString()).Select(i => i.Text).FirstOrDefault();
             }
         }
+
+        public static string LookupValue(this SelectList list, string value)
+        {
+            if (list == null || !list.Any())
+            {
+                return "";
+            }
+            else
+            {
+                return list.Where(i => i.Value == value).Select(i => i.Text).FirstOrDefault();
+            }
+        }
+
     }
 }

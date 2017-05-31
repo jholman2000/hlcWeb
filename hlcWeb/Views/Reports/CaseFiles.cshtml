@@ -8,11 +8,12 @@
 }
 
 <div class="container">
-    <table class="table table-striped" style="font-size: 10px;">
+    <div class="visible-print" style="margin-top: -40px;"></div>
+    <table class="table table-striped table-hover" style="font-size: 10px;">
         <thead>
         <tr>
             <th colspan="99">
-                <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">Case Files</span>
+                <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">@ViewBag.ReportName</span>
                 @if (!string.IsNullOrEmpty(filters))
                 {
                     <br/>
@@ -34,11 +35,16 @@
             <th class="text-center" title="Transfusion Given?">T</th>
         </tr>
         </thead>
+        <tfoot>
+        <tr>
+            <td colspan="10">P = Pediatric Case &bull; CO = Court order sought &bull; G = Court order granted &bull; T = Transfusion given</td>
+        </tr>
+        </tfoot>
         <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.CaseDate.ToShortDateString()</td>
+            <tr class="js-click-row">
+                <td>@Html.ActionLink(item.CaseDate.ToShortDateString(), "View", "CaseFiles", new { id = item.Id }, null)</td>
                 <td>@item.UserName</td>
                 <td>@item.PatientName</td>
                 <td>@item.DoctorName</td>
@@ -53,4 +59,6 @@
         </tbody>
     </table>
 </div>
-
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>    
+}

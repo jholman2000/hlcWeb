@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using hlcWeb.Infrastructure;
+using hlcWeb.Models;
 
 namespace hlcWeb.ViewModels.Reports
 {
@@ -13,6 +12,7 @@ namespace hlcWeb.ViewModels.Reports
         {
             DateFrom = new DateTime(DateTime.Now.Year, 1, 1);
             DateTo = DateTime.Today;
+            Attitude = Attitude.Cooperative;
         }
 
         [Display(Name = Constants.DateFrom)]
@@ -37,6 +37,13 @@ namespace hlcWeb.ViewModels.Reports
         [Display(Name = Constants.EnteredBy)]
         public string EnteredBy { get; set; }
 
+        [Display(Name = Constants.Attitude)]
+        public Attitude Attitude { get; set; }
+
+        [Display(Name = "Specialty")]
+        public List<int> Specialties { get; set; }
+
+        [Display(Name = Constants.IsPediatricCase)]
         public bool IsPediatricCase { get; set; }
     }
 }
