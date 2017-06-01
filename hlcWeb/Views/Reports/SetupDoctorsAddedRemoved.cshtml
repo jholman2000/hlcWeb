@@ -18,7 +18,6 @@
 
         <div class="form-group">
             <div class = "col-sm-3 control-label"><strong>Doctors Added/Removed</strong> @Html.LabelFor(m => m.DateFrom)</div>
-            @*Case Date @Html.LabelFor(m => m.DateFrom, new {@class = "col-sm-2 control-label"})*@
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.DateFrom, new {type = "date", @class = "form-control"})
             </div>
