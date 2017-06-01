@@ -22,7 +22,7 @@ namespace hlcWeb.Controllers.Api
 
         public User CheckUserId(User user)
         {
-            var sql = $"select UserID, FirstName, LastName from hlc_User where UserId='{user.UserId}'";
+            var sql = $"select UserId, FirstName, LastName from hlc_User where UserId='{user.UserId}'";
 
             var results = GetListFromSql<User>(sql).FirstOrDefault();
 

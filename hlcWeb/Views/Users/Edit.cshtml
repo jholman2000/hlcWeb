@@ -77,7 +77,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.Password, new {@class = "col-sm-2 control-label"})
                 <div class="col-sm-10">
-                    @Html.TextBoxFor(m => m.Password, new {@class = "form-control", autofocus = "autofocus"})
+                    @Html.TextBoxFor(m => m.Password, new {@class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
             </div>
@@ -89,7 +89,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.FirstName, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", autofocus = "autofocus" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.FirstName)
             </div>
         </div>

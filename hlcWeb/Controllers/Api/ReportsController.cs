@@ -77,7 +77,7 @@ namespace hlcWeb.Controllers.Api
                 "left join hlc_Doctor d    on d.ID = cf.DoctorId " +
                 "left join hlc_Hospital h  on h.ID = cf.HospitalId " +
                 "left join hlc_Diagnosis i on i.ID = cf.DiagnosisId " +
-                "left join hlc_User u      on u.UserID = cf.EnteredBy " +
+                "left join hlc_User u      on u.UserId = cf.EnteredBy " +
                 $"where (cast(cf.DateEntered as Date) between '{dateFrom.ToShortDateString()}' and '{dateTo.ToShortDateString()}') " +
                 where +
                 "order by cf.CaseDate";

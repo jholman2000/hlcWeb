@@ -17,7 +17,7 @@ namespace hlcWeb.Controllers.Api
                       "u.FirstName + ' ' + u.LastName AS UserName " +
                       "FROM hlc_DoctorNote dn " +
                       "LEFT JOIN hlc_Doctor d ON d.ID = dn.DoctorID " +
-                      "LEFT JOIN hlc_User u ON u.UserID = dn.UserID " +
+                      "LEFT JOIN hlc_User u ON u.UserId = dn.UserId " +
                       $"WHERE {where} ORDER BY dn.DateEntered DESC";
 
             var results = GetListFromSql<DoctorNote>(sql);
@@ -33,7 +33,7 @@ namespace hlcWeb.Controllers.Api
                         "u.FirstName + ' ' + u.LastName AS UserName " +
                         "FROM hlc_DoctorNote dn " +
                         "LEFT JOIN hlc_Doctor d ON d.ID = dn.DoctorID " +
-                        "LEFT JOIN hlc_User u ON u.UserID = dn.UserID " +
+                        "LEFT JOIN hlc_User u ON u.UserId = dn.UserId " +
                         $"WHERE dn.ID = {id}";
 
             var results = GetListFromSql<DoctorNote>(sql).FirstOrDefault();
