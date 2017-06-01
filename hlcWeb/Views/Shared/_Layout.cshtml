@@ -54,9 +54,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Some option</a></li>
-                            <li><a href="@Url.Action("DoctorsAddedRemoved", "Reports", new {dateFrom = "01/01/2017", dateTo = DateTime.Now})">Report</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i> Profile</a></li>
+                            <li><a href="@Url.Action("Edit", "Users")"><i class="fa fa-cog"></i> My Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="@Url.Action("Logoff", "Logon")"><i class="fa fa-power-off"></i> Sign out</a></li>
                         </ul>

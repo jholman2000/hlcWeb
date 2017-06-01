@@ -27,7 +27,7 @@ namespace hlcWeb.Controllers
             return View(model);
         }
 
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id = "")
         {
 
             var model = new User();
@@ -43,6 +43,11 @@ namespace hlcWeb.Controllers
             }
             ViewBag.UserRoleSelectList = Session["UserRoleSelectList"];
 
+            if (string.IsNullOrEmpty(id) && (string) Session["UserRole"] == "HLC Member")
+            {
+                id = (string)Session["UserId"];
+            }
+
             if (string.IsNullOrEmpty(id))
             {
                 model.OriginalUserId = "";
@@ -52,14 +57,9 @@ namespace hlcWeb.Controllers
             }
             else
             {
-                //ViewBag.Action = "Edit";
                 // Retrieve existing data and populate model
                 model = _usersRepository.Get(id);
                 model.OriginalUserId = model.UserId;
-                //if (model == null)
-                //    return RedirectToAction("Search", "Home",
-                //        new { msg = $"UserId {id} was not found in the database." });
-
             }
             return View(model);
         }
