@@ -366,6 +366,7 @@
     <Content Include="Views\Reports\SetupCaseFiles.cshtml" />
     <Content Include="Views\Reports\SetupDoctorsSpecialty.cshtml" />
     <Content Include="Views\Reports\DoctorsSpecialty.cshtml" />
+    <Content Include="Views\Reports\SetupDoctorsAddedRemoved.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

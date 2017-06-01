@@ -1,12 +1,22 @@
 ﻿@model List<hlcWeb.ViewModels.Reports.RptDoctorsAddedRemovedViewModel>
 @{
     ViewBag.Title = "Report: Doctors Added and Removed";
+    var filters = ViewBag.Filters;
 }
 <div class="container">
+    <div class="visible-print" style="margin-top: -40px;"></div>
     <table class="table table-striped" style="font-size: 10px;">
         <thead>
         <tr>
-            <th colspan="99"><i class="fa fa-heartbeat fa-2x"></i> <strong>Hospital Liaison Committee</strong> - Doctors Added and Removed</th>
+            <th colspan="99">
+                <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">@ViewBag.ReportName</span>
+                @if (!string.IsNullOrEmpty(filters))
+                {
+                    <br />
+                    <br />
+                    @Html.Raw(filters)
+                }
+            </th>
         </tr>
         <tr>
             <th>Date</th>
