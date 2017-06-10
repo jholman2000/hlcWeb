@@ -47,8 +47,15 @@ namespace hlcWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DoctorsSpecialty(RptSetupViewModel viewModel)
         {
+            if (viewModel.Specialties == null)
+            {
+                ViewBag.ErrorMessage = "Please select at least one Specialty";
+                ViewBag.SpecialtySelectList = _specialtyRepository.GetSelectList();
+                return View("SetupDoctorsSpecialty", viewModel);
+            }
+
             string specialtyList = viewModel.Specialties.Count > 0 ? string.Join(",", viewModel.Specialties) : "";
-            var rptData = _reportRepository.DoctorsSpecialty(viewModel.Attitude, specialtyList);
+            var rptData = _reportRepository.DoctorsSpecialty((int)viewModel.Attitude, specialtyList);
 
             ViewBag.ReportName = "Doctors by Specialty";
 

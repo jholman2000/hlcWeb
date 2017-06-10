@@ -23,7 +23,7 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-        public List<RptDoctorsSpecialtyViewModel> DoctorsSpecialty(Attitude attitude, string specialtyList)
+        public List<RptDoctorsSpecialtyViewModel> DoctorsSpecialty(int attitude, string specialtyList)
         {
             var where = "" +
                 (!string.IsNullOrEmpty(specialtyList) ? $" and ds.SpecialtyID in ({specialtyList}) " : " ");
@@ -51,6 +51,7 @@ namespace hlcWeb.Controllers.Api
                 "left join hlc_Specialty s        on s.ID = ds.SpecialtyID " +
                 "left join hlc_Practice p         on p.ID = d.PracticeID " +
                 "where ds.SpecialtyID is not null " +
+                $"and d.Attitude = {attitude} " +
                 where +
                 "order by s.SpecialtyName, d.LastName, d.FirstName";
 
