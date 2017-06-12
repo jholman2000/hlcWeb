@@ -1,7 +1,7 @@
 ﻿Reports
 =======
 
--- Reports: Doctors by Specialty
+-- Reports: Doctors by Specialty-------------------------------------------------------------------------------------
 select d.ID, s.SpecialtyName,
        case when Status = 0 then 'Unknown'
 	   when Status = 1 then 'Newly Identified'
@@ -24,6 +24,7 @@ left join hlc_DoctorSpecialty ds on ds.DoctorID = d.Id
 left join hlc_Specialty s        on s.ID = ds.SpecialtyID
 left join hlc_Practice p         on p.ID = d.PracticeID
 where ds.SpecialtyID is not null
+  and d.Attitude = 1
   and ds.SpecialtyID in (2,29)
 order by s.SpecialtyName, d.LastName, d.FirstName
 
@@ -48,19 +49,32 @@ order by cf.CaseDate
 -- HospitalType count
 with GroupData as
  (select HospitalType, count(*) as GroupCount from hlc_Hospital group by HospitalType)
-select ht.Id, Description, coalesce(GroupCount,0)
+select Description as Name, coalesce(GroupCount,0) as Count
 from hlc_HospitalType ht
 left join GroupData gd on gd.HospitalType = ht.Id
+union
+select 'Hospitals with pediatrics' as Name, Count(*) as Count
+from hlc_Hospital h
+where h.HasPediatrics = 1
+order by Description
 
 -- Cooperative Specialty count
-select s.SpecialtyName, count(s.ID)
+with GroupData as
+(
+select s.ID, s.SpecialtyName, count(s.ID) as GroupCount
 from hlc_Doctor d
 left join hlc_DoctorSpecialty ds on ds.DoctorID = d.ID
 left join hlc_Specialty s on s.ID = ds.SpecialtyID
 where d.Attitude = 1
-group by s.SpecialtyName
-order by 1
+group by s.Id, s.SpecialtyName
+)
+select s.SpecialtyName as Name, coalesce(GroupCount,0) as Count
+from hlc_Specialty s
+left join GroupData gd on gd.ID = s.ID 
+order by s.SpecialtyName
 
+
+----------------------------------------------------------------------------------------------------------------
 CREATE TABLE [hlc_HospitalType] (
 [Id] int NULL ,
 [Description] varchar(50) NULL

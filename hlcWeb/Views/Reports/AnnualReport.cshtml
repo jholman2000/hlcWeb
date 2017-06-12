@@ -1,0 +1,43 @@
+﻿@model hlcWeb.ViewModels.Reports.RptAnnualReport
+@{
+    ViewBag.Title = "Report: Annual Report";
+}
+
+<div class="container">
+    <div class="visible-print" style="margin-top: -40px;"></div>
+    <table class="table table-hover" style="font-size: 10px;">
+        <thead>
+        <tr>
+            <th colspan="99">
+                <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">@ViewBag.ReportName</span>
+            </th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr>
+            <td>(5) Number of Patient Visitation Group members:</td>
+        </tr>
+        <tr>
+            <td>
+                (6) Number of hospitals by type:
+                <table>
+                    <tr>
+                        <td>@Model.Hospitals[0].Count</td>
+                        <td>@Model.Hospitals[0].Name</td>
+                        <td>@Model.Hospitals[1].Count</td>
+                        <td>@Model.Hospitals[1].Count</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>(7) Number of cooperative doctors by specialty:</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

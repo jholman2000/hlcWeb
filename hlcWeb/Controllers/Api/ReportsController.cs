@@ -1,13 +1,35 @@
 ﻿using hlcWeb.ViewModels.Reports;
 using System;
 using System.Collections.Generic;
-using hlcWeb.Models;
 
 namespace hlcWeb.Controllers.Api
 {
     public class ReportsController : BaseController
     {
-        public List<RptDoctorsAddedRemovedViewModel> Report(DateTime dateFrom, DateTime dateTo)
+        public RptAnnualReport AnnualReport()
+        {
+            var annualReport = new RptAnnualReport();
+
+            var sql = "";
+
+            sql =
+                "with GroupData as " +
+                "(select HospitalType, count(*) as GroupCount from hlc_Hospital group by HospitalType) " +
+                "select Description as Name, coalesce(GroupCount,0) as Count " +
+                "from hlc_HospitalType ht " +
+                "left join GroupData gd on gd.HospitalType = ht.Id " +
+                "union " +
+                "select 'Hospitals with pediatrics' as Name, Count(*) as Count " +
+                "from hlc_Hospital h " +
+                "where h.HasPediatrics = 1 " +
+                "order by Description";
+
+            annualReport.Hospitals = GetListFromSql<RptNameCount>(sql);
+
+            return annualReport;
+        }
+
+        public List<RptDoctorsAddedRemovedViewModel> DoctorsAddedRemoved(DateTime dateFrom, DateTime dateTo)
         {
             var sql = 
                 "select d.DateLastUpdated, u.FirstName + ' ' + u.LastName as UserName, d.FirstName + ' ' + d.LastName as DoctorName, " +
