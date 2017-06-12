@@ -16,6 +16,9 @@ namespace hlcWeb.Controllers.Api
 
             if (results.Count == 0)
                 return null;
+            
+            // User logged on OK.  Update their last logon date
+            ExecuteSql($"update hlc_user set DateLastOn = getDate() WHERE UserId='{results[0].UserId}'");
 
             return results[0];
         }

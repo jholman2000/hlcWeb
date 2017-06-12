@@ -174,7 +174,7 @@ namespace hlcWeb.Controllers.Api
 
             //using (_conn)
             //{
-                return _conn.Execute(sql, commandType: CommandType.Text);
+                return Connection.Execute(sql, commandType: CommandType.Text);
             //}
         }
 

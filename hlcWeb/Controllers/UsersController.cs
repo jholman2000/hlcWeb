@@ -27,6 +27,11 @@ namespace hlcWeb.Controllers
             return View(model);
         }
 
+        public ActionResult MyProfile()
+        {
+            return RedirectToAction("Edit", new {id = Session["UserId"]});
+        }
+
         public ActionResult Edit(string id = "")
         {
 
@@ -43,7 +48,8 @@ namespace hlcWeb.Controllers
             }
             ViewBag.UserRoleSelectList = Session["UserRoleSelectList"];
 
-            if (string.IsNullOrEmpty(id) && (string) Session["UserRole"] == "HLC Member")
+            // Prevent HLC Member from adding a new user or editing another user
+            if ((string) Session["UserRole"] == "HLC Member")
             {
                 id = (string)Session["UserId"];
             }
