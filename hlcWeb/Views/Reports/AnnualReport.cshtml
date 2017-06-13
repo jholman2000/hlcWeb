@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="visible-print" style="margin-top: -40px;"></div>
-    <table class="table table-hover" style="font-size: 10px;">
+    <table class="table hlc-table-noline" style="font-size: 14px;">
         <thead>
         <tr>
             <th colspan="99">
@@ -27,16 +27,52 @@
                 (6) Number of hospitals by type:
                 <table>
                     <tr>
+                        <td style="width: 40px;">&nbsp;</td>
                         <td>@Model.Hospitals[0].Count</td>
-                        <td>@Model.Hospitals[0].Name</td>
+                        <td style="width: 220px;">@Model.Hospitals[0].Name</td>
+                        <td style="width: 40px;">&nbsp;</td>
                         <td>@Model.Hospitals[1].Count</td>
-                        <td>@Model.Hospitals[1].Count</td>
+                        <td>@Model.Hospitals[1].Name</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>@Model.Hospitals[2].Count</td>
+                        <td>@Model.Hospitals[2].Name</td>
+                        <td>&nbsp;</td>
+                        <td>@Model.Hospitals[7].Count</td>
+                        <td>@Model.Hospitals[7].Name</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td>@Model.Hospitals[3].Count</td>
+                        <td>@Model.Hospitals[3].Name</td>
+                        <td>&nbsp;</td>
+                        <td>@Model.Hospitals[8].Count</td>
+                        <td>@Model.Hospitals[8].Name</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>@Model.Hospitals[4].Count</td>
+                        <td>@Model.Hospitals[4].Name</td>
+                        <td>&nbsp;</td>
+                        <td>@Model.Hospitals[5].Count</td>
+                        <td>@Model.Hospitals[5].Name</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>@Model.Hospitals[6].Count</td>
+                        <td>@Model.Hospitals[6].Name</td>
+                        <td>&nbsp;</td>
+                        <td>@Model.Hospitals[9].Count</td>
+                        <td>@Model.Hospitals[9].Name</td>
                     </tr>
                 </table>
             </td>
         </tr>
         <tr>
-            <td>(7) Number of cooperative doctors by specialty:</td>
+            <td>
+                (7) Number of cooperative doctors by specialty:
+            </td>
         </tr>
         </tbody>
     </table>

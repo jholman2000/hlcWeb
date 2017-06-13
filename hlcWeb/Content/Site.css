@@ -120,6 +120,9 @@ i.hlc-brand {
 .hlc-table-phone {
     width: 105px;
 }
+.hlc-table-noline th, .hlc-table-noline td {
+     border-top: none !important; 
+}
 .hlc-list-group {
     padding: 5px 10px;
 }
