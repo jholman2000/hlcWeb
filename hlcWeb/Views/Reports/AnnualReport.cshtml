@@ -1,6 +1,8 @@
 ﻿@model hlcWeb.ViewModels.Reports.RptAnnualReport
 @{
     ViewBag.Title = "Report: Annual Report";
+
+    var coopHalf = (int)Math.Ceiling(Model.CoopDoctors.Count / 2.0);
 }
 
 <div class="container">
@@ -20,60 +22,103 @@
         </tfoot>
         <tbody>
         <tr>
-            <td>(5) Number of Patient Visitation Group members:</td>
+            <td colspan="2"></td>
         </tr>
         <tr>
-            <td>
+            <td style="width: 500px;">(1) Date:</td>
+            <td class="hlc-report-field">@DateTime.Today.ToString("MMMM dd, yyyy")</td>
+        </tr>
+        <tr>
+            <td style="width: 500px; border: 1px solid #fff;">(2) Name of Hospital Liaison Committee:</td>
+            <td class="hlc-report-field">Charlotte, NC</td>
+        </tr>
+        <tr>
+            <td style="width: 500px;">(3) Number of Hospital Liaison Committee members:</td>
+            <td class="hlc-report-field">@Model.HlcCount.ToString()</td>
+        </tr>
+        <tr>
+            <td style="width: 500px;">(4) Number of significant presentations given:</td>
+            <td>_____</td>
+        </tr>
+        <tr>
+            <td style="width: 500px;">(5) Number of Patient Visitation Group members:</td>
+            <td class="hlc-report-field">@Model.PvgCount.ToString()</td>
+        </tr>
+        <tr>
+            <td colspan="2">
                 (6) Number of hospitals by type:
-                <table>
+                <table class="table-condensed">
                     <tr>
                         <td style="width: 40px;">&nbsp;</td>
-                        <td>@Model.Hospitals[0].Count</td>
-                        <td style="width: 220px;">@Model.Hospitals[0].Name</td>
+                        <td class="hlc-report-field">@Model.Hospitals[0].Count</td>
+                        <td style="width: 230px;">@Model.Hospitals[0].Name</td>
                         <td style="width: 40px;">&nbsp;</td>
-                        <td>@Model.Hospitals[1].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[1].Count</td>
                         <td>@Model.Hospitals[1].Name</td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td>@Model.Hospitals[2].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[2].Count</td>
                         <td>@Model.Hospitals[2].Name</td>
                         <td>&nbsp;</td>
-                        <td>@Model.Hospitals[7].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[7].Count</td>
                         <td>@Model.Hospitals[7].Name</td>
                     </tr>
                     <tr>
                         <td style="width: 40px;">&nbsp;</td>
-                        <td>@Model.Hospitals[3].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[3].Count</td>
                         <td>@Model.Hospitals[3].Name</td>
                         <td>&nbsp;</td>
-                        <td>@Model.Hospitals[8].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[8].Count</td>
                         <td>@Model.Hospitals[8].Name</td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td>@Model.Hospitals[4].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[4].Count</td>
                         <td>@Model.Hospitals[4].Name</td>
                         <td>&nbsp;</td>
-                        <td>@Model.Hospitals[5].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[5].Count</td>
                         <td>@Model.Hospitals[5].Name</td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td>@Model.Hospitals[6].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[6].Count</td>
                         <td>@Model.Hospitals[6].Name</td>
                         <td>&nbsp;</td>
-                        <td>@Model.Hospitals[9].Count</td>
+                        <td class="hlc-report-field">@Model.Hospitals[9].Count</td>
                         <td>@Model.Hospitals[9].Name</td>
                     </tr>
                 </table>
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2">
                 (7) Number of cooperative doctors by specialty:
+                <table class="table-condensed">
+                    @for (int i = 0; i < coopHalf; i++)
+                    {
+                        <tr>
+                            <td style="width: 40px;">&nbsp;</td>
+                            <td class="hlc-report-field">@Model.CoopDoctors[i].Count</td>
+                            <td style="width: 230px;">@Model.CoopDoctors[i].Name</td>
+                            <td style="width: 40px;">&nbsp;</td>
+                            @if (i + coopHalf <= Model.CoopDoctors.Count - 1)
+                            {
+                                <td class="hlc-report-field">@Model.CoopDoctors[i + coopHalf].Count</td>
+                                <td>@Model.CoopDoctors[i + coopHalf].Name</td>
+                            }
+                        </tr>
+                    }
+                </table>
             </td>
+        </tr>
+        <tr>
+            <td style="width: 500px;">(8) Complete page 2 (if applicable).</td>
+            <td></td>
         </tr>
         </tbody>
     </table>
+    <div class="text-center hlc-report-hdg">Information On Hospitals With a BMSP</div>
+    <hr style="border-top: 2px solid #ddd;" />
+
 </div>

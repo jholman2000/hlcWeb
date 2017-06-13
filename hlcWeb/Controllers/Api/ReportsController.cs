@@ -10,8 +10,22 @@ namespace hlcWeb.Controllers.Api
         {
             var annualReport = new RptAnnualReport();
 
-            var sql = "";
+            string sql;
 
+            #region HLC/PVG count
+            sql =
+            "select 'HLC Member' as Name, count(*) as Count from hlc_user " +
+                "where (UserRole = 'HLC Member' or UserID = 'mjones') " +
+                "  and IsActive = 1 " +
+                "union " +
+                "select 'PVG Member' as Name, count(*) as Count from hlc_PVGMember";
+
+            var results = GetListFromSql<RptNameCount>(sql);
+            annualReport.HlcCount = results[0].Count;
+            annualReport.PvgCount = results[1].Count;
+            #endregion
+
+            #region Hospitals
             sql =
                 "with GroupData as " +
                 "(select HospitalType, count(*) as GroupCount from hlc_Hospital group by HospitalType) " +
@@ -25,6 +39,39 @@ namespace hlcWeb.Controllers.Api
                 "order by Description";
 
             annualReport.Hospitals = GetListFromSql<RptNameCount>(sql);
+            #endregion
+
+            #region Coop
+            sql =
+                "with GroupData as " +
+                "( " +
+                "select s.ID, s.SpecialtyName, count(s.ID) as GroupCount " +
+                "from hlc_Doctor d " +
+                "left join hlc_DoctorSpecialty ds on ds.DoctorID = d.ID " +
+                "left join hlc_Specialty s on s.ID = ds.SpecialtyID " +
+                "where d.Attitude = 1 " +
+                "group by s.Id, s.SpecialtyName " +
+                ") " +
+                "select s.SpecialtyName as Name, coalesce(GroupCount,0) as Count " +
+                "from hlc_Specialty s " +
+                "left join GroupData gd on gd.ID = s.ID  " +
+                "order by s.SpecialtyName";
+
+            annualReport.CoopDoctors = GetListFromSql<RptNameCount>(sql);
+            #endregion
+
+            #region BMSP Hospitals
+
+            sql =
+                "select HospitalName, Address1, Address2, City, State, Zip, " +
+                "       BMSPCoordName, BmspCoordPhone, BmspCoordIsWitness, BmspCommitment, " +
+                "	   BmspSpecialties, BmspPhone, BmspNumberOfDoctors " +
+                "from hlc_Hospital " +
+                "where HasBSMP = 1 " +
+                "order by HospitalName";
+
+            annualReport.BMSP = GetListFromSql<RptAnnualBMSP>(sql);
+            #endregion
 
             return annualReport;
         }

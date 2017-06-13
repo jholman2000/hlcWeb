@@ -46,6 +46,14 @@ order by cf.CaseDate
 
 
 -- Report: Annual report ---------------------------------------------------------------------------------
+
+-- HLC and PVG ccounts
+select 'HLC Member' as Name, count(*) as Count from hlc_user
+where (UserRole = 'HLC Member' or UserID = 'mjones')
+  and IsActive = 1
+union
+select 'PVG Member' as Name, count(*) as Count from hlc_PVGMember
+
 -- HospitalType count
 with GroupData as
  (select HospitalType, count(*) as GroupCount from hlc_Hospital group by HospitalType)
@@ -73,6 +81,13 @@ from hlc_Specialty s
 left join GroupData gd on gd.ID = s.ID 
 order by s.SpecialtyName
 
+-- BMSP Hospitals
+select HospitalName, Address1, Address2, City, State, Zip, 
+       BMSPCoordName, BmspCoordPhone, BmspCoordIsWitness, BmspCommitment, 
+	   BmspSpecialties, BmspPhone, BmspNumberOfDoctors
+from hlc_Hospital 
+where HasBSMP = 1
+order by HospitalName
 
 ----------------------------------------------------------------------------------------------------------------
 CREATE TABLE [hlc_HospitalType] (

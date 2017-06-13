@@ -120,7 +120,7 @@ i.hlc-brand {
 .hlc-table-phone {
     width: 105px;
 }
-.hlc-table-noline th, .hlc-table-noline td {
+.hlc-table-noline td {
      border-top: none !important; 
 }
 .hlc-list-group {
@@ -134,6 +134,11 @@ i.hlc-brand {
     text-align: center;
     display: inline-block;
     font-size: 14px;
+    font-weight: bold;
+}
+.hlc-report-field {
+    background-color: #eee;
+    border: 2px solid white;
 }
 .modal-dialog {
     right: auto;
@@ -147,7 +152,7 @@ i.hlc-brand {
     width: 20px;
 }
 /* Make panel edit icon always show*/
-.hlc-panel-icon, .hlc-panel-icon:hover {
+.hlc-panel-icon, .hlc-panel-icon:hover, .hlc-panel-icon:visited, .hlc-panel-icon:focus {
     color: white;
     text-decoration: none;
 }

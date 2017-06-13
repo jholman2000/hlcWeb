@@ -15,7 +15,9 @@
                 <div class="panel-heading">
                     Hospital Information
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit","Hospitals", new {id = Model.Hospital.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                        <a href="@Url.Action("Edit", "Hospitals", new {id = Model.Hospital.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
                     </span>
                 </div>
                 <table class="table table-condensed">
@@ -30,61 +32,116 @@
                         </tr>
                         @if (Model.Hospital.DateLastUpdated.Date != Model.Hospital.DateEntered.Date && Model.Hospital.DateLastUpdated != DateTime.MinValue)
                         {
-                            <tr>
-                                <td class="hlc-prompt">Updated on:</td>
-                                <td>@Model.Hospital.DateLastUpdated.ToShortDateString() by @Model.Hospital.LastUpdatedBy</td>
-                            </tr>
+                        <tr>
+                            <td class="hlc-prompt">Updated on:</td>
+                            <td>@Model.Hospital.DateLastUpdated.ToShortDateString() by @Model.Hospital.LastUpdatedBy</td>
+                        </tr>
                         }
                         <tr>
                             <td class="hlc-prompt">Address:</td>
                             <td>
                                 @if (!string.IsNullOrEmpty(Model.Hospital?.Address1))
                                 {
-                                    @Model.Hospital.Address1
-                                    <br />
+                                @Model.Hospital.Address1
+                                <br />
                                 }
                                 @if (!string.IsNullOrEmpty(Model.Hospital?.Address2))
                                 {
-                                    @Model.Hospital.Address2
-                                    <br />
+                                @Model.Hospital.Address2
+                                <br />
                                 }
                                 @(Model.Hospital?.City) @(Model.Hospital?.State) @(Model.Hospital?.Zip) <br />
                                 <a href="tel:@(Model.Hospital?.OfficePhone1)">@(Model.Hospital?.OfficePhone1) </a>
                             </td>
                         </tr>
-                    <tr>
-                        <td colspan="2">
-                            <i class="fa fa-@Model.Hospital.HasPediatrics.Icon() fa-fw"></i> Hospital @Model.Hospital.HasPediatrics.Has() Pediatrics care
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <i class="fa fa-@Model.Hospital.HasBSMP.Icon() fa-fw"></i> Hospital @Model.Hospital.HasBSMP.Has() BMSP
-                        </td>
-                    </tr>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-@Model.Hospital.HasPediatrics.Icon() fa-fw"></i> Hospital @Model.Hospital.HasPediatrics.Has() Pediatrics care
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-@Model.Hospital.HasBSMP.Icon() fa-fw"></i> Hospital @Model.Hospital.HasBSMP.Has() BMSP
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
     </div>
+    @if (Model.Hospital.HasBSMP)
+    {
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <a href="#BMSPInfo" data-toggle="collapse" class="hlc-panel-icon">BMSP Information</a>
+                        <span class="pull-right hidden-print hidden-xs">
+                            <a href="@Url.Action("Edit", "Hospitals", new {id = Model.Hospital.Id})" class="hlc-panel-icon js-edit">
+                                <i class="fa fa-edit" title="Edit"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="collapse" id="BMSPInfo">
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td class="hlc-prompt">BMSP Coordinator:</td>
+                                    <td>@Model.Hospital.BmspCoordName</td>
+                                </tr>
+                                <tr>
+                                    <td class="hlc-prompt">Phone:</td>
+                                    <td>@Model.Hospital.BmspCoordPhone</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <i class="fa fa-@Model.Hospital.BmspCoordIsWitness.Icon() fa-fw"></i> Coordinator is @Model.Hospital.BmspCoordIsWitness.Not() a Witness
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="hlc-prompt">Participants:</td>
+                                    <td>@Model.Hospital.BmspNumberOfDoctors</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="margin-left: 4px;">
+                                        <span class="hlc-prompt">Level of commitment:</span><br />
+                                        @Model.Hospital.BmspCommitment
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="margin-left: 4px;">
+                                        <span class="hlc-prompt">Specialties represented:</span><br />
+                                        @Model.Hospital.BmspSpecialties
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">Doctors at this Hospital</div>
+                <div class="panel-heading">
+                    Doctors at this Hospital
+                </div>
                 @if (Model.Doctors.Count == 0)
                 {
-                    <div class="panel-body text-center">
-                        <em>There are no HLC Doctors at this Hospital.</em>
-                    </div>
+                <div class="panel-body text-center">
+                    <em>There are no HLC Doctors at this Hospital.</em>
+                </div>
                 }
                 else
                 {
-                    {Html.RenderPartial("DoctorList", Model.Doctors);}
+                    {
+                        Html.RenderPartial("DoctorList", Model.Doctors);
+                    }
                 }
             </div>
         </div>
-    </div>            
+    </div>
 </div>
 @section scripts {
     <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>

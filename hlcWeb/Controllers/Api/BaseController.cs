@@ -78,11 +78,12 @@ namespace hlcWeb.Controllers.Api
 
         protected List<T> GetListFromSql<T>(string sql) where T: class
         {
-            using (_conn)
+            using (Connection)
             {
-                _conn.Open();
-                return _conn.Query<T>(sql).ToList();
+                Connection.Open();
+                return Connection.Query<T>(sql).ToList();
             }
+
         }
 
         protected T GetMemberFromId<T>(int id) where T: class
@@ -172,10 +173,7 @@ namespace hlcWeb.Controllers.Api
             if (string.IsNullOrEmpty(sql))
                 throw new ArgumentNullException(nameof(sql));
 
-            //using (_conn)
-            //{
                 return Connection.Execute(sql, commandType: CommandType.Text);
-            //}
         }
 
         protected void AddParameter(string name, object value)
