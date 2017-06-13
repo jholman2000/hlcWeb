@@ -12,7 +12,14 @@ namespace hlcWeb.Controllers.Api
     {
         public User Logon(string email, string password)
         {
-            var results = GetListFromSql<User>($"SELECT * FROM hlc_User WHERE UPPER(EmailAddress) = '{email.ToUpper()}' AND UPPER(Password) = '{password.ToUpper()}'");
+            // User must be IsActive to logon.  Multiple UserIds can have the same EmailAddress for logon
+            // as long as they have different passwords associated
+            var sql =
+                "select * from hlc_User " +
+                $"where upper(EmailAddress) = '{email.ToUpper()}' and upper(Password) = '{password.ToUpper()}' " +
+                " and IsActive=1";
+
+            var results = GetListFromSql<User>(sql);
 
             if (results.Count == 0)
                 return null;

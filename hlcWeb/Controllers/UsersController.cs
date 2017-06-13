@@ -93,11 +93,6 @@ namespace hlcWeb.Controllers
                     return View(model);
                 }
             }
-            else
-            {
-                //model.DateLastUpdated = DateTime.Now;
-                //model.LastUpdatedBy = Session["UserId"].ToString();
-            }
 
             _usersRepository.Save(model);
 

@@ -1,4 +1,5 @@
-﻿@model hlcWeb.Models.User
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.Models.User
 
 @{
     ViewBag.Title = "User";
@@ -23,6 +24,13 @@
                     }
                 </div>
                 <table class="table table-condensed">
+                    @if (userRole == "Admin")
+                    {
+                        <tr>
+                            <td class="hlc-prompt" style="width: 88px;">Status:</td>
+                            <td><i class="fa fa-@Model.IsActive.Icon() fa-fw"></i> User is @Model.IsActive.Not() Active</td>
+                        </tr>                        
+                    }
                     <tr>
                         <td class="hlc-prompt" style="width: 88px;">User Type:</td>
                         <td>@Model.UserRole</td>
@@ -71,9 +79,9 @@
                             @if (!string.IsNullOrEmpty(Model.Address))
                             {
                                 @Model.Address
-                                <br />
+                                <br/>
                             }
-                            @(Model.City) @(Model.State) @(Model.Zip) <br />
+                            @(Model.City) @(Model.State) @(Model.Zip) <br/>
                         </td>
                     </tr>
                 </table>
