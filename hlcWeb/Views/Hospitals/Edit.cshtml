@@ -101,7 +101,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.Hospital.BmspCoordPhone, new {@class = "col-sm-2 control-label hlc-bmsp"})
                 <div class="col-sm-10">
-                    @Html.TextBoxFor(m => m.Hospital.BmspCoordPhone, new {@class = "form-control"})
+                    @Html.TextBoxFor(m => m.Hospital.BmspCoordPhone, new {@class = "form-control", type = "tel" })
                     @Html.ValidationMessageFor(m => m.Hospital.BmspCoordPhone)
                 </div>
             </div>
