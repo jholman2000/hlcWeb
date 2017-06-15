@@ -189,5 +189,41 @@ namespace hlcWeb.Controllers.Api
 
             return list;
         }
+
+        #region Free-form text edit functions
+        [HttpPost]
+        [Route("api/casefiles/savetext")]
+        public string SaveText(SaveTextDto text)
+        {
+            if (text.Id == 0)
+            {                
+                var sql = $"insert into hlc_DoctorNote (UserId,DateEntered,DoctorId,Notes) values ('{text.UserId}',getDate(),{text.DoctorId}, '{text.FieldText?.Replace("'", "''")}')";
+                try
+                {
+                    ExecuteSql(sql);
+                    return "OK";
+                }
+                catch (Exception ex)
+                {
+                    LogException(ex, text);
+                    return "ERROR";
+                }
+            }
+            else { 
+                var sql = $"update hlc_DoctorNote set Notes = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
+                try
+                {
+                    ExecuteSql(sql);
+                    return "OK";
+                }
+                catch (Exception ex)
+                {
+                    LogException(ex, text);
+                    return "ERROR";
+                }
+            }
+        }
+        #endregion
+
     }
 }

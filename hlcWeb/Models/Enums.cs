@@ -31,6 +31,7 @@ namespace hlcWeb.Models
         Deceased = 7,
         [Display(Name = "Moved Out of Area")]
         MovedOutOfArea = 8,
+        [Display(Name = "Active")]
         Active = 9,
         Retired = 10,
         Deleted = 99

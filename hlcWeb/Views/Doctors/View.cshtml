@@ -4,6 +4,8 @@
 
 @{
     ViewBag.Title = "Doctor";
+    var userRole = (string)Session["UserRole"];
+    var currentUserId = (string)Session["UserId"];
 }
 <div class="well">
     <i class="fa fa-user-md fa-2x fa-fw text-primary"></i><span class="h3"> @Model.FullName</span>
@@ -15,7 +17,9 @@
                 <div class="panel-heading">
                     Doctor information
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("EditContact","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                        <a href="@Url.Action("EditContact", "Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
                     </span>
                 </div>
                 <table class="table table-condensed">
@@ -29,12 +33,12 @@
                             <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
                         </tr>
                         @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
-                        {
-                            <tr>
-                                <td class="hlc-prompt">Updated on:</td>
-                                <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
-                            </tr>
-                        }
+                {
+                    <tr>
+                        <td class="hlc-prompt">Updated on:</td>
+                        <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
+                    </tr>
+                }
                         <tr>
                             <td class="hlc-prompt">Mobile:</td>
                             <td>@Model.MobilePhone</td>
@@ -59,14 +63,14 @@
                                 @Model.Practice.PracticeName<br />
                                 @Model.Practice.Address1<br />
                                 @if (!string.IsNullOrEmpty(Model.Practice.Address2))
-                                {
-                                    @Model.Practice.Address2<br />
-                                }
+                        {
+                        @Model.Practice.Address2<br />
+                        }
                                 @if (!string.IsNullOrEmpty(Model.Practice.Address3))
-                                {
-                                    @Model.Practice.Address3
-                                    <br />
-                                }
+                        {
+                        @Model.Practice.Address3
+                        <br />
+                        }
                                 @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br />
                                 <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
                             </td>
@@ -82,12 +86,12 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrEmpty(Model.PeerReview))
-                        {
-                            <tr>
-                                <td class="hlc-prompt">Peer review:</td>
-                                <td>@Model.PeerReview</td>
-                            </tr>
-                        }
+                {
+                    <tr>
+                        <td class="hlc-prompt">Peer review:</td>
+                        <td>@Model.PeerReview</td>
+                    </tr>
+                }
                     </tbody>
                 </table>
             </div>
@@ -97,66 +101,66 @@
                 <div class="panel-heading">
                     Attitudes
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("EditAttitudes","Doctors", new {id = Model.Id})" class="hlc-panel-icon">
+                        <a href="@Url.Action("EditAttitudes", "Doctors", new {id = Model.Id})" class="hlc-panel-icon">
                             <i class="fa fa-edit" title="Edit"></i>
                         </a>
                     </span>
                 </div>
                 <table class="table table-condensed">
                     <tbody>
-                    <tr>
-                        <td class="text-center hlc-attitude-header">
-                            <span class="@Model.AttitudeText fa-stack">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
-                            </span> @Model.Attitude.EnumDisplayName()
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.AttitudeAdultText.Icon() fa-fw"></i> @Model.AttitudeAdultText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.AttitudeChildText.Icon() fa-fw"></i> @Model.AttitudeChildText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.ConsultAdultText.Icon() fa-fw"></i> @Model.ConsultAdultText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.ConsultChildText.Icon() fa-fw"></i> @Model.ConsultChildText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-@Model.AcceptsMedicaidText.Icon() fa-fw"></i> @Model.AcceptsMedicaidText
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-fw"></i>Is doctor regularly contacted? <strong>@Model.RegContacted.EnumDisplayName()</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-fw"></i>Specifically known by you? <strong>@Model.SpecificallyKnown.EnumDisplayName()</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-fw"></i>Has been helpful in prior cases? <strong>@Model.Helpful.EnumDisplayName()</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-fw"></i>Frequently treats Witnesses? <strong>@Model.FrequentlyTreat.EnumDisplayName()</strong>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="text-center hlc-attitude-header">
+                                <span class="@Model.AttitudeText fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
+                                </span> @Model.Attitude.EnumDisplayName()
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.AttitudeAdultText.Icon() fa-fw"></i> @Model.AttitudeAdultText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.AttitudeChildText.Icon() fa-fw"></i> @Model.AttitudeChildText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.ConsultAdultText.Icon() fa-fw"></i> @Model.ConsultAdultText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.ConsultChildText.Icon() fa-fw"></i> @Model.ConsultChildText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.AcceptsMedicaidText.Icon() fa-fw"></i> @Model.AcceptsMedicaidText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Is doctor regularly contacted? <strong>@Model.RegContacted.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Specifically known by you? <strong>@Model.SpecificallyKnown.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Has been helpful in prior cases? <strong>@Model.Helpful.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Frequently treats Witnesses? <strong>@Model.FrequentlyTreat.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -168,26 +172,28 @@
                 <div class="panel-heading">
                     Specialties
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("EditSpecialties","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                        <a href="@Url.Action("EditSpecialties", "Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
                     </span>
                 </div>
                 @if (Model.Specialties.Count == 0)
-                {
-                    <div class="panel-body text-center">
-                        <em>No Specialties have been entered.</em>
-                    </div>
-                }
-                else
-                {
-                    <table class="table table-condensed">
-                        @foreach (var sp in Model.Specialties)
-                        {
-                            <tr>
-                                <td>@sp.SpecialtyName @(string.IsNullOrEmpty(sp.AreaOfExpertise) ? "" : " - ") @sp.AreaOfExpertise</td>
-                            </tr>
-                        }
-                    </table>
-                }
+            {
+            <div class="panel-body text-center">
+                <em>No Specialties have been entered.</em>
+            </div>
+            }
+            else
+            {
+            <table class="table table-condensed">
+                @foreach (var sp in Model.Specialties)
+                    {
+                    <tr>
+                        <td>@sp.SpecialtyName @(string.IsNullOrEmpty(sp.AreaOfExpertise) ? "" : " - ") @sp.AreaOfExpertise</td>
+                    </tr>
+                    }
+            </table>
+            }
             </div>
         </div>
         <div class="col-md-6">
@@ -195,54 +201,72 @@
                 <div class="panel-heading">
                     Hospitals
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("EditHospitals","Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                        <a href="@Url.Action("EditHospitals", "Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
                     </span>
                 </div>
                 @if (Model.Hospitals.Count == 0)
-                {
-                    <div class="panel-body text-center">
-                        <em>No Hospitals have been entered.</em>
-                    </div>
-                }
-                else
-                {
-                    <table class="table table-condensed">
-                        @foreach (var ho in Model.Hospitals)
-                        {
-                            <tr>
-                                <td>@ho.HospitalName @(string.IsNullOrEmpty(ho.Notes) ? "" : " - ") @ho.Notes </td>
-                            </tr>
-                        }
-                    </table>
-                }
+            {
+            <div class="panel-body text-center">
+                <em>No Hospitals have been entered.</em>
+            </div>
+            }
+            else
+            {
+            <table class="table table-condensed">
+                @foreach (var ho in Model.Hospitals)
+                    {
+                    <tr>
+                        <td>@ho.HospitalName @(string.IsNullOrEmpty(ho.Notes) ? "" : " - ") @ho.Notes </td>
+                    </tr>
+                    }
+            </table>
+            }
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Comments</div>
-                @if (Model.DoctorNotes.Count == 0)
-                {
-                    <div class="panel-body text-center">
-                        <em>No Comments have been entered.</em>
-                    </div>
-                }
-                else
-                {
-                    <table class="table table-condensed">
-                        @foreach (var n in Model.DoctorNotes)
-                        {
-                            <tr>
-                                <td>
-                                    <h6><strong>@n.UserName on @n.DateEntered.ToShortDateString() @n.DateEntered.ToShortTimeString():</strong></h6>
-                                    @n.Notes
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                }
+            <button class="btn btn-primary btn-sm" onclick="AddText('@Model.Id')"><i class="fa fa-plus"></i> Add Comment</button>
+            <br />&nbsp;
+        </div>
+        <div id="note-new" class="panel panel-primary hidden">
+            <div class="panel-heading">
+                New Comment for @Model.FullName
             </div>
         </div>
     </div>
+    @foreach (var note in Model.DoctorNotes)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div id="note-@note.Id" class="panel panel-primary">
+                    <div class="panel-heading">
+                        Comment by @note.UserName on @note.DateEntered.ToShortDateString()
+                        @if (userRole == "Admin" || note.UserId == currentUserId)
+                        {
+                            <span class="pull-right hidden-print hidden-xs">
+                                <a href="#" onclick="hlcEditText('Doctors', '@note.Id', 'note-@note.Id', @note.DoctorId);" class="hlc-panel-icon">
+                                    <i class="fa fa-edit" title="Edit"></i>
+                                </a>
+                            </span>
+                        }
+                    </div>
+                    <div class="panel-body" data-hlc-text="@note.Notes">
+                        <p>
+                            @Html.Raw(@note.Notes.ToHtml())
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+<script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
+<script>
+    function AddText(doctorId) {
+        hlcEditText('Doctors', '0', 'note-new', doctorId, '@currentUserId');
+        window.reload();
+    }
+</script>

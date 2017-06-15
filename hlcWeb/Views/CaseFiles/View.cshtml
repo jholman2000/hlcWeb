@@ -153,18 +153,18 @@
                 </span>
             </div>
             <div class="panel-body" data-hlc-text="@Model.MedicalHistory">                
-            @if (string.IsNullOrEmpty(Model.MedicalHistory))
-            {
-                <p>
-                    No medical history entered.
-                </p>
-            }
-            else
-            {
-                <p>
-                    @Html.Raw(Model.MedicalHistory.ToHtml())
-                </p>
-            }
+                @if (string.IsNullOrEmpty(Model.MedicalHistory))
+                {
+                    <p>
+                        No medical history entered.
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.MedicalHistory.ToHtml())
+                    </p>
+                }
             </div>
         </div>
     </div>
@@ -181,18 +181,18 @@
                 </span>
             </div>
             <div class="panel-body" data-hlc-text="@Model.TreatmentPlan">
-            @if (string.IsNullOrEmpty(Model.TreatmentPlan))
-            {
-                <p>
-                    No treatment plan entered.
-                </p>
-            }
-            else
-            {
-                <p>
-                    @Html.Raw(Model.TreatmentPlan.ToHtml())
-                </p>
-            }
+                @if (string.IsNullOrEmpty(Model.TreatmentPlan))
+                {
+                    <p>
+                        No treatment plan entered.
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.TreatmentPlan.ToHtml())
+                    </p>
+                }
             </div>
         </div>
     </div>
@@ -209,16 +209,16 @@
                 </span>
             </div>
             <div class="panel-body" data-hlc-text="@Model.PossibleStrategies">                    
-            @if (string.IsNullOrEmpty(Model.PossibleStrategies))
-            {
-                <p>
-                    No strategies entered.
-                </p>
-            }
-            else
-            {
+                @if (string.IsNullOrEmpty(Model.PossibleStrategies))
+                {
+                    <p>
+                        No strategies entered.
+                    </p>
+                }
+                else
+                {
                     @Html.Raw(Model.PossibleStrategies.ToHtml())
-            }                    
+                }                    
             </div>
         </div>
     </div>
@@ -280,39 +280,4 @@
     </div>
 </div>
 </div>
-<script>
-    function hlcEditText(controller, id, field) {
-
-        var title = $("#" + field + " > .panel-heading").text().trim();
-        var initValue = $("#" + field + " > .panel-body").data("hlc-text");
-        console.log("title: " + title);
-        console.log("initValue: " + initValue);
-
-        bootbox.prompt({
-            title: title,
-            className: "hlc-textarea",
-            size: "large",
-            inputType: 'textarea',
-            value: initValue,
-            callback: function(result) {
-                console.log("Bootbox returned: " + result);
-                if (result !== null) {
-                    $.ajax({
-                            method: "POST",
-                            url: "/api/" + controller + "/savetext",
-                            data: { Id: id, FieldName: field, FieldText: result }
-                        })
-                        .done(function(msg) {
-                            console.log("api returned: " + msg);
-                            $("#" + field + " > .panel-body").html(result.replace(/(?:\r\n|\r|\n)/g, '<br />'));
-                            $("#" + field + " > .panel-body").data("hlc-text", result);
-                        })
-                        .fail(function(jqXhr) {
-                            alert(jqXhr.responseText);
-                        });
-
-                }
-            }
-        });
-    }
-</script>
+<script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
