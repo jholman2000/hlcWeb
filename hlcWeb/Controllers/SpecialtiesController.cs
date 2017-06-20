@@ -28,7 +28,6 @@ namespace hlcWeb.Controllers
         /// View Doctors having a specified Specialty Id
         /// </summary>
         /// <param name="id">Specialty Id</param>
-        /// <param name="name">Specialty name</param>
         /// <returns></returns>
         public ActionResult View(int id) //, string name)
         {

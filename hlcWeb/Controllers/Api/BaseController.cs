@@ -10,8 +10,6 @@ using System.Web.Script.Serialization;
 using Dapper;
 using Dapper.Contrib.Extensions;
 
-//using Microsoft.SqlServer.Server;
-
 namespace hlcWeb.Controllers.Api
 {
     public class BaseController : ApiController
@@ -110,14 +108,7 @@ namespace hlcWeb.Controllers.Api
                 string sql;
 
                 //TODO: Consider changing hlc_User.UserId to ID to avoid this check
-                if (tableName == "User")
-                {
-                    sql = $"select * from hlc_User where UserId='{id}'";
-                }
-                else
-                {
-                    sql = $"select * from hlc_{tableName} where ID='{id}'";
-                }                
+                sql = tableName == "User" ? $"select * from hlc_User where UserId='{id}'" : $"select * from hlc_{tableName} where ID='{id}'";                
 
                 _conn.Open();
 
