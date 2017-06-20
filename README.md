@@ -2,4 +2,10 @@
 
 This is a Responsive, Bootstrap C# web application created in Visual Studio 2015 and hosted in the "cloud" on Microsoft Azure.
 
-```App_Data\hlcWeb_local.mdf.test``` is an .mdf file that can be used for local testing.  It has the same structure as the Azure database.
+To work with and modify this project you will need to the following tools and skills:
+
+- Visual Studion 2013 or later (Community Edition or higher)
+- C# knowledge with MVC 5 experience
+- jQuery, jQuery UI, Bootstrap familiarity
+- FontAwesome, Moment.js, Bootbox.js familarity
+- Experience working with GitHub and the GitHub Visual Studio plugin
