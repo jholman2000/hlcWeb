@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Caching;
+using System.Web.Mvc;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
@@ -59,10 +61,14 @@ namespace hlcWeb.Controllers.Api
             {
                 if (model.Practice.Id == 0)
                 {
-                    var newId = Connection.Insert(model.Practice);
-                    return newId > 0;
+                    Connection.Insert(model.Practice);
                 }
-                return Connection.Update(model.Practice);
+                else
+                {
+                    Connection.Update(model.Practice);
+                }
+                GetSelectList(true);
+                return true;
             }
             catch (Exception ex)
             {
@@ -70,5 +76,30 @@ namespace hlcWeb.Controllers.Api
                 return false;
             }
         }
+
+        internal SelectList GetSelectList(bool refresh = false)
+        {
+            ObjectCache cache = MemoryCache.Default;
+
+            var list = (SelectList)cache["PracticeSelectList"];
+
+            if (refresh || list == null)
+            {
+                var items = Search("")
+                    .Select(s => new
+                    {
+                        Text = s.PracticeName + (s.City != null ? " - " : "") + s.City + " " + s.State,
+                        Value = s.Id
+                    })
+                    .ToList();
+                list = new SelectList(items, "Value", "Text");
+
+                if (refresh) cache.Remove("PracticeSelectList");
+                cache.Add("PracticeSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+            }
+
+            return list;
+        }
+
     }
 }

@@ -41,18 +41,7 @@ namespace hlcWeb.Controllers
 
             var viewModel = new DoctorContactViewModel();
 
-            if (Session["PracticeSelectList"] == null)
-            {
-                var items = _practiceRepository.Search("")
-                    .Select(s => new
-                    {
-                        Text = s.PracticeName + " - " + s.Address1,
-                        Value = s.Id
-                    })
-                    .ToList();
-                Session["PracticeSelectList"] = new SelectList(items, "Value", "Text");
-            }
-            ViewBag.PracticeSelectList = Session["PracticeSelectList"];
+            ViewBag.PracticeSelectList = _practiceRepository.GetSelectList();
 
             if (id == 0)
             {
@@ -81,7 +70,7 @@ namespace hlcWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.PracticeSelectList = Session["PracticeSelectList"];
+                ViewBag.PracticeSelectList = _practiceRepository.GetSelectList();
                 return View(viewModel);
             }
 

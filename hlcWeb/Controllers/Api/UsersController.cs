@@ -71,10 +71,14 @@ namespace hlcWeb.Controllers.Api
             {
                 if (string.IsNullOrEmpty(model.OriginalUserId))
                 {
-                    var newId = Connection.Insert(model);
-                    return newId > 0;
+                    Connection.Insert(model);
                 }
-                return Connection.Update(model);
+                else
+                {
+                    Connection.Update(model);
+                }
+                GetSelectList(true);
+                return true;
             }
             catch (Exception ex)
             {

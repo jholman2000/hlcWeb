@@ -76,10 +76,15 @@ namespace hlcWeb.Controllers.Api
             {
                 if (model.Id == 0)
                 {
-                    var newId = Connection.Insert(model);
-                    return newId > 0;
+                    Connection.Insert(model);
                 }
-                return Connection.Update(model);
+                else
+                {
+                    Connection.Update(model);
+                }
+                // Force refresh of Doctors in cache
+                GetSelectList(true);
+                return true;
             }
             catch (Exception ex)
             {
@@ -97,10 +102,7 @@ namespace hlcWeb.Controllers.Api
                     var newId = Connection.Insert(model);
                     return newId > 0;
                 }
-                else
-                {
-                    return Connection.Update(model);
-                }
+                return Connection.Update(model);
             }
             catch (Exception ex)
             {

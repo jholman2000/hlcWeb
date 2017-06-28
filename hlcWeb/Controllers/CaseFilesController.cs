@@ -44,7 +44,7 @@ namespace hlcWeb.Controllers
             ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
 
             var temp = _diagnosisController.GetSelectList().ToList();
-            temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)" });
+            temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other diagnosis below)" });
             ViewBag.DiagnosisSelectList = new SelectList((IEnumerable<SelectListItem>)temp, "Value", "Text");
 
             if (id == 0)

@@ -63,10 +63,14 @@ namespace hlcWeb.Controllers.Api
             {
                 if (model.Hospital.Id == 0)
                 {
-                    var newId = Connection.Insert(model.Hospital);
-                    return newId > 0;
+                    Connection.Insert(model.Hospital);
                 }
-                return Connection.Update(model.Hospital);
+                else
+                {
+                    Connection.Update(model.Hospital);
+                }
+                GetSelectList(true);
+                return true;
             }
             catch (Exception ex)
             {
@@ -86,7 +90,7 @@ namespace hlcWeb.Controllers.Api
                 var items = Search("")
                         .Select(s => new
                         {
-                            Text = s.HospitalName + " - " + s.City + " " + s.State,
+                            Text = s.HospitalName + (s.City != null ? " - " : "") + s.City + " " + s.State,
                             Value = s.Id
                         })
                         .ToList();
