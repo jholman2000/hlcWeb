@@ -103,3 +103,21 @@ INSERT INTO hlc_HospitalType VALUES(5,'Public Hospital');
 INSERT INTO hlc_HospitalType VALUES(6,'University Hospital');
 INSERT INTO hlc_HospitalType VALUES(7,'Specialized Care');
 INSERT INTO hlc_HospitalType VALUES(9,'Other');
+
+------------------------------------------------------------------------------------------------------------
+-- Delete stuff I added
+
+select * from hlc_DoctorNote where DoctorID in
+(select ID from hlc_Doctor where EnteredBy='jholman');
+
+select * from hlc_DoctorHospital where DoctorID in
+(select ID from hlc_Doctor where EnteredBy='jholman');
+
+select * from hlc_DoctorSpecialty where DoctorID in
+(select ID from hlc_Doctor where EnteredBy='jholman');
+
+select * from hlc_Doctor where EnteredBy='jholman';
+
+select * from hlc_Practice where PracticeName like 'Test%';
+
+select * from hlc_Hospital where HospitalName like 'Test%';
