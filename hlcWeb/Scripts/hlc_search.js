@@ -1,6 +1,6 @@
-﻿$(document).ready(function () {
+﻿// Table row click launches hyperlink from first column
+$(document).ready(function () {
     $("td > a").click(function(e) {
-        console.log("Anchor clicked");
         e.preventDefault();
     });
     $(".js-click-row").click(function () {

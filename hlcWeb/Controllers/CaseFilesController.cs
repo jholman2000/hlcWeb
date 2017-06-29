@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using hlcWeb.Controllers.Api;
 using hlcWeb.Filters;
 using hlcWeb.Models;
-using System.Collections.Generic;
 
 namespace hlcWeb.Controllers
 {
@@ -14,7 +13,7 @@ namespace hlcWeb.Controllers
         private readonly Api.CaseFilesController _caseFileRepository;
         private readonly Api.DoctorsController _doctorRepository;
         private readonly Api.HospitalsController _hospitalRepository;
-        private readonly Api.DiagnosisController _diagnosisController;
+        private readonly DiagnosisController _diagnosisController;
 
         public CaseFilesController()
         {
@@ -45,7 +44,7 @@ namespace hlcWeb.Controllers
 
             var temp = _diagnosisController.GetSelectList().ToList();
             temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other diagnosis below)" });
-            ViewBag.DiagnosisSelectList = new SelectList((IEnumerable<SelectListItem>)temp, "Value", "Text");
+            ViewBag.DiagnosisSelectList = new SelectList(temp, "Value", "Text");
 
             if (id == 0)
             {
@@ -76,7 +75,7 @@ namespace hlcWeb.Controllers
                 ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
                 var temp = _diagnosisController.GetSelectList().ToList();
                 temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)" });
-                ViewBag.DiagnosisSelectList = new SelectList((IEnumerable<SelectListItem>)temp, "Value", "Text");
+                ViewBag.DiagnosisSelectList = new SelectList(temp, "Value", "Text");
                 return View(model);
             }
 
