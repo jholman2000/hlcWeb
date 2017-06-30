@@ -1,0 +1,73 @@
+﻿@model hlcWeb.ViewModels.PvgMemberViewModel
+
+@{
+    ViewBag.Title = "PVG Member";
+}
+
+<div class="well">
+    <i class="fa fa-heart-o fa-2x fa-fw text-primary"></i><span class="h3"> @(Model.PvgMember.FullName)</span>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    PVG Member Information
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("Edit", "PvgMembers", new {id = Model.PvgMember.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <table class="table table-condensed">
+                    <tr>
+                        <td class="hlc-prompt">Address:</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(Model.PvgMember.Address))
+                            {
+                                @Model.PvgMember.Address
+                                <br />
+                            }
+                            @(Model.PvgMember.City) @(Model.PvgMember.State) @(Model.PvgMember.Zip) <br />
+                        </td>
+                    </tr>
+                    @if (!string.IsNullOrEmpty(Model.PvgMember.MobilePhone))
+                    {
+                        <tr>
+                            <td class="hlc-prompt">Mobile Phone:</td>
+                            <td>
+                                <a href="tel:@(Model.PvgMember.MobilePhone)">@(Model.PvgMember.MobilePhone) </a>
+                            </td>
+                        </tr>
+
+                    }
+                    @if (!string.IsNullOrEmpty(Model.PvgMember.HomePhone))
+                    {
+                        <tr>
+                            <td class="hlc-prompt">Home Phone:</td>
+                            <td>
+                                <a href="tel:@(Model.PvgMember.HomePhone)">@(Model.PvgMember.HomePhone) </a>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="hlc-prompt" style="width: 88px;">Email Address:</td>
+                        <td>@Model.PvgMember.EmailAddress</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Address:</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(Model.PvgMember.Address))
+                            {
+                                @Model.PvgMember.Address
+                                <br />
+                            }
+                            @(Model.PvgMember.City) @(Model.PvgMember.State) @(Model.PvgMember.Zip) <br />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

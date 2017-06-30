@@ -1,3 +1,5 @@
+using Dapper.Contrib.Extensions;
+
 namespace hlcWeb.Models
 {
     public class PvgMemberHospital
@@ -9,5 +11,7 @@ namespace hlcWeb.Models
         public string Notes { get; set; }
         public string HospitalName { get; set; }
 
+        [Computed]
+        public string Weekday { get; set; }
     }
 }

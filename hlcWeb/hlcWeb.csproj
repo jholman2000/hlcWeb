@@ -160,6 +160,7 @@
     <Compile Include="Controllers\Api\HospitalsController.cs" />
     <Compile Include="Controllers\Api\NotesController.cs" />
     <Compile Include="Controllers\Api\PracticesController.cs" />
+    <Compile Include="Controllers\Api\PvgMembersController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Controllers\LogonController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PracticesController.cs" />
+    <Compile Include="Controllers\PvgMembersController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SpecialtiesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="ViewModels\HospitalViewModel.cs" />
     <Compile Include="ViewModels\LogonViewModel.cs" />
     <Compile Include="ViewModels\PracticeViewModel.cs" />
+    <Compile Include="ViewModels\PvgMemberViewModel.cs" />
     <Compile Include="ViewModels\Reports\RptAnnualReport.cs" />
     <Compile Include="ViewModels\Reports\RptCaseFilesViewModel.cs" />
     <Compile Include="ViewModels\Reports\RptDoctorsAddedRemovedViewModel.cs" />
@@ -373,6 +376,8 @@
     <Content Include="Views\Reports\DoctorsSpecialty.cshtml" />
     <Content Include="Views\Reports\SetupDoctorsAddedRemoved.cshtml" />
     <Content Include="Views\Reports\AnnualReport.cshtml" />
+    <Content Include="Views\PvgMembers\Search.cshtml" />
+    <Content Include="Views\PvgMembers\View.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

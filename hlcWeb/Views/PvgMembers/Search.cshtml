@@ -1,0 +1,34 @@
+﻿@model List<hlcWeb.Models.PvgMember>
+
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-heart-o hlc-fa"></i> PVG Members
+    </div>
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+        <tr>
+            <th>PVG Member</th>
+            <th>Mobile</th>
+            <th class="hidden-xs">Email</th>
+            <th>Congregation</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var pvg in @Model)
+        {
+            <tr class="js-click-row">
+                <td>
+                    @Html.ActionLink(pvg.FullName, "View", "PvgMembers", new { id = pvg.Id }, null)
+                </td>
+                <td><a href="tel:@pvg.MobilePhone">@pvg.MobilePhone</a></td>
+                <td class="hidden-xs">@pvg.EmailAddress</td>
+                <td>@pvg.Congregation</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<script src="@Url.Content("~/Scripts/hlc_Search.js")"></script>
+
