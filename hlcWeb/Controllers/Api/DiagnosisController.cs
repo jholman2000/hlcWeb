@@ -50,10 +50,14 @@ namespace hlcWeb.Controllers.Api
             {
                 if (model.Id == 0)
                 {
-                    var x = Connection.Insert(model);
-                    return x > 0;
+                    Connection.Insert(model);
                 }
-                return Connection.Update(model);
+                else
+                {
+                    return Connection.Update(model);
+                }
+                GetSelectList(true);
+                return true;
             }
             catch (Exception ex)
             {

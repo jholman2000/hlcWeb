@@ -36,7 +36,7 @@ namespace hlcWeb.Controllers
         #region Report: Annual Report
         public ActionResult AnnualReport()
         {
-            ViewBag.ReportName = "Annual U.S. HLC Questionnaire";
+            ViewBag.ReportName = "Annual U.S. HLC Questionnaire Information";
 
             var rptData = _reportRepository.AnnualReport();
 

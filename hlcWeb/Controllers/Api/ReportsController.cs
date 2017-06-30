@@ -12,7 +12,7 @@ namespace hlcWeb.Controllers.Api
 
             string sql;
 
-            #region HLC/PVG count
+            #region HLC/PVG/OftenReceives count
             sql =
             "select 'HLC Member' as Name, count(*) as Count from hlc_user " +
                 "where (UserRole = 'HLC Member' or UserID = 'mjones') " +
@@ -25,7 +25,7 @@ namespace hlcWeb.Controllers.Api
             annualReport.PvgCount = results[1].Count;
             #endregion
 
-            #region Hospitals
+            #region Hospital Types Count
             sql =
                 "with GroupData as " +
                 "(select HospitalType, count(*) as GroupCount from hlc_Hospital group by HospitalType) " +
@@ -38,7 +38,7 @@ namespace hlcWeb.Controllers.Api
                 "where h.HasPediatrics = 1 " +
                 "order by Description";
 
-            annualReport.Hospitals = GetListFromSql<RptNameCount>(sql);
+            annualReport.HospitalTypes = GetListFromSql<RptNameCount>(sql);
             #endregion
 
             #region Coop
@@ -48,20 +48,20 @@ namespace hlcWeb.Controllers.Api
                 "select s.ID, s.SpecialtyName, count(s.ID) as GroupCount " +
                 "from hlc_Doctor d " +
                 "left join hlc_DoctorSpecialty ds on ds.DoctorID = d.ID " +
-                "left join hlc_Specialty s on s.ID = ds.SpecialtyID " +
+                "left join hlc_Specialty s on s.ID = ds.SpecialtyID and s.SpecialtyCode='ANL'" +
                 "where d.Attitude = 1 " +
                 "group by s.Id, s.SpecialtyName " +
                 ") " +
                 "select s.SpecialtyName as Name, coalesce(GroupCount,0) as Count " +
                 "from hlc_Specialty s " +
                 "left join GroupData gd on gd.ID = s.ID  " +
+                "where s.SpecialtyCode='ANL' " +
                 "order by s.SpecialtyName";
 
             annualReport.CoopDoctors = GetListFromSql<RptNameCount>(sql);
             #endregion
 
             #region BMSP Hospitals
-
             sql =
                 "select HospitalName, Address1, Address2, City, State, Zip, " +
                 "       BMSPCoordName, BmspCoordPhone, BmspCoordIsWitness, BmspCommitment, " +
@@ -71,6 +71,16 @@ namespace hlcWeb.Controllers.Api
                 "order by HospitalName";
 
             annualReport.BMSP = GetListFromSql<RptAnnualBMSP>(sql);
+            #endregion
+
+            #region OftenReceives Hospitals
+
+            sql =
+                "select HospitalName, City, State, HasBSMP " +
+                "from hlc_Hospital where OftenReceivesWitnesses = 1 " +
+                "order by HospitalName";
+
+            annualReport.OftenReceives = GetListFromSql<RptAnnualOftenReceives>(sql);
             #endregion
 
             return annualReport;

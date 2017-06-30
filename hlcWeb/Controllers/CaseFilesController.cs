@@ -103,7 +103,6 @@ namespace hlcWeb.Controllers
                 };
                 _diagnosisController.Save(diagnosis);
                 model.DiagnosisId = diagnosis.Id;
-                Session["DiagnosisSelectList"] = null;  // force refresh on next use
             }
 
             _caseFileRepository.Save(model);

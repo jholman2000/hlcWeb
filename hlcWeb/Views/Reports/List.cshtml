@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             <tr class="js-click-row">
-                <td><a href="@Url.Action("AnnualReport","Reports")">Annual HLC Questionnaire</a></td>
+                <td><a href="@Url.Action("AnnualReport","Reports")">Annual HLC Questionnaire Information</a></td>
                 <td>Calculated information for the annual form to be sent to the Society</td>
             </tr>
             <tr class="js-click-row">
@@ -30,9 +30,17 @@
                 <td><a href="@Url.Action("DoctorsAddedRemoved", "Reports", new {dateFrom = "01/01/2017", dateTo = DateTime.Now})">Doctors Added and Removed</a></td>
                 <td>List of Doctors added or removed during a specific time period</td>
             </tr>
+            <tr class="js-click-row">
+                <td><a href="@Url.Action("DoctorsSpecialty","Reports")">Doctors by Specialty</a></td>
+                <td>List of Doctors by Specialty with a selected Attitude</td>
+            </tr>
+            <tr class="js-click-row">
+                <td><a href="#">Hospitals by Type</a></td>
+                <td>(TBD) List of all Hospitals grouped by one or more selected type(s)</td>
+            </tr>
         <tr class="js-click-row">
-            <td><a href="@Url.Action("DoctorsSpecialty","Reports")">Doctors by Specialty</a></td>
-            <td>List of Doctors by Specialty with a selected Attitude</td>
+            <td><a href="#">PVG Members</a></td>
+            <td>(TBD)</td>
         </tr>
         </tbody>
     </table>

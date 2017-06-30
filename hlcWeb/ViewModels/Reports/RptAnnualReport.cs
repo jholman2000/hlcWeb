@@ -6,11 +6,19 @@ namespace hlcWeb.ViewModels.Reports
     {
         public int HlcCount { get; set; }
         public int PvgCount { get; set; }
-        public List<RptNameCount> Hospitals { get; set; }
+        public List<RptNameCount> HospitalTypes { get; set; }
         public List<RptNameCount> CoopDoctors { get; set; }
         public List<RptAnnualBMSP> BMSP { get; set; }
+        public List<RptAnnualOftenReceives> OftenReceives { get; set; }
     }
 
+    public class RptAnnualOftenReceives
+    {
+        public string HospitalName { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public bool HasBSMP { get; set; }
+    }
     public class RptAnnualBMSP
     {
         public string HospitalName { get; set; }

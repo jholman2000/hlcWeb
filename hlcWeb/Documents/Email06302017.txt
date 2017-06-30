@@ -1,0 +1,93 @@
+﻿From: Mark Jones <jmarkjones@carolina.rr.com>
+Date: June 29, 2017 at 11:22:55 PM EDT
+To: Jeff Holman <jeff.holman@yahoo.com>
+Subject: Re: HLC
+Jeff,
+
+Apologize for the delay in responding - yes, we’ve been busy with the Regional Convention and other activities. I understand 
+you attend in a couple weeks - you have a lot to look forward to!
+
+Thank you very much for your continued work on the website. We really appreciate everything you do.
+
+Here are answers to your questions:
+
+1 - Standard diagnosis. This is a start so it will be interesting to see how the list develops over time. It may be best 
+to list everything individually instead of “Disorders” grouping that I show:
+Active bleeding
+Disorders affecting Red Blood Cells: Anemia, Kidney Disease, Sickle Cell Anemia, etc
+Disorders affecting White Blood Cells: Thrombocytopenic purpura, etc
+Disorders affecting Platelets: Cancer, Leukemia, Lymphoma, Multiple Myeloma, etc
+Disorders affecting Plasma: Hemophilia, DCT, DIC, etc
+Gastrointestinal bleeding
+Gynecologic
+Liver disease
+Menorrhagia
+Obstetric hemorrhage
+Preoperative blood management
+Sepsis or Severe infection
+Thrombocytopenia
+
+2 - Annual Questionnaire - 2015 version attached. Probably very little change from the version you have.
+
+3 - Currently, neither CMC or Novant have a BSMP in place. CMC had a program a few years ago but abandoned it. Novant is 
+talking about developing one.
+
+4 - Yes, adding Practices on the fly is preferred.
+
+5 - The PVG screen looks good. It would be nice to have reports (Last Name Alpha and by Hospital/by Day). Currently the HLC 
+member that manages the PVG schedules keeps everything in Excel. Perhaps we should have a conference call with him to see 
+if he has other needs.
+
+I look forward to seeing what you’ve been working on. Let me know when you would like to meet.
+
+Regards
+Mark
+
+
+
+
+On Jun 27, 2017, at 6:24 PM, Jeffrey Holman <jeff.holman@yahoo.com> wrote:
+
+Hi Mark,
+ 
+I’d thought I’d check back in with you on some HLC questions I have.  I’m sure you’ve been busy lately getting together that 
+last report for the Society and preparing for the Assembly.  I’ve still been working on a rewrite of the site as part of my 
+personal skills training on some of the latest site building tools and programming platforms.
+ 
+When you have time (no rush) can you answer the following:
+ 
+1.            You mentioned earlier about a standard list of Diagnosis selections that I can present on the Case File entry 
+                screen.  I have provided a means to add on the fly but if you have a standard list to use as a starting point that you 
+                can pass along I’ll set that up.
+ 
+2.            I came across an old (2011) HLC Annual Questionnaire that you provide to the Society each year.  Is that still used?  
+                If so, has it changed since then?  If you have one you can send me (even blank) if it has changed I would appreciate it.  
+                I’m looking at providing a report that collects much of that info for you.
+ 
+3.            On that 2011 form there is a place for BMSP information for each hospital.  I’d like to set up the Hospital entry 
+                page to capture that.  The items I see on that page are:
+                • Hospital Type:  Drop-down list
+                • Has Pediatrics? Yes/No
+                • Coordinator Name
+                • Coordinator Phone
+                • Coordinator is Witness? Yes/No
+                • Level of Commitment:  Free form text
+                • Specialties:  Free form text
+                • Number of Doctors: short text field (you can type 100+ for example)
+ 
+4.            Currently users can add Practices on-the-fly as they are entering a new Doctor.  Is that how you still wish to do it?  
+                I assume so.
+ 
+5.            I don't think we went very far with the PVG information before and I haven't looked at the rewrite of that portion yet.  
+                We can discuss what your needs are and build that out.
+ 
+I really think you'll like what I've been working on.  I've taken advantage of some time that I've had free to dig into 
+some newer programming tools and methodologies that I need to get a handle on to keep myself marketable for work and it's 
+been handy to have a project to work on!  When you get some free time (probably after your Assembly) I'd like to get with 
+you and go over what I have.  It runs in parallel to the existing site and uses the same databases, so if you've been seeing 
+some strange Test Doctors showing up lately that's me.
+ 
+Regards,
+Jeff Holman
+ 
+Sent from Mail for Windows 10

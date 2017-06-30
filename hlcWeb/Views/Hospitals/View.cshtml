@@ -56,6 +56,11 @@
                         </tr>
                         <tr>
                             <td colspan="2">
+                                <i class="fa fa-@Model.Hospital.OftenReceivesWitnesses.Icon() fa-fw"></i> Hospital does @Model.Hospital.OftenReceivesWitnesses.Not() often receive Witnesses
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
                                 <i class="fa fa-@Model.Hospital.HasPediatrics.Icon() fa-fw"></i> Hospital @Model.Hospital.HasPediatrics.Has() Pediatrics care
                             </td>
                         </tr>
@@ -86,7 +91,7 @@
                         <table class="table table-condensed">
                             <tbody>
                                 <tr>
-                                    <td class="hlc-prompt">BMSP Coordinator:</td>
+                                    <td class="hlc-prompt" style="width: 90px;">BMSP Coordinator:</td>
                                     <td>@Model.Hospital.BmspCoordName</td>
                                 </tr>
                                 <tr>
@@ -99,7 +104,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="hlc-prompt">Participants:</td>
+                                    <td class="hlc-prompt"># Cooperative:</td>
                                     <td>@Model.Hospital.BmspNumberOfDoctors</td>
                                 </tr>
                                 <tr>
@@ -110,7 +115,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="margin-left: 4px;">
-                                        <span class="hlc-prompt">Specialties represented:</span><br />
+                                        <span class="hlc-prompt">Outstanding medical specialties:</span><br />
                                         @Model.Hospital.BmspSpecialties
                                     </td>
                                 </tr>

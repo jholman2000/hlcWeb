@@ -72,13 +72,14 @@ with GroupData as
 select s.ID, s.SpecialtyName, count(s.ID) as GroupCount
 from hlc_Doctor d
 left join hlc_DoctorSpecialty ds on ds.DoctorID = d.ID
-left join hlc_Specialty s on s.ID = ds.SpecialtyID
+left join hlc_Specialty s on s.ID = ds.SpecialtyID and s.SpecialtyCode='ANL'
 where d.Attitude = 1
 group by s.Id, s.SpecialtyName
 )
 select s.SpecialtyName as Name, coalesce(GroupCount,0) as Count
 from hlc_Specialty s
 left join GroupData gd on gd.ID = s.ID 
+where s.SpecialtyCode='ANL'
 order by s.SpecialtyName
 
 -- BMSP Hospitals
@@ -89,6 +90,10 @@ from hlc_Hospital
 where HasBSMP = 1
 order by HospitalName
 
+-- OftenReceives Hospitals
+select HospitalName, City, State, HasBSMP 
+from hlc_Hospital where OftenReceivesWitnesses = 1 
+order by HospitalName
 ----------------------------------------------------------------------------------------------------------------
 CREATE TABLE [hlc_HospitalType] (
 [Id] int NULL ,

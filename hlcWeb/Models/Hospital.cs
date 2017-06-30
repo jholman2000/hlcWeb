@@ -70,6 +70,9 @@ namespace hlcWeb.Models
         [Display(Name = "Hospital Type")]
         public HospitalType HospitalType { get; set; }
 
+        [Display(Name = "This hospital often receives Witness patients")]
+        public bool OftenReceivesWitnesses { get; set; }
+
         [Display(Name = "This hospital has Pediatrics care")]
         public bool HasPediatrics { get; set; }
 
@@ -87,12 +90,12 @@ namespace hlcWeb.Models
         [Display(Name = "Level of Commitment:")]
         public string BmspCommitment { get; set; }
 
-        [Display(Name = "Specialties Represented:")]
+        [Display(Name = "Outstanding medical specialties:")]
         public string BmspSpecialties { get; set; }
 
         public string BmspPhone { get; set; }
 
-        [Display(Name = "# Doctors")]
+        [Display(Name = "# Cooperative")]
         public string BmspNumberOfDoctors { get; set; }
 
         [Computed]

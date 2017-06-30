@@ -1,0 +1,210 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\Web\Microsoft.Web.Publishing.targets(4276,5): Error : Web deployment task failed. (The synchronization is being stopped because the maximum number of sync passes '2' has been exceeded even though all the changes could not be applied. This could occur if there are external changes being made to the destination.)
+1>Publish failed to deploy.
+
+Possible layout of Case File table (including fields for Pediatric info)
+- all Yes/No below default to No
+- short free form would be limited to 500 characters max; free form is 5000 characters
+
+CaseDate              (date of the actual case)
+DateEntered           (date this record was entered into the HLC website)
+EnteredBy			  (HLC user ID of person who entered it)
+DateLastUpdated       (last date any information on this record was changed)
+UpdatedBy             (HLC user ID of person who made the last change)
+First Name            (patient first and last name)
+Last Name
+Age ?                 (numeric - optional: Should we capture this?)
+Congregation		  (free form name of congregation)
+Doctor                (select one Doctor from the Doctors on file to link back to a HLC Doctor)
+ConsultingDoctor      (short free form - Indicate if other doctor consulted, details, etc)
+Hospital              (select one Hospital from the Hospitals on file to link back to a HLC Hospital)
+Diagnosis	          (select from a list of available diagnoses; User can enter Other if not found)
+IsPediatricCase 	  (Yes/No)  Below fields would capture additional info.  (Even if No checked these fields are available)
+  CourtOrderSought	         (Yes/No)
+  CourtOrderSoughtBy         (multiple choice selection taken from Society letter)
+  CourtOrderGranted          (Yes/No)
+  CourtOrderNotGrantedReason (multiple choice from Society letter)
+  CourtOrderComments         (short free form - could indicate why it was/was not given, etc)
+  ParentsNotified            (Yes/No - Parent was notified prior to hearing)
+  ParentsChargedNeglect      (Yes/No)
+  ParentsRightsRemoved       (Yes/No)
+  PatientTransferred         (Yes/No) 
+  TransferDetails            (short free form - where transferred, other HLC territory, etc)
+  TransfusionGiven           (Yes/No)
+MedicalHistory		  (free form)
+TreatmentPlan         (free form)
+PossibleStrategies	  (free form)
+ArticlesShared        (free form)
+Outcome               (free form text: can include any items not specifically asked for above.)
+					  
+CREATE TABLE [hlc_CaseFile] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[CommitteeId] int NULL DEFAULT((1)),
+[CaseDate] smalldatetime NULL ,
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL ,
+[DateLastUpdated] smalldatetime NULL ,
+[LastUpdatedBy] varchar(12) NULL ,
+[FirstName] varchar(50) NULL ,
+[LastName] varchar(50) NULL ,
+[Age] int NULL,
+[CongregationName] varchar(80) ,
+[DoctorId] int NULL ,
+[HospitalId] int NULL ,
+[DiagnosisId] int NULL ,
+[IsPediatricCase] bit NULL DEFAULT ((0)) ,
+[CourtOrderSought] bit NULL DEFAULT ((0)) ,
+[CourtOrderSoughtBy] int NULL DEFAULT ((0)) ,
+[CourtOrderGranted] bit NULL DEFAULT ((0)) ,
+[CourtOrderNotGrantedReason] int NULL DEFAULT ((0)) ,
+[CourtOrderComments] varchar(500) ,
+[TransfusionGiven] bit NULL DEFAULT ((0)) ,
+[ParentsNotified] bit NULL DEFAULT ((0)) ,
+[ParentsChargedNeglect] bit NULL DEFAULT ((0)) ,
+[ParentsRightsRemoved] bit NULL DEFAULT ((0)) ,
+[PatientTransferred] bit NULL DEFAULT ((0)) ,
+[TransferDetails] varchar(500) ,
+[MedicalHistory] varchar(5000) NULL,
+[TreatmentPlan] varchar(5000) NULL,
+[PossibleStrategies] varchar(5000) NULL,
+[ArticlesShared] varchar(5000) NULL,
+[ConsultingDoctor] varchar(5000) NULL,
+[Outcome] varchar(5000) NULL
+)
+
+-- New Diagnosis table.  (Note: Need list from Mark)
+CREATE TABLE [hlc_Diagnosis] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[DiagnosisName] varchar(80),
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL 
+)
+
+-- Doctor changes: Modify existing hlc_Doctor to track when entered
+-- (Modified 5/13 and verified that does not affect old site)
+ALTER TABLE hlc_Doctor ADD DateEntered DATETIME NULL DEFAULT GetDate();
+UPDATE hlc_Doctor SET DateEntered = DateLastUpdated;
+ALTER TABLE hlc_Doctor ADD EnteredBy varchar(12) NULL;
+UPDATE hlc_Doctor SET EnteredBy = LastUpdatedBy;
+
+
+-- Hospital changes: Added new fields from HLC Questionnaire
+-- (Modified 5/13 and verified that does not affect old site)
+ALTER TABLE hlc_Hospital ADD HospitalType int NULL;
+UPDATE hlc_Hospital SET HospitalType=0 WHERE HospitalType = null;
+ALTER TABLE hlc_Hospital ADD HasPediatrics bit NULL DEFAULT ((0));
+ALTER TABLE hlc_Hospital ADD BMSPCoordName varchar(80) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPCoordPhone varchar(12) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPCoordIsWitness bit NULL DEFAULT ((0));
+ALTER TABLE hlc_Hospital ADD BMSPCommitment varchar(5000) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPSpecialties varchar(5000) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPPhone varchar(12) NULL;
+ALTER TABLE hlc_Hospital ADD BMSPNumberOfDoctors varchar(12);
+-- ...and additional fields for entered/updated
+ALTER TABLE hlc_Hospital ADD DateEntered DATETIME NULL DEFAULT GetDate();
+UPDATE hlc_Hospital SET DateEntered = '12/31/2016';
+ALTER TABLE hlc_Hospital ADD EnteredBy varchar(12) NULL;
+UPDATE hlc_Hospital SET EnteredBy = 'admin';
+ALTER TABLE hlc_Hospital ADD DateLastUpdated DATETIME NULL DEFAULT GetDate();
+UPDATE hlc_Hospital SET DateLastUpdated = DateEntered;
+ALTER TABLE hlc_Hospital ADD LastUpdatedBy varchar(12) NULL;
+UPDATE hlc_Hospital SET LastUpdatedBy = EnteredBy;
+...and a new field to track accepting Witness patients (from 2015 Questionnaire)
+-- TODO: Run in Azure
+ALTER TABLE hlc_Hospital ADD OftenReceivesWitnesses bit NULL DEFAULT ((0));
+
+-- ErrorLog table 
+--(created in Azure 5/11)
+CREATE TABLE [hlc_ErrorLog] (
+[DateError] smalldatetime NULL ,
+[Message] varchar(5000) NULL,
+[Data] varchar(5000) NULL,
+[StackTrace] varchar(50000) NULL
+)
+
+-- Update Specialties table
+-- Note to Mark: Transplantation was split into 4 different ones.  Need to update Doctors that now show Transplantation/Heart
+-- TODO: Run in Azure
+UPDATE hlc_Specialty set SpecialtyName='Colorectal Surgery (Proctology)' WHERE SpecialtyName='Colon and Rectal Surgery';
+UPDATE hlc_Specialty set SpecialtyName='Hematology' WHERE SpecialtyName='Hematology/Oncology';
+UPDATE hlc_Specialty set SpecialtyName='Obstetrics' WHERE SpecialtyName='Obstetrics and Gynecology';
+UPDATE hlc_Specialty set SpecialtyName='Pediatric General Surgery' WHERE SpecialtyName='Pediatric Surgery';
+UPDATE hlc_Specialty set SpecialtyName='Pediatric Hematology' WHERE SpecialtyName='Pediatric Hematology/Oncology';
+UPDATE hlc_Specialty set SpecialtyName='Pulmonology' WHERE SpecialtyName='Pulmonary Diseases';
+UPDATE hlc_Specialty set SpecialtyName='Transplantation/Heart' WHERE SpecialtyName='Transplantation';
+INSERT INTO hlc_Specialty (SpecialtyName,SpecialtyCode) VALUES ('Gynecologic Oncology','ANL');
+INSERT INTO hlc_Specialty (SpecialtyName,SpecialtyCode) VALUES ('High-Risk Pregnancy (Perinatology)','ANL');
+INSERT INTO hlc_Specialty (SpecialtyName,SpecialtyCode) VALUES ('Interventional Radiology','ANL');
+INSERT INTO hlc_Specialty (SpecialtyName,SpecialtyCode) VALUES ('Pediatric Oncology','ANL');
+INSERT INTO hlc_Specialty (SpecialtyName,SpecialtyCode) VALUES ('Transplantation/Kidney','ANL');
+INSERT INTO hlc_Specialty (SpecialtyName,SpecialtyCode) VALUES ('Transplantation/Liver','ANL');
+INSERT INTO hlc_Specialty (SpecialtyName,SpecialtyCode) VALUES ('Transplantation/Lung','ANL');
+-- Merge the two Hematology categories
+UPDATE hlc_DoctorSpecialty SET SpecialtyID=14 WHERE SpecialtyID=46;
+DELETE FROM hlc_Specialty WHERE ID=46;
+-- Clear out the SpecialtyCode to use it to flag ANL for annual report
+UPDATE hlc_Specialty SET SpecialtyCode='';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Anesthesiology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Burn Care';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Cardiothoracic Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Colorectal Surgery (Proctology)';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Critical Care/Intensive Care';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Emergency Medicine';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Gastroenterology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'General Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Gynecologic Oncology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Gynecology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Hematology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'High-Risk Pregnancy (Perinatology)';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Hospitalist';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Interventional Radiology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Neonatology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Nephrology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Neurosurgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Obstetrics';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Oncology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Oral Surgery & Maxillofacial Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Orthopedic Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Otolaryngology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Anesthesiology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Cardiothoracic Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric General Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Hematology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Neurosurgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Oncology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Orthopedic Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Scoliosis';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pediatric Sickle-Cell';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Pulmonology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Robotic Surgery';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Transplantation/Heart';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Transplantation/Kidney';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Transplantation/Liver';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Transplantation/Lung';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Trauma';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Urology';
+UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Vascular Surgery';
+
+-- Reset CaseFile and Diagnosis tables
+-- TODO: Run in Azure
+DELETE FROM hlc_Diagnosis;
+DELETE FROM hlc_CaseFile;
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Anemia', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Active bleeding', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Kidney Disease', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Sickle Cell Anemia', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Thrombocytopenic purpura', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Cancer', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Leukemia', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Lymphoma', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Multiple Myeloma', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Hemophilia', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('DCT', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('DIC', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Gastrointestinal bleeding', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Gynecologic', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Liver disease', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Menorrhagia', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Obstetric hemorrhage', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Preoperative blood management', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Sepsis/Severe infection', GETDATE(), 'jholman');
+INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Thrombocytopenia', GETDATE(), 'jholman');

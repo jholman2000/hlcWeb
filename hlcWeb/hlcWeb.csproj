@@ -268,7 +268,8 @@
     <Content Include="Documents\Email04162017.txt" />
     <Content Include="Documents\Email04242017.txt" />
     <Content Include="Documents\Email06272017.txt" />
-    <Content Include="Documents\EmailCaseFileLayout.txt" />
+    <Content Include="Documents\Email06302017.txt" />
+    <Content Include="Documents\TableChanges.txt" />
     <Content Include="Documents\Email04252017.txt" />
     <Content Include="Documents\Reports.txt" />
     <Content Include="favicon-16x16.png" />
@@ -295,6 +296,7 @@
     <Content Include="Documents\HLCScreens.doc" />
     <Content Include="Documents\2011 Charlotte NC HLC Quesionnaire.pdf" />
     <Content Include="Documents\Doctors Survey template.doc" />
+    <Content Include="Documents\2015 HLC Questionnaire.pdf" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

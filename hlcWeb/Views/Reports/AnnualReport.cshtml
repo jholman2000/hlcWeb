@@ -37,58 +37,65 @@
             <td class="hlc-report-field">@Model.HlcCount.ToString()</td>
         </tr>
         <tr>
-            <td style="width: 500px;">(4) Number of significant presentations given:</td>
-            <td>_____</td>
-        </tr>
-        <tr>
-            <td style="width: 500px;">(5) Number of Patient Visitation Group members:</td>
+            <td style="width: 500px;">(4) Number of Patient Visitation Group members:</td>
             <td class="hlc-report-field">@Model.PvgCount.ToString()</td>
         </tr>
         <tr>
             <td colspan="2">
-                (6) Number of hospitals by type:
+                (5) Name <em>only</em> the hospitals that <em>often</em> receive Witness patients:
                 <table class="table-condensed">
-                    <tr>
-                        <td style="width: 40px;">&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[0].Count</td>
-                        <td style="width: 230px;">@Model.Hospitals[0].Name</td>
-                        <td style="width: 40px;">&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[1].Count</td>
-                        <td>@Model.Hospitals[1].Name</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[2].Count</td>
-                        <td>@Model.Hospitals[2].Name</td>
-                        <td>&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[7].Count</td>
-                        <td>@Model.Hospitals[7].Name</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 40px;">&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[3].Count</td>
-                        <td>@Model.Hospitals[3].Name</td>
-                        <td>&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[8].Count</td>
-                        <td>@Model.Hospitals[8].Name</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[4].Count</td>
-                        <td>@Model.Hospitals[4].Name</td>
-                        <td>&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[5].Count</td>
-                        <td>@Model.Hospitals[5].Name</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[6].Count</td>
-                        <td>@Model.Hospitals[6].Name</td>
-                        <td>&nbsp;</td>
-                        <td class="hlc-report-field">@Model.Hospitals[9].Count</td>
-                        <td>@Model.Hospitals[9].Name</td>
-                    </tr>
+                    @foreach (var h in Model.OftenReceives)
+                    {
+                        <tr>
+                            <td style="width: 40px;">&nbsp;</td>
+                            <td class="hlc-report-field" style="width: 350px;">@h.HospitalName</td>
+                            <td class="hlc-report-field" style="width: 150px;">@h.City</td>
+                            <td class="hlc-report-field" style="width: 40px;">@h.State</td>
+                        </tr>
+                    }
                 </table>
+              @*<table class="table-condensed">
+                    <tr>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[0].Count</td>
+                        <td style="width: 240px;">@Model.HospitalTypes[0].Name</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[1].Count</td>
+                        <td>@Model.HospitalTypes[1].Name</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[2].Count</td>
+                        <td>@Model.HospitalTypes[2].Name</td>
+                        <td>&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[7].Count</td>
+                        <td>@Model.HospitalTypes[7].Name</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[3].Count</td>
+                        <td>@Model.HospitalTypes[3].Name</td>
+                        <td>&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[8].Count</td>
+                        <td>@Model.HospitalTypes[8].Name</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[4].Count</td>
+                        <td>@Model.HospitalTypes[4].Name</td>
+                        <td>&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[5].Count</td>
+                        <td>@Model.HospitalTypes[5].Name</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[6].Count</td>
+                        <td>@Model.HospitalTypes[6].Name</td>
+                        <td>&nbsp;</td>
+                        <td class="hlc-report-field">@Model.HospitalTypes[9].Count</td>
+                        <td>@Model.HospitalTypes[9].Name</td>
+                    </tr>
+                </table>*@
             </td>
         </tr>
         <tr>
@@ -100,7 +107,7 @@
                         <tr>
                             <td style="width: 40px;">&nbsp;</td>
                             <td class="hlc-report-field">@Model.CoopDoctors[i].Count</td>
-                            <td style="width: 230px;">@Model.CoopDoctors[i].Name</td>
+                            <td style="width: 240px;">@Model.CoopDoctors[i].Name</td>
                             <td style="width: 40px;">&nbsp;</td>
                             @if (i + coopHalf <= Model.CoopDoctors.Count - 1)
                             {
@@ -111,10 +118,6 @@
                     }
                 </table>
             </td>
-        </tr>
-        <tr>
-            <td style="width: 500px;">(8) Complete page 2 (if applicable).</td>
-            <td></td>
         </tr>
         </tbody>
     </table>
@@ -163,19 +166,8 @@
                 </tr>
                 <tr>
                     <td colspan="6">
-                        &bull; Describe the level of commitment from the hospital administration.<br/>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="hlc-report-field" colspan="5">
-                        @b.BmspCommitment
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="6">
-                        &bull; List the specialties represented in the program and describe those that have a high level of
-                        experience in a particular type of surgery or medical care.<br/>
+                        &bull; What outstanding medical specialties is the BMSP known for? (List more than one if
+                        applicable.)<br/>
                     </td>
                 </tr>
                 <tr>
@@ -184,11 +176,19 @@
                     </td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td colspan="4">&bull; How many physicians are participating in the program?</td>
-                    <td class="hlc-report-field">@b.BmspNumberOfDoctors</td>
-                    <td>&nbsp;</td>
-                </tr>
+                    <tr>
+                        <td colspan="6">
+                            &bull; How many physicians participating in the BMSP have qualified to be on the HLC’s
+                            cooperative doctors list? (Refer to direction found in the October 2, 2006, letter to all
+                            HLCs)<br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-report-field" colspan="5">
+                            @b.BmspNumberOfDoctors
+                        </td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
