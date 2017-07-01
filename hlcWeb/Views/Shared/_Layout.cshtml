@@ -33,7 +33,7 @@
                     <li class="visible-xs"><a href="@Url.Action("Search", "Home")" title="Search"><i class="fa fa-search fa-fw" style="font-size: 20px;"></i> Search</a></li>
                     <li class="hidden-xs"><a href="@Url.Action("Search", "Home")" title="Search"><i class="fa fa-search fa-fw" style="font-size: 20px;"></i></a></li>
                     @*BEGIN: Add actions*@
-                    <li class="dropdown">
+                    <li class="dropdown hidden-xs">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus-circle"></i> Add <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Edit","CaseFiles", new {id = 0})"><i class="fa fa-address-card-o fa-fw"></i> Case File</a></li>

@@ -81,6 +81,7 @@ CREATE TABLE [hlc_Diagnosis] (
 
 -- Doctor changes: Modify existing hlc_Doctor to track when entered
 -- (Modified 5/13 and verified that does not affect old site)
+-- (Set some DateEntered to 12/31/2016 that were null - 21 records)
 ALTER TABLE hlc_Doctor ADD DateEntered DATETIME NULL DEFAULT GetDate();
 UPDATE hlc_Doctor SET DateEntered = DateLastUpdated;
 ALTER TABLE hlc_Doctor ADD EnteredBy varchar(12) NULL;
@@ -109,7 +110,7 @@ UPDATE hlc_Hospital SET DateLastUpdated = DateEntered;
 ALTER TABLE hlc_Hospital ADD LastUpdatedBy varchar(12) NULL;
 UPDATE hlc_Hospital SET LastUpdatedBy = EnteredBy;
 ...and a new field to track accepting Witness patients (from 2015 Questionnaire)
--- TODO: Run in Azure
+-- (Ran in Azure 7/1/2017)
 ALTER TABLE hlc_Hospital ADD OftenReceivesWitnesses bit NULL DEFAULT ((0));
 
 -- ErrorLog table 
@@ -123,7 +124,7 @@ CREATE TABLE [hlc_ErrorLog] (
 
 -- Update Specialties table
 -- Note to Mark: Transplantation was split into 4 different ones.  Need to update Doctors that now show Transplantation/Heart
--- TODO: Run in Azure
+-- (Ran in Azure 7/1/2017)
 UPDATE hlc_Specialty set SpecialtyName='Colorectal Surgery (Proctology)' WHERE SpecialtyName='Colon and Rectal Surgery';
 UPDATE hlc_Specialty set SpecialtyName='Hematology' WHERE SpecialtyName='Hematology/Oncology';
 UPDATE hlc_Specialty set SpecialtyName='Obstetrics' WHERE SpecialtyName='Obstetrics and Gynecology';
@@ -185,7 +186,7 @@ UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Urology';
 UPDATE hlc_Specialty SET SpecialtyCode='ANL' WHERE SpecialtyName = 'Vascular Surgery';
 
 -- Reset CaseFile and Diagnosis tables
--- TODO: Run in Azure
+-- (Ran in Azure 7/1/2017)
 DELETE FROM hlc_Diagnosis;
 DELETE FROM hlc_CaseFile;
 INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Anemia', GETDATE(), 'jholman');

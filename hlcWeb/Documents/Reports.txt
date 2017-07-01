@@ -112,17 +112,17 @@ INSERT INTO hlc_HospitalType VALUES(9,'Other');
 ------------------------------------------------------------------------------------------------------------
 -- Delete stuff I added
 
-select * from hlc_DoctorNote where DoctorID in
+delete * from hlc_DoctorNote where DoctorID in
 (select ID from hlc_Doctor where EnteredBy='jholman');
 
-select * from hlc_DoctorHospital where DoctorID in
+delete * from hlc_DoctorHospital where DoctorID in
 (select ID from hlc_Doctor where EnteredBy='jholman');
 
-select * from hlc_DoctorSpecialty where DoctorID in
+delete * from hlc_DoctorSpecialty where DoctorID in
 (select ID from hlc_Doctor where EnteredBy='jholman');
 
-select * from hlc_Doctor where EnteredBy='jholman';
+delete * from hlc_Doctor where EnteredBy='jholman';
 
-select * from hlc_Practice where PracticeName like 'Test%';
+delete * from hlc_Practice where PracticeName like 'Test%';
 
-select * from hlc_Hospital where HospitalName like 'Test%';
+delete * from hlc_Hospital where HospitalName like 'Test%';
