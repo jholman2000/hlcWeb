@@ -96,6 +96,7 @@ namespace hlcWeb.Models
         public string BmspPhone { get; set; }
 
         [Display(Name = "# Cooperative")]
+        [StringLength(50)]
         public string BmspNumberOfDoctors { get; set; }
 
         [Computed]

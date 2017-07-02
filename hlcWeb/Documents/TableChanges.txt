@@ -112,6 +112,7 @@ UPDATE hlc_Hospital SET LastUpdatedBy = EnteredBy;
 ...and a new field to track accepting Witness patients (from 2015 Questionnaire)
 -- (Ran in Azure 7/1/2017)
 ALTER TABLE hlc_Hospital ADD OftenReceivesWitnesses bit NULL DEFAULT ((0));
+ALTER TABLE hlc_Hospital ALTER COLUMN BMSPNumberOfDoctors varchar(50);
 
 -- ErrorLog table 
 --(created in Azure 5/11)
