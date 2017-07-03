@@ -9,6 +9,6 @@ namespace hlcWeb.ViewModels
     public class PvgMemberViewModel
     {
         public PvgMember PvgMember { get; set; }
-        public List<PvgMemberHospital> PvgMemberHospitals { get; set; }
+        public List<PvgMemberHospital> Hospitals { get; set; }
     }
 }

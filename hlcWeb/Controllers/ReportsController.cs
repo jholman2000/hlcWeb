@@ -144,9 +144,39 @@ namespace hlcWeb.Controllers
         public ActionResult HospitalsByType()
         {
             var viewModel = new RptSetupViewModel();
-
             //ViewBag.SpecialtySelectList = _specialtyRepository.GetSelectList();
             return View("SetupHospitalsByType", viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult HospitalsByType(RptSetupViewModel viewModel)
+        {
+            if (viewModel.Specialties == null)
+            {
+                //ViewBag.ErrorMessage = "Please select at least one Specialty";
+                return View("SetupHospitalsByType", viewModel);
+            }
+
+            string specialtyList = viewModel.Specialties.Count > 0 ? string.Join(",", viewModel.Specialties) : "";
+            var rptData = _reportRepository.DoctorsSpecialty((int)viewModel.Attitude, specialtyList);
+
+            ViewBag.ReportName = "Hospitals by Type";
+
+            var filters = "Attitude: " + viewModel.Attitude.EnumDisplayName() + "<br />";
+            if (viewModel.Specialties.Count > 0)
+            {
+                filters += $"{Constants.SpecialtyId}: ";
+                for (int i = 0; i < viewModel.Specialties.Count; i++)
+                {
+                    filters += _specialtyRepository.GetSelectList().LookupValue(viewModel.Specialties[i]) + ", ";
+                }
+                filters = filters.Substring(0, filters.Length - 2) + "<br />";
+            }
+            filters += rptData.Count.ToString() + " doctors found" + "<br />";
+
+            ViewBag.Filters = filters;
+
+            return View(rptData);
         }
 
         #endregion

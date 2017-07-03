@@ -96,6 +96,21 @@ namespace hlcWeb.Models
         UniversityHospital = 6,
         [Display(Name = "Specialized Care")]
         SpecializedCare = 7,
-        Other = 9,
+        Other = 9
+    }
+
+    public enum DayOfWeek
+    {
+        Sunday = 1,
+        Monday = 2,
+        Tuesday = 3,
+        Wednesday = 4,
+        Thursday = 5,
+        Friday = 6,
+        Saturday = 7,
+        [Display(Name = "As Needed")]
+        AsNeeded = 8,
+        Alternate = 9,
+        Weekends = 10
     }
 }

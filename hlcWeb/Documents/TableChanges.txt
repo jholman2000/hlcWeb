@@ -123,6 +123,12 @@ CREATE TABLE [hlc_ErrorLog] (
 [StackTrace] varchar(50000) NULL
 )
 
+-- Update PVGMember table
+ALTER TABLE hlc_PVGMember ADD DateEntered DATETIME NULL DEFAULT GetDate();
+ALTER TABLE hlc_PVGMember ADD EnteredBy varchar(12) NULL;
+ALTER TABLE hlc_PVGMember ADD DateLastUpdated DATETIME NULL;
+ALTER TABLE hlc_PVGMember ADD LastUpdatedBy varchar(12) NULL;
+
 -- Update Specialties table
 -- Note to Mark: Transplantation was split into 4 different ones.  Need to update Doctors that now show Transplantation/Heart
 -- (Ran in Azure 7/1/2017)
@@ -210,3 +216,73 @@ INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Obste
 INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Preoperative blood management', GETDATE(), 'jholman');
 INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Sepsis/Severe infection', GETDATE(), 'jholman');
 INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Thrombocytopenia', GETDATE(), 'jholman');
+
+
+-- PVG Members
+DELETE FROM hlc_PVGMember
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Junior','Espino','980-328-0351','','jr52889@yahoo.com','Monroe Spanish','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Felipe','Espino','704-254-1782','','felipe.espino@ymail.com','Monroe Spanish','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('David','Glover','704-320-4396','','david_gloverjr@yahoo.com','Monroe West','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Stanley','Iwu','803-246-1111','803-802-5774','theiwus@yahoo.com','','Eng/Ibu','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Peter','Greenwood','301-328-6369','','pgreenwood2007@gmail.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('James','Mosely','954-826-8319','','mosl9373@bellsouth.net','South English','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Milton','Ashford','678-677-4263','803-802-4419','miltashford@comporium.net','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Robert','Rivers, Jr','803-579-4970','','rrivers37@yahoo.com','East York','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Victor','Clinton','704-616-9886','704-866-0915','bernardclinton@bellsouth.net','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Daryl','Gardin','704-616-5082','','dgar25@hotmail.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Floyd','Strong','704-604-8831','','floydastrong@gmail.com','East English Gastonia','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ramon','Batista','704-948-6014','704-728-8466','batistaramon8@gmail.com','','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Mike','Cortez','626-780-6103','704-301-1730','mikecortez@bellsouth.net','','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Kyle','Williams','704-957-1087','','guardiansoflife@windstream.net','West Huntersville','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Jim','Matthews','704-577-6717','704-366-7848','mr.jimmatthews@gmail.com','Providence Park','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Lach','Ross','980-307-3283','','lachlangross@gmail.com','Providence Park','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('William','Paschal','704-890-3001','','billpaschal40@yahoo.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Nick','Hicklen, Sr','704-622-2807','','nick.hicklen@duke-energy.com ','Mallard Creek','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Anthony','Gant','','','afgant75@gmail.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Cole','Broomer','704-996-3664','704-814-9111','geraldbroomer@gmail.com','East Matthews Cong.','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ralph','Queen','704-473-7406','704-482-2526','rqueen18@carolina.rr.com','Shelby','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Yared','Alicea','704-297-0481','','yared.alicea@gmail.com','Shelby Spanish','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Todd','Mullinax','704-692-6529','','jtoddmullinax@gmail.com','West Shelby','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Robert','Blakely, Jr','704-434-9535','704-434-9530','radiorob@carolina.rr.com','Shelby','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ronald','Brooks','704-300-7809','704-480-6049','brooksL93@yahoo.com','Shelby','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Sid','Montero','704-281-0162','','sidmontero@gmail.com','','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Kevin','Blount','704-606-6725','704-525-7486','kevinwblount@bellsouth.net','SW English','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('William','Grier','980-322-7216','','willngrier@yahoo.com','West English','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Dan','Edwards','704-975-9639','704-321-3039','dan.edwards1@outlook.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ellis','Black','704-806-7801','','ec1black@att.net','Greenville','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Marshall','Sheffield','704-236-3547','','msheffield1224@gmail.com','Greenville','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Andrew','Smith','201-491-4401','','andrew@havenware.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Donald','Roberts','704-621-1225','704-391-1719','donaldhrobb@gmail.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Darnell','Cunningham','704-904-0308','','cunninghamdarnell43@yahoo.com','Kannapolis English','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Sam','Cureton','908-489-6422','','scureton14@hotmail.com','Central Concord','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Glenn','Lyles','980-622-4745','704-932-2831','glennandalice@windstream.net','Kannapolis English','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Haywood','Kelly','240-216-6749','704-720-7638','hvkelly@carolina.rr.com','East Concord','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Dan','Raper','704-287-7035','704-688-5469','danraper@earthlink.net','Central Concord','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Bob','Kilts','704-649-6696','','bobkilts2@gmail.com','Central Concord','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('James','Barnes','910-797-4683','704-455-7580','jato@carolina.rr.com','Central Concord','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('John','Deese','980-521-2400','704-784-6218','jd1914@windstream.net','Central Concord','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Shannon','Miller','704-302-3334','','shannonkmiller@gmail.com','Huntersville','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Josue','Hooey','502-794-6799','','josuehooey@gmail.com','','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ryan','Diggs','704-649-1001','','ryand5252@gmail.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Jesus','Ramirez','','','','','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Jesus','del Valle','704-305-7455','','','','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ronald','Clay','313-770-3961','704-431-6319','ron.clay@sbcglobal.net','Old Concord Rd.','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ben','Washington','704-213-1073','704-637-1844','','Central Salisbury','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Timothy','Kopf','704-213-2426','','twkopf@gmail.com','Old Concord Road Salisbury','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ken','Barrier','704-202-0891','704-633-8288','kbarr14636@aol.com','Central Salisbury','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Jeremie','Johnson','704-647-2450','704-637-8977','jeremias9@ymail.com','East Lexington','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Alex','Montiel','704-223-9325','','adjmon@yahoo.com','Salisbury North Congregation (also speaks Spanish)','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Jerrod','Venosky','336-403-6590','','','Central Salisbury','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Don','Hall','704-740-7251','704-948-0858','donhall956@yahoo.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Anthony','Thomas','704-960-0890','','bentham158@gmail.com','N. Huntersville','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Michael','Ford','513-227-5931','','mnrford@aol.com','N. Huntersville','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Ronald','Hagy','','704-221-4179','rhagy@earthlink.net','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Dan','Perrin','980-240-6402','','dperrin9999@gmail.com','Wilgrove','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Robert','Crocevera','704-292-4886','704-635-7242','rcrocevera@hotmail.com','Weddington','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('William','Gordon','704-301-0446','704-846-4474','wes.gordon@yahoo.com','','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Jeff','Plaistead','704-507-7276','','gplaistead106@windstream.net','Moorseville North','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Gerald','Ferguson','980-318-3598','','ffergies19@gmail.com','Moorseville South','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Herbert','Robinson','704-252-4629','828-632-2199','herberthrobinson@bellsouth.net','East Statesville','Eng/Spa','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Chris','Ries','828-449-0294','828-261-0474','skylark362@gmail.com','South Hickory','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Donald','Courteau','651-373-8508','828-855-9490','doncourteau@gmail.com','North Hickory','','admin')
+INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('DC','Clontz','','','','North Hickory','','admin')

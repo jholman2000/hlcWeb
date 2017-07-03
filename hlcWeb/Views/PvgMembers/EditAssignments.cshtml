@@ -1,0 +1,79 @@
+﻿@using System.Collections
+@model hlcWeb.ViewModels.PvgMemberViewModel
+
+@{
+    ViewBag.Title = $"PVG Member Assignments";
+}
+<div class="well">
+    <i class="fa fa-heart-o fa-2x fa-fw text-primary"></i> <span class="h3">Assignments for @Model.PvgMember.FullName</span>
+</div>
+<div class="container">
+    @using (Html.BeginForm("EditAssignments", "PvgMembers", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.PvgMember.Id)
+
+        <div class="alert alert-info" role="alert">
+            Select up to five Hospital assignments for this PVG Member.
+        </div>
+        for (var i = 0; i < Model.Hospitals.Count; i++)
+        {
+            @Html.HiddenFor(m => m.Hospitals[i].Id)
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.Hospitals[i].Remove, new { data_hlc_index = @i })
+                        @Html.LabelFor(m => m.Hospitals[i].Remove)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Hospitals[i].HospitalId, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Hospitals[i].HospitalId, new SelectList((IEnumerable)ViewBag.HospitalSelectList, "Value", "Text", Model.Hospitals[i].HospitalId), "Select...", new { @class = "form-control", style = "max-width:100%;" })
+                    @Html.ValidationMessageFor(m => m.Hospitals[i].HospitalId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Hospitals[i].DayOfWeek, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.EnumDropDownListFor(m => m.Hospitals[i].DayOfWeek,  "Select...", new { @class = "form-control", style = "max-width:100%;" })
+                    @Html.ValidationMessageFor(m => m.Hospitals[i].DayOfWeek)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Hospitals[i].Notes, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Hospitals[i].Notes, new { @class = "form-control", placeholder = "Comments or limitiations for this assignment" })
+                    @Html.ValidationMessageFor(m => m.Hospitals[i].Notes)
+                </div>
+            </div>
+            <hr />
+        }
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+            </div>
+        </div>
+
+    }
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function() {
+
+            // User clicks a remove button
+            $("[id$='_Remove']").click(function() {
+                var i = $(this).data("hlc-index");
+                if ($(this).prop('checked')) {
+                    $("#Hospitals_" + i + "__HospitalId").prop("disabled", "disabled");
+                    $("#Hospitals_" + i + "__Notes").prop("disabled", "disabled");
+                } else {
+                    $("#Hospitals_" + i + "__HospitalId").prop("disabled", "");
+                    $("#Hospitals_" + i + "__Notes").prop("disabled", "");
+                }
+            });
+        });
+    </script>
+}

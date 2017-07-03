@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Dapper.Contrib.Extensions;
 
@@ -56,6 +57,11 @@ namespace hlcWeb.Models
         [Display(Name = "Congregation")]
         [StringLength(50)]
         public string Congregation { get; set; }
+
+        public DateTime DateEntered { get; set; }
+        public string EnteredBy { get; set; }
+        public DateTime DateLastUpdated { get; set; }
+        public string LastUpdatedBy { get; set; }
 
         // Derived fields
         [Computed]

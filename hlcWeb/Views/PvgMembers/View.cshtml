@@ -1,4 +1,5 @@
-﻿@model hlcWeb.ViewModels.PvgMemberViewModel
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.ViewModels.PvgMemberViewModel
 
 @{
     ViewBag.Title = "PVG Member";
@@ -14,7 +15,7 @@
                 <div class="panel-heading">
                     PVG Member Information
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit", "PvgMembers", new {id = Model.PvgMember.Id})" class="hlc-panel-icon js-edit">
+                        <a href="@Url.Action("EditContact", "PvgMembers", new {id = Model.PvgMember.Id})" class="hlc-panel-icon js-edit">
                             <i class="fa fa-edit" title="Edit"></i>
                         </a>
                     </span>
@@ -54,20 +55,43 @@
                         <td class="hlc-prompt" style="width: 88px;">Email Address:</td>
                         <td>@Model.PvgMember.EmailAddress</td>
                     </tr>
-                    <tr>
-                        <td class="hlc-prompt">Address:</td>
-                        <td>
-                            @if (!string.IsNullOrEmpty(Model.PvgMember.Address))
-                            {
-                                @Model.PvgMember.Address
-                                <br />
-                            }
-                            @(Model.PvgMember.City) @(Model.PvgMember.State) @(Model.PvgMember.Zip) <br />
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Assignments
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("EditAssignments", "PvgMembers", new {id = Model.PvgMember.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                @if (Model.Hospitals.Count == 0)
+                {
+                    <div class="panel-body text-center">
+                        <em>No assignments have been entered.</em>
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-condensed">
+                        @foreach (var ho in Model.Hospitals)
+                        {
+                            <tr>
+                                <td>@ho.HospitalName @(string.IsNullOrEmpty(ho.Notes) ? "" : " - ") @ho.Notes </td>
+                                <td>@ho.DayOfWeek.EnumDisplayName()</td>
+                                <td>@ho.Notes </td>
+                            </tr>
+                        }
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+
 </div>

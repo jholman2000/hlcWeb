@@ -59,6 +59,7 @@ namespace hlcWeb.Controllers.Api
                           "		when 7 then 'Saturday' " +
                           "		when 8 then 'As Needed' " +
                           "		when 9 then 'Alternate' " +
+                          "		when 10 then 'Weekends' " +
                           "		else 'Unknown' " +
                           "  	   end as WeekDay " +
                           "from hlc_PVGMemberHospital  pvgh " +
@@ -70,29 +71,57 @@ namespace hlcWeb.Controllers.Api
                 var multi = conn.QueryMultiple(sql);
 
                 model.PvgMember = multi.Read<PvgMember>().FirstOrDefault();
-                model.PvgMemberHospitals = multi.Read<PvgMemberHospital>().ToList();
+                model.Hospitals = multi.Read<PvgMemberHospital>().ToList();
             }
             return model;
         }
 
-        internal bool Save(PvgMember model)
+        internal bool Save(PvgMemberViewModel model)
         {
             try
             {
-                if (model.Id == 0)
+                if (model.PvgMember.Id == 0)
                 {
-                    Connection.Insert(model);
+                    Connection.Insert(model.PvgMember);
                 }
                 else
                 {
-                    Connection.Update(model);
+                    Connection.Update(model.PvgMember);
                 }
                 GetSelectList(true);
                 return true;
             }
             catch (Exception ex)
             {
-                LogException(ex, model);
+                LogException(ex, model.PvgMember);
+                return false;
+            }
+        }
+
+        internal bool SaveAssignments(PvgMemberViewModel viewModel)
+        {
+            // First, delete all assignments currently associated with this Member and 
+            // then add back in the ones that are not marked as Remove
+            try
+            {
+                var sql = $"delete from hlc_PVGMemberHospital where PVGMemberId={viewModel.PvgMember.Id}";
+                ExecuteSql(sql);
+
+                foreach (var toInsert in viewModel.Hospitals)
+                {
+                    if (!toInsert.Remove && toInsert.HospitalId != 0)
+                    {
+                        toInsert.PvgMemberId = viewModel.PvgMember.Id;
+                        toInsert.Id = 0;
+                        var newId = Connection.Insert(toInsert);
+                        toInsert.Id = (int)newId;
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, viewModel);
                 return false;
             }
         }

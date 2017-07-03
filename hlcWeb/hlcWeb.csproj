@@ -214,6 +214,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
@@ -375,6 +379,8 @@
     <Content Include="Views\PvgMembers\Search.cshtml" />
     <Content Include="Views\PvgMembers\View.cshtml" />
     <Content Include="Views\Reports\SetupHospitalsByType.cshtml" />
+    <Content Include="Views\PvgMembers\EditContact.cshtml" />
+    <Content Include="Views\PvgMembers\EditAssignments.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

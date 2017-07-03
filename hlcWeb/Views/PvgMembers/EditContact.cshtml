@@ -1,0 +1,130 @@
+﻿@model hlcWeb.ViewModels.PvgMemberViewModel
+
+@{
+    var action = (Model.PvgMember.Id == 0) ? "Add" : "Edit";
+    ViewBag.Title = $"{action} PVG Member";
+    var errMsg = "";
+}
+
+<div class="well">
+    <i class="fa fa-heart-o fa-2x fa-fw text-primary"></i><span class="h3"> @action PVG Member</span>
+</div>
+<div class="container">
+    @using (Html.BeginForm("EditContact", "PvgMembers", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.PvgMember.Id)
+        @Html.HiddenFor(m => m.PvgMember.DateEntered)
+        @Html.HiddenFor(m => m.PvgMember.EnteredBy)
+        @Html.HiddenFor(m => m.PvgMember.DateLastUpdated)
+        @Html.HiddenFor(m => m.PvgMember.LastUpdatedBy)
+
+        if (!string.IsNullOrEmpty(errMsg))
+        {
+            <div class="alert alert-danger" role="alert">
+                @errMsg
+            </div>
+        }
+        else { 
+            if (action == "Add")
+            {
+                <div class="alert alert-info" role="alert">
+                    Enter the basic contact information for this PVG Member.  
+                </div>
+            }
+        }
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.FirstName, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PvgMember.FirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.LastName, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PvgMember.LastName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.MobilePhone, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.MobilePhone, new { @class = "form-control", type = "tel" })
+                @Html.ValidationMessageFor(m => m.PvgMember.MobilePhone)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.HomePhone, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.HomePhone, new { @class = "form-control", type = "tel" })
+                @Html.ValidationMessageFor(m => m.PvgMember.HomePhone)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.EmailAddress, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.EmailAddress, new { @class = "form-control", type = "email" })
+                @Html.ValidationMessageFor(m => m.PvgMember.EmailAddress)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.Address, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PvgMember.Address)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.City, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.City, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PvgMember.City)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.State, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.State, new { @class = "form-control", style = "width:60px;" })
+                @Html.ValidationMessageFor(m => m.PvgMember.State)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.Zip, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.Zip, new { @class = "form-control", style = "width:120px;" })
+                @Html.ValidationMessageFor(m => m.PvgMember.Zip)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+            </div>
+        </div>
+    }
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+
+            $("form").submit(function() {
+                var form = $(this);
+                // Highlight errors
+                if (form.valid() === false) {
+                    form.find("div.form-group")
+                        .each(function() {
+                            if ($(this).find("span.field-validation-error").length > 0)
+                                $(this).addClass("has-error");
+                            if ($(this).find("span.field-validation-valid").length > 0)
+                                $(this).removeClass("has-error");
+                        });
+                }
+                return true;
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
