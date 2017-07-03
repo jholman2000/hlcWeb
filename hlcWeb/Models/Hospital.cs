@@ -1,6 +1,7 @@
 ﻿using System;
 using Dapper.Contrib.Extensions;
 using System.ComponentModel.DataAnnotations;
+using hlcWeb.Infrastructure;
 
 namespace hlcWeb.Models
 {
@@ -67,7 +68,7 @@ namespace hlcWeb.Models
          * New fields used for the Annual HLC Questionnaire
          ***************************************************/
         [Required]
-        [Display(Name = "Hospital Type")]
+        [Display(Name = Constants.HospitalType)]
         public HospitalType HospitalType { get; set; }
 
         [Display(Name = "This hospital often receives Witness patients")]

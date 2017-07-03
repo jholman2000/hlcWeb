@@ -40,6 +40,9 @@ namespace hlcWeb.ViewModels.Reports
         [Display(Name = Constants.Attitude)]
         public Attitude Attitude { get; set; }
 
+        [Display(Name = Constants.HospitalType)]
+        public HospitalType HospitalType { get; set; }
+
         [Display(Name = "Specialty")]
         public List<int> Specialties { get; set; }
 

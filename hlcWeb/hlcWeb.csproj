@@ -374,6 +374,7 @@
     <Content Include="Views\Reports\AnnualReport.cshtml" />
     <Content Include="Views\PvgMembers\Search.cshtml" />
     <Content Include="Views\PvgMembers\View.cshtml" />
+    <Content Include="Views\Reports\SetupHospitalsByType.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

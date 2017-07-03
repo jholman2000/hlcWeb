@@ -140,6 +140,17 @@ namespace hlcWeb.Controllers
         }
         #endregion
 
+        #region Report: Hospitals by Type
+        public ActionResult HospitalsByType()
+        {
+            var viewModel = new RptSetupViewModel();
+
+            //ViewBag.SpecialtySelectList = _specialtyRepository.GetSelectList();
+            return View("SetupHospitalsByType", viewModel);
+        }
+
+        #endregion
+
         #region Report: Doctors Added/Removed
         public ActionResult DoctorsAddedRemoved(DateTime dateFrom, DateTime? dateTo)
         {

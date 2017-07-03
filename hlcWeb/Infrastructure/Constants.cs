@@ -18,6 +18,7 @@ namespace hlcWeb.Infrastructure
         public const string SpecialtyId = "Specialty";
         public const string IsPediatricCase = "Pediatric Case";
         public const string Attitude = "Overall Attitude";
+        public const string HospitalType = "Hospital Type";
 
         public const string EnteredBy = "Entered By";
         //public const string  = "";
