@@ -68,9 +68,11 @@
                 var i = $(this).data("hlc-index");
                 if ($(this).prop('checked')) {
                     $("#Hospitals_" + i + "__HospitalId").prop("disabled", "disabled");
+                    $("#Hospitals_" + i + "__DayOfWeek").prop("disabled", "disabled");
                     $("#Hospitals_" + i + "__Notes").prop("disabled", "disabled");
                 } else {
                     $("#Hospitals_" + i + "__HospitalId").prop("disabled", "");
+                    $("#Hospitals_" + i + "__DayOfWeek").prop("disabled", "");
                     $("#Hospitals_" + i + "__Notes").prop("disabled", "");
                 }
             });
