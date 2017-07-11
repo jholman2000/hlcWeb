@@ -300,6 +300,7 @@
     <Content Include="Documents\2011 Charlotte NC HLC Quesionnaire.pdf" />
     <Content Include="Documents\Doctors Survey template.doc" />
     <Content Include="Documents\2015 HLC Questionnaire.pdf" />
+    <Content Include="Documents\Charlotte_PVG_Assignments.xlsx" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

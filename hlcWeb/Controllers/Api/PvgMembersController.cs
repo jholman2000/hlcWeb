@@ -48,7 +48,7 @@ namespace hlcWeb.Controllers.Api
             using (var conn = Connection)
             {
                 var sql = $"select * from hlc_PVGMember where ID={id};" +
-                          "select pvgh.ID, HospitalId, HospitalName, pvgh.Notes, " +
+                          "select pvgh.ID, HospitalId, HospitalName, pvgh.Notes, DayOfWeek," +
                           "	   case DayOfWeek " +
                           "		when 1 then 'Sunday' " +
                           "		when 2 then 'Monday' " +
@@ -65,7 +65,7 @@ namespace hlcWeb.Controllers.Api
                           "from hlc_PVGMemberHospital  pvgh " +
                           "  INNER JOIN hlc_Hospital h             ON pvgh.HospitalID = h.ID " +
                           $"where pvgh.PVGMemberID={id} " +
-                          "order by 2;";
+                          "order by HospitalName;";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);

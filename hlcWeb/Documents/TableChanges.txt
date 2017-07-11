@@ -220,6 +220,7 @@ INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Throm
 
 -- PVG Members
 DELETE FROM hlc_PVGMember
+DELETE FROM hlc_PVGMemberHospital
 INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Junior','Espino','980-328-0351','','jr52889@yahoo.com','Monroe Spanish','','admin')
 INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Felipe','Espino','704-254-1782','','felipe.espino@ymail.com','Monroe Spanish','','admin')
 INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('David','Glover','704-320-4396','','david_gloverjr@yahoo.com','Monroe West','','admin')

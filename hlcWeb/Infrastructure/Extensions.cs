@@ -35,7 +35,7 @@ namespace hlcWeb.Infrastructure
         {
             var type = item.GetType();
             var member = type.GetMember(item.ToString());
-            DisplayAttribute displayname = (DisplayAttribute)member[0].GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();
+            var displayname = (DisplayAttribute)member[0].GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();
 
             return displayname != null ? displayname.Name : item.ToString();
         }

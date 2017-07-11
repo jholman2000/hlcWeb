@@ -64,7 +64,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Assignments
+                    Hospital Assignments
                     <span class="pull-right hidden-print hidden-xs">
                         <a href="@Url.Action("EditAssignments", "PvgMembers", new {id = Model.PvgMember.Id})" class="hlc-panel-icon js-edit">
                             <i class="fa fa-edit" title="Edit"></i>
@@ -83,7 +83,7 @@
                         @foreach (var ho in Model.Hospitals)
                         {
                             <tr>
-                                <td>@ho.HospitalName @(string.IsNullOrEmpty(ho.Notes) ? "" : " - ") @ho.Notes </td>
+                                <td>@ho.HospitalName </td>
                                 <td>@ho.DayOfWeek.EnumDisplayName()</td>
                                 <td>@ho.Notes </td>
                             </tr>
