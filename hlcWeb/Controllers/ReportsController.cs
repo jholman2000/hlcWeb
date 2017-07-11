@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using hlcWeb.Controllers.Api;
 using hlcWeb.Filters;
@@ -144,37 +145,47 @@ namespace hlcWeb.Controllers
         public ActionResult HospitalsByType()
         {
             var viewModel = new RptSetupViewModel();
-            //ViewBag.SpecialtySelectList = _specialtyRepository.GetSelectList();
+
+            var types = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "(Any Type)", Value = "-1"},
+                    new SelectListItem { Text = "Unknown", Value = "0"},
+                    new SelectListItem { Text = "Children's Hospital", Value = "1"},
+                    new SelectListItem { Text = "Level 1 Trauma Center", Value = "2"},
+                    new SelectListItem { Text = "Level 2 Trauma Center", Value = "3"},
+                    new SelectListItem { Text = "Level 3 Trauma Center", Value = "4"},
+                    new SelectListItem { Text = "Public Hospital", Value = "5"},
+                    new SelectListItem { Text = "University Hospital", Value = "6"},
+                    new SelectListItem { Text = "Specialized Care", Value = "7"},
+                    new SelectListItem { Text = "Other", Value = "9"},
+                }, "Value", "Text");
+            ViewBag.HospitalTypesSelectList = types;
+
             return View("SetupHospitalsByType", viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult HospitalsByType(RptSetupViewModel viewModel)
         {
-            if (viewModel.Specialties == null)
-            {
-                //ViewBag.ErrorMessage = "Please select at least one Specialty";
-                return View("SetupHospitalsByType", viewModel);
-            }
-
-            string specialtyList = viewModel.Specialties.Count > 0 ? string.Join(",", viewModel.Specialties) : "";
-            var rptData = _reportRepository.DoctorsSpecialty((int)viewModel.Attitude, specialtyList);
+            var hospitalType = viewModel.HospitalType;
+            var rptData = _reportRepository.HospitalsByType(hospitalType);
 
             ViewBag.ReportName = "Hospitals by Type";
 
-            var filters = "Attitude: " + viewModel.Attitude.EnumDisplayName() + "<br />";
-            if (viewModel.Specialties.Count > 0)
-            {
-                filters += $"{Constants.SpecialtyId}: ";
-                for (int i = 0; i < viewModel.Specialties.Count; i++)
-                {
-                    filters += _specialtyRepository.GetSelectList().LookupValue(viewModel.Specialties[i]) + ", ";
-                }
-                filters = filters.Substring(0, filters.Length - 2) + "<br />";
-            }
-            filters += rptData.Count.ToString() + " doctors found" + "<br />";
+            //var filters = "Hospital Type: " + viewModel.HospitalType.EnumDisplayName() + "<br />";
+            //if (viewModel.Specialties.Count > 0)
+            //{
+            //    filters += $"{Constants.SpecialtyId}: ";
+            //    for (int i = 0; i < viewModel.Specialties.Count; i++)
+            //    {
+            //        filters += _specialtyRepository.GetSelectList().LookupValue(viewModel.Specialties[i]) + ", ";
+            //    }
+            //    filters = filters.Substring(0, filters.Length - 2) + "<br />";
+            //}
+            //filters += rptData.Count.ToString() + " doctors found" + "<br />";
 
-            ViewBag.Filters = filters;
+            //ViewBag.Filters = filters;
 
             return View(rptData);
         }

@@ -165,5 +165,9 @@ namespace hlcWeb.Controllers.Api
             return GetListFromSql<RptCaseFilesViewModel>(sql);
         }
 
+        public object HospitalsByType(int hospitalType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
