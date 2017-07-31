@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../content/addtohomescreen.min.js" />
 /// <reference path="bootbox.min.js" />
 /// <reference path="bootstrap.js" />
 /// <reference path="bootstrap-toggle.js" />

@@ -218,6 +218,9 @@
     <Content Include="App_Data\hlcWeb_local_log.ldf">
       <DependentUpon>hlcWeb_local.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\addtohomescreen.css" />
+    <Content Include="Content\addtohomescreen.js" />
+    <Content Include="Content\addtohomescreen.min.js" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
