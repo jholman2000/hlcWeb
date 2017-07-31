@@ -124,6 +124,7 @@ CREATE TABLE [hlc_ErrorLog] (
 )
 
 -- Update PVGMember table
+-- (Ran in Azure 7/31/2017)
 ALTER TABLE hlc_PVGMember ADD DateEntered DATETIME NULL DEFAULT GetDate();
 ALTER TABLE hlc_PVGMember ADD EnteredBy varchar(12) NULL;
 ALTER TABLE hlc_PVGMember ADD DateLastUpdated DATETIME NULL;
@@ -219,6 +220,7 @@ INSERT INTO hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) VALUES ('Throm
 
 
 -- PVG Members
+-- (Ran in Azure 7/31/2017)
 DELETE FROM hlc_PVGMember
 DELETE FROM hlc_PVGMemberHospital
 INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Junior','Espino','980-328-0351','','jr52889@yahoo.com','Monroe Spanish','','admin')
