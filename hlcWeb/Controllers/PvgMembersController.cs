@@ -37,6 +37,7 @@ namespace hlcWeb.Controllers
             if (id == 0)
             {
                 model = new PvgMemberViewModel();
+                model.PvgMember = new PvgMember();
             }
             else
             {
