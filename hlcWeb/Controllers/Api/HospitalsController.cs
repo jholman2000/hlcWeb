@@ -103,5 +103,24 @@ namespace hlcWeb.Controllers.Api
             return list;
         }
 
+        //internal SelectList GetSelectListHospitalType(bool refresh = false)
+        //{
+        //    ObjectCache cache = MemoryCache.Default;
+
+        //    var list = (SelectList)cache["HospitalTypeSelectList"];
+
+        //    if (refresh || list == null)
+        //    {
+        //        var items = Get
+        //            .ToList();
+        //        list = new SelectList(items, "Value", "Text");
+
+        //        if (refresh) cache.Remove("HospitalTypeSelectList");
+        //        cache.Add("HospitalTypeSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+        //    }
+
+        //    return list;
+        //}
+
     }
 }

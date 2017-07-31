@@ -78,6 +78,7 @@ namespace hlcWeb.Models
     }
 
     // Copied in hlc_HospitalType
+    // TODO: See if this can be refactored to read from hlc_HospitalType instead of using Enum or hard-coding
     public enum HospitalType
     {
         Unknown = 0,
