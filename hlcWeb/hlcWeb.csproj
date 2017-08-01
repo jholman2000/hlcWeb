@@ -162,6 +162,7 @@
     <Compile Include="Controllers\Api\PracticesController.cs" />
     <Compile Include="Controllers\Api\PvgMembersController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
+    <Compile Include="ViewModels\Reports\RptHospitalsByType.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\CaseFilesController.cs" />
@@ -385,6 +386,7 @@
     <Content Include="Views\Reports\SetupHospitalsByType.cshtml" />
     <Content Include="Views\PvgMembers\EditContact.cshtml" />
     <Content Include="Views\PvgMembers\EditAssignments.cshtml" />
+    <Content Include="Views\Reports\HospitalsByType.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

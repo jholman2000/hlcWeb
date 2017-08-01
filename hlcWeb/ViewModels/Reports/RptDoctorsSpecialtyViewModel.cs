@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace hlcWeb.ViewModels.Reports
+﻿namespace hlcWeb.ViewModels.Reports
 {
     public class RptDoctorsSpecialtyViewModel
     {

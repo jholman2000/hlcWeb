@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using hlcWeb.Controllers.Api;
 using hlcWeb.Filters;
 using hlcWeb.Infrastructure;
+using hlcWeb.Models;
 using hlcWeb.ViewModels.Reports;
 
 namespace hlcWeb.Controllers
@@ -118,6 +119,7 @@ namespace hlcWeb.Controllers
                 return View("SetupDoctorsSpecialty", viewModel);
             }
 
+            // Pass selected Specialties as comma separate list
             string specialtyList = viewModel.Specialties.Count > 0 ? string.Join(",", viewModel.Specialties) : "";
             var rptData = _reportRepository.DoctorsSpecialty((int)viewModel.Attitude, specialtyList);
 
@@ -127,13 +129,13 @@ namespace hlcWeb.Controllers
             if (viewModel.Specialties.Count > 0)
             {
                 filters += $"{Constants.SpecialtyId}: ";
-                for (int i = 0; i < viewModel.Specialties.Count; i++)
+                foreach (var s in viewModel.Specialties)
                 {
-                    filters += _specialtyRepository.GetSelectList().LookupValue(viewModel.Specialties[i]) + ", ";
+                    filters += _specialtyRepository.GetSelectList().LookupValue(s) + ", ";
                 }
                 filters = filters.Substring(0, filters.Length - 2) + "<br />";
             }
-            filters += rptData.Count.ToString() + " doctors found" + "<br />";
+            filters += rptData.Count + " doctors found" + "<br />";
 
             ViewBag.Filters = filters;
 
@@ -146,24 +148,22 @@ namespace hlcWeb.Controllers
         {
             var viewModel = new RptSetupViewModel();
 
-            var types = new SelectList(
-                new List<SelectListItem>
+            //TODO: Look into using a GetSelectList() function in the future
+            var array = Enum.GetValues(typeof(HospitalType));
+            var listItems = new List<SelectListItem> {new SelectListItem {Text = "(Any Hospital Type)", Value = "-1"}};
+            foreach (var i in array)
+            {
+                listItems.Add(new SelectListItem
                 {
-                    new SelectListItem { Text = "(Any Type)", Value = "-1"},
-                    new SelectListItem { Text = "Unknown", Value = "0"},
-                    new SelectListItem { Text = "Children's Hospital", Value = "1"},
-                    new SelectListItem { Text = "Level 1 Trauma Center", Value = "2"},
-                    new SelectListItem { Text = "Level 2 Trauma Center", Value = "3"},
-                    new SelectListItem { Text = "Level 3 Trauma Center", Value = "4"},
-                    new SelectListItem { Text = "Public Hospital", Value = "5"},
-                    new SelectListItem { Text = "University Hospital", Value = "6"},
-                    new SelectListItem { Text = "Specialized Care", Value = "7"},
-                    new SelectListItem { Text = "Other", Value = "9"},
-                }, "Value", "Text");
-            ViewBag.HospitalTypesSelectList = types;
+                    Text = ((HospitalType) i).EnumDisplayName(),
+                    Value = ((int) i).ToString()
+                });
+            }
+            ViewBag.HospitalTypesSelectList = new SelectList(listItems, "Value", "Text");
 
             return View("SetupHospitalsByType", viewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult HospitalsByType(RptSetupViewModel viewModel)
@@ -173,19 +173,12 @@ namespace hlcWeb.Controllers
 
             ViewBag.ReportName = "Hospitals by Type";
 
-            //var filters = "Hospital Type: " + viewModel.HospitalType.EnumDisplayName() + "<br />";
-            //if (viewModel.Specialties.Count > 0)
-            //{
-            //    filters += $"{Constants.SpecialtyId}: ";
-            //    for (int i = 0; i < viewModel.Specialties.Count; i++)
-            //    {
-            //        filters += _specialtyRepository.GetSelectList().LookupValue(viewModel.Specialties[i]) + ", ";
-            //    }
-            //    filters = filters.Substring(0, filters.Length - 2) + "<br />";
-            //}
-            //filters += rptData.Count.ToString() + " doctors found" + "<br />";
+            var filters = "Hospital Type: " + (hospitalType == -1 ? "(Any Hospital Type)" : 
+                                                                    ((HospitalType)hospitalType).EnumDisplayName()
+                                              ) + "<br />";
+            filters += rptData.Count + " hospitals found" + "<br />";
 
-            //ViewBag.Filters = filters;
+            ViewBag.Filters = filters;
 
             return View(rptData);
         }

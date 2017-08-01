@@ -28,6 +28,14 @@ where ds.SpecialtyID is not null
   and ds.SpecialtyID in (2,29)
 order by s.SpecialtyName, d.LastName, d.FirstName
 
+-- Report: Hospitals By Type------------------------------------------------------------------------------
+select ht.Description as HospitalTypeDesc, h.ID, h.HospitalType, h.HospitalName, h.Address1, h.Address2, 
+       h.City, h.State, h.Zip, h.HasBSMP, h.HasPediatrics,
+(select count(ID) FROM hlc_DoctorHospital dh WHERE dh.HospitalID = h.ID) as NumberOfDoctors
+from hlc_Hospital h
+left join hlc_HospitalType ht on ht.Id = h.HospitalType
+where h.HospitalType = 4
+order by HospitalTypeDesc, HospitalName
 
 -- Report: Case Files-------------------------------------------------------------------------------------
 select cf.Id, cf.CaseDate, cf.DateEntered, 

@@ -165,9 +165,21 @@ namespace hlcWeb.Controllers.Api
             return GetListFromSql<RptCaseFilesViewModel>(sql);
         }
 
-        public object HospitalsByType(int hospitalType)
+        public List<RptHospitalsByType> HospitalsByType(int hospitalType)
         {
-            throw new NotImplementedException();
+            var where = "" +
+                        (hospitalType >= 0 ? $" where h.HospitalType = {hospitalType} " : " ");
+
+            var sql =
+                "select ht.Description as HospitalTypeDesc, h.ID, h.HospitalType, h.HospitalName, h.Address1, h.Address2, " +
+                "       h.City + ' ' + h.State as HospitalCityState, h.HasBSMP, h.HasPediatrics, " +
+                "(select count(ID) FROM hlc_DoctorHospital dh WHERE dh.HospitalID = h.ID) as NumberOfDoctors " +
+                "from hlc_Hospital h " +
+                "left join hlc_HospitalType ht on ht.Id = h.HospitalType " +
+                where +
+                "order by HospitalTypeDesc, HospitalName";
+
+            return GetListFromSql<RptHospitalsByType>(sql);
         }
     }
 }
