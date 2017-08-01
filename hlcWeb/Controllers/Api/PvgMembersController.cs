@@ -48,22 +48,10 @@ namespace hlcWeb.Controllers.Api
             using (var conn = Connection)
             {
                 var sql = $"select * from hlc_PVGMember where ID={id};" +
-                          "select pvgh.ID, HospitalId, HospitalName, pvgh.Notes, DayOfWeek," +
-                          "	   case DayOfWeek " +
-                          "		when 1 then 'Sunday' " +
-                          "		when 2 then 'Monday' " +
-                          "		when 3 then 'Tuesday' " +
-                          "		when 4 then 'Wednesday' " +
-                          "		when 5 then 'Thursday' " +
-                          "		when 6 then 'Friday' " +
-                          "		when 7 then 'Saturday' " +
-                          "		when 8 then 'As Needed' " +
-                          "		when 9 then 'Alternate' " +
-                          "		when 10 then 'Weekends' " +
-                          "		else 'Unknown' " +
-                          "  	   end as WeekDay " +
+                          "select pvgh.ID, HospitalId, HospitalName, pvgh.Notes, DayOfWeek, w.Description as WeekDay " +
                           "from hlc_PVGMemberHospital  pvgh " +
-                          "  INNER JOIN hlc_Hospital h             ON pvgh.HospitalID = h.ID " +
+                          "  left join hlc_Hospital h  on pvgh.HospitalID = h.ID " +
+                          "  left join hlc_DayOfWeek w on w.Id = pvgh.DayOfWeek " +
                           $"where pvgh.PVGMemberID={id} " +
                           "order by HospitalName;";
 

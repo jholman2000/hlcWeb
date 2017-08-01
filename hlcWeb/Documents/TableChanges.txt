@@ -289,3 +289,35 @@ INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress
 INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Chris','Ries','828-449-0294','828-261-0474','skylark362@gmail.com','South Hickory','','admin')
 INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('Donald','Courteau','651-373-8508','828-855-9490','doncourteau@gmail.com','North Hickory','','admin')
 INSERT INTO hlc_PVGMember (FirstName,LastName,MobilePhone,HomePhone,EmailAddress,Congregation, Notes,EnteredBy) VALUES('DC','Clontz','','','','North Hickory','','admin')
+
+-- (Ran in Azure)
+CREATE TABLE [hlc_HospitalType] (
+[Id] int NULL ,
+[Description] varchar(50) NULL
+)
+INSERT INTO hlc_HospitalType VALUES(0,'Unknown');
+INSERT INTO hlc_HospitalType VALUES(1,'Children''s Hospital');
+INSERT INTO hlc_HospitalType VALUES(2,'Level 1 Trauma Center');
+INSERT INTO hlc_HospitalType VALUES(3,'Level 2 Trauma Center');
+INSERT INTO hlc_HospitalType VALUES(4,'Level 3 Trauma Center');
+INSERT INTO hlc_HospitalType VALUES(5,'Public Hospital');
+INSERT INTO hlc_HospitalType VALUES(6,'University Hospital');
+INSERT INTO hlc_HospitalType VALUES(7,'Specialized Care');
+INSERT INTO hlc_HospitalType VALUES(9,'Other');
+
+-- DayOfWeek table
+-- (Need to run in Azure)
+CREATE TABLE [hlc_DayOfWeek] (
+[Id] int NULL ,
+[Description] varchar(50) NULL
+)
+INSERT INTO hlc_DayOfWeek VALUES(1,'Sunday');
+INSERT INTO hlc_DayOfWeek VALUES(2,'Monday');
+INSERT INTO hlc_DayOfWeek VALUES(3,'Tuesday');
+INSERT INTO hlc_DayOfWeek VALUES(4,'Wednesday');
+INSERT INTO hlc_DayOfWeek VALUES(5,'Thursday');
+INSERT INTO hlc_DayOfWeek VALUES(6,'Friday');
+INSERT INTO hlc_DayOfWeek VALUES(7,'Saturday');
+INSERT INTO hlc_DayOfWeek VALUES(8,'As Needed');
+INSERT INTO hlc_DayOfWeek VALUES(9,'Alternate');
+INSERT INTO hlc_DayOfWeek VALUES(10,'Weekends');

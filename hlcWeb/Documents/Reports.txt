@@ -37,6 +37,24 @@ left join hlc_HospitalType ht on ht.Id = h.HospitalType
 where h.HospitalType = 4
 order by HospitalTypeDesc, HospitalName
 
+-- Report: PVG Members-------------------------------------------------------------------------------------
+select distinct m.ID, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, 
+       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation,
+	   Hospitals = (select h.HospitalName + '~' + w.Description + '~' + coalesce(mh.Notes,'') + '|' as [text()]
+					from hlc_PVGMemberHospital mh
+					left join hlc_Hospital h on h.Id = mh.HospitalID
+					left join hlc_DayOfWeek w on w.Id = mh.DayOfWeek
+					where mh.PVGMemberID = m.ID
+					  and mh.HospitalID = 45
+					  and mh.DayOfWeek = 10
+					for xml path (''))
+from hlc_PVGMember m
+left join hlc_PVGMemberHospital mh on mh.PVGMemberID = m.ID
+where 1=1
+  and mh.HospitalID = 45
+  and mh.DayOfWeek = 10
+order by m.LastName, m.FirstName
+
 -- Report: Case Files-------------------------------------------------------------------------------------
 select cf.Id, cf.CaseDate, cf.DateEntered, 
        u.FirstName + ' ' + u.LastName    as UserName, 
@@ -103,19 +121,6 @@ select HospitalName, City, State, HasBSMP
 from hlc_Hospital where OftenReceivesWitnesses = 1 
 order by HospitalName
 ----------------------------------------------------------------------------------------------------------------
-CREATE TABLE [hlc_HospitalType] (
-[Id] int NULL ,
-[Description] varchar(50) NULL
-)
-INSERT INTO hlc_HospitalType VALUES(0,'Unknown');
-INSERT INTO hlc_HospitalType VALUES(1,'Children''s Hospital');
-INSERT INTO hlc_HospitalType VALUES(2,'Level 1 Trauma Center');
-INSERT INTO hlc_HospitalType VALUES(3,'Level 2 Trauma Center');
-INSERT INTO hlc_HospitalType VALUES(4,'Level 3 Trauma Center');
-INSERT INTO hlc_HospitalType VALUES(5,'Public Hospital');
-INSERT INTO hlc_HospitalType VALUES(6,'University Hospital');
-INSERT INTO hlc_HospitalType VALUES(7,'Specialized Care');
-INSERT INTO hlc_HospitalType VALUES(9,'Other');
 
 ------------------------------------------------------------------------------------------------------------
 -- Delete stuff I added

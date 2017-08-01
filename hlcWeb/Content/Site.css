@@ -136,6 +136,9 @@ i.hlc-brand {
     font-size: 14px;
     font-weight: bold;
 }
+.hlc-report-filters {
+    font-size: 12px;
+}
 .hlc-report-field {
     background-color: #eee;
     border: 2px solid white;

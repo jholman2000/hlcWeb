@@ -43,6 +43,9 @@ namespace hlcWeb.ViewModels.Reports
         [Display(Name = Constants.HospitalType)]
         public int HospitalType { get; set; }
 
+        [Display(Name = Constants.DayOfWeek)]
+        public int DayOfWeek { get; set; }
+
         [Display(Name = "Specialty")]
         public List<int> Specialties { get; set; }
 

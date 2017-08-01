@@ -1,0 +1,99 @@
+﻿@model List<hlcWeb.ViewModels.Reports.RptPVGMembers>
+@{
+    ViewBag.Title = "Report: PVG Members";
+    var filters = ViewBag.Filters;
+}
+
+<div class="container">
+    <div class="visible-print" style="margin-top: -40px;"></div>
+    <table class="table table-striped table-hover" style="font-size: 10px;">
+        <thead>
+            <tr>
+                <th colspan="99">
+                    <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">@ViewBag.ReportName</span>
+                    <span class="hlc-report-filters">
+                        @if (!string.IsNullOrEmpty(filters))
+                        {
+                            <br />
+                            <br />
+                            @Html.Raw(filters)
+                        }
+                    </span>
+                </th>
+            </tr>
+            <tr>
+                <th>PVG Member</th>
+                @*<th>Address</th>*@
+                <th>Email / Phone</th>
+                <th>Congregation</th>
+                <th>Hospital</th>
+                <th>Weekday</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="js-click-row">
+                    <td class="hidden-print">@Html.ActionLink(item.PVGMemberName, "View", "PVGMembers", new { id = item.Id }, null)</td>
+                    <td class="visible-print">@item.PVGMemberName</td>
+                    @*<td>
+                        @if (!string.IsNullOrEmpty(item.Address)) { <text>@item.Address <br/></text>  }
+                        @if (!string.IsNullOrEmpty(item.PVGCityState)) { <text>@item.PVGCityState <br /></text>  }
+                    </td>*@
+                    <td>                        
+                        @if (!string.IsNullOrEmpty(item.EmailAddress)) { <text>@item.EmailAddress <br /></text>  }
+                        @if (!string.IsNullOrEmpty(item.MobilePhone)) { <text>(M) @item.MobilePhone <br /></text>  }
+                        @if (!string.IsNullOrEmpty(item.HomePhone)) { <text>(H) @item.HomePhone <br /></text>  }
+                    </td>
+                    <td>@item.Congregation</td>
+                    @{
+                        if (item.Hospitals == null)
+                        {
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        }
+                        else
+                        {
+                            var hospitals = item.Hospitals.Split('|');
+                            <td>
+                                @foreach (var hosp in hospitals)
+                                {
+                                    if (!string.IsNullOrEmpty(hosp))
+                                    {
+                                        var parts = hosp.Split('~');
+                                        @parts[0]<br />
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @foreach (var hosp in hospitals)
+                                {
+                                    if (!string.IsNullOrEmpty(hosp))
+                                    {
+                                        var parts = hosp.Split('~');
+                                        @parts[1]<br />
+                                    }
+                                }                                
+                            </td>
+                            <td>                                
+                                @foreach (var hosp in hospitals)
+                                {
+                                    if (!string.IsNullOrEmpty(hosp))
+                                    {
+                                        var parts = hosp.Split('~');
+                                        @parts[2]<br />
+                                    }
+                                }
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+}

@@ -12,13 +12,15 @@
         <tr>
             <th colspan="99">
                 <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">@ViewBag.ReportName</span>
-                @if (!string.IsNullOrEmpty(filters))
-                {
-                    <br/>
-                    <br/>
-                    @Html.Raw(filters)
-                }
-            </th>
+                <span class="hlc-report-filters">
+                    @if (!string.IsNullOrEmpty(filters))
+                    {
+                        <br />
+                        <br />
+                        @Html.Raw(filters)
+                    }
+                </span>
+             </th>
         </tr>
         <tr>
             <th>Case Date</th>
@@ -42,7 +44,8 @@
         @foreach (var item in Model)
         {
             <tr class="js-click-row">
-                <td>@Html.ActionLink(item.CaseDate.ToShortDateString(), "View", "CaseFiles", new { id = item.Id }, null)</td>
+                <td class="hidden-print">@Html.ActionLink(item.CaseDate.ToShortDateString(), "View", "CaseFiles", new { id = item.Id }, null)</td>
+                <td class="visible-print">@item.CaseDate.ToShortDateString()</td>
                 <td>@item.UserName</td>
                 <td>@item.PatientName</td>
                 <td>@item.DoctorName</td>

@@ -24,7 +24,7 @@
             </tr>
             <tr class="js-click-row">
                 <td><a href="@Url.Action("CaseFiles","Reports")">Case Files</a></td>
-                <td>List of Case files filtered by Doctor, Hospital, Diagnosis, Entered by and/or Pediatric</td>
+                <td>List of Case files filtered by Doctor, Hospital, Diagnosis, Entered By and/or Pediatric</td>
             </tr>
             <tr class="js-click-row">
                 <td><a href="@Url.Action("DoctorsAddedRemoved", "Reports", new {dateFrom = "01/01/2017", dateTo = DateTime.Now})">Doctors Added and Removed</a></td>
@@ -39,8 +39,8 @@
                 <td>List of all Hospitals grouped by one or more selected type(s)</td>
             </tr>
         <tr class="js-click-row">
-            <td><a href="#">PVG Members</a></td>
-            <td>(TBD)</td>
+            <td><a href="@Url.Action("PVGMembers","Reports")">PVG Members</a></td>
+            <td>PVG Members at a selected Hospital and/or on a specified day of the week</td>
         </tr>
         </tbody>
     </table>

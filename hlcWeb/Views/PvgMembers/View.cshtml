@@ -22,6 +22,12 @@
                 </div>
                 <table class="table table-condensed">
                     <tr>
+                        <td class="hlc-prompt">Congregation:</td>
+                        <td>
+                            @Model.PvgMember.Congregation
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="hlc-prompt">Address:</td>
                         <td>
                             @if (!string.IsNullOrEmpty(Model.PvgMember.Address))

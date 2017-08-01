@@ -1,0 +1,60 @@
+﻿@model hlcWeb.ViewModels.Reports.RptSetupViewModel
+
+@{
+    ViewBag.Title = "Report: PVG Members";
+    var errMsg = ViewBag.ErrorMessage;
+}
+
+<div class="well">
+    <i class="fa fa-file-text-o fa-2x fa-fw text-primary"></i><span class="h3"> HLC Report: PVG Members</span>
+</div>
+
+<div class="container">
+    @using (Html.BeginForm("PVGMembers", "Reports", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        if (!string.IsNullOrEmpty(errMsg))
+        {
+            <div class="alert alert-danger" role="alert">
+                @errMsg
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                Select one or more criteria to limit this report and then click 'Run Report'.
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.HospitalId, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.HospitalId, (SelectList)ViewBag.HospitalSelectList, "(Any Hospital)", new { @class = "form-control", style = "max-width:100%;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.DayOfWeek, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.DayOfWeek, (SelectList)ViewBag.DayOfWeekSelectList, new { @class = "form-control", style = "max-width:100%;" })
+                @Html.ValidationMessageFor(m => m.DayOfWeek)
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Run Report</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+            </div>
+        </div>
+
+    }
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            $("#HospitalType").prop("selectedIndex", 0);
+        });
+    </script>
+}

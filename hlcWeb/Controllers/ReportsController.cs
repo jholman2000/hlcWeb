@@ -173,10 +173,59 @@ namespace hlcWeb.Controllers
 
             ViewBag.ReportName = "Hospitals by Type";
 
-            var filters = "Hospital Type: " + (hospitalType == -1 ? "(Any Hospital Type)" : 
-                                                                    ((HospitalType)hospitalType).EnumDisplayName()
-                                              ) + "<br />";
+            var filters = "";
+            if (hospitalType != -1)
+            {
+                filters += "Hospital Type: " + ((HospitalType) hospitalType).EnumDisplayName() +"<br />";
+            }
             filters += rptData.Count + " hospitals found" + "<br />";
+
+            ViewBag.Filters = filters;
+
+            return View(rptData);
+        }
+
+        #endregion
+
+        #region Report: PVG Members
+        public ActionResult PVGMembers()
+        {
+            var viewModel = new RptSetupViewModel();
+
+            var array = Enum.GetValues(typeof(Models.DayOfWeek));
+            var listItems = new List<SelectListItem> { new SelectListItem { Text = "(Any day)", Value = "-1" } };
+            foreach (var i in array)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = ((Models.DayOfWeek)i).EnumDisplayName(),
+                    Value = ((int)i).ToString()
+                });
+            }
+            ViewBag.DayOfWeekSelectList = new SelectList(listItems, "Value", "Text");
+            ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
+
+            return View("SetupPVGMembers", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PVGMembers(RptSetupViewModel viewModel)
+        {
+            var rptData = _reportRepository.PVGMembers(viewModel.HospitalId, viewModel.DayOfWeek);
+
+            ViewBag.ReportName = "PVG Members";
+
+            var filters = "";
+            if (viewModel.HospitalId != 0)
+            {
+                filters += $"{Constants.HospitalId}: " + _hospitalRepository.GetSelectList().LookupValue(viewModel.HospitalId) + "<br />";
+            }
+            if (viewModel.DayOfWeek != -1)
+            {
+                filters += ((Models.DayOfWeek)viewModel.DayOfWeek).EnumDisplayName() + "<br />";
+            }
+            filters += rptData.Count + " PVG members found" + "<br />";
 
             ViewBag.Filters = filters;
 

@@ -210,6 +210,7 @@
     <Compile Include="ViewModels\Reports\RptCaseFilesViewModel.cs" />
     <Compile Include="ViewModels\Reports\RptDoctorsAddedRemovedViewModel.cs" />
     <Compile Include="ViewModels\Reports\RptDoctorsSpecialtyViewModel.cs" />
+    <Compile Include="ViewModels\Reports\RptPVGMembers.cs" />
     <Compile Include="ViewModels\Reports\RptSetupViewModel.cs" />
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
@@ -387,6 +388,8 @@
     <Content Include="Views\PvgMembers\EditContact.cshtml" />
     <Content Include="Views\PvgMembers\EditAssignments.cshtml" />
     <Content Include="Views\Reports\HospitalsByType.cshtml" />
+    <Content Include="Views\Reports\SetupPVGMembers.cshtml" />
+    <Content Include="Views\Reports\PVGMembers.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

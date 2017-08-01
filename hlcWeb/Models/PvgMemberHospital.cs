@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Dapper.Contrib.Extensions;
+using hlcWeb.Infrastructure;
 
 namespace hlcWeb.Models
 {
@@ -9,10 +10,10 @@ namespace hlcWeb.Models
         public int Id { get; set; }
         public int PvgMemberId { get; set; }
 
-        [Display(Name = "Hospital")]
+        [Display(Name = Constants.HospitalId)]
         public int HospitalId { get; set; }
 
-        [Display(Name = "Weekday")]
+        [Display(Name = Constants.DayOfWeek)]
         public DayOfWeek DayOfWeek { get; set; }
 
         public string Notes { get; set; }
