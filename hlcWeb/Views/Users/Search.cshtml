@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>User</th>
-                <th>Mobile</th>
+                <th class="hlc-table-phone">Mobile</th>
                 <th class="hidden-xs">Email</th>
                 <th>Last On</th>
             </tr>
@@ -19,7 +19,7 @@
             {
                 <tr class="js-click-row">
                     <td>@Html.ActionLink(user.FullName, "View", "Users", new { id = user.UserId }, null) </td>
-                    <td><a href="tel:@user.CellPhone">@user.CellPhone</a></td>
+                    <td>@user.CellPhone</td>
                     <td class="hidden-xs">@user.EmailAddress</td>
                     <td>@(user.DateLastOn?.ToShortDateString() ?? "(Never)")</td>
                 </tr>

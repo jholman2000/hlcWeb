@@ -10,7 +10,7 @@
         <thead>
         <tr>
             <th>PVG Member</th>
-            <th>Mobile</th>
+            <th class="hlc-table-phone">Mobile</th>
             <th class="hidden-xs">Email</th>
             <th>Congregation</th>
         </tr>
@@ -22,7 +22,7 @@
                 <td>
                     @Html.ActionLink(pvg.FullName, "View", "PvgMembers", new { id = pvg.Id }, null)
                 </td>
-                <td><a href="tel:@pvg.MobilePhone">@pvg.MobilePhone</a></td>
+                <td>@pvg.MobilePhone</td>
                 <td class="hidden-xs">@pvg.EmailAddress</td>
                 <td>@pvg.Congregation</td>
             </tr>

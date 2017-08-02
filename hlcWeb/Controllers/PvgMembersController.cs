@@ -89,8 +89,8 @@ namespace hlcWeb.Controllers
 
             var viewModel = _pvgMemberRepository.Get(id);
 
-            // Extend the Hospitals to a total of 5 for data entry
-            while (viewModel.Hospitals.Count < 5)
+            // Extend the Hospitals to a total of 3 for data entry
+            while (viewModel.Hospitals.Count < 3)
             {
                 viewModel.Hospitals.Add(new PvgMemberHospital());
             }

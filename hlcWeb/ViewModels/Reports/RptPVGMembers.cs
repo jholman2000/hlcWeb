@@ -10,6 +10,7 @@
         public string MobilePhone { get; set; }
         public string EmailAddress { get; set; }
         public string Congregation { get; set; }
+        public string Notes { get; set; }
         public string Hospitals { get; set; }
     }
 }

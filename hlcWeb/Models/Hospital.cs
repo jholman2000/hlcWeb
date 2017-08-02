@@ -42,6 +42,7 @@ namespace hlcWeb.Models
         public string Zip { get; set; }
 
         [StringLength(14)]
+        [Display(Name="Main Phone")]
         public string OfficePhone1 { get; set; }
 
         [StringLength(14)]

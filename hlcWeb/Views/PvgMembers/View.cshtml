@@ -59,7 +59,11 @@
                     }
                     <tr>
                         <td class="hlc-prompt" style="width: 88px;">Email Address:</td>
-                        <td>@Model.PvgMember.EmailAddress</td>
+                        <td><a href="mailto:@Model.PvgMember.EmailAddress">@Model.PvgMember.EmailAddress</a></td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt" style="width: 88px;">Comments</td>
+                        <td>@Model.PvgMember.Notes</td>
                     </tr>
                 </table>
             </div>

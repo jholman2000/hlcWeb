@@ -103,6 +103,13 @@
                 @Html.ValidationMessageFor(m => m.PvgMember.Zip)
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PvgMember.Notes, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PvgMember.Notes, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PvgMember.Notes)
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

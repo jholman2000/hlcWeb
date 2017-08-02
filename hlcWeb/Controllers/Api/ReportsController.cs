@@ -190,7 +190,7 @@ namespace hlcWeb.Controllers.Api
 
             var sql =
                 "select distinct m.ID, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, " +
-                "       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation, " +
+                "       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation, m.Notes, " +
                 "	   Hospitals = (select h.HospitalName + '~' + w.Description + '~' + coalesce(mh.Notes,'') + '|' as [text()] " +
                 "					from hlc_PVGMemberHospital mh " +
                 "					left join hlc_Hospital h on h.Id = mh.HospitalID " +
