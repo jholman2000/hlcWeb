@@ -13,12 +13,14 @@
         <tr>
             <th colspan="99">
                 <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">@ViewBag.ReportName</span>
-                @if (!string.IsNullOrEmpty(filters))
-                {
-                    <br />
-                    <br />
-                    @Html.Raw(filters)
-                }
+                <span class="hlc-report-filters">
+                    @if (!string.IsNullOrEmpty(filters))
+                    {
+                        <br />
+                        <br />
+                        @Html.Raw(filters)
+                    }
+                </span>
             </th>
         </tr>
         <tr>
