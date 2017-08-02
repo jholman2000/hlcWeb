@@ -55,6 +55,15 @@ where 1=1
   --and mh.DayOfWeek = 10
 order by m.LastName, m.FirstName
 
+-- Report: PVG Members by Hospital------------------------------------------------------------------------
+select m.id, h.HospitalName, w.Description, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, 
+       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation 
+from hlc_PVGMemberHospital mh
+left join hlc_Hospital h on h.ID = mh.HospitalID
+left join hlc_PVGMember m on m.ID = mh.PVGMemberID 
+left join hlc_DayOfWeek w on w.Id = mh.DayOfWeek
+order by h.HospitalName, mh.DayOfWeek
+
 -- Report: Case Files-------------------------------------------------------------------------------------
 select cf.Id, cf.CaseDate, cf.DateEntered, 
        u.FirstName + ' ' + u.LastName    as UserName, 
