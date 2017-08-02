@@ -42,10 +42,10 @@ namespace hlcWeb.Controllers
             viewModel.UserId = (Session["User"] as User)?.UserId;
 
             if (_noteRepository.Save(viewModel))
-                returnMsg = $"Comment for {viewModel.DoctorName} was edited successfully.";
+                returnMsg = $"Comment was edited successfully.";
 
-            return RedirectToAction("Search", "Home", new {msg = returnMsg });
-            //return RedirectToAction("View", new {id = viewModel.Id});
+            //return RedirectToAction("Search", "Home", new {msg = returnMsg });
+            return RedirectToAction("View", new {id = viewModel.Id});
         }
 
         /// <summary>

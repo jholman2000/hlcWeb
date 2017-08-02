@@ -1,4 +1,5 @@
-﻿@model hlcWeb.Models.DoctorNote
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.Models.DoctorNote
 
 @{
     ViewBag.Title = "Comment";
@@ -19,7 +20,7 @@
                 </div>
                 <div class="panel-body">
                     <p>
-                        @Model.Notes
+                        @Html.Raw(@Model.Notes.ToHtml())
                     </p>
                 </div>
             </div>

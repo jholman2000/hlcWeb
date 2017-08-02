@@ -13,6 +13,16 @@
         size: "large",
         inputType: 'textarea',
         value: initValue,
+        buttons: {
+            confirm: {
+                label: 'Save',
+                className: 'btn-primary'
+            },
+            cancel: {
+                label: 'Cancel',
+                className: 'btn-default'
+            }
+        },
         callback: function (result) {
             //console.log("Bootbox returned: " + result);
             if (result !== null) {
