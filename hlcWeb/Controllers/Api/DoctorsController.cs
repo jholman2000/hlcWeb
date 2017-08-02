@@ -30,7 +30,7 @@ namespace hlcWeb.Controllers.Api
             if (!includeDeleted)
                 where += " and Status <> 99";
 
-            var sql = $"SELECT ID, FirstName, LastName, Attitude FROM hlc_Doctor WHERE {where} ORDER BY LastName";
+            var sql = $"SELECT ID, FirstName, LastName, Attitude, Status FROM hlc_Doctor WHERE {where} ORDER BY LastName";
 
             var results = GetListFromSql<Doctor>(sql);
 

@@ -29,7 +29,6 @@
                 <th>Comments</th>
                 <th>Hospital</th>
                 <th>Weekday</th>
-                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -52,7 +51,6 @@
                     @{
                         if (item.Hospitals == null)
                         {
-                            <td></td>
                             <td></td>
                             <td></td>
                         }
@@ -78,16 +76,6 @@
                                         @parts[1]<br />
                                     }
                                 }                                
-                            </td>
-                            <td>                                
-                                @foreach (var hosp in hospitals)
-                                {
-                                    if (!string.IsNullOrEmpty(hosp))
-                                    {
-                                        var parts = hosp.Split('~');
-                                        @parts[2]<br />
-                                    }
-                                }
                             </td>
                         }
                     }

@@ -9,17 +9,16 @@
     <table class="table table-condensed table-striped table-hover">
         <thead>
         <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
+            <th>Doctor</th>
             <th>Attitude</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
         @foreach (var doctor in @Model)
         {
             <tr class="js-click-row">
-                <td>@Html.ActionLink(doctor.LastName, "View", "Doctors", new { id = doctor.Id }, null) </td>
-                <td>@doctor.FirstName</td>
+                <td>@Html.ActionLink(doctor.FullName, "View", "Doctors", new { id = doctor.Id }, null) </td>
                 <td>
                     <span class="@doctor.AttitudeText fa-stack">
                         <i class="fa fa-circle fa-stack-2x"></i>
@@ -27,6 +26,7 @@
                     </span>
                     <span class="hidden-xs" style="width:100px;text-align:left">@doctor.AttitudeText.SplitCamelCase()</span>
                 </td>
+                <td>@doctor.Status.EnumDisplayName()</td>
             </tr>
         }
         </tbody>
