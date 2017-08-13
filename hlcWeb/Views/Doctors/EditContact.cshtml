@@ -85,6 +85,17 @@
                 @Html.ValidationMessageFor(m => m.PracticeId)
             </div>
         </div>
+        <div id="NewPracticeDiv">
+           @{
+               Html.RenderPartial("../Practices/EditDetails", Model.Practice, new ViewDataDictionary()
+               {
+                   TemplateInfo = new TemplateInfo()
+                   {
+                       HtmlFieldPrefix = "Practice"
+                   }
+               });
+           }
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">

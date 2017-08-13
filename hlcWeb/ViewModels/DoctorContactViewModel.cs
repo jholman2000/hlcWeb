@@ -39,7 +39,9 @@ namespace hlcWeb.ViewModels
         [Required]
         [DisplayName("Practice")]
         public int PracticeId { get; set; }
-       
+
+        public Practice Practice { get; set; }
+    
         [StringLength(12)]
         [DisplayName("Mobile Phone")]
         public string MobilePhone { get; set; }
