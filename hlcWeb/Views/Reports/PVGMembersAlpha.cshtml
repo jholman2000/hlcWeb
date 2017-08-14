@@ -49,14 +49,14 @@
                     <td>@item.Congregation</td>
                     <td>@item.Notes</td>
                     @{
-                        if (item.Hospitals == null)
+                        if (item.HospitalInfo == null)
                         {
                             <td></td>
                             <td></td>
                         }
                         else
                         {
-                            var hospitals = item.Hospitals.Split('|');
+                            var hospitals = item.HospitalInfo.Split('|');
                             <td>
                                 @foreach (var hosp in hospitals)
                                 {

@@ -46,6 +46,9 @@ namespace hlcWeb.ViewModels.Reports
         [Display(Name = Constants.DayOfWeek)]
         public int DayOfWeek { get; set; }
 
+        [Display(Name = "Group by")]
+        public int GroupBy { get; set; }
+
         [Display(Name = "Specialty")]
         public List<int> Specialties { get; set; }
 

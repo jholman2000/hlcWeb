@@ -38,6 +38,7 @@ where h.HospitalType = 4
 order by HospitalTypeDesc, HospitalName
 
 -- Report: PVG Members-------------------------------------------------------------------------------------
+-- (Alphabetic)
 select distinct m.ID, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, 
        m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation,
 	   Hospitals = (select h.HospitalName + '~' + w.Description +  case when coalesce(mh.Notes,'') <> '' then ' - ' + mh.Notes else '' end + '|' as [text()]
@@ -55,7 +56,7 @@ where 1=1
   --and mh.DayOfWeek = 10
 order by m.LastName, m.FirstName
 
--- Report: PVG Members by Hospital------------------------------------------------------------------------
+-- (By Hospital)
 select m.id, h.HospitalName, w.Description, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, 
        m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation 
 from hlc_PVGMemberHospital mh

@@ -182,27 +182,48 @@ namespace hlcWeb.Controllers.Api
             return GetListFromSql<RptHospitalsByType>(sql);
         }
 
-        public List<RptPVGMembers> PVGMembers(int hospitalId, int dayOfWeek)
+        public List<RptPVGMembers> PVGMembers(int hospitalId, int dayOfWeek, int groupBy)
         {
             var where = "" +
                         (hospitalId != 0 ? $" and mh.HospitalID = {hospitalId} " : "") +
                         (dayOfWeek != -1 ? $" and mh.DayOfWeek = {dayOfWeek} " : "");
 
-            var sql =
-                "select distinct m.ID, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, " +
-                "       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation, m.Notes, " +
-                "	    Hospitals = (select h.HospitalName + '~' + w.Description +  case when coalesce(mh.Notes,'') <> '' then ' - ' + mh.Notes else '' end + '|' as [text()] " +
-                "					from hlc_PVGMemberHospital mh " +
-                "					left join hlc_Hospital h on h.Id = mh.HospitalID " +
-                "					left join hlc_DayOfWeek w on w.Id = mh.DayOfWeek " +
-                "					where mh.PVGMemberID = m.ID " +
-                                    where +
-                "					for xml path ('')) " +
-                "from hlc_PVGMember m " +
-                "left join hlc_PVGMemberHospital mh on mh.PVGMemberID = m.ID " +
-                "where 1=1 " +
-                where +
-                "order by m.LastName, m.FirstName";
+            var sql = "";
+
+            if (groupBy == 0)
+            {
+                // Alphabetic listing by last name: Hospitals are stored in one column in the following format:
+                //  HospitalName1~DayOfWeek - Notes|HospitalName2~DayOfWeek - Notes|
+                sql =
+                    "select distinct m.ID, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, " +
+                    "       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation, m.Notes, " +
+                    "	    HospitalInfo = (select h.HospitalName + '~' + w.Description +  case when coalesce(mh.Notes,'') <> '' then ' - ' + mh.Notes else '' end + '|' as [text()] " +
+                    "					from hlc_PVGMemberHospital mh " +
+                    "					left join hlc_Hospital h on h.Id = mh.HospitalID " +
+                    "					left join hlc_DayOfWeek w on w.Id = mh.DayOfWeek " +
+                    "					where mh.PVGMemberID = m.ID " +
+                    where +
+                    "					for xml path ('')) " +
+                    "from hlc_PVGMember m " +
+                    "left join hlc_PVGMemberHospital mh on mh.PVGMemberID = m.ID " +
+                    "where 1=1 " +
+                    where +
+                    "order by m.LastName, m.FirstName";
+            }
+            else
+            {
+                // Group by hospital: Different row for each Hospital
+                sql =
+                    "select m.id, h.HospitalName as HospitalInfo, w.Description, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, " +
+                    "       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation, " +
+                    "w.Description +  case when coalesce(mh.Notes,'') <> '' then ' - ' + mh.Notes else '' end as DayOfWeek " + 
+                    "from hlc_PVGMemberHospital mh " +
+                    where +
+                    "left join hlc_Hospital h on h.ID = mh.HospitalID " +
+                    "left join hlc_PVGMember m on m.ID = mh.PVGMemberID " +
+                    "left join hlc_DayOfWeek w on w.Id = mh.DayOfWeek " +
+                    "order by h.HospitalName, mh.DayOfWeek";
+            }
 
             return GetListFromSql<RptPVGMembers>(sql);
 

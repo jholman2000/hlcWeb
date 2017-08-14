@@ -191,6 +191,13 @@ namespace hlcWeb.Controllers
         public ActionResult PVGMembers()
         {
             var viewModel = new RptSetupViewModel();
+            var groupBy = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "0", Text = "Alphabetic by PVG Member last name" },
+                    new SelectListItem { Value = "1", Text = "Grouped by Hospital then alphabetic by PVG Member last name" },
+                }, "Value", "Text");
+            ViewBag.GroupBySelectList = groupBy;
 
             var array = Enum.GetValues(typeof(Models.DayOfWeek));
             var listItems = new List<SelectListItem> { new SelectListItem { Text = "(Any day)", Value = "-1" } };
@@ -203,6 +210,7 @@ namespace hlcWeb.Controllers
                 });
             }
             ViewBag.DayOfWeekSelectList = new SelectList(listItems, "Value", "Text");
+
             ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
 
             return View("SetupPVGMembers", viewModel);
@@ -212,7 +220,7 @@ namespace hlcWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PVGMembers(RptSetupViewModel viewModel)
         {
-            var rptData = _reportRepository.PVGMembers(viewModel.HospitalId, viewModel.DayOfWeek);
+            var rptData = _reportRepository.PVGMembers(viewModel.HospitalId, viewModel.DayOfWeek, viewModel.GroupBy);
 
             ViewBag.ReportName = "PVG Members";
 
@@ -229,7 +237,9 @@ namespace hlcWeb.Controllers
 
             ViewBag.Filters = filters;
 
-            return View(rptData);
+            var viewName = viewModel.GroupBy == 0 ? "PVGMembersAlpha" : "PVGMembersByHospital";
+
+            return View(viewName, rptData);
         }
 
         #endregion

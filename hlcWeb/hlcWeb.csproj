@@ -389,8 +389,9 @@
     <Content Include="Views\PvgMembers\EditAssignments.cshtml" />
     <Content Include="Views\Reports\HospitalsByType.cshtml" />
     <Content Include="Views\Reports\SetupPVGMembers.cshtml" />
-    <Content Include="Views\Reports\PVGMembers.cshtml" />
+    <Content Include="Views\Reports\PVGMembersAlpha.cshtml" />
     <Content Include="Views\Practices\EditDetails.cshtml" />
+    <Content Include="Views\Reports\PVGMembersByHospital.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
