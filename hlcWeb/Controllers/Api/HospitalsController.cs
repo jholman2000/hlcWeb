@@ -46,7 +46,9 @@ namespace hlcWeb.Controllers.Api
                           "left join hlc_Doctor d on d.ID = dh.DoctorID " +
                           "left join hlc_Practice p on p.ID = d.PracticeID " +
                           $"where dh.HospitalID = {id} " +
-                           "order by d.LastName, d.FirstName;";
+                           "order by d.LastName, d.FirstName;" +
+                           "select * from hlc_PVGMember m " +
+                           $"where m.HospitalId = {id}";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);
