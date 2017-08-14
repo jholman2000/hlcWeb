@@ -27,8 +27,9 @@ namespace hlcWeb.Controllers.Api
                 ? "1=1"
                 : $"(LastName LIKE '%{search}%' OR FirstName LIKE '%{search}%') ";
 
+            // If excluding Deleted, then exclude Deceased, Retired and Moved Out of Area
             if (!includeDeleted)
-                where += " and Status <> 99";
+                where += " and Status not in (7,8,10,99)";
 
             var sql = $"SELECT ID, FirstName, LastName, Attitude, Status FROM hlc_Doctor WHERE {where} ORDER BY LastName";
 
