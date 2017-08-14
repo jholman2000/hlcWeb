@@ -67,6 +67,12 @@ namespace hlcWeb.Models
         [Computed]
         public string FullName => (FirstName + " " + LastName);
 
+        [Computed]
+        public string DayOfWeek { get; set; }
+
+        [Computed]
+        public string PVGComments { get; set; }
+
         // Related tables
         [Computed]
         public List<PvgMemberHospital> Hospitals { get; set; }

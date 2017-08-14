@@ -10,5 +10,6 @@ namespace hlcWeb.ViewModels
     {
         public Hospital Hospital { get; set; }
         public List<Doctor> Doctors { get; set; }
+        public List<PvgMember> PVGMembers { get; set; }
     }
 }

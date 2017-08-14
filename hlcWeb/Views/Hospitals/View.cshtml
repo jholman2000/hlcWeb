@@ -22,55 +22,98 @@
                 </div>
                 <table class="table table-condensed">
                     <tbody>
-                        <tr>
-                            <td class="hlc-prompt" style="width: 86px;">Hospital Type:</td>
-                            <td>@Model.Hospital.HospitalType.EnumDisplayName()</td>
-                        </tr>
-                        <tr>
-                            <td class="hlc-prompt">Entered on:</td>
-                            <td>@Model.Hospital.DateEntered.ToShortDateString() by @Model.Hospital.EnteredBy</td>
-                        </tr>
-                        @if (Model.Hospital.DateLastUpdated.Date != Model.Hospital.DateEntered.Date && Model.Hospital.DateLastUpdated != DateTime.MinValue)
-                        {
+                    <tr>
+                        <td class="hlc-prompt" style="width: 86px;">Hospital Type:</td>
+                        <td>@Model.Hospital.HospitalType.EnumDisplayName()</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Entered on:</td>
+                        <td>@Model.Hospital.DateEntered.ToShortDateString() by @Model.Hospital.EnteredBy</td>
+                    </tr>
+                    @if (Model.Hospital.DateLastUpdated.Date != Model.Hospital.DateEntered.Date && Model.Hospital.DateLastUpdated != DateTime.MinValue)
+                    {
                         <tr>
                             <td class="hlc-prompt">Updated on:</td>
                             <td>@Model.Hospital.DateLastUpdated.ToShortDateString() by @Model.Hospital.LastUpdatedBy</td>
                         </tr>
-                        }
-                        <tr>
-                            <td class="hlc-prompt">Address:</td>
-                            <td>
-                                @if (!string.IsNullOrEmpty(Model.Hospital?.Address1))
-                                {
+                    }
+                    <tr>
+                        <td class="hlc-prompt">Address:</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(Model.Hospital?.Address1))
+                            {
                                 @Model.Hospital.Address1
                                 <br />
-                                }
-                                @if (!string.IsNullOrEmpty(Model.Hospital?.Address2))
-                                {
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Hospital?.Address2))
+                            {
                                 @Model.Hospital.Address2
                                 <br />
-                                }
-                                @(Model.Hospital?.City) @(Model.Hospital?.State) @(Model.Hospital?.Zip) <br />
-                                <a href="tel:@(Model.Hospital?.OfficePhone1)">@(Model.Hospital?.OfficePhone1) </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <i class="fa fa-@Model.Hospital.OftenReceivesWitnesses.Icon() fa-fw"></i> Hospital does @Model.Hospital.OftenReceivesWitnesses.Not() often receive Witnesses
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <i class="fa fa-@Model.Hospital.HasPediatrics.Icon() fa-fw"></i> Hospital @Model.Hospital.HasPediatrics.Has() Pediatrics care
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <i class="fa fa-@Model.Hospital.HasBSMP.Icon() fa-fw"></i> Hospital @Model.Hospital.HasBSMP.Has() BMSP
-                            </td>
-                        </tr>
+                            }
+                            @(Model.Hospital?.City) @(Model.Hospital?.State) @(Model.Hospital?.Zip) <br />
+                            <a href="tel:@(Model.Hospital?.OfficePhone1)">@(Model.Hospital?.OfficePhone1) </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <i class="fa fa-@Model.Hospital.OftenReceivesWitnesses.Icon() fa-fw"></i> Hospital does @Model.Hospital.OftenReceivesWitnesses.Not() often receive Witnesses
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <i class="fa fa-@Model.Hospital.HasPediatrics.Icon() fa-fw"></i> Hospital @Model.Hospital.HasPediatrics.Has() Pediatrics care
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <i class="fa fa-@Model.Hospital.HasBSMP.Icon() fa-fw"></i> Hospital @Model.Hospital.HasBSMP.Has() BMSP
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    PVG Members for this Hospital
+                </div>
+                @if (Model.PVGMembers.Count == 0)
+                {
+                    <div class="panel-body text-center">
+                        <em>There are no PVG Members assigned to this Hospital.</em>
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-condensed table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>PVG Member</th>
+                            <th class="hidden-xs">Mobile Phone</th>
+                            <th class="hidden-xs">Email Address</th>
+                            <th class="hidden-xs">Congregation</th>
+                            <th>Weekday</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var pvg in Model.PVGMembers)
+                        {
+                            <tr class="js-click-row">
+                                <td>
+                                    @Html.ActionLink(pvg.FullName, "View", "PvgMembers", new {id = pvg.Id}, null)
+                                </td>
+                                <td class="hidden-xs">@pvg.MobilePhone</td>
+                                <td class="hidden-xs">@pvg.EmailAddress</td>
+                                <td class="hidden-xs">@pvg.Congregation</td>
+                                <td>@pvg.DayOfWeek</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                }
             </div>
         </div>
     </div>

@@ -46,15 +46,21 @@ namespace hlcWeb.Controllers.Api
                           "left join hlc_Doctor d on d.ID = dh.DoctorID " +
                           "left join hlc_Practice p on p.ID = d.PracticeID " +
                           $"where dh.HospitalID = {id} " +
-                           "order by d.LastName, d.FirstName;" +
-                           "select * from hlc_PVGMember m " +
-                           $"where m.HospitalId = {id}";
+                          "order by d.LastName, d.FirstName;" +
+                          "select m.id,  m.FirstName, m.LastName, m.Address, m.City, m.State, m.Zip, m.MobilePhone, m.HomePhone, " +
+                          "m.EmailAddress, m.Congregation, w.Description as DayOfWeek, mh.Notes as PVGComments " +
+                          "from hlc_PVGMemberHospital mh " +
+                          "left join hlc_PVGMember m on m.ID = mh.PVGMemberID " +
+                          "left join hlc_DayOfWeek w on w.Id = mh.DayOfWeek " +
+                          $"where mh.HospitalId = {id} " +
+                          "order by m.LastName, m.FirstName, mh.DayOfWeek";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);
 
                 model.Hospital = multi.Read<Hospital>().FirstOrDefault();
                 model.Doctors = multi.Read<Doctor>().ToList();
+                model.PVGMembers = multi.Read<PvgMember>().ToList();
             }
             return model;
         }
