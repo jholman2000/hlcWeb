@@ -195,7 +195,7 @@ namespace hlcWeb.Controllers
                 new List<SelectListItem>
                 {
                     new SelectListItem { Value = "0", Text = "Alphabetic by PVG Member last name" },
-                    new SelectListItem { Value = "1", Text = "Grouped by Hospital then alphabetic by PVG Member last name" },
+                    new SelectListItem { Value = "1", Text = "Grouped by Hospital then by day of week" },
                 }, "Value", "Text");
             ViewBag.GroupBySelectList = groupBy;
 
