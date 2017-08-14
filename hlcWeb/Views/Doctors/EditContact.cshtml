@@ -20,6 +20,7 @@
         @Html.HiddenFor(m => m.DateLastUpdated)
         @Html.HiddenFor(m => m.LastUpdatedBy)
         @Html.HiddenFor(m => m.Attitude)
+        @Html.HiddenFor(m => m.Practice.Id)
 
         if (action == "Add")
         {
@@ -85,7 +86,11 @@
                 @Html.ValidationMessageFor(m => m.PracticeId)
             </div>
         </div>
-        <div id="NewPracticeDiv">
+        <fieldset id="NewPractice" class="well panel-info col-sm-offset-1 col-sm-10" style="display:none">
+            <div style="border-bottom-style: inset;margin-bottom: 10px;"><strong>
+                Add a new Practice
+            </strong></div>
+
            @{
                Html.RenderPartial("../Practices/EditDetails", Model.Practice, new ViewDataDictionary()
                {
@@ -95,7 +100,7 @@
                    }
                });
            }
-        </div>
+        </fieldset>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
@@ -132,24 +137,33 @@
 @section scripts
 {
     <script>
-        $(document)
-            .ready(function() {
+        $(document).ready(function() {
 
-                $("form")
-                    .submit(function() {
-                        var form = $(this);
-                        // Highlight errors
-                        if (form.valid() === false) {
-                            form.find("div.form-group")
-                                .each(function() {
-                                    if ($(this).find("span.field-validation-error").length > 0)
-                                        $(this).addClass("has-error");
-                                    if ($(this).find("span.field-validation-valid").length > 0)
-                                        $(this).removeClass("has-error");
-                                });
-                        }
-                        return true;
-                    });
+            // React to user selection and set states
+            $("#PracticeId").change(function () {
+                if ($(this).val() === "-1") {
+                    $("#NewPractice").show();
+                    $("#Practice_PracticeName").focus();
+                } else {
+                    $("#NewPractice").hide();
+                }
+            });
+
+            $("form")
+                .submit(function() {
+                    var form = $(this);
+                    // Highlight errors
+                    if (form.valid() === false) {
+                        form.find("div.form-group")
+                            .each(function() {
+                                if ($(this).find("span.field-validation-error").length > 0)
+                                    $(this).addClass("has-error");
+                                if ($(this).find("span.field-validation-valid").length > 0)
+                                    $(this).removeClass("has-error");
+                            });
+                    }
+                    return true;
+                });
             });
     </script>
     @Scripts.Render("~/bundles/jqueryval")

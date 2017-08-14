@@ -40,6 +40,7 @@ namespace hlcWeb.ViewModels
         [DisplayName("Practice")]
         public int PracticeId { get; set; }
 
+        [Computed]
         public Practice Practice { get; set; }
     
         [StringLength(12)]

@@ -73,7 +73,9 @@ namespace hlcWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.PracticeSelectList = _practiceRepository.GetSelectList();
+                var temp = _practiceRepository.GetSelectList().ToList();
+                temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Practice is not in the list and you may then add it below)" });
+                ViewBag.PracticeSelectList = new SelectList(temp, "Value", "Text");
                 return View(viewModel);
             }
 
@@ -93,6 +95,17 @@ namespace hlcWeb.Controllers
             {
                 viewModel.DateLastUpdated = DateTime.Now;
                 viewModel.LastUpdatedBy = Session["UserId"].ToString();
+            }
+
+            // See if user added a new Practice on the fly
+            if (viewModel.PracticeId == -1 && !string.IsNullOrEmpty(viewModel.Practice.PracticeName))
+            {
+                var practice = new PracticeViewModel()
+                {
+                    Practice = viewModel.Practice
+                };
+                _practiceRepository.Save(practice);
+                viewModel.PracticeId = practice.Practice.Id;
             }
 
             _doctorRepository.SaveContact(viewModel);
