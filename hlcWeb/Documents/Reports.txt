@@ -1,6 +1,16 @@
 ﻿Reports
 =======
 
+-- Startup page last XX days changes----------------------------------------------------------------------------------
+-- Doctor Notes
+select 'Doctor comments entered' as TransType, count(*) as Count from hlc_DoctorNote dn where cast(dn.DateEntered as date) >= cast(getDate() - 30 as date)
+select dn.DateEntered, dn.Notes, d.FirstName + ' ' + d.LastName as DoctorName,
+       u.FirstName + ' ' + u.LastName as UserName, getDate() - 13
+from hlc_DoctorNote dn
+left join hlc_Doctor d on d.ID = dn.DoctorID
+left join hlc_User u on u.UserID = dn.UserID
+where cast(dn.DateEntered as date) >= cast(getDate() - 30 as date)
+
 -- Doctors Added/Removed----------------------------------------------------------------------------------------------
 select 'Doctors Added' as TransType, d.DateEntered as TransDate,  u.FirstName + ' ' + u.LastName as UserName, 
                 d.FirstName + ' ' + d.LastName as DoctorName,  
