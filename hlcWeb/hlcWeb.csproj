@@ -216,6 +216,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-icon.png" />
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\addtohomescreen.css" />
     <Content Include="Content\addtohomescreen.js" />
     <Content Include="Content\addtohomescreen.min.js" />

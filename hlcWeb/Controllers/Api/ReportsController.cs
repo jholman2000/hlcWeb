@@ -88,15 +88,24 @@ namespace hlcWeb.Controllers.Api
 
         public List<RptDoctorsAddedRemovedViewModel> DoctorsAddedRemoved(DateTime dateFrom, DateTime dateTo)
         {
-            var sql = 
-                "select d.DateLastUpdated, u.FirstName + ' ' + u.LastName as UserName, d.FirstName + ' ' + d.LastName as DoctorName, " +
-                "d.Attitude, d.Status, p.PracticeName, dn.DateEntered, dn.Notes " +
-                "from hlc_Doctor d " +
-                "left join hlc_User u ON u.userid = d.lastupdatedby " +
-                "left join hlc_Practice p on p.Id = d.PracticeId " +
-                "left join hlc_DoctorNote dn ON dn.DoctorID = d.ID " +
-                $"where d.DateLastUpdated >= '{dateFrom}' and d.DateLastUpdated <= '{dateTo}' " +
-                "order by d.DateLastUpdated, d.LastName, d.FirstName, DateEntered";
+            var sql =
+                "select 'Doctors Added' as TransType, d.DateEntered as TransDate,  u.FirstName + ' ' + u.LastName as UserName, " +
+                "                d.FirstName + ' ' + d.LastName as DoctorName, " +
+                "                d.Attitude, d.Status, p.PracticeName, d.LastName " +
+                "                from hlc_Doctor d " +
+                "                left join hlc_User u ON u.userid = d.lastupdatedby " +
+                "                left join hlc_Practice p on p.Id = d.PracticeId " +
+                $"                where d.DateEntered >= '{dateFrom}' and d.DateEntered <= '{dateTo}' " +
+                "union all " +
+                "select 'Doctors Removed' as TransType, d.DateLastUpdated as TransDate,  u.FirstName + ' ' + u.LastName as UserName,  " +
+                "                d.FirstName + ' ' + d.LastName as DoctorName,  " +
+                "                d.Attitude, d.Status, p.PracticeName, d.LastName  " +
+                "                from hlc_Doctor d  " +
+                "                left join hlc_User u ON u.userid = d.lastupdatedby  " +
+                "                left join hlc_Practice p on p.Id = d.PracticeId  " +
+                $"                where d.DateLastUpdated >= '{dateFrom}' and d.DateLastUpdated <= '{dateTo}' " +
+                "				 and d.Status = 99 " +
+                "order by 1, 2, d.LastName";
 
             return GetListFromSql<RptDoctorsAddedRemovedViewModel>(sql);
 
@@ -188,7 +197,7 @@ namespace hlcWeb.Controllers.Api
                         (hospitalId != 0 ? $" and mh.HospitalID = {hospitalId} " : "") +
                         (dayOfWeek != -1 ? $" and mh.DayOfWeek = {dayOfWeek} " : "");
 
-            var sql = "";
+            string sql;
 
             if (groupBy == 0)
             {

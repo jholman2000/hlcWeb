@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Report: Doctors Added and Removed";
     var filters = ViewBag.Filters;
+    var currGroup = "";
 }
 <div class="container">
     <div class="visible-print" style="margin-top: -40px;"></div>
@@ -31,8 +32,18 @@
         <tbody>
             @foreach (var item in Model)
             {
+                if (currGroup != item.TransType)
+                {
+                    currGroup = item.TransType;
+                    <tr>
+                        <td colspan="5">
+                            <span style="font-size: 14px; font-weight: bold;">@currGroup</span>
+                        </td>
+                    </tr>
+                }
+
                 <tr>
-                    <td>@item.DateLastUpdated</td>
+                    <td>@item.TransDate.ToShortDateString()</td>
                     <td>@item.UserName</td>
                     <td>@item.DoctorName</td>
                     <td>@item.Attitude</td>

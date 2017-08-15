@@ -19,20 +19,55 @@ NEW FEATURES IN THE HLC WEB SITE
 
 Search
 ------
-- Default scrren for the new site is a simplified search panel for quickly locating any information in the system.  A dropdown
+- Default screen for the new site is a simplified search panel for quickly locating any information in the system.  A dropdown
   selection with an icon and a label lets you select the type of search you wish to perform.  The search occurs as you type
-  (at least three characters) and supports the following:
-  - 
+  (at least three characters) and supports the following searches:
+  - Doctors: search firt/last name with drilldown to the Doctor view
+  - Case Files: search patient first/last name, Doctor last name, Hospital name, Congregation with drilldown to Case File view
+  - Specialties: search specialty description. Shows number of doctors with the specialty. Drilldown lists the doctors.
+  - Hospitals: search by Hospital name or City with drilldown to Hospital view
+  - Practices: search by Practice name or City with drilldown to Practice view
+  - Comments: searches Doctor comments for any occurrence of the word you enter.  Displays 60 characters from the comment
+    starting at where the search characters appear along with the date, Doctor and Author.  Drilldown opens up the full
+	Comment
+  - PVG Members: search firt/last name with drilldown to the PVG Member view
+  - Users: search firt/last name with drilldown to the User view
 
 Doctor
 ------
 - New fields: Date Entered, Entered By
 - Doctor comments may now be edited.  Admin can edit any comments.  HLC Members can view any comment but may
-  only edit comments they originally entered. Doctor comments do not track last updated date; the original
-  entry date and person is always shown.
+  only edit comments they originally entered. NOTE: Editing a comment will change the author and date entered to
+  show the last person who changed the comment.
 
 Hospital
 --------
 - New fields: Address fields, Phone, Hospital Type, BMSP information
 - BMSP information may be captured and will be used to generate info needed for the Annual Society report
 - Viewing Hospital information will also list the PVG Members assigned to the hospital
+
+PVG Member
+----------
+- New fields: Date Entered, Entered By, Updated, Updated By
+
+Case File
+---------
+- New data gathering functionality that captures detailed information about cases handled by HLC.  Includes
+  patient name, age, Congregation, Diagnosis (with ability to add additional diagnoses on the fly), Doctor,
+  Hospital, Court case information, patient medical history, treatment plan and more.
+- Data can be used to fill out the "Questionnaire Regarding Pediatric Cases" for the Society
+
+Reports
+-------
+Several runtime reports are now available.  Most support selection criteria to filter the report before running:
+- Annual HLC Questionnaire Information: calculated data used for the Annual report, including number of cooperative
+  doctors by specialty, number of PVG Members, etc
+- Case Files: Lists Case Files within a specified date range and/or Doctor, Hospital, Diagnosis, Entered By or
+  Pediatric Only, with drilldown to Case File view.
+- Doctors Added and Removed: Doctors added and/or marked as deleted during a specific date range
+- Doctors by Specialty: Lists Doctors with a specific Attitude and having one of the Specialties selected.  Multiple
+  Specialties can be selected via check boxes, with drilldown to the Doctor view.
+- Hospitals by Type: Lists Hospitals grouped by type (Level 1 trauma, etc) with drilldown to Hospital view
+- PVG Members: Lists PVG Members for all or a specified Hospital and/or day of the week assigned.  Can be listed
+  alphabetically or grouped by Hospital, with drilldown to PVG Member.
+

@@ -1,6 +1,25 @@
 ﻿Reports
 =======
 
+-- Doctors Added/Removed----------------------------------------------------------------------------------------------
+select 'Doctors Added' as TransType, d.DateEntered as TransDate,  u.FirstName + ' ' + u.LastName as UserName, 
+                d.FirstName + ' ' + d.LastName as DoctorName,  
+                d.Attitude, d.Status, p.PracticeName, d.LastName  
+                from hlc_Doctor d  
+                left join hlc_User u ON u.userid = d.lastupdatedby  
+                left join hlc_Practice p on p.Id = d.PracticeId  
+                where d.DateEntered >= '01/01/2017' and d.DateEntered <= '08/15/2017'  
+union all
+select 'Doctors Removed' as TransType, d.DateLastUpdated as TransDate,  u.FirstName + ' ' + u.LastName as UserName, 
+                d.FirstName + ' ' + d.LastName as DoctorName,  
+                d.Attitude, d.Status, p.PracticeName, d.LastName 
+                from hlc_Doctor d  
+                left join hlc_User u ON u.userid = d.lastupdatedby  
+                left join hlc_Practice p on p.Id = d.PracticeId  
+                where d.DateLastUpdated >= '01/01/2017' and d.DateLastUpdated <= '08/15/2017'  
+				  and d.Status = 99
+order by 1, 2, d.LastName
+
 -- Reports: Doctors by Specialty-------------------------------------------------------------------------------------
 select d.ID, s.SpecialtyName,
        case when Status = 0 then 'Unknown'

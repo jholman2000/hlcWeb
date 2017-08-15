@@ -248,7 +248,7 @@ namespace hlcWeb.Controllers
         #endregion
 
         #region Report: Doctors Added/Removed
-        public ActionResult DoctorsAddedRemoved(DateTime dateFrom, DateTime? dateTo)
+        public ActionResult DoctorsAddedRemoved()
         {
             var viewModel = new RptSetupViewModel();
 
@@ -260,6 +260,9 @@ namespace hlcWeb.Controllers
         public ActionResult DoctorsAddedRemoved(RptSetupViewModel viewModel)
         {
             var rptData = _reportRepository.DoctorsAddedRemoved(viewModel.DateFrom, viewModel.DateTo);
+
+            ViewBag.ReportName = "Doctors Added or Removed";
+            ViewBag.Filters = "Dates: " + viewModel.DateFrom.ToShortDateString() + " thru " + viewModel.DateTo.ToShortDateString() + "<br />";
 
             return View(rptData);
         }
