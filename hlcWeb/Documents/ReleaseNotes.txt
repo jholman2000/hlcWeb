@@ -1,0 +1,35 @@
+﻿
+
+GETTING TO THE NEW HLC SITE
+===========================
+Type the following address in your browser (PC, tablet or phone):  hlcweb.azurewebsites.net
+
+On your tablet or phone, when the logon page appears do the following to add an icon to your home screen:
+
+  iPad or iPhone:
+  - Tap the Send icon (the square with an arrow pointing up) then tap "Add to Home Screen" icon
+
+  Android:
+  - Press the Menu button (either below the screen on some devices or at the top-right corner of the browser) , then tap on Page
+  - Tap Add to Home Screen
+
+
+NEW FEATURES IN THE HLC WEB SITE
+================================
+
+Search
+------
+- Default scrren for the new site is a simplified search panel for quickly locating any information in the system.  A dropdown
+  selection with an icon and a label lets you select the type of search you wish to perform.  The search occurs as you type
+  (at least three characters) and supports the following:
+  - 
+
+Doctor
+------
+- New fields: Date Entered, Entered By
+- Doctor comments may now be edited.  Admin can edit any comments.  HLC Members can view any comment but may
+  only edit comments they originally entered. Doctor comments do not track last updated date; the original
+  entry date and person is always shown.
+
+Practice
+--------

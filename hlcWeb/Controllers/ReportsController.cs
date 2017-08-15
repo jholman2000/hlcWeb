@@ -233,7 +233,10 @@ namespace hlcWeb.Controllers
             {
                 filters += ((Models.DayOfWeek)viewModel.DayOfWeek).EnumDisplayName() + "<br />";
             }
-            filters += rptData.Count + " PVG members found" + "<br />";
+            if (viewModel.GroupBy == 0)
+            {
+                filters += rptData.Count + " PVG members found" + "<br />";
+            }
 
             ViewBag.Filters = filters;
 

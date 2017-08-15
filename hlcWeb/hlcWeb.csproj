@@ -273,6 +273,7 @@
     <Content Include="Documents\Email04242017.txt" />
     <Content Include="Documents\Email06272017.txt" />
     <Content Include="Documents\Email06302017.txt" />
+    <Content Include="Documents\ReleaseNotes.txt" />
     <Content Include="Documents\TableChanges.txt" />
     <Content Include="Documents\Email04252017.txt" />
     <Content Include="Documents\Reports.txt" />

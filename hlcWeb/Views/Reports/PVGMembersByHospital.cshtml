@@ -24,7 +24,6 @@
         </tr>
         <tr>
             <th>PVG Member</th>
-            @*<th>Address</th>*@
             <th>Email / Phone</th>
             <th>Congregation</th>
             <th>Comments</th>
@@ -46,10 +45,6 @@
             <tr class="js-click-row">
                 <td class="hidden-print">@Html.ActionLink(item.PVGMemberName, "View", "PVGMembers", new { id = item.Id }, null)</td>
                 <td class="visible-print">@item.PVGMemberName</td>
-                @*<td>
-                        @if (!string.IsNullOrEmpty(item.Address)) { <text>@item.Address <br/></text>  }
-                        @if (!string.IsNullOrEmpty(item.PVGCityState)) { <text>@item.PVGCityState <br /></text>  }
-                    </td>*@
                 <td>                        
                     @if (!string.IsNullOrEmpty(item.EmailAddress)) { <text>@item.EmailAddress <br /></text>  }
                     @if (!string.IsNullOrEmpty(item.MobilePhone)) { <text>(M) @item.MobilePhone <br /></text>  }
