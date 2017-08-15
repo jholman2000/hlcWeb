@@ -31,5 +31,8 @@ Doctor
   only edit comments they originally entered. Doctor comments do not track last updated date; the original
   entry date and person is always shown.
 
-Practice
+Hospital
 --------
+- New fields: Address fields, Phone, Hospital Type, BMSP information
+- BMSP information may be captured and will be used to generate info needed for the Annual Society report
+- Viewing Hospital information will also list the PVG Members assigned to the hospital
