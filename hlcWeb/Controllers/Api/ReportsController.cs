@@ -215,7 +215,7 @@ namespace hlcWeb.Controllers.Api
                 // Group by hospital: Different row for each Hospital
                 sql =
                     "select m.id, h.HospitalName as HospitalInfo, w.Description, m.FirstName, m.LastName, m.FirstName + ' ' + m.LastName as PVGMemberName, m.Address, m.City + ' ' + m.State + ' ' + m.Zip as PVGCityState, " +
-                    "       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation, " +
+                    "       m.MobilePhone, m.HomePhone, m.EmailAddress, m.Congregation, m.Notes, " +
                     "w.Description +  case when coalesce(mh.Notes,'') <> '' then ' - ' + mh.Notes else '' end as DayOfWeek " + 
                     "from hlc_PVGMemberHospital mh " +
                     where +
