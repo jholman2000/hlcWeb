@@ -22,7 +22,7 @@ Search
 - Default screen for the new site is a simplified search panel for quickly locating any information in the system.  A dropdown
   selection with an icon and a label lets you select the type of search you wish to perform.  The search occurs as you type
   (at least three characters) and supports the following searches:
-  - Doctors: search firt/last name with drilldown to the Doctor view
+  - Doctors: search first/last name with drilldown to the Doctor view
   - Case Files: search patient first/last name, Doctor last name, Hospital name, Congregation with drilldown to Case File view
   - Specialties: search specialty description. Shows number of doctors with the specialty. Drilldown lists the doctors.
   - Hospitals: search by Hospital name or City with drilldown to Hospital view
@@ -30,8 +30,8 @@ Search
   - Comments: searches Doctor comments for any occurrence of the word you enter.  Displays 60 characters from the comment
     starting at where the search characters appear along with the date, Doctor and Author.  Drilldown opens up the full
 	Comment
-  - PVG Members: search firt/last name with drilldown to the PVG Member view
-  - Users: search firt/last name with drilldown to the User view
+  - PVG Members: search first/last name with drilldown to the PVG Member view
+  - Users: search first/last name with drilldown to the User view
 
 Doctor
 ------
@@ -48,7 +48,7 @@ Hospital
 
 PVG Member
 ----------
-- New fields: Date Entered, Entered By, Updated, Updated By
+- New fields: Date Entered, Entered By, Date Updated, Updated By
 
 Case File
 ---------
