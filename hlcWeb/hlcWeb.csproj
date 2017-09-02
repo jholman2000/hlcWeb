@@ -278,6 +278,12 @@
     <Content Include="Documents\Email06272017.txt" />
     <Content Include="Documents\Email06302017.txt" />
     <Content Include="Documents\ReleaseNotes.txt" />
+    <Content Include="Documents\SQL\hlcTables.sql" />
+    <Content Include="Documents\SQL\hlc_Attitude.sql" />
+    <Content Include="Documents\SQL\hlc_DayOfWeek.sql" />
+    <Content Include="Documents\SQL\hlc_Diagnosis.sql" />
+    <Content Include="Documents\SQL\hlc_HospitalType.sql" />
+    <Content Include="Documents\SQL\hlc_Specialty.sql" />
     <Content Include="Documents\TableChanges.txt" />
     <Content Include="Documents\Email04252017.txt" />
     <Content Include="Documents\Reports.txt" />
