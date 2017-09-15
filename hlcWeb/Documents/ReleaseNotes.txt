@@ -87,8 +87,6 @@ Case File
 Reports
 -------
 Several runtime reports are now available.  Most support selection criteria to filter the report before running:
-- Annual HLC Questionnaire Information: calculated data used for the Annual report, including number of cooperative
-  doctors by specialty, number of PVG Members, etc
 - Case Files: Lists Case Files within a specified date range and/or Doctor, Hospital, Diagnosis, Entered By or
   Pediatric Only, with drilldown to Case File view.
 - Doctors Added and Removed: Doctors added and/or marked as deleted during a specific date range
@@ -97,6 +95,8 @@ Several runtime reports are now available.  Most support selection criteria to f
 - Hospitals by Type: Lists Hospitals grouped by type (Level 1 trauma, etc) with drilldown to Hospital view
 - PVG Members: Lists PVG Members for all or a specified Hospital and/or day of the week assigned.  Can be listed
   alphabetically or grouped by Hospital, with drilldown to PVG Member.
+- Annual HLC Questionnaire Information: calculated data used for the Annual report, including number of cooperative
+  doctors by specialty, number of PVG Members, etc
 
 Expanded Platforms
 ------------------
