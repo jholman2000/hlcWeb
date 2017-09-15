@@ -1,4 +1,31 @@
-﻿
+﻿Hi Mark,
+
+At long last I'm ready to get with you to get you started with the new site!  I've actually been doen with it since mid-August 
+but things suddenly got very hectic.  Vicky ended up in the hospital for a few days unexpectedly (she's doing fine) and then
+work got crazy right after that.  But things have settled down for at least a little while and I'd like to see if we can get
+together sometime in the next week or two.
+
+You're welcome to stop by my home, if that's a possibility, or I can come over to yours. My meeting nights are Friday evening
+and Sunday at 5:00.  I get home from work and can meet anytime from 6:30pm onwards. We usually do our Family Study Wednesday or 
+Thursday depending on what's going on that week so I'm flexible either evening.  Weekends are also possible.  It may take about 
+1 1/2 to 2 hours to go over it with you.
+
+I'd like to show you everything and see if there are any immediate changes that need to be made or if you wish to start testing
+with it right away.  It is a completely redesigned website but runs concurrently with the existing site and both write to
+the same database.
+
+There's no rush from my end if the next two weeks are busy for you.  
+
+Below is a highlight of some of the new stuff that is available.  I think you will be happy with it. As I said earlier it has
+been a great learning tool for me to get used to some of the latest programming methods and I've already started benefiting from
+it on my job.
+
+I look forward to hearing from you!
+
+Regards,
+Jeff Holman
+jeff.holman@yahoo.com
+(704) 806-3334
 
 GETTING TO THE NEW HLC SITE
 ===========================
@@ -10,8 +37,8 @@ On your tablet or phone, when the logon page appears do the following to add an 
   - Tap the Send icon (the square with an arrow pointing up) then tap "Add to Home Screen" icon
 
   Android:
-  - Press the Menu button (either below the screen on some devices or at the top-right corner of the browser) , then tap on Page
-  - Tap Add to Home Screen
+  - Press the Menu button (either below the screen on some devices or at the top-right corner of the browser - three vertical dots), 
+    then tap on "Add to Home Screen"
 
 
 NEW FEATURES IN THE HLC WEB SITE
@@ -71,3 +98,6 @@ Several runtime reports are now available.  Most support selection criteria to f
 - PVG Members: Lists PVG Members for all or a specified Hospital and/or day of the week assigned.  Can be listed
   alphabetically or grouped by Hospital, with drilldown to PVG Member.
 
+Expanded Platforms
+------------------
+- Now supports access from PC, tablet or mobile (iPhone or Android)
