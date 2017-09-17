@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.Web.Mvc;
 using hlcWeb.ViewModels;
 
 namespace hlcWeb.Controllers
@@ -12,9 +13,9 @@ namespace hlcWeb.Controllers
         }
 
         public ActionResult Logon(string returnUrl, string infoMsg)
-        {
-            #if  DEBUG
-                var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
+        {            
+            #if DEBUG
+            var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
                 Session["User"] = user;
                 Session["UserId"] = user.UserId;
                 Session["UserRole"] = user.UserRole;
@@ -25,7 +26,7 @@ namespace hlcWeb.Controllers
                 {
                     Email = "",
                     Password = "",
-                    InfoMessage = infoMsg
+                    InfoMessage = ""
                 };
 
                 return View(viewModel);

@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Script.Serialization;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using System.Configuration;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -52,7 +53,9 @@ namespace hlcWeb.Controllers.Api
                         break;
 
                     default:
-                        connString = @"Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015";
+                        // Connections string is stored in Azure AppSettings section, which gets injected into
+                        // Web.config
+                        connString = ConfigurationManager.AppSettings["HLC_CONNECTION"];
                         break;
                 }
 
