@@ -4,7 +4,7 @@
     var userRole = (string)Session["UserRole"];
     var currentUserId = (string)Session["UserId"];
     var errMsg = ViewBag.ErrorMessage;
-    var action = "";
+    string action;
     if (currentUserId == Model.UserId)
     {
         action = "Edit My Profile";
@@ -194,6 +194,10 @@
 {
     <script>
         $(document).ready(function() {
+
+            $("#UserId").blur(function() {
+                $("#UserId").val($("#UserId").val().toLowerCase());
+            });
 
             $("form").submit(function() {
                 var form = $(this);
