@@ -53,9 +53,15 @@ namespace hlcWeb.Controllers.Api
                         break;
 
                     default:
-                        // Connections string is stored in Azure AppSettings section, which gets injected into
+                        // Connection string is stored in Azure AppSettings section, which gets injected into
                         // Web.config
                         connString = ConfigurationManager.AppSettings["HLC_CONNECTION"];
+
+                        if (connString == null)
+                        {
+                            // If running local, retrieve Azure connection string from Environment variable
+                            connString = Environment.GetEnvironmentVariable("HLC_CONNECTION");
+                        }
                         break;
                 }
 
