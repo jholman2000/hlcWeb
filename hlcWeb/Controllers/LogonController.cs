@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Web.Mvc;
 using hlcWeb.ViewModels;
+using hlcWeb.Factory;
 
 namespace hlcWeb.Controllers
 {
@@ -13,7 +14,9 @@ namespace hlcWeb.Controllers
         }
 
         public ActionResult Logon(string returnUrl, string infoMsg)
-        {            
+        {
+            //Email.SendForgotPasswordEmail();
+
             #if DEBUG
             var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
                 Session["User"] = user;
