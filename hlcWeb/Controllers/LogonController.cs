@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Web.Mvc;
 using hlcWeb.ViewModels;
 
@@ -13,24 +14,25 @@ namespace hlcWeb.Controllers
         }
 
         public ActionResult Logon(string returnUrl, string infoMsg)
-        {            
-            #if DEBUG
+        {     
+            var msg = Environment.GetEnvironmentVariable("HLC_CONNECTION");
+#if DEBUG
             var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
                 Session["User"] = user;
                 Session["UserId"] = user.UserId;
                 Session["UserRole"] = user.UserRole;
             return RedirectToAction("Search", "Home");
-            #else
+#else
                 ViewBag.ReturnUrl = returnUrl;
                 var viewModel = new LogonViewModel
                 {
                     Email = "",
                     Password = "",
-                    InfoMessage = ""
+                    InfoMessage = msg
                 };
 
                 return View(viewModel);
-            #endif
+#endif
         }
 
         [HttpPost]

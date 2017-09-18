@@ -55,13 +55,8 @@ namespace hlcWeb.Controllers.Api
                     default:
                         // Connection string is stored in Azure AppSettings section, which gets injected into
                         // Web.config
-                        connString = ConfigurationManager.AppSettings["HLC_CONNECTION"];
+                        connString = ConfigurationManager.AppSettings["HLC_CONNECTION"] ?? Environment.GetEnvironmentVariable("HLC_CONNECTION");
 
-                        if (connString == null)
-                        {
-                            // If running local, retrieve Azure connection string from Environment variable
-                            connString = Environment.GetEnvironmentVariable("HLC_CONNECTION");
-                        }
                         break;
                 }
 
