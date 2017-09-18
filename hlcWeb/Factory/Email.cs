@@ -21,7 +21,7 @@ namespace hlcWeb.Factory
 
 	    public static bool SendForgotPasswordEmail()
 	    {
-            SendEmail("jeff.holman@yahoo.com", "Jeff Holman", "Test Email - Logon"); //.Wait();
+            SendEmail("jeff.holman@yahoo.com", "Jeff Holman", "Test Email - Logon").Wait();
 	        return true;
 	    }
 
@@ -37,7 +37,7 @@ namespace hlcWeb.Factory
 	            HtmlContent = "<strong>This is a test from the HLC site.</strong>"
 	        };
 	        msg.AddTo(new EmailAddress(toEmailAddress, toEmailName));
-	        var response = await client.SendEmailAsync(msg);
+	        var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
 	        _status = response.StatusCode.ToString();
 	    }
     }
