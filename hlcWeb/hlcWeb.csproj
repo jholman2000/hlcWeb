@@ -215,7 +215,24 @@
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="android-icon-144x144.png" />
+    <Content Include="android-icon-192x192.png" />
+    <Content Include="android-icon-36x36.png" />
+    <Content Include="android-icon-48x48.png" />
+    <Content Include="android-icon-72x72.png" />
+    <Content Include="android-icon-96x96.png" />
+    <Content Include="apple-icon-114x114.png" />
+    <Content Include="apple-icon-120x120.png" />
+    <Content Include="apple-icon-144x144.png" />
+    <Content Include="apple-icon-152x152.png" />
+    <Content Include="apple-icon-180x180.png" />
+    <Content Include="apple-icon-57x57.png" />
+    <Content Include="apple-icon-60x60.png" />
+    <Content Include="apple-icon-72x72.png" />
+    <Content Include="apple-icon-76x76.png" />
+    <Content Include="apple-icon-precomposed.png" />
     <Content Include="apple-icon.png" />
+    <Content Include="browserconfig.xml" />
     <Content Include="Content\addtohomescreen.css" />
     <Content Include="Content\addtohomescreen.js" />
     <Content Include="Content\addtohomescreen.min.js" />
@@ -292,6 +309,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="hlc_lDm_icon.ico" />
+    <Content Include="ms-icon-144x144.png" />
+    <Content Include="ms-icon-150x150.png" />
+    <Content Include="ms-icon-310x310.png" />
+    <Content Include="ms-icon-70x70.png" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-toggle.js" />
@@ -310,6 +331,7 @@
     <Content Include="Documents\Doctors Survey template.doc" />
     <Content Include="Documents\2015 HLC Questionnaire.pdf" />
     <Content Include="Documents\Charlotte_PVG_Assignments.xlsx" />
+    <Content Include="manifest.json" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
