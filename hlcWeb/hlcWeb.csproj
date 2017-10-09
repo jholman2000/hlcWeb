@@ -215,23 +215,23 @@
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="android-icon-144x144.png" />
-    <Content Include="android-icon-192x192.png" />
-    <Content Include="android-icon-36x36.png" />
-    <Content Include="android-icon-48x48.png" />
-    <Content Include="android-icon-72x72.png" />
-    <Content Include="android-icon-96x96.png" />
-    <Content Include="apple-icon-114x114.png" />
-    <Content Include="apple-icon-120x120.png" />
-    <Content Include="apple-icon-144x144.png" />
-    <Content Include="apple-icon-152x152.png" />
-    <Content Include="apple-icon-180x180.png" />
-    <Content Include="apple-icon-57x57.png" />
-    <Content Include="apple-icon-60x60.png" />
-    <Content Include="apple-icon-72x72.png" />
-    <Content Include="apple-icon-76x76.png" />
-    <Content Include="apple-icon-precomposed.png" />
-    <Content Include="apple-icon.png" />
+    <Content Include="icons\android-icon-144x144.png" />
+    <Content Include="icons\android-icon-192x192.png" />
+    <Content Include="icons\android-icon-36x36.png" />
+    <Content Include="icons\android-icon-48x48.png" />
+    <Content Include="icons\android-icon-72x72.png" />
+    <Content Include="icons\android-icon-96x96.png" />
+    <Content Include="icons\apple-icon-114x114.png" />
+    <Content Include="icons\apple-icon-120x120.png" />
+    <Content Include="icons\apple-icon-144x144.png" />
+    <Content Include="icons\apple-icon-152x152.png" />
+    <Content Include="icons\apple-icon-180x180.png" />
+    <Content Include="icons\apple-icon-57x57.png" />
+    <Content Include="icons\apple-icon-60x60.png" />
+    <Content Include="icons\apple-icon-72x72.png" />
+    <Content Include="icons\apple-icon-76x76.png" />
+    <Content Include="icons\apple-icon-precomposed.png" />
+    <Content Include="icons\apple-icon.png" />
     <Content Include="browserconfig.xml" />
     <Content Include="Content\addtohomescreen.css" />
     <Content Include="Content\addtohomescreen.js" />
@@ -300,19 +300,20 @@
     <Content Include="Documents\TableChanges.txt" />
     <Content Include="Documents\Email04252017.txt" />
     <Content Include="Documents\Reports.txt" />
-    <Content Include="favicon-16x16.png" />
-    <Content Include="favicon-32x32.png" />
-    <Content Include="favicon-96x96.png" />
-    <Content Include="favicon.ico" />
+    <Content Include="icons\browserconfig.xml" />
+    <Content Include="icons\favicon-16x16.png" />
+    <Content Include="icons\favicon-32x32.png" />
+    <Content Include="icons\favicon-96x96.png" />
+    <Content Include="icons\favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="hlc_lDm_icon.ico" />
-    <Content Include="ms-icon-144x144.png" />
-    <Content Include="ms-icon-150x150.png" />
-    <Content Include="ms-icon-310x310.png" />
-    <Content Include="ms-icon-70x70.png" />
+    <Content Include="icons\hlc_lDm_icon.ico" />
+    <Content Include="icons\ms-icon-144x144.png" />
+    <Content Include="icons\ms-icon-150x150.png" />
+    <Content Include="icons\ms-icon-310x310.png" />
+    <Content Include="icons\ms-icon-70x70.png" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-toggle.js" />
@@ -331,7 +332,7 @@
     <Content Include="Documents\Doctors Survey template.doc" />
     <Content Include="Documents\2015 HLC Questionnaire.pdf" />
     <Content Include="Documents\Charlotte_PVG_Assignments.xlsx" />
-    <Content Include="manifest.json" />
+    <Content Include="icons\manifest.json" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -432,7 +433,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>icons\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
