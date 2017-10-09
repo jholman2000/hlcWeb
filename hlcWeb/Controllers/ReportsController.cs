@@ -261,7 +261,7 @@ namespace hlcWeb.Controllers
         {
             var rptData = _reportRepository.DoctorsAddedRemoved(viewModel.DateFrom, viewModel.DateTo);
 
-            ViewBag.ReportName = "Doctors Added or Removed";
+            ViewBag.ReportName = "Doctors Added and Removed";
             ViewBag.Filters = "Dates: " + viewModel.DateFrom.ToShortDateString() + " thru " + viewModel.DateTo.ToShortDateString() + "<br />";
 
             return View(rptData);

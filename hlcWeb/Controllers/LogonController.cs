@@ -15,7 +15,7 @@ namespace hlcWeb.Controllers
 
         public ActionResult Logon(string returnUrl, string infoMsg)
         {     
-            var msg = Environment.GetEnvironmentVariable("HLC_CONNECTION");
+            //var msg = Environment.GetEnvironmentVariable("HLC_CONNECTION");
 #if DEBUG
             var user = _userRepository.Logon("jeff.holman@yahoo.com", "jholman");
                 Session["User"] = user;
@@ -28,7 +28,7 @@ namespace hlcWeb.Controllers
                 {
                     Email = "",
                     Password = "",
-                    InfoMessage = msg
+                    InfoMessage = ""
                 };
 
                 return View(viewModel);

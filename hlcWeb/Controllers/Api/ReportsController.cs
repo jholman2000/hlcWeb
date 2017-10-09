@@ -95,7 +95,7 @@ namespace hlcWeb.Controllers.Api
                 "                from hlc_Doctor d " +
                 "                left join hlc_User u ON u.userid = d.lastupdatedby " +
                 "                left join hlc_Practice p on p.Id = d.PracticeId " +
-                $"                where d.DateEntered >= '{dateFrom}' and d.DateEntered <= '{dateTo}' " +
+                $"                where cast(d.DateEntered as Date) >= '{dateFrom.ToShortDateString()}' and cast(d.DateEntered as Date) <= '{dateTo.ToShortDateString()}' " +
                 "union all " +
                 "select 'Doctors Removed' as TransType, d.DateLastUpdated as TransDate,  u.FirstName + ' ' + u.LastName as UserName,  " +
                 "                d.FirstName + ' ' + d.LastName as DoctorName,  " +
@@ -103,7 +103,7 @@ namespace hlcWeb.Controllers.Api
                 "                from hlc_Doctor d  " +
                 "                left join hlc_User u ON u.userid = d.lastupdatedby  " +
                 "                left join hlc_Practice p on p.Id = d.PracticeId  " +
-                $"                where d.DateLastUpdated >= '{dateFrom}' and d.DateLastUpdated <= '{dateTo}' " +
+                $"                where cast(d.DateLastUpdated as Date) >= '{dateFrom.ToShortDateString()}' and cast(d.DateLastUpdated as Date) <= '{dateTo.ToShortDateString()}' " +
                 "				 and d.Status = 99 " +
                 "order by 1, 2, d.LastName";
 

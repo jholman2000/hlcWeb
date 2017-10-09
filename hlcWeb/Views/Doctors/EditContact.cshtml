@@ -145,6 +145,9 @@
                     $("#NewPractice").show();
                     $("#Practice_PracticeName").focus();
                 } else {
+                    // Make sure the required fields have something to pass validations
+                    $("#Practice_Id").val($(this).val());
+                    $("#Practice_PracticeName").val('X');
                     $("#NewPractice").hide();
                 }
             });
