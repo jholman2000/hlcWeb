@@ -333,6 +333,8 @@
     <Content Include="Documents\2015 HLC Questionnaire.pdf" />
     <Content Include="Documents\Charlotte_PVG_Assignments.xlsx" />
     <Content Include="icons\manifest.json" />
+    <Content Include="Documents\HLC Site.docx" />
+    <Content Include="Documents\HLC Site.pdf" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
