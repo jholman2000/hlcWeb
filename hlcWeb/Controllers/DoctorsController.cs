@@ -61,7 +61,7 @@ namespace hlcWeb.Controllers
 
                 viewModel = Mapper.Map<DoctorContactViewModel>(doctor);
                 viewModel.OriginalStatus = doctor.Status;
-                viewModel.EmailAddress = viewModel.EmailAddress.Trim();
+                viewModel.EmailAddress = viewModel.EmailAddress?.Trim();
             }
             return View(viewModel);
 

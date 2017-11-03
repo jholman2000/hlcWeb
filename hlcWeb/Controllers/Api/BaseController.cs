@@ -60,7 +60,9 @@ namespace hlcWeb.Controllers.Api
                         break;
                 }
 
-                cache.Add("HLCConnection", connString, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+                if (connString != null)
+                    cache.Add("HLCConnection", connString,
+                        new CacheItemPolicy {Priority = CacheItemPriority.NotRemovable});
             }
 
             return connString;
