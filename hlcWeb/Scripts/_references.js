@@ -1,4 +1,6 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../boggle/jhboggle.js" />
+/// <reference path="../boggle/jquery-3.2.1.min.js" />
 /// <reference path="../content/addtohomescreen.min.js" />
 /// <reference path="bootbox.min.js" />
 /// <reference path="bootstrap.js" />

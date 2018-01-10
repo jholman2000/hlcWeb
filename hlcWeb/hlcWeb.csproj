@@ -215,6 +215,10 @@
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Boggle\index.html" />
+    <Content Include="Boggle\jhBoggle.css" />
+    <Content Include="Boggle\jhBoggle.js" />
+    <Content Include="Boggle\jquery-3.2.1.min.js" />
     <Content Include="icons\android-icon-144x144.png" />
     <Content Include="icons\android-icon-192x192.png" />
     <Content Include="icons\android-icon-36x36.png" />
