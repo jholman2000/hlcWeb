@@ -1,12 +1,13 @@
 ﻿body {
+    background-color: black;
 }
 
 .cube {
     width: 70px;
     height: 70px;
     padding: 5px;
-    background-color: #fbeed5; /*bisque;*/
-    border-radius: 4px;
+    background-color: #f5f5f5; /*bisque;*/
+    border-radius: 6px;
     border-style: solid;
     border-width: 2px;
 }
@@ -14,7 +15,7 @@
     width: 60px;
     height: 60px;
     font-size: 24pt;
-    background-color: #fbeed5; /*bisque;*/
+    background-color: #f5f5f5; /*bisque;*/
     display: table-cell;
     vertical-align:middle;
     text-align: center;    

@@ -228,6 +228,7 @@
     <Content Include="Boggle\jhBoggle.css" />
     <Content Include="Boggle\jhBoggle.js" />
     <Content Include="Boggle\jquery-3.2.1.min.js" />
+    <Content Include="Boggle\timertest.html" />
     <Content Include="icons\android-icon-144x144.png" />
     <Content Include="icons\android-icon-192x192.png" />
     <Content Include="icons\android-icon-36x36.png" />
@@ -358,6 +359,7 @@
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

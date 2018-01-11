@@ -1,9 +1,8 @@
 ﻿var jhBoggle = (function() {
     var _version = "1.0";
     var _author = "Jeff Holman";
-    var ox_appid = "41d2606f";
-    var ox_appkey = "ac3ee153ab384196c4bc7045b180d7e5";
     var _board = [];
+    var _startTime, _endTime;
 
     var randomNumber = function(max) {
         return Math.floor(Math.random() * max + 1);
