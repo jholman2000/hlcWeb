@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div align="center">
+        <div align="center" style="display: none;">
             <table>
                 <tr>
                     <td>
@@ -209,7 +209,7 @@
             </table>
         </div>
         <div>
-            <input id="txtWord" type="text" />
+            <input id="txtWordLookup" type="text" />
             <button id="btnLookup" class="btn btn-success">Search</button>
         </div>
     </div>
@@ -231,27 +231,43 @@
             $(this).text(board[row][col]);
         });
         
+        // Clicking a cube adds that letter to the word lookup textbox
+        $(".cubeLetter").click(function() {
+            $("#txtWordLookup").val($("#txtWordLookup").val() + $(this).text());
+        });
+
         $("#btnLookup").click(function () {
-            var wordId = $("#txtWord").val();
-            console.log(wordId);
+            var wordId = $("#txtWordLookup").val();
+            console.log("Looking up: " + wordId);
 
             $.ajax({
                     method: "POST",
-                    url: "/Logon/LookupWord",
+                    url: "/Boggle/LookupWord",
                     data: { wordId: wordId }
                 })
                 .done(function (msg) {
                     console.log("Definitions recieved");
-                    var defs = JSON.parse(msg);
-
-                    console.log(defs);
-                    for (var x = 0; x < defs.results[0].lexicalEntries.length; x++) {
-                        console.log("Category:" + defs.results[0].lexicalEntries[x].lexicalCategory);
-
-                        for (var s = 0; s < defs.results[0].lexicalEntries[x].entries[0].senses.length; s++) {
-                            console.log(defs.results[0].lexicalEntries[x].entries[0].senses[s].definitions[0]);
+                    if (msg === "NOTFOUND") {
+                        console.log("Word not found in OxfordDictionary.com");
+                    }
+                    else
+                    {
+                        if (msg.indexOf("<") === 0) {
+                            // This is a form of the word specified between initial <>
+                            var rootWord = msg.substr(1, msg.indexOf(">")-1);
+                            console.log("Form of the word: " + rootWord);
+                            msg = msg.substr(msg.indexOf(">") + 1);
                         }
+                        // Show definitions
+                        var defs = JSON.parse(msg);
+                        for (var x = 0; x < defs.results[0].lexicalEntries.length; x++) {
+                            console.log("Category:" + defs.results[0].lexicalEntries[x].lexicalCategory);
 
+                            for (var s = 0; s < defs.results[0].lexicalEntries[x].entries[0].senses.length; s++) {
+                                console.log(defs.results[0].lexicalEntries[x].entries[0].senses[s].definitions[0]);
+                            }
+
+                        }
                     }
                 })
                 .fail(function (jqXhr) {

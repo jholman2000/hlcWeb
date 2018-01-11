@@ -48,7 +48,7 @@ namespace hlcWeb.Controllers.Api
                 var environment = Environment.GetEnvironmentVariable("APP_ENVIRONMENT");
                 switch (environment)
                 {
-                    case "DEV":
+                    case "LOCAL":
                         connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\_Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
                         break;
 

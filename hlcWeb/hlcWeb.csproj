@@ -170,6 +170,7 @@
     <Compile Include="Controllers\Api\PracticesController.cs" />
     <Compile Include="Controllers\Api\PvgMembersController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
+    <Compile Include="Controllers\BoggleController.cs" />
     <Compile Include="ViewModels\Reports\RptHospitalsByType.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
