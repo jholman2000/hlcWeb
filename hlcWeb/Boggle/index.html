@@ -209,7 +209,7 @@
             </table>
         </div>
         <div>
-            <input type="text" id="txtWord"/>
+            <input id="txtWord" type="text" />
             <button id="btnLookup" class="btn btn-success">Search</button>
         </div>
     </div>
@@ -232,7 +232,7 @@
         });
         
         $("#btnLookup").click(function () {
-            var wordId = $(this).text();
+            var wordId = $("#txtWord").val();
             console.log(wordId);
 
             $.ajax({
