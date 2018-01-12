@@ -14,6 +14,16 @@ namespace hlcWeb.Controllers
         [AllowAnonymous]
         public string LookupWord(string wordId)
         {
+            /*
+             * Words to test with:
+             * 
+             * backs
+             * wading
+             * wades
+             * chicago
+             * roman
+             * 
+             */
             string lookupResults = null;
             var client = new RestClient();
             IRestResponse response;
@@ -34,7 +44,7 @@ namespace hlcWeb.Controllers
             else
             {
                 // Searching for the word did not find an exact match.  Check to see if this is a form of
-                // a root word by checking the Oxford Lemmatron
+                // a root word by checking the Oxford Lemmatron (inflections)
                 client.BaseUrl = new Uri($"https://od-api.oxforddictionaries.com:443/api/v1/inflections/en/{wordId}");
                 response = client.Execute(request);
 
@@ -45,9 +55,9 @@ namespace hlcWeb.Controllers
                 }
                 else
                 {
-                    // Found the root word.  
+                    // Found the root word. In case there are multiple entries, use the last one.
                     var responseJson = JObject.Parse(response.Content);
-                    string rootWord = responseJson["results"][0]["lexicalEntries"][0]["inflectionOf"][0]["text"].ToString();
+                    string rootWord = responseJson["results"][0]["lexicalEntries"].Last["inflectionOf"][0]["text"].ToString();
 
                     lookupResults = $"<{rootWord}>";
 
