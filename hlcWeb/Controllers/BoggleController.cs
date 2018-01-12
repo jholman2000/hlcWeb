@@ -18,7 +18,7 @@ namespace hlcWeb.Controllers
             var client = new RestClient();
             IRestResponse response;
 
-            client.BaseUrl = new Uri($"https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{wordId}/definitions");
+            client.BaseUrl = new Uri($"https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{wordId.ToLower()}/definitions");
 
             var request = new RestRequest {Method = Method.GET};
             request.AddHeader("Accept", "application/json");

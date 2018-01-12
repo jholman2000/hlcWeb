@@ -229,6 +229,11 @@
     <Content Include="Boggle\jhBoggle.js" />
     <Content Include="Boggle\jquery-3.2.1.min.js" />
     <Content Include="Boggle\timertest.html" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="icons\android-icon-144x144.png" />
     <Content Include="icons\android-icon-192x192.png" />
     <Content Include="icons\android-icon-36x36.png" />
@@ -254,8 +259,6 @@
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-toggle.css" />
     <Content Include="Content\bootstrap-toggle.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -320,7 +323,6 @@
     <Content Include="icons\favicon-96x96.png" />
     <Content Include="icons\favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="icons\hlc_lDm_icon.ico" />
@@ -349,6 +351,14 @@
     <Content Include="icons\manifest.json" />
     <Content Include="Documents\HLC Site.docx" />
     <Content Include="Documents\HLC Site.pdf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -439,9 +449,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
