@@ -202,7 +202,7 @@
     <Compile Include="Models\Practice.cs" />
     <Compile Include="Models\PvgMember.cs" />
     <Compile Include="Models\PvgMemberHospital.cs" />
-    <Compile Include="Models\SaveTextDto.cs" />
+    <Compile Include="Models\HlcDto.cs" />
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

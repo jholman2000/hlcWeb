@@ -76,16 +76,16 @@ namespace hlcWeb.Controllers.Api
         #region Free-form text edit functions
         [HttpPost]
         [Route("api/casefiles/gettext")]
-        public string GetText(SaveTextDto text) 
+        public string GetText(HlcDto text) 
         {
             var sql = $"select {text.FieldName} as FieldText from hlc_CaseFile where Id={text.Id}";
 
-            return (GetMemberFromSql<SaveTextDto>(sql).FieldText);
+            return (GetMemberFromSql<HlcDto>(sql).FieldText);
         }
 
         [HttpPost]
         [Route("api/casefiles/savetext")]
-        public string SaveText(SaveTextDto text) 
+        public string SaveText(HlcDto text) 
         {
             var sql = $"update hlc_CaseFile set {text.FieldName} = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
             try

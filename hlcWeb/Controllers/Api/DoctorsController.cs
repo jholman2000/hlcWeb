@@ -196,7 +196,7 @@ namespace hlcWeb.Controllers.Api
         #region Free-form text edit functions
         [HttpPost]
         [Route("api/casefiles/savetext")]
-        public string SaveText(SaveTextDto text)
+        public string SaveText(HlcDto text)
         {
             if (text.Id == 0)
             {                
