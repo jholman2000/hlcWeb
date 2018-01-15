@@ -55,12 +55,6 @@
                 SwitchIcon($(e.target).data("search-icon"));
             });
 
-            // Rolodex buttons
-            $(".js-search-btn").click(function (e) {
-                var btnText = $(e.target).text();
-                DoSearch(btnText);
-            });
-
             // Search box entry
             $(".js-search").keyup(function (e) {
                 var search = $(e.target);
@@ -115,7 +109,7 @@
         }
 
         function DoSearch(searchStr) {
-            if (searchStr.length > 2 || searchStr === "*") {
+            if (searchStr.length > 0 || searchStr === "*") {
                 var url = "";
                 var activeIcon = $("#search-active-icon").data("search-icon");
                 localStorage.HLC_SearchIcon = activeIcon;

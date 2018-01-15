@@ -25,7 +25,7 @@ namespace hlcWeb.Controllers.Api
         {
             var where = search == "*"
                 ? "1=1"
-                : $"(LastName LIKE '%{search}%' OR FirstName LIKE '%{search}%') ";
+                : $"(LastName LIKE '{search}%' OR FirstName LIKE '{search}%') ";
 
             // If excluding Deleted, then exclude Deceased, Retired and Moved Out of Area
             if (!includeDeleted)
