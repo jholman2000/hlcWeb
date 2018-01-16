@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
+using System.Web.Http;
 using System.Web.Mvc;
 using Dapper;
 using Dapper.Contrib.Extensions;
@@ -16,8 +17,8 @@ namespace hlcWeb.Controllers.Api
         {
             var where = search == "*"
                 ? "1=1"
-                : $"LastName LIKE '%{search}%' OR " +
-                  $"FirstName LIKE '%{search}%' ";
+                : $"LastName LIKE '{search}%' OR " +
+                  $"FirstName LIKE '{search}%' ";
 
             var sql = "SELECT * FROM hlc_PvgMember " +
                       $"WHERE {where} ORDER BY LastName";
@@ -92,7 +93,7 @@ namespace hlcWeb.Controllers.Api
             // then add back in the ones that are not marked as Remove
             try
             {
-                var sql = $"delete from hlc_PVGMemberHospital where PVGMemberId={viewModel.PvgMember.Id}";
+                var sql = $"delete from hlc_PVGMemberHospital where PVGMemberId={viewModel.PvgMember.Id};";
                 ExecuteSql(sql);
 
                 foreach (var toInsert in viewModel.Hospitals)
@@ -110,6 +111,26 @@ namespace hlcWeb.Controllers.Api
             catch (Exception ex)
             {
                 LogException(ex, viewModel);
+                return false;
+            }
+        }
+
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.Route("api/pvgmembers/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            var model = new PvgMemberViewModel();
+            try
+            {
+                var sql = $"delete from hlc_PVGMemberHospital where PVGMemberId={dto.Id};" +
+                          $"delete from hlc_PVGMember where Id={dto.Id};";
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new {deleteOp =  $"Error deleting PvgMember: {dto.Id}"});
                 return false;
             }
         }

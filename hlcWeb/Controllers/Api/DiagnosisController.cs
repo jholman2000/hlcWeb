@@ -14,7 +14,7 @@ namespace hlcWeb.Controllers.Api
         [System.Web.Http.Route("api/diagnosis/search")]
         public List<Diagnosis> Search(string search)
         {
-            var where = $"DiagnosisName LIKE '%{search}%' ";
+            var where = $"DiagnosisName LIKE '{search}%' ";
 
             var sql = "select Id, DiagnosisName, DateEntered, EnteredBy " +
                       "from hlc_Diagnosis " +

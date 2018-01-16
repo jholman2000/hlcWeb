@@ -25,7 +25,7 @@ namespace hlcWeb.Controllers.Api
         {
             var where = search == "*"
                 ? "1=1"
-                : $"(LastName LIKE '%{search}%' OR FirstName LIKE '%{search}%') ";
+                : $"(LastName LIKE '{search}%' OR FirstName LIKE '{search}%') ";
 
             // If excluding Deleted, then exclude Deceased, Retired and Moved Out of Area
             if (!includeDeleted)
@@ -196,7 +196,7 @@ namespace hlcWeb.Controllers.Api
         #region Free-form text edit functions
         [HttpPost]
         [Route("api/casefiles/savetext")]
-        public string SaveText(SaveTextDto text)
+        public string SaveText(HlcDto text)
         {
             if (text.Id == 0)
             {                

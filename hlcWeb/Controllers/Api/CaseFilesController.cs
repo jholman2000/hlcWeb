@@ -15,11 +15,11 @@ namespace hlcWeb.Controllers.Api
         {
             var where = search == "*"
                 ? "1=1"
-                : $"cf.LastName LIKE '%{search}%' OR " +
-                  $"cf.FirstName LIKE '%{search}%' OR " +
-                  $"d.LastName LIKE '%{search}%' OR " +
-                  $"h.HospitalName LIKE '%{search}%' OR " +
-                  $"cf.CongregationName LIKE '%{search}%'";
+                : $"cf.LastName LIKE '{search}%' OR " +
+                  $"cf.FirstName LIKE '{search}%' OR " +
+                  $"d.LastName LIKE '{search}%' OR " +
+                  $"h.HospitalName LIKE '{search}%' OR " +
+                  $"cf.CongregationName LIKE '{search}%'";
 
             var sql = "select cf.ID, cf.CaseDate, cf.FirstName, cf.LastName, cf.CongregationName, cf.DoctorId, cf.HospitalId, " +
                       "d.FirstName + ' ' + d.LastName as DoctorName, h.HospitalName " +
@@ -76,16 +76,16 @@ namespace hlcWeb.Controllers.Api
         #region Free-form text edit functions
         [HttpPost]
         [Route("api/casefiles/gettext")]
-        public string GetText(SaveTextDto text) 
+        public string GetText(HlcDto text) 
         {
             var sql = $"select {text.FieldName} as FieldText from hlc_CaseFile where Id={text.Id}";
 
-            return (GetMemberFromSql<SaveTextDto>(sql).FieldText);
+            return (GetMemberFromSql<HlcDto>(sql).FieldText);
         }
 
         [HttpPost]
         [Route("api/casefiles/savetext")]
-        public string SaveText(SaveTextDto text) 
+        public string SaveText(HlcDto text) 
         {
             var sql = $"update hlc_CaseFile set {text.FieldName} = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
             try

@@ -49,3 +49,14 @@
         }
     });
 }
+
+function hlcEditComment(controller, id, field, doctorId, userId) {
+    /*
+     * Pop-up window for editing comment blocks in HLC
+     */
+    var title = $("#" + field + " > .panel-heading").text().trim();
+    var initValue = $("#" + field + " > .panel-body").data("hlc-text");
+    console.log("title: " + title);
+    console.log("initValue: " + initValue);
+
+}

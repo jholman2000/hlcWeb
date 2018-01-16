@@ -43,7 +43,7 @@ namespace hlcWeb.Models
         [Display(Name = "Age")]
         public int? Age { get; set; }
 
-        [Required]
+        //[Required]   -  1/14 Per Mark, may not always know Congregation
         [StringLength(80)]
         [Display(Name="Congregation")]
         public string CongregationName { get; set; }

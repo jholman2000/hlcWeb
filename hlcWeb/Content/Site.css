@@ -48,7 +48,6 @@ body {
 .field-validation-error {
     color:#ff0000;
 }
-
 /* Force tablet and desktop to show on same line for Attitude icons*/
 @media (min-width: 768px) {
     .hidden-xs {
@@ -145,7 +144,7 @@ i.hlc-brand {
 }
 .modal-dialog {
     right: auto;
-    left: 50%;
+    left: 0; /*50%; changed to correct Bootstrap goinf off right side of screen*/
     width: 60%;
     padding-top: 30px;
     padding-bottom: 30px;
