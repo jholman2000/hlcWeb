@@ -229,10 +229,13 @@
     <Content Include="Boggle\jhBoggle.js" />
     <Content Include="Boggle\jquery-3.2.1.min.js" />
     <Content Include="Boggle\timertest.html" />
+    <Content Include="Content\asc.gif" />
+    <Content Include="Content\bg.gif" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\desc.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="icons\android-icon-144x144.png" />
     <Content Include="icons\android-icon-192x192.png" />
@@ -367,6 +370,7 @@
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

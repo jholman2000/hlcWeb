@@ -14,7 +14,8 @@ namespace hlcWeb
                         "~/Scripts/bootstrap.min.js",
                         "~/Scripts/bootstrap-toggle.min.js",
                         "~/Scripts/respond.min.js",
-                        "~/Scripts/bootbox.min.js"));
+                        "~/Scripts/bootbox.min.js",
+                        "~/Scripts/jquery.tablesorter.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

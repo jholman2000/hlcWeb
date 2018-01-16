@@ -7,6 +7,7 @@
 /// <reference path="bootstrap-toggle.js" />
 /// <reference path="hlc_edittext.js" />
 /// <reference path="hlc_search.js" />
+/// <reference path="jquery.tablesorter.min.js" />
 /// <reference path="jquery.validate.js" />
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="jquery-1.10.2.js" />

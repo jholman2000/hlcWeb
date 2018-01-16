@@ -1,35 +1,35 @@
 ﻿@using hlcWeb.Infrastructure
 @model List<hlcWeb.Models.Doctor>
-<br />
-<div class="panel panel-primary">
-    <!-- Default panel contents -->
-    <div class="panel-heading">
-        <i class="fa fa-user-md hlc-fa"></i> Doctors
+    <br />
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <i class="fa fa-user-md hlc-fa"></i> Doctors
+        </div>
+        <table id="searchTable" class="table table-condensed table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Attitude</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var doctor in @Model)
+                {
+                <tr class="js-click-row">
+                    <td>@Html.ActionLink(doctor.FullName, "View", "Doctors", new { id = doctor.Id }, null) </td>
+                    <td>
+                        <span class="@doctor.AttitudeText fa-stack">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa @doctor.AttitudeIcon fa-stack-1x fa-inverse" title="@doctor.AttitudeText"></i>
+                        </span>
+                        <span class="hidden-xs" style="width:100px;text-align:left">@doctor.AttitudeText.SplitCamelCase()</span>
+                    </td>
+                    <td>@doctor.Status.EnumDisplayName()</td>
+                </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    <table class="table table-condensed table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Doctor</th>
-            <th>Attitude</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var doctor in @Model)
-        {
-            <tr class="js-click-row">
-                <td>@Html.ActionLink(doctor.FullName, "View", "Doctors", new { id = doctor.Id }, null) </td>
-                <td>
-                    <span class="@doctor.AttitudeText fa-stack">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa @doctor.AttitudeIcon fa-stack-1x fa-inverse" title="@doctor.AttitudeText"></i>
-                    </span>
-                    <span class="hidden-xs" style="width:100px;text-align:left">@doctor.AttitudeText.SplitCamelCase()</span>
-                </td>
-                <td>@doctor.Status.EnumDisplayName()</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
-<script src="@Url.Content("~/Scripts/hlc_Search.js")"></script>
+    <script src="@Url.Content(" ~/Scripts/hlc_Search.js")"></script>
