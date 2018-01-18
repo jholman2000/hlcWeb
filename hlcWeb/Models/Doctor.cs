@@ -162,5 +162,7 @@ namespace hlcWeb.Models
         public List<DoctorNote> DoctorNotes { get; set; }
         [Computed]
         public Practice Practice { get; set; }
+        [Computed]
+        public List<CaseFile> CaseFiles { get; set; }
     }
 }
