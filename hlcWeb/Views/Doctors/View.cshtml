@@ -167,6 +167,37 @@
         </div>
     </div>
     <div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Case Files
+            </div>
+            @if (Model.CaseFiles.Count == 0)
+            {
+                <div class="panel-body text-center">
+                    <em>No case files have been entered.</em>
+                </div>
+            }
+            else
+            {
+                <table class="table table-condensed">
+                    @foreach (var cf in Model.CaseFiles)
+                    {
+                        <tr class="js-click-row">
+                            <td class="hidden-print">@Html.ActionLink(cf.CaseDate.ToShortDateString(), "View", "CaseFiles", new { id = cf.Id }, null)</td>
+                            <td class="visible-print">@cf.CaseDate.ToShortDateString()</td>
+                            <td>@cf.PatientName</td>
+                            <td class="hidden-xs">@cf.HospitalName </td>
+                            <td>@cf.DiagnosisName </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+    <div class="row">
         <div class="col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -263,10 +294,13 @@
         </div>
     }
 </div>
-<script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
 <script>
     function AddText(doctorId) {
         hlcEditText('Doctors', '0', 'note-new', doctorId, '@currentUserId');
         window.reload();
     }
 </script>
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
+    <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>
+}
