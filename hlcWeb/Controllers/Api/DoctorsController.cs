@@ -51,7 +51,13 @@ namespace hlcWeb.Controllers.Api
                           $"select ds.*, s.SpecialtyName from hlc_DoctorSpecialty ds left join hlc_Specialty s on s.ID = ds.SpecialtyID where ds.DoctorID = {id} order by SpecialtyName;" +
                           $"select dh.*, h.HospitalName from hlc_DoctorHospital dh left join hlc_Hospital h on h.ID = dh.HospitalID where dh.DoctorID = {id} order by HospitalName;" +
                           $"select dn.*, u.FirstName + ' ' + u.LastName as UserName from hlc_DoctorNote dn left join hlc_User u on u.UserId = dn.UserId where dn.DoctorID = {id} order by DateEntered desc;" +
-                          $"select * from hlc_Practice where ID = (select PracticeId from hlc_Doctor where Id={id});";
+                          $"select * from hlc_Practice where ID = (select PracticeId from hlc_Doctor where Id={id});" +
+                          "select cf.ID, cf.CaseDate, cf.FirstName, cf.LastName, h.HospitalName, d.DiagnosisName " +
+                          "from hlc_CaseFile cf " +
+                          "left join hlc_Hospital h on h.ID = cf.HospitalId " +
+                          "left join hlc_Diagnosis d on d.ID = cf.DiagnosisId " +
+                          $"where cf.DoctorId = {id} " +
+                          "order by cf.CaseDate desc;";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);
@@ -63,6 +69,7 @@ namespace hlcWeb.Controllers.Api
                     doctor.Hospitals = multi.Read<DoctorHospital>().ToList();
                     doctor.DoctorNotes = multi.Read<DoctorNote>().ToList();
                     doctor.Practice = multi.Read<Practice>().FirstOrDefault();
+                    doctor.CaseFiles = multi.Read<CaseFile>().ToList();
                 }
 
                 return doctor;
