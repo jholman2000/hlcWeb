@@ -42,9 +42,19 @@ namespace hlcWeb.Controllers
             ViewBag.DoctorSelectList = _doctorRepository.GetSelectList();
             ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
 
-            var temp = _diagnosisController.GetSelectList().ToList();
-            temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other diagnosis below)" });
-            ViewBag.DiagnosisSelectList = new SelectList(temp, "Value", "Text");
+            // Assisting doctors is same list as Doctors but with a valid entry for none
+            var temp1 = _doctorRepository.GetSelectList().ToList();
+            temp1.Insert(0, new SelectListItem() { Value = "0", Text = "(No assisting physician or unknown)" });
+            ViewBag.AssistingSelectList = new SelectList(temp1, "Value", "Text");
+
+            // Assisting doctors is same list as Doctors but with a valid entry for none
+            var temp2 = _doctorRepository.GetSelectListAnesthesiologists().ToList();
+            temp2.Insert(0, new SelectListItem() { Value = "0", Text = "(No anesthesiologist or unknown)" });
+            ViewBag.AnesthSelectList = new SelectList(temp2, "Value", "Text");
+
+            var temp3 = _diagnosisController.GetSelectList().ToList();
+            temp3.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other diagnosis below)" });
+            ViewBag.DiagnosisSelectList = new SelectList(temp3, "Value", "Text");
 
             if (id == 0)
             {
@@ -73,9 +83,20 @@ namespace hlcWeb.Controllers
             {
                 ViewBag.DoctorSelectList = _doctorRepository.GetSelectList();
                 ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
-                var temp = _diagnosisController.GetSelectList().ToList();
-                temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other below)" });
-                ViewBag.DiagnosisSelectList = new SelectList(temp, "Value", "Text");
+
+                // Assisting doctors is same list as Doctors but with a valid entry for none
+                var temp1 = _doctorRepository.GetSelectList().ToList();
+                temp1.Insert(0, new SelectListItem() { Value = "0", Text = "(No assisting physician or unknown)" });
+                ViewBag.AssistingSelectList = new SelectList(temp1, "Value", "Text");
+
+                // Assisting doctors is same list as Doctors but with a valid entry for none
+                var temp2 = _doctorRepository.GetSelectListAnesthesiologists().ToList();
+                temp2.Insert(0, new SelectListItem() { Value = "0", Text = "(No anesthesiologist or unknown)" });
+                ViewBag.AnesthSelectList = new SelectList(temp2, "Value", "Text");
+
+                var temp3 = _diagnosisController.GetSelectList().ToList();
+                temp3.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct diagnosis is not shown and enter in Other diagnosis below)" });
+                ViewBag.DiagnosisSelectList = new SelectList(temp3, "Value", "Text");
                 return View(model);
             }
 

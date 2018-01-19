@@ -47,15 +47,33 @@
                     </tr>                    
                 }
                 <tr>
-                    <td class="hlc-prompt">Congregation:</td>
+                    <td class="hlc-prompt">@Constants.Congregation:</td>
                     <td>@Model.CongregationName</td>
                 </tr>
                 <tr>
-                    <td class="hlc-prompt">Doctor:</td>
+                    <td class="hlc-prompt">@Constants.DoctorId:</td>
                     <td>
                         @Model.DoctorName
                     </td>
                 </tr>
+                @if (!string.IsNullOrEmpty(Model.AssistName))
+                {
+                    <tr>
+                        <td class="hlc-prompt">@Constants.AssistingID:</td>
+                        <td>
+                            @Model.AssistName
+                        </td>
+                    </tr>
+                }
+                    @if (!string.IsNullOrEmpty(Model.AnesthName))
+                    {
+                        <tr>
+                            <td class="hlc-prompt">@Constants.AnesthID:</td>
+                            <td>
+                                @Model.AnesthName
+                            </td>
+                        </tr>
+                    }
                 <tr>
                     <td class="hlc-prompt">Hospital:</td>
                     <td>

@@ -77,6 +77,13 @@ namespace hlcWeb.Models
         [Display(Name= Constants.DiagnosisId)]
         public int DiagnosisId { get; set; }
 
+        // 1/19/2018: Added two new fields per Mark's request
+        [Display(Name = Constants.AssistingID)]
+        public int AssistingID { get; set; }
+
+        [Display(Name = Constants.AnesthID)]
+        public int AnesthID { get; set; }
+
         [Computed]
         [StringLength(80)]
         [Display(Name="Other diagnosis")]
@@ -102,6 +109,12 @@ namespace hlcWeb.Models
 
         [Computed]
         public string DoctorName { get; set; }
+
+        [Computed]
+        public string AssistName { get; set; }
+
+        [Computed]
+        public string AnesthName { get; set; }
 
         [Computed]
         public string HospitalName { get; set; }

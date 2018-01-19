@@ -41,12 +41,16 @@ namespace hlcWeb.Controllers.Api
         public CaseFile Get(int id)
         {
             
-            var sql = "select cf.*, " +
-                      "d.FirstName + ' ' + d.LastName as DoctorName, h.HospitalName, dg.DiagnosisName " +
-                      "from hlc_CaseFile cf " +
-                      "left join hlc_Doctor d on d.id = cf.DoctorId " +
-                      "left join hlc_Hospital h on h.ID = cf.HospitalId " +
-                      "left join hlc_Diagnosis dg on dg.Id = cf.DiagnosisId " +
+            var sql = "select cf.*, d.FirstName + ' ' + d.LastName as DoctorName,  " +
+                      "  dasst.FirstName + ' ' + dasst.LastName as AssistName, " +
+                      "  danes.FirstName + ' ' + danes.LastName as AnesthName, " +
+                      "  h.HospitalName, dg.DiagnosisName  " +
+                      "from hlc_CaseFile cf  " +
+                      "left join hlc_Doctor d on d.id = cf.DoctorId  " +
+                      "left join hlc_Doctor dasst on dasst.id = cf.AssistingID  " +
+                      "left join hlc_Doctor danes on danes.id = cf.AnesthID " +
+                      "left join hlc_Hospital h on h.ID = cf.HospitalId  " +
+                      "left join hlc_Diagnosis dg on dg.Id = cf.DiagnosisId  " +
                       $" WHERE cf.Id = {id}";
 
             var results = GetListFromSql<CaseFile>(sql).FirstOrDefault();

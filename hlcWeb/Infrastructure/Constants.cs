@@ -12,6 +12,7 @@ namespace hlcWeb.Infrastructure
         public const string DateTo = "Ending";
         public const string FirstName = "First Name";
         public const string LastName = "Last Name";
+        public const string Congregation = "Congregation";
         public const string DoctorId = "Doctor";
         public const string HospitalId = "Hospital";
         public const string DiagnosisId = "Diagnosis";
@@ -20,6 +21,8 @@ namespace hlcWeb.Infrastructure
         public const string Attitude = "Overall Attitude";
         public const string HospitalType = "Hospital Type";
         public const string DayOfWeek = "Weekday";
+        public const string AssistingID = "Assisting";
+        public const string AnesthID = "Anesthesiologist";
 
         public const string EnteredBy = "Entered By";
         //public const string  = "";

@@ -92,6 +92,7 @@ namespace hlcWeb.Controllers.Api
                 }
                 // Force refresh of Doctors in cache
                 GetSelectList(true);
+                GetSelectListAnesthesiologists(true);
                 return true;
             }
             catch (Exception ex)
@@ -195,6 +196,41 @@ namespace hlcWeb.Controllers.Api
 
                 if (refresh) cache.Remove("DoctorSelectList");
                 cache.Add("DoctorSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+            }
+
+            return list;
+        }
+
+        internal SelectList GetSelectListAnesthesiologists(bool refresh = false)
+        {
+            ObjectCache cache = MemoryCache.Default;
+
+            var list = (SelectList)cache["AnesthSelectList"];
+
+            if (refresh || list == null)
+            {
+
+                var sql = "SELECT d.ID, d.FirstName, d.LastName, s.SpecialtyName " +
+                          "FROM hlc_Doctor d " +
+                          "LEFT JOIN hlc_DoctorSpecialty ds ON ds.DoctorID = d.ID " +
+                          "LEFT JOIN hlc_Specialty s ON s.ID = ds.SpecialtyID " +
+                          "WHERE Status not in (7,8,10,99)  " +
+                          "  and s.SpecialtyName = 'Anesthesiology' " +
+                          "ORDER BY LastName;";
+
+                var results = GetListFromSql<Doctor>(sql);
+
+                var items = results
+                    .Select(s => new
+                    {
+                        Text = s.LastName + ", " + s.FirstName,
+                        Value = s.Id
+                    })
+                    .ToList();
+                list = new SelectList(items, "Value", "Text");
+
+                if (refresh) cache.Remove("AnesthSelectList");
+                cache.Add("AnesthSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
             }
 
             return list;

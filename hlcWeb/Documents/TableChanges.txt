@@ -321,3 +321,7 @@ INSERT INTO hlc_DayOfWeek VALUES(7,'Saturday');
 INSERT INTO hlc_DayOfWeek VALUES(8,'As Needed');
 INSERT INTO hlc_DayOfWeek VALUES(9,'Alternate');
 INSERT INTO hlc_DayOfWeek VALUES(10,'Weekends');
+
+-- 1/19/2018: Alter table Doctor add fields for Assisting Doctor and Anesthesiologist
+ALTER TABLE hlc_CaseFile ADD AssistingID int NULL;
+ALTER TABLE hlc_CaseFile ADD AnesthID int NULL;
