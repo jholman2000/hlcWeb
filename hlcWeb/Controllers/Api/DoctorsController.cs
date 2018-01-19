@@ -56,7 +56,7 @@ namespace hlcWeb.Controllers.Api
                           "from hlc_CaseFile cf " +
                           "left join hlc_Hospital h on h.ID = cf.HospitalId " +
                           "left join hlc_Diagnosis d on d.ID = cf.DiagnosisId " +
-                          $"where cf.DoctorId = {id} " +
+                          $"where (cf.DoctorId = {id} or cf.AssistingID = {id} or cf.AnesthID = {id}) " +
                           "order by cf.CaseDate desc;";
 
                 conn.Open();

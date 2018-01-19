@@ -31,7 +31,7 @@ GETTING TO THE NEW HLC SITE
 ===========================
 Type the following address in your browser (PC, tablet or phone):  hlcweb.azurewebsites.net
 
-On your tablet or phone, when the logon page appears do the following to add an icon to your home screen:
+On your tablet or phone, when the logon page appears do the following BEFORE you click the "Sign In" button to add an icon to your home screen:
 
   iPad or iPhone:
   - Tap the Send icon (the square with an arrow pointing up) then tap "Add to Home Screen" icon
