@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = "PVG Member";
+    var userRole = (string)Session["UserRole"];
 }
 
 <div class="well">
@@ -103,12 +104,15 @@
             </div>
         </div>
     </div>
+    @if (userRole == "Admin")
+    {
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-danger btn-sm" onclick="DeleteRecord('PvgMembers','@Model.PvgMember.Id','@Model.PvgMember.FullName', 'Are you sure you wish to delete this PVG Member and assignments?')"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
             <br />&nbsp;
         </div>        
     </div>
+    }
 </div>
 <script>
     function DeleteRecord(controller, id, confirmDesc, msg) {

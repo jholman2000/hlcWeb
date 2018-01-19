@@ -11,162 +11,162 @@
     <i class="fa fa-user-md fa-2x fa-fw text-primary"></i><span class="h3"> @Model.FullName</span>
 </div>
 <div class="container">
-<div class="row">
-    <div class="col-md-6 col-sm-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Doctor information
-                <span class="pull-right hidden-print hidden-xs">
-                    <a href="@Url.Action("EditContact", "Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit">
-                        <i class="fa fa-edit" title="Edit"></i>
-                    </a>
-                </span>
-            </div>
-            <table class="table table-condensed">
-                <tbody>
-                <tr>
-                    <td class="hlc-prompt" style="width: 75px;">Status:</td>
-                    <td>@Model.StatusText.SplitCamelCase()</td>
-                </tr>
-                <tr>
-                    <td class="hlc-prompt">Entered on:</td>
-                    <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
-                </tr>
-                @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Doctor information
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("EditContact", "Doctors", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <td class="hlc-prompt" style="width: 75px;">Status:</td>
+                            <td>@Model.StatusText.SplitCamelCase()</td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Entered on:</td>
+                            <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
+                        </tr>
+                        @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
                 {
                     <tr>
                         <td class="hlc-prompt">Updated on:</td>
                         <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
                     </tr>
                 }
-                <tr>
-                    <td class="hlc-prompt">Mobile:</td>
-                    <td><a href="@Model.MobilePhone">@Model.MobilePhone</a></td>
-                </tr>
-                <tr>
-                    <td class="hlc-prompt">Home:</td>
-                    <td><a href="@Model.HomePhone">@Model.HomePhone</a></td>
-                </tr>
-                <tr>
-                    <td class="hlc-prompt">Pager:</td>
-                    <td><a href="@Model.Pager">@Model.Pager</a></td>
-                </tr>
-                <tr>
-                    <td class="hlc-prompt">Email:</td>
-                    <td>
-                        <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="hlc-prompt">Practice:</td>
-                    <td>
-                        @Model.Practice.PracticeName<br />
-                        @Model.Practice.Address1<br />
-                        @if (!string.IsNullOrEmpty(Model.Practice.Address2))
+                        <tr>
+                            <td class="hlc-prompt">Mobile:</td>
+                            <td><a href="@Model.MobilePhone">@Model.MobilePhone</a></td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Home:</td>
+                            <td><a href="@Model.HomePhone">@Model.HomePhone</a></td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Pager:</td>
+                            <td><a href="@Model.Pager">@Model.Pager</a></td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Email:</td>
+                            <td>
+                                <a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Practice:</td>
+                            <td>
+                                @Model.Practice.PracticeName<br />
+                                @Model.Practice.Address1<br />
+                                @if (!string.IsNullOrEmpty(Model.Practice.Address2))
                         {
-                            @Model.Practice.Address2<br />
+                        @Model.Practice.Address2<br />
                         }
-                        @if (!string.IsNullOrEmpty(Model.Practice.Address3))
+                                @if (!string.IsNullOrEmpty(Model.Practice.Address3))
                         {
-                            @Model.Practice.Address3
-                            <br />
+                        @Model.Practice.Address3
+                        <br />
                         }
-                        @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br />
-                        <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <i class="fa fa-@Model.IsBSMP.Icon() fa-fw"></i> Member of BSMP
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <i class="fa fa-@Model.IsHRP.Icon() fa-fw"></i> High Risk Pregnancy Doctor
-                    </td>
-                </tr>
-                @if (!string.IsNullOrEmpty(Model.PeerReview))
+                                @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br />
+                                <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-@Model.IsBSMP.Icon() fa-fw"></i> Member of BSMP
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-@Model.IsHRP.Icon() fa-fw"></i> High Risk Pregnancy Doctor
+                            </td>
+                        </tr>
+                        @if (!string.IsNullOrEmpty(Model.PeerReview))
                 {
                     <tr>
                         <td class="hlc-prompt">Peer review:</td>
                         <td>@Model.PeerReview</td>
                     </tr>
                 }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Attitudes
-                <span class="pull-right hidden-print hidden-xs">
-                    <a href="@Url.Action("EditAttitudes", "Doctors", new {id = Model.Id})" class="hlc-panel-icon">
-                        <i class="fa fa-edit" title="Edit"></i>
-                    </a>
-                </span>
+                    </tbody>
+                </table>
             </div>
-            <table class="table table-condensed">
-                <tbody>
-                <tr>
-                    <td class="text-center hlc-attitude-header">
-                        <span class="@Model.AttitudeText fa-stack">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
-                        </span> @Model.Attitude.EnumDisplayName()
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-@Model.AttitudeAdultText.Icon() fa-fw"></i> @Model.AttitudeAdultText
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-@Model.AttitudeChildText.Icon() fa-fw"></i> @Model.AttitudeChildText
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-@Model.ConsultAdultText.Icon() fa-fw"></i> @Model.ConsultAdultText
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-@Model.ConsultChildText.Icon() fa-fw"></i> @Model.ConsultChildText
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-@Model.AcceptsMedicaidText.Icon() fa-fw"></i> @Model.AcceptsMedicaidText
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-fw"></i>Is doctor regularly contacted? <strong>@Model.RegContacted.EnumDisplayName()</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-fw"></i>Specifically known by you? <strong>@Model.SpecificallyKnown.EnumDisplayName()</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-fw"></i>Has been helpful in prior cases? <strong>@Model.Helpful.EnumDisplayName()</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-fw"></i>Frequently treats Witnesses? <strong>@Model.FrequentlyTreat.EnumDisplayName()</strong>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Attitudes
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("EditAttitudes", "Doctors", new {id = Model.Id})" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <td class="text-center hlc-attitude-header">
+                                <span class="@Model.AttitudeText fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa @Model.AttitudeIcon fa-stack-1x fa-inverse" title="@Model.AttitudeText"></i>
+                                </span> @Model.Attitude.EnumDisplayName()
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.AttitudeAdultText.Icon() fa-fw"></i> @Model.AttitudeAdultText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.AttitudeChildText.Icon() fa-fw"></i> @Model.AttitudeChildText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.ConsultAdultText.Icon() fa-fw"></i> @Model.ConsultAdultText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.ConsultChildText.Icon() fa-fw"></i> @Model.ConsultChildText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-@Model.AcceptsMedicaidText.Icon() fa-fw"></i> @Model.AcceptsMedicaidText
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Is doctor regularly contacted? <strong>@Model.RegContacted.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Specifically known by you? <strong>@Model.SpecificallyKnown.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Has been helpful in prior cases? <strong>@Model.Helpful.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-fw"></i>Frequently treats Witnesses? <strong>@Model.FrequentlyTreat.EnumDisplayName()</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
+    <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">

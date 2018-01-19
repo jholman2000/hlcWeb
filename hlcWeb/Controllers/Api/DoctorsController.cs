@@ -57,8 +57,7 @@ namespace hlcWeb.Controllers.Api
                           "left join hlc_Hospital h on h.ID = cf.HospitalId " +
                           "left join hlc_Diagnosis d on d.ID = cf.DiagnosisId " +
                           $"where cf.DoctorId = {id} " +
-                          "order by cf.CaseDate desc;"
-                    ;
+                          "order by cf.CaseDate desc;";
 
                 conn.Open();
                 var multi = conn.QueryMultiple(sql);
