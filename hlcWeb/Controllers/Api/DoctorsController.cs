@@ -139,6 +139,7 @@ namespace hlcWeb.Controllers.Api
                         spec.Id = (int)newId;
                     }
                 }
+                GetSelectListAnesthesiologists(true);
                 return true;
             }
             catch (Exception ex)

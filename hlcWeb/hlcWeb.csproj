@@ -224,10 +224,6 @@
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\hlcWeb_local.mdf" />
-    <Content Include="App_Data\hlcWeb_local_log.ldf">
-      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
-    </Content>
     <Content Include="Boggle\index.html" />
     <Content Include="Boggle\jhBoggle.css" />
     <Content Include="Boggle\jhBoggle.js" />
