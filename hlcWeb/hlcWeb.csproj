@@ -224,6 +224,10 @@
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Boggle\index.html" />
     <Content Include="Boggle\jhBoggle.css" />
     <Content Include="Boggle\jhBoggle.js" />
@@ -342,7 +346,6 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
-    <None Include="App_Data\hlcWeb_local.mdf.test" />
     <Content Include="Documents\Pediatric Questionnaire Form-Final.pdf" />
     <Content Include="Documents\HLCScreens.doc" />
     <Content Include="Documents\2011 Charlotte NC HLC Quesionnaire.pdf" />
