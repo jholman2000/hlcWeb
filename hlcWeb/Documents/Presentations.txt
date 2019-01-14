@@ -1,0 +1,59 @@
+﻿HLC Presentations
+=================
+
+1/6/19 Request from Mark:
+Jeff 
+
+Is it possible to add a Presentation section to the website? There would be 2 components to the information we need to gather.
+
+The first component is the need to track efforts to schedule a presentation to a Hospital (specific department), Practice, Legal entities, etc:
+
+•	Date
+•	Facility or Group Name (we could pull from the list of Hospitals and Practices, but would need the option to type in a name not in the database)
+•	Department (perhaps a drop down list similar to the way you’ve created the Diagnosis field in the Case section).
+•	Contact Name (in most cases, this will not be a person in our database; however, there is a possibility that some Doctors from our database could be listed here)
+•	Contact Title (free form text)
+•	Contact Phone
+•	Contact Email
+•	Contact Address
+•	HLC Member Name who is coordinating communication (free form or pull down from the login names)
+•	Goal for meeting/Issues to address (free form text)
+•	Notes (free form text)
+•	Referred by (free form text)
+•	Is a CV required prior to presentation? (Yes/No)
+•	Preliminary Date for the Presentation
+•	Date for the Meeting to prepare for the Presentation
+•	Names of HLC Members with the preliminary assignment. (free form or pull from the login names)
+
+
+The second component includes data on the actual presentation:
+•	Date of Presentation
+•	Address
+•	Audience (perhaps a drop down list similar to the way you’ve created the Diagnosis field in the Case section. Here are some examples:  Administration, Ethics, Risk Management, Legal, Surgeons, Anesthesiologists, Nursing Staff, Pastoral Care, Patient Advocate)
+•	HLC Members attending (free form or pull from the login names) 
+o	Name 1 (presenter taking the lead)
+o	Name 2
+o	Name 3
+o	Name 4
+•	PVG Elders present (free form text)
+•	Presentation Topic (free form text)
+•	Questions addressed (free form text)
+•	Material given (free form text)
+•	Follow up tasks (free form text)
+
+It would be nice to have a report that could be printed and taken to the presentation enabling notes to be made on the form without having an iPad or computer at the meeting that could be distracting.
+
+Let me know if this is possible (or a subset of the request).
+
+Thank you!
+Mark
+---------------------------------------------------------------------------------------------------------------------------------
+
+-- hlc_Practice:  Add capability to store other facility types (legal, etc)
+-- (Need to modify Azure)
+--   FacilityType:	0 - Practice (default)
+--                  1 - Legal/Law firm
+ALTER TABLE hlc_Practice ADD FacilityType int NULL DEFAULT ((0));
+UPDATE hlc_Practice SET FacilityType=0 WHERE FacilityType is null;
+
+-- hlc_Presentation
