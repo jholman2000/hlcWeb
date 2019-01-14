@@ -49,11 +49,19 @@ Thank you!
 Mark
 ---------------------------------------------------------------------------------------------------------------------------------
 
--- hlc_Practice:  Add capability to store other facility types (legal, etc)
+Font Awesome:  fa-bar-chart 
+
+Existing Practices will be extended to include other facility types
+-------------------------------------------------------------------
+- Change screen name from "Practice" to "Practice/Facility""
+
+-- hlc_Practice:  Add capability to store other facility types (legal, etc) as well as descriptive notes
 -- (Need to modify Azure)
 --   FacilityType:	0 - Practice (default)
---                  1 - Legal/Law firm
+--                  1 - (not used in the table; reserved for Hospital)
+--                  2 - Legal/Law firm
 ALTER TABLE hlc_Practice ADD FacilityType int NULL DEFAULT ((0));
 UPDATE hlc_Practice SET FacilityType=0 WHERE FacilityType is null;
+ALTER TABLE hlc_Practice ADD Notes varchar(5000) NULL;
 
 -- hlc_Presentation

@@ -240,6 +240,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\desc.gif" />
+    <Content Include="Documents\Presentations.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="icons\android-icon-144x144.png" />
     <Content Include="icons\android-icon-192x192.png" />
