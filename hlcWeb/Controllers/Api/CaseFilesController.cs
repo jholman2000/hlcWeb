@@ -10,7 +10,7 @@ namespace hlcWeb.Controllers.Api
     public class CaseFilesController : BaseController
     {
         [HttpGet]
-        [Route("api/casefiles/search")]
+        [Route("api/casefiles/search/{search}")]
         public List<CaseFile> Search(string search)
         {
             var where = search == "*"
@@ -33,6 +33,13 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
+        [HttpGet]
+        [Route("api/casefiles/search/all")]
+        public List<CaseFile> Search()
+        {
+            return Search("*");
+        }
+        
         /// <summary>
         /// Get all Case File information (including Hospitals, Specialties and Notes)
         /// </summary>
@@ -76,6 +83,25 @@ namespace hlcWeb.Controllers.Api
                 return false;
             }
         }
+
+        [HttpPost]
+        [Route("api/casefiles/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            try
+            {
+                var sql = $"delete from hlc_CaseFile where Id={dto.Id};";
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error deleting CaseFile: {dto.Id}" });
+                return false;
+            }
+        }
+
 
         #region Free-form text edit functions
         [HttpPost]

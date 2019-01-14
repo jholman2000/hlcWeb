@@ -224,10 +224,6 @@
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\hlcWeb_local.mdf" />
-    <Content Include="App_Data\hlcWeb_local_log.ldf">
-      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
-    </Content>
     <Content Include="Boggle\index.html" />
     <Content Include="Boggle\jhBoggle.css" />
     <Content Include="Boggle\jhBoggle.js" />
@@ -363,6 +359,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\hlc_DeleteRecord.js" />
     <Content Include="Scripts\hlc_EditText.js" />
     <Content Include="Scripts\hlc_Search.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
@@ -449,7 +446,9 @@
     <Content Include="Views\Practices\EditDetails.cshtml" />
     <Content Include="Views\Reports\PVGMembersByHospital.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
