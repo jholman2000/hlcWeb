@@ -97,6 +97,8 @@ namespace hlcWeb.Controllers.Api
 
                 if (refresh) cache.Remove("PracticeSelectList");
                 cache.Add("PracticeSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+
+                //TODO: Create a separate FacilitySelectList and modify Search for this one and the one above
             }
 
             return list;

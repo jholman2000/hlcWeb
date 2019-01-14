@@ -40,6 +40,7 @@ namespace hlcWeb.Controllers
             if (id == 0)
             {
                 model.Practice = new Practice();
+                model.Practice.FacilityType = FacilityType.Practice;
             }
             else
             {

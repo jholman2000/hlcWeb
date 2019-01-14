@@ -114,4 +114,15 @@ namespace hlcWeb.Models
         Alternate = 9,
         Weekends = 10
     }
+
+    // Added for Presentations
+    public enum FacilityType
+    {
+        [Display(Name = "Practice/Physician's office")]
+        Practice = 0,
+        [Display(Name = "Legal/Law firm")]
+        Legal = 1,
+        Other = 9
+    }
+
 }

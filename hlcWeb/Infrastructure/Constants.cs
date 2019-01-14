@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace hlcWeb.Infrastructure
+﻿namespace hlcWeb.Infrastructure
 {
     public static class Constants
     {
@@ -21,9 +16,9 @@ namespace hlcWeb.Infrastructure
         public const string Attitude = "Overall Attitude";
         public const string HospitalType = "Hospital Type";
         public const string DayOfWeek = "Weekday";
-        public const string AssistingID = "Assisting";
-        public const string AnesthID = "Anesthesiologist";
-
+        public const string AssistingId = "Assisting";
+        public const string AnesthId = "Anesthesiologist";
+        public const string FacilityType = "Type";
         public const string EnteredBy = "Entered By";
         //public const string  = "";
 
