@@ -125,4 +125,11 @@ namespace hlcWeb.Models
         Other = 9
     }
 
+    public enum PresentationFacilityType
+    {
+        Practice = FacilityType.Practice,
+        Legal = FacilityType.Legal,
+        Other = FacilityType.Other,
+        Hospital = 99
+    }
 }

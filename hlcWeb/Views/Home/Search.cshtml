@@ -25,6 +25,7 @@
                         <li><a href="#" data-search-icon="fa-medkit"><i class="fa fa-medkit fa-fw"></i> Practices/Facilities</a></li>
                         <li><a href="#" data-search-icon="fa-comment-o"><i class="fa fa-comment-o fa-fw"></i> Comments</a></li>
                         <li><a href="#" data-search-icon="fa-heart-o"><i class="fa fa-heart-o fa-fw"></i> PVG Members</a></li>
+                        <li><a href="#" data-search-icon="fa-bar-chart"><i class="fa fa-bar-chart fa-fw"></i> Presentations</a></li>
                         <li><a href="#" data-search-icon="fa-user-o"><i class="fa fa-user-o fa-fw"></i> Users</a></li>
                     </ul>
                 </div><!-- /btn-group -->
@@ -66,6 +67,7 @@
 
         // Set the correct icon and placeholder
         function SwitchIcon(activeIcon) {
+            debugger;
             var box = $("#search-box");
             $("#search-active-icon")
                 .removeClass("fa-user-md")
@@ -76,6 +78,7 @@
                 .removeClass("fa-comment-o")
                 .removeClass("fa-user-o")
                 .removeClass("fa-heart-o")
+                .removeClass("fa-bar-chart")
                 .addClass(activeIcon)
                 .data("search-icon", activeIcon);
             switch (activeIcon) {
@@ -102,6 +105,9 @@
                 break;
             case 'fa-heart-o':
                 box.prop("placeholder", "Find PVG Members or type * for all...").val("");
+                break;
+            case 'fa-bar-chart':
+                box.prop("placeholder", "Find Presentations or type * for all...").val("");
                 break;
             default:
             }
@@ -137,6 +143,9 @@
                     url = "@Url.Action("Search", "Users")";
                     break;
                 case 'fa-heart-o':
+                    url = "@Url.Action("Search", "PvgMembers")";
+                    break;
+                case 'fa-bar-chart':
                     url = "@Url.Action("Search", "PvgMembers")";
                     break;
                 default:

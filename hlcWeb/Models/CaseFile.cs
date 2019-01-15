@@ -79,10 +79,10 @@ namespace hlcWeb.Models
 
         // 1/19/2018: Added two new fields per Mark's request
         [Display(Name = Constants.AssistingId)]
-        public int AssistingID { get; set; }
+        public int AssistingId { get; set; }
 
         [Display(Name = Constants.AnesthId)]
-        public int AnesthID { get; set; }
+        public int AnesthId { get; set; }
 
         [Computed]
         [StringLength(80)]

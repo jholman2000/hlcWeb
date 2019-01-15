@@ -86,17 +86,17 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.AssistingID, new { @class = "col-sm-2 control-label" })
+            @Html.LabelFor(m => m.AssistingId, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.AssistingID, (SelectList)ViewBag.AssistingSelectList, "Select assisting physician (if applicable)...", new { @class = "form-control", style = "max-width:100%;" })
-                @Html.ValidationMessageFor(m => m.AssistingID)
+                @Html.DropDownListFor(m => m.AssistingId, (SelectList)ViewBag.AssistingSelectList, "Select assisting physician (if applicable)...", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.ValidationMessageFor(m => m.AssistingId)
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.AnesthID, new { @class = "col-sm-2 control-label" })
+            @Html.LabelFor(m => m.AnesthId, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.AnesthID, (SelectList)ViewBag.AnesthSelectList, "Select anesthesiologist (if applicable)...", new { @class = "form-control", style = "max-width:100%;" })
-                @Html.ValidationMessageFor(m => m.AnesthID)
+                @Html.DropDownListFor(m => m.AnesthId, (SelectList)ViewBag.AnesthSelectList, "Select anesthesiologist (if applicable)...", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.ValidationMessageFor(m => m.AnesthId)
             </div>
         </div>
         <div class="form-group">

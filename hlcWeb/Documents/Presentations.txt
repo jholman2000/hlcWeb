@@ -10,13 +10,17 @@ The first component is the need to track efforts to schedule a presentation to a
 
 •	Date
 •	Facility or Group Name (we could pull from the list of Hospitals and Practices, but would need the option to type in a name not in the database)
+>>>> I think that instead of allowing it here the user will have to create the Hospital/Practice/Facility first.    
 •	Department (perhaps a drop down list similar to the way you’ve created the Diagnosis field in the Case section).
 •	Contact Name (in most cases, this will not be a person in our database; however, there is a possibility that some Doctors from our database could be listed here)
+>>>> Ok, I will keep this Contact data as part of the Presentation data even though there are fields for Office Contact on the Practice/Facility.  I may look into
+>>>> the possibility of having a means of copying down the information from the Hospital/Practice/Facility record
 •	Contact Title (free form text)
 •	Contact Phone
 •	Contact Email
 •	Contact Address
 •	HLC Member Name who is coordinating communication (free form or pull down from the login names)
+>>>> This will be a dropdown of all HLC Members (users) for selecting ONE only
 •	Goal for meeting/Issues to address (free form text)
 •	Notes (free form text)
 •	Referred by (free form text)
@@ -29,7 +33,9 @@ The first component is the need to track efforts to schedule a presentation to a
 The second component includes data on the actual presentation:
 •	Date of Presentation
 •	Address
+>>>>  Why is this repeated here?  If it ends up a different address can you indicate it in the Notes above?
 •	Audience (perhaps a drop down list similar to the way you’ve created the Diagnosis field in the Case section. Here are some examples:  Administration, Ethics, Risk Management, Legal, Surgeons, Anesthesiologists, Nursing Staff, Pastoral Care, Patient Advocate)
+>>>>  How does this differ from Department above?  Can this be just a free-form field since you have Department?
 •	HLC Members attending (free form or pull from the login names) 
 o	Name 1 (presenter taking the lead)
 o	Name 2
@@ -57,11 +63,60 @@ Existing Practices will be extended to include other facility types
 
 -- hlc_Practice:  Add capability to store other facility types (legal, etc) as well as descriptive notes
 -- (Need to modify Azure)
---   FacilityType:	0 - Practice (default)
---                  1 - (not used in the table; reserved for Hospital)
---                  2 - Legal/Law firm
+--   FacilityType:	0 - Practice/Physician's office (default)
+--                  1 - Legal/Law firm
+--                  9 - Other
 ALTER TABLE hlc_Practice ADD FacilityType int NULL DEFAULT ((0));
 UPDATE hlc_Practice SET FacilityType=0 WHERE FacilityType is null;
 ALTER TABLE hlc_Practice ADD Notes varchar(5000) NULL;
 
 -- hlc_Presentation
+--  
+-- PresentationFacilityType: Same as FacilityType with 99 - Hospital added
+
+CREATE TABLE [hlc_Presentation] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL ,
+[DateLastUpdated] smalldatetime NULL ,
+[LastUpdatedBy] varchar(12) NULL ,
+[PresentationFacilityType] int NULL DEFAULT ((99)),
+[FacilityId] int NULL,
+[DepartmentId] int NULL,
+[ContactName] varchar(80) NULL ,
+[ContactTitle] varchar(80) NULL ,
+[ContactAddress1] varchar(80) NULL ,
+[ContactAddress2] varchar(80) NULL ,
+[ContactCity] varchar(50) NULL ,
+[ContactState] char(2) NULL ,
+[ContactZip] varchar(10) NULL ,
+[ContactPhone] varchar(12) NULL ,
+[ContactEmailAddress] varchar(80) NULL ,
+[CoordinatorID] varchar(12) NULL ,  -- UserId
+[Goal] varchar(5000) NULL,
+[Notes] varchar(5000) NULL,
+[ReferredBy] varchar(5000) NULL,
+[IsCVRequired] bit NULL DEFAULT ((0)) ,
+[DatePlanned] smalldatetime NULL ,
+[DatePreparation] smalldatetime NULL ,
+
+[DatePresented] smalldatetime NULL ,
+[Audience] varchar(250) NULL,
+[PVGElders] varchar(5000) NULL,
+[PresentationTopic] varchar(5000) NULL,
+[QuestionsAddressed] varchar(5000) NULL,
+[MaterialGiven] varchar(5000) NULL,
+[FollowUpTasks] varchar(5000) NULL
+)
+
+
+-- hlc_Department
+--  List of departments across all facilities where presentation is given
+--
+CREATE TABLE [hlc_Department] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[DepartmentName] varchar(80) NULL ,
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL 
+)
+

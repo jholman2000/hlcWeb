@@ -171,6 +171,7 @@
     <Compile Include="Controllers\Api\PvgMembersController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\BoggleController.cs" />
+    <Compile Include="Models\Presentation.cs" />
     <Compile Include="ViewModels\Reports\RptHospitalsByType.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
@@ -224,6 +225,10 @@
     <Compile Include="ViewModels\SpecialtyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\hlcWeb_local.mdf" />
+    <Content Include="App_Data\hlcWeb_local_log.ldf">
+      <DependentUpon>hlcWeb_local.mdf</DependentUpon>
+    </Content>
     <Content Include="Boggle\index.html" />
     <Content Include="Boggle\jhBoggle.css" />
     <Content Include="Boggle\jhBoggle.js" />
@@ -447,9 +452,7 @@
     <Content Include="Views\Practices\EditDetails.cshtml" />
     <Content Include="Views\Reports\PVGMembersByHospital.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

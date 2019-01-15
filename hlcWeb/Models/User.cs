@@ -7,7 +7,7 @@ namespace hlcWeb.Models
     [Table("hlc_User")]
     public class User
     {
-        [Dapper.Contrib.Extensions.ExplicitKey]
+        [ExplicitKey]
         [Required]
         [Display(Name = "User Id")]
         [StringLength(12)]

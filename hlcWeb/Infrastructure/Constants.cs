@@ -21,6 +21,27 @@
         public const string FacilityType = "Type";
         public const string Notes = "Notes";
         public const string EnteredBy = "Entered By";
+        public const string PresentationFacilityType = "Facility Type";
+        public const string FacilityId = "Facility";
+        public const string DepartmentId = "Department";
+        public const string Name = "Name";
+        public const string Title = "Title";
+        public const string Address = "Address";
+        public const string City = "City";
+        public const string State = "State";
+        public const string Zip = "Zip";
+        public const string Phone = "Phone";
+        public const string EmailAddress = "EmailAddress";
+        public const string CoordinatorId = "Coordinator";
+        public const string IsCVRequired = "Is a CV required prior to presentation?";
+        public const string Goal = "Goal";
+        public const string ReferredBy = "Referred By";
+        public const string Audience = "Audience";
+        public const string PVGElders = "PVG Elders present";
+        public const string PresentationTopic = "Presentation Topic";
+        public const string QuestionsAddressed = "Questions Addressed";
+        public const string MaterialGiven = "Material Given";
+        public const string FollowUpTasks = "FollowUp Tasks";
         //public const string  = "";
 
     }
