@@ -12,16 +12,23 @@ namespace hlcWeb.Controllers.Api
 {
     public class PracticesController : BaseController
     {
-        public List<Practice> Search(string search)
+        public List<Practice> Search(string search, bool includeOnlyPractices = false)
         {
             var where = search == "*"
                 ? "1=1"
-                : $"PracticeName LIKE '{search}%' OR " +
-                  $"City LIKE '{search}%'";
+                : $"(PracticeName LIKE '{search}%' OR " +
+                  $"City LIKE '{search}%') ";
 
             var sql = "SELECT Id, PracticeName, Address1, City, State, OfficePhone1 " +
                       "FROM hlc_Practice " +
-                      $"WHERE {where} ORDER BY PracticeName";
+                      $"WHERE {where} ";
+
+            if (includeOnlyPractices)
+            {
+                sql += " AND FacilityType=0 ";
+            }
+
+            sql += "ORDER BY PracticeName";
 
             var results = GetListFromSql<Practice>(sql);
 
@@ -86,7 +93,8 @@ namespace hlcWeb.Controllers.Api
 
             if (refresh || list == null)
             {
-                var items = Search("")
+                // Store just the Practices for use on the Doctor screen
+                var items = Search("", true)
                     .Select(s => new
                     {
                         Text = s.PracticeName + (s.City != null ? " - " : "") + s.City + " " + s.State,
@@ -98,7 +106,19 @@ namespace hlcWeb.Controllers.Api
                 if (refresh) cache.Remove("PracticeSelectList");
                 cache.Add("PracticeSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
 
-                //TODO: Create a separate FacilitySelectList and modify Search for this one and the one above
+                // Store all Practices/Facilities for use on Presentation screen
+                var itemsAll = Search("")
+                    .Select(s => new
+                    {
+                        Text = s.PracticeName + (s.City != null ? " - " : "") + s.City + " " + s.State,
+                        Value = s.Id
+                    })
+                    .ToList();
+                list = new SelectList(itemsAll, "Value", "Text");
+
+                if (refresh) cache.Remove("FacilitySelectList");
+                cache.Add("FacilitySelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+
             }
 
             return list;

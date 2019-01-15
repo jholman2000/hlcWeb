@@ -19,6 +19,7 @@
         public const string AssistingId = "Assisting";
         public const string AnesthId = "Anesthesiologist";
         public const string FacilityType = "Type";
+        public const string Notes = "Notes";
         public const string EnteredBy = "Entered By";
         //public const string  = "";
 

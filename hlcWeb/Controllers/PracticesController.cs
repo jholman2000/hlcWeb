@@ -64,9 +64,6 @@ namespace hlcWeb.Controllers
 
             _practiceRepository.Save(model);
 
-            //if (_hospitalRepository.Save(model)) 
-            //    returnMsg = $"Case File for {model.FirstName + " " + model.LastName} was edited successfully.";
-
             return RedirectToAction("View", new { id = model.Practice.Id });
         }
 

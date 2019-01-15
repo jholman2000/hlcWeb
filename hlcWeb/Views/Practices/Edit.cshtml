@@ -1,4 +1,5 @@
-﻿@model hlcWeb.ViewModels.PracticeViewModel
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.ViewModels.PracticeViewModel
 @{
     var action = (Model.Practice.Id == 0) ? "Add" : "Edit";
     ViewBag.Title = $"{action} Practice";
@@ -22,6 +23,10 @@
         });
 
         <br />
+        <div class="form-group">
+            @Html.Label(Constants.Notes)
+            @Html.TextAreaFor(m => m.Practice.Notes, new { @class = "form-control", rows = "8", placeholder = "Enter any comments on this Practice/Facility", autofocus = "autofocus" })
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Save</button>
