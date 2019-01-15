@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Web.Http;
 using System.Web.Mvc;
 using Dapper;
 using Dapper.Contrib.Extensions;
@@ -115,11 +114,10 @@ namespace hlcWeb.Controllers.Api
             }
         }
 
-        [System.Web.Mvc.HttpPost]
-        [System.Web.Mvc.Route("api/pvgmembers/remove")]
+        [HttpPost]
+        [Route("api/pvgmembers/remove")]
         public bool Remove(HlcDto dto)
         {
-            var model = new PvgMemberViewModel();
             try
             {
                 var sql = $"delete from hlc_PVGMemberHospital where PVGMemberId={dto.Id};" +

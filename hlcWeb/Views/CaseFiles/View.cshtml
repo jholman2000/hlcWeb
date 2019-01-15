@@ -2,6 +2,7 @@
 @model hlcWeb.Models.CaseFile
 @{
     ViewBag.Title = "Case File";
+    var userRole = (string)Session["UserRole"];
 }
 <div class="well">
     <i class="fa fa-address-card-o fa-2x fa-fw text-primary"></i><span class="h3"> @Model.PatientName</span>
@@ -297,5 +298,15 @@
         </div>
     </div>
 </div>
+@if (userRole == "Admin")
+{
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-danger btn-sm" onclick="DeleteRecord('CaseFiles','@Model.Id','@Model.PatientName', 'Are you sure you wish to delete this Case File for @Model.PatientName?')"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+            <br />&nbsp;
+        </div>        
+    </div>
+}
 </div>
 <script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
+<script src="@Url.Content("~/Scripts/hlc_DeleteRecord.js")"></script>

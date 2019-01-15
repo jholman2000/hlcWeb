@@ -60,19 +60,24 @@
                         <tr>
                             <td class="hlc-prompt">Practice:</td>
                             <td>
-                                @Model.Practice.PracticeName<br />
-                                @Model.Practice.Address1<br />
-                                @if (!string.IsNullOrEmpty(Model.Practice.Address2))
-                        {
-                        @Model.Practice.Address2<br />
-                        }
-                                @if (!string.IsNullOrEmpty(Model.Practice.Address3))
-                        {
-                        @Model.Practice.Address3
-                        <br />
-                        }
-                                @Model.Practice.City @Model.Practice.State @Model.Practice.Zip<br />
-                                <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
+                                @if (Model.Practice != null)
+                                {
+                                    @Model.Practice.PracticeName<br/>
+                                    @Model.Practice.Address1<br/>
+                                    if (!string.IsNullOrEmpty(Model.Practice.Address2))
+                                     {
+                                         @Model.Practice.Address2<br/>
+                                     }
+                                    if (!string.IsNullOrEmpty(Model.Practice.Address3))
+                                     {
+                                         @Model.Practice.Address3
+                                         <br/>
+                                     }
+                                    @Model.Practice.City
+                                    @Model.Practice.State
+                                    @Model.Practice.Zip<br/>
+                                    <a href="tel:@Model.Practice.OfficePhone1">@Model.Practice.OfficePhone1</a>
+                                }
                             </td>
                         </tr>
                         <tr>
