@@ -41,7 +41,7 @@ namespace hlcWeb.Controllers
 
             var viewModel = new DoctorContactViewModel();
 
-            var temp = _practiceRepository.GetSelectList().ToList();
+            var temp = _practiceRepository.GetSelectList(FacilityType.Practice).ToList();
             temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Practice is not in the list and you may then add it below)" });
             ViewBag.PracticeSelectList = new SelectList(temp, "Value", "Text");
 
@@ -73,7 +73,7 @@ namespace hlcWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var temp = _practiceRepository.GetSelectList().ToList();
+                var temp = _practiceRepository.GetSelectList(FacilityType.Practice).ToList();
                 temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Practice is not in the list and you may then add it below)" });
                 ViewBag.PracticeSelectList = new SelectList(temp, "Value", "Text");
                 return View(viewModel);
