@@ -43,22 +43,22 @@ namespace hlcWeb.Controllers.Api
 
             if (string.IsNullOrEmpty(connString))
             {
-                // To develop against the local .mdf, set an APP_ENVIRONMENT=DEV environment variable in Windows and 
-                // change the path below
+                // To develop against the local .mdf, set an APP_ENVIRONMENT=LOCAL environment variable in Windows and 
+                // change the path below in the first case (if needed).
+                //
+                // Prod connection string is stored in Azure AppSettings section.  If running local and not using the
+                // APP_ENVIRONMENT=LOCAL setting then set a HLC_CONNECTION environment variable on your machine that
+                // contains the full Azure connection string.
+                //
                 var environment = Environment.GetEnvironmentVariable("APP_ENVIRONMENT");
                 switch (environment)
                 {
                     case "LOCAL":
-                        //connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\CorpApps\Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
-                        connString =
-                            $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={System.AppDomain.CurrentDomain.BaseDirectory}App_Data\\hlcWeb_local.mdf;Integrated Security=True";
+                        connString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={AppDomain.CurrentDomain.BaseDirectory}App_Data\\hlcWeb_local.mdf;Integrated Security=True";
                         break;
 
                     default:
-                        // Connection string is stored in Azure AppSettings section, which gets injected into
-                        // Web.config
                         connString = ConfigurationManager.AppSettings["HLC_CONNECTION"] ?? Environment.GetEnvironmentVariable("HLC_CONNECTION");
-
                         break;
                 }
 

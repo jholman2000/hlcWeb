@@ -163,14 +163,17 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\BaseController.cs" />
     <Compile Include="Controllers\Api\CaseFilesController.cs" />
+    <Compile Include="Controllers\Api\DepartmentsController.cs" />
     <Compile Include="Controllers\Api\DiagnosisController.cs" />
     <Compile Include="Controllers\Api\DoctorsController.cs" />
     <Compile Include="Controllers\Api\HospitalsController.cs" />
     <Compile Include="Controllers\Api\NotesController.cs" />
     <Compile Include="Controllers\Api\PracticesController.cs" />
+    <Compile Include="Controllers\Api\PresentationsController.cs" />
     <Compile Include="Controllers\Api\PvgMembersController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\BoggleController.cs" />
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Presentation.cs" />
     <Compile Include="ViewModels\Reports\RptHospitalsByType.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
@@ -242,6 +245,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\desc.gif" />
     <Content Include="Documents\Presentations.txt" />
+    <Content Include="Documents\SQL\hlc_Department.sql" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="icons\android-icon-144x144.png" />
     <Content Include="icons\android-icon-192x192.png" />

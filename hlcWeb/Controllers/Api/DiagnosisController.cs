@@ -4,6 +4,7 @@ using System.Linq;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 using System.Web.Mvc;
+using System.Web.Http;
 using System.Runtime.Caching;
 
 namespace hlcWeb.Controllers.Api
@@ -11,7 +12,7 @@ namespace hlcWeb.Controllers.Api
     public class DiagnosisController : BaseController
     {
         [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("api/diagnosis/search")]
+        [System.Web.Http.Route("api/diagnosis/search/{search}")]
         public List<Diagnosis> Search(string search)
         {
             var where = $"DiagnosisName LIKE '{search}%' ";
@@ -25,6 +26,13 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/diagnosis/search/all")]
+        public List<Diagnosis> Search()
+        {
+            return Search("");
+        }
+
         /// <summary>
         /// Get Diagnosis record
         /// </summary>
@@ -33,14 +41,11 @@ namespace hlcWeb.Controllers.Api
         public Diagnosis Get(int id)
         {
 
-            var sql = "select dg.*, " +
-                      "from hlc_Diagnosis dg " +
-                      $" WHERE dg.Id = {id}";
+            var sql = "select * from hlc_Diagnosis " +
+                      $" WHERE Id = {id}";
 
             var results = GetListFromSql<Diagnosis>(sql).FirstOrDefault();
             return results;
-
-
         }
 
 

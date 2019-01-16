@@ -19,8 +19,8 @@ namespace hlcWeb.Controllers.Api
         /// <param name="search"></param>
         /// <param name="includeDeleted"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("api/doctors/search/{search}")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/doctors/search/{search}")]
         public List<Doctor> Search(string search, bool includeDeleted = true)
         {
             var where = search == "*"

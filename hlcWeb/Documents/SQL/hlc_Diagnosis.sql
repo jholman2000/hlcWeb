@@ -1,3 +1,4 @@
+SET IDENTITY_INSERT [hlc_Diagnosis] ON;
 INSERT INTO [hlc_Diagnosis] ([Id], [DiagnosisName], [DateEntered], [EnteredBy]) VALUES (7, 'Anemia', '2017-7-1 20:07:00', 'jholman');
 GO
 INSERT INTO [hlc_Diagnosis] ([Id], [DiagnosisName], [DateEntered], [EnteredBy]) VALUES (8, 'Active bleeding', '2017-7-1 20:07:00', 'jholman');
@@ -38,3 +39,4 @@ INSERT INTO [hlc_Diagnosis] ([Id], [DiagnosisName], [DateEntered], [EnteredBy]) 
 GO
 INSERT INTO [hlc_Diagnosis] ([Id], [DiagnosisName], [DateEntered], [EnteredBy]) VALUES (26, 'Thrombocytopenia', '2017-7-1 20:07:00', 'jholman');
 GO
+SET IDENTITY_INSERT [hlc_Diagnosis] OFF;

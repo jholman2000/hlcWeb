@@ -145,5 +145,13 @@ namespace hlcWeb.Models
         [Computed]
         public string CoordinatorName { get; set; }
 
+        [Computed]
+        public string FacilityName { get; set; }
+
+        [Computed]
+        public string DepartmentName { get; set; }
+
+        [Computed]
+        public string FacilityTypeName { get; set; }
     }
 }

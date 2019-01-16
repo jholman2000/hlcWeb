@@ -61,6 +61,16 @@ Existing Practices will be extended to include other facility types
 -------------------------------------------------------------------
 - Change screen name from "Practice" to "Practice/Facility""
 
+-- Query for GET
+select p.*, f.PracticeName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName
+from hlc_Presentation p
+left join hlc_Practice f on f.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_FacilityType ft on ft.Id = p.PresentationFacilityType
+where f.FacilityType <> 99
+
+
+---------------------------------------------------------------------------------------------------------------
 -- hlc_Practice:  Add capability to store other facility types (legal, etc) as well as descriptive notes
 -- (Need to modify Azure)
 --   FacilityType:	0 - Practice/Physician's office (default)
@@ -70,12 +80,53 @@ ALTER TABLE hlc_Practice ADD FacilityType int NULL DEFAULT ((0));
 UPDATE hlc_Practice SET FacilityType=0 WHERE FacilityType is null;
 ALTER TABLE hlc_Practice ADD Notes varchar(5000) NULL;
 
+---------------------------------------------------------------------------------------------------------------
+-- hlc_FacilityType
+--  Lookup table for PresentationFacilityType and FacilityType
+--
+DROP TABLE [hlc_FacilityType]
+GO
+CREATE TABLE [hlc_FacilityType] (
+[Id] int NULL ,
+[Description] varchar(50) NULL 
+)
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (0, 'Practice/Physician''s office');
+GO
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (1, 'Legal/Law firm');
+GO
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (9, 'Other');
+GO
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (99, 'Hospital');
+GO
+
+---------------------------------------------------------------------------------------------------------------
+-- hlc_Department
+--  List of departments across all facilities where presentation is given
+--
+DROP TABLE [hlc_Department]
+GO
+CREATE TABLE [hlc_Department] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[DepartmentName] varchar(80) NULL ,
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL 
+)
+SET IDENTITY_INSERT [hlc_Department] ON;
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (1, 'Administration', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (2, 'Anesthesiology', GetDate(), 'jholman');
+GO
+SET IDENTITY_INSERT [hlc_Department] OFF;
+
+---------------------------------------------------------------------------------------------------------------
 -- hlc_Presentation
 --  
 -- PresentationFacilityType: Same as FacilityType with 99 - Hospital added
-
+DROP TABLE [hlc_Presentation]
+GO
 CREATE TABLE [hlc_Presentation] (
 [Id] int NOT NULL IDENTITY(1,1) ,
+[Description] varchar(120),
 [DateEntered] smalldatetime NULL ,
 [EnteredBy] varchar(12) NULL ,
 [DateLastUpdated] smalldatetime NULL ,
@@ -110,13 +161,5 @@ CREATE TABLE [hlc_Presentation] (
 )
 
 
--- hlc_Department
---  List of departments across all facilities where presentation is given
---
-CREATE TABLE [hlc_Department] (
-[Id] int NOT NULL IDENTITY(1,1) ,
-[DepartmentName] varchar(80) NULL ,
-[DateEntered] smalldatetime NULL ,
-[EnteredBy] varchar(12) NULL 
-)
+
 
