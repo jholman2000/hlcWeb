@@ -21,6 +21,7 @@
         public const string FacilityType = "Type";
         public const string Notes = "Notes";
         public const string EnteredBy = "Entered By";
+        public const string Description = "Description";
         public const string PresentationFacilityType = "Facility Type";
         public const string FacilityId = "Facility";
         public const string DepartmentId = "Department";

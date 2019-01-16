@@ -61,13 +61,41 @@ Existing Practices will be extended to include other facility types
 -------------------------------------------------------------------
 - Change screen name from "Practice" to "Practice/Facility""
 
+-- Query for Search
+with PresList as (
+select p.DatePlanned, p.Description, f.PracticeName as FacilityName, coord.FirstName + ' ' + coord.LastName as CoordinatorName, d.DepartmentName, p.ContactName, p.DatePresented
+from hlc_Presentation p
+left join hlc_Practice f on f.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.PresentationFacilityType <> 99
+union all
+select p.DatePlanned, p.Description, h.HospitalName as FacilityName, coord.FirstName + ' ' + coord.LastName as CoordinatorName, d.DepartmentName, p.ContactName, p.DatePresented
+from hlc_Presentation p
+left join hlc_Hospital h on h.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.PresentationFacilityType = 99
+)
+select * from PresList
+where FacilityName like '%ce%'
+
 -- Query for GET
-select p.*, f.PracticeName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName
+select p.*, f.PracticeName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName, coord.FirstName + ' ' + coord.LastName as CoordinatorName
 from hlc_Presentation p
 left join hlc_Practice f on f.ID = p.FacilityId
 left join hlc_Department d on d.Id = p.DepartmentId
 left join hlc_FacilityType ft on ft.Id = p.PresentationFacilityType
-where f.FacilityType <> 99
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.id=3 and p.PresentationFacilityType <> 99
+union
+select p.*, h.HospitalName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName, coord.FirstName + ' ' + coord.LastName as CoordinatorName
+from hlc_Presentation p
+left join hlc_Hospital h on h.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_FacilityType ft on ft.Id = p.PresentationFacilityType
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.id=3 and p.PresentationFacilityType = 99
 
 
 ---------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,37 @@
+﻿@model List<hlcWeb.Models.Presentation>
+<br />
+<div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <i class="fa fa-bar-chart hlc-fa"></i> Presentations
+    </div>
+    <table id="searchTable" class="table table-condensed table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Date Planned</th>
+            <th>Facility</th>
+            <th>Description</th>
+            <th>Coordinator</th>
+            <th class="hidden-xs">Department/Contact</th>
+            <th>Date Presented</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var pres in @Model)
+        {
+            <tr class="js-click-row">
+                <td>@Html.ActionLink(pres.DatePlanned.ToShortDateString(), "View", "Presentations", new { id = pres.Id }, null) </td>
+                <td>@pres.FacilityName</td>
+                <td>@pres.Description</td>
+                <td>@pres.CoordinatorName</td>
+                <td class="hidden-xs">
+                    @pres.DepartmentName
+                    <span class="visible-xs">@pres.ContactName</span>
+                </td>
+                <td class="hidden-xs">@(pres.DatePresented == DateTime.MinValue ? "" : pres.DatePresented.ToShortDateString())</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<script src="@Url.Content("~/Scripts/hlc_search.js")"></script>

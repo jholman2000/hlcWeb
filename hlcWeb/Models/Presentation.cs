@@ -16,6 +16,9 @@ namespace hlcWeb.Models
 
         public int Id { get; set; }
 
+        [Display(Name = Constants.Description)]
+        [StringLength(120)]
+        public string Description { get; set; }
 
         public DateTime DateEntered { get; set; }
         public string EnteredBy { get; set; }
@@ -70,7 +73,7 @@ namespace hlcWeb.Models
 
         [Required]
         [Display(Name = Constants.CoordinatorId)]
-        public int CoordinatorId { get; set; }
+        public string CoordinatorId { get; set; }
 
         [AllowHtml]
         [Display(Name = Constants.Goal)]

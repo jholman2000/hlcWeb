@@ -38,6 +38,13 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/doctors/search/all")]
+        public List<Doctor> Search()
+        {
+            return Search("*");
+        }
+
         /// <summary>
         /// Get all Doctor information (including Hospitals, Specialties and Notes)
         /// </summary>

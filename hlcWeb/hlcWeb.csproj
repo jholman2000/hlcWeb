@@ -173,6 +173,7 @@
     <Compile Include="Controllers\Api\PvgMembersController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\BoggleController.cs" />
+    <Compile Include="Controllers\PresentationsController.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Presentation.cs" />
     <Compile Include="ViewModels\Reports\RptHospitalsByType.cs" />
@@ -455,6 +456,8 @@
     <Content Include="Views\Reports\PVGMembersAlpha.cshtml" />
     <Content Include="Views\Practices\EditDetails.cshtml" />
     <Content Include="Views\Reports\PVGMembersByHospital.cshtml" />
+    <Content Include="Views\Presentations\Search.cshtml" />
+    <Content Include="Views\Presentations\View.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

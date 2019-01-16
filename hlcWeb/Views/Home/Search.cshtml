@@ -59,7 +59,7 @@
             // Search box entry
             $(".js-search").keyup(function (e) {
                 var search = $(e.target);
-                if (search.val().length > 0) {
+                if (search.val().length > 2 || search.val() === "*") {
                     DoSearch(search.val());
                 }
             });
@@ -146,7 +146,7 @@
                     url = "@Url.Action("Search", "PvgMembers")";
                     break;
                 case 'fa-bar-chart':
-                    url = "@Url.Action("Search", "PvgMembers")";
+                    url = "@Url.Action("Search", "Presentations")";
                     break;
                 default:
                 }

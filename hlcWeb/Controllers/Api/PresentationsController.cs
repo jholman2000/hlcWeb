@@ -10,23 +10,32 @@ namespace hlcWeb.Controllers.Api
     public class PresentationsController : BaseController
     {
         [HttpGet]
-        [Route("api/presentation/search/{search}")]
+        [Route("api/presentations/search/{search}")]
         public List<Presentation> Search(string search)
         {
             var where = search == "*"
                 ? "1=1"
-                : $"cf.LastName LIKE '{search}%' OR " +
-                  $"cf.FirstName LIKE '{search}%' OR " +
-                  $"d.LastName LIKE '{search}%' OR " +
-                  $"h.HospitalName LIKE '{search}%' OR " +
-                  $"cf.CongregationName LIKE '{search}%'";
+                : $"Description LIKE '%{search}%' OR " +
+                  $"FacilityName LIKE '{search}%' OR " +
+                  $"CoordinatorName LIKE '{search}%' OR " +
+                  $"DepartmentName LIKE '{search}%' OR " +
+                  $"ContactName LIKE '{search}%' ";
 
-            var sql = "select cf.ID, cf.CaseDate, cf.FirstName, cf.LastName, cf.CongregationName, cf.DoctorId, cf.HospitalId, " +
-                      "d.FirstName + ' ' + d.LastName as DoctorName, h.HospitalName " +
-                      "from hlc_Presentation cf " +
-                      "left join hlc_Doctor d on d.id = cf.DoctorId " +
-                      "left join hlc_Hospital h on h.ID = cf.HospitalId " +
-                      $" WHERE {where} ORDER BY LastName, FirstName";
+            var sql = "with PresList as (" +
+                "select p.Id, p.DatePlanned, p.Description, f.PracticeName as FacilityName, coord.FirstName + ' ' + coord.LastName as CoordinatorName, d.DepartmentName, p.ContactName, p.DatePresented " +
+                "from hlc_Presentation p " +
+                "left join hlc_Practice f on f.ID = p.FacilityId " +
+                "left join hlc_Department d on d.Id = p.DepartmentId " +
+                "left join hlc_User coord on coord.UserID = p.CoordinatorID " +
+                "where p.PresentationFacilityType <> 99 " +
+                "union all " +
+                "select p.Id, p.DatePlanned, p.Description, h.HospitalName as FacilityName, coord.FirstName + ' ' + coord.LastName as CoordinatorName, d.DepartmentName, p.ContactName, p.DatePresented " +
+                "from hlc_Presentation p " +
+                "left join hlc_Hospital h on h.ID = p.FacilityId " +
+                "left join hlc_Department d on d.Id = p.DepartmentId " +
+                "left join hlc_User coord on coord.UserID = p.CoordinatorID " +
+                "where p.PresentationFacilityType = 99 )" +
+                $"select * from PresList where {where} order by DatePlanned, FacilityName";
 
             var results = GetListFromSql<Presentation>(sql);
 
@@ -34,7 +43,7 @@ namespace hlcWeb.Controllers.Api
         }
 
         [HttpGet]
-        [Route("api/presentation/search/all")]
+        [Route("api/presentations/search/all")]
         public List<Presentation> Search()
         {
             return Search("*");
@@ -48,22 +57,24 @@ namespace hlcWeb.Controllers.Api
         public Presentation Get(int id)
         {
 
-            var sql = "select cf.*, d.FirstName + ' ' + d.LastName as DoctorName,  " +
-                      "  dasst.FirstName + ' ' + dasst.LastName as AssistName, " +
-                      "  danes.FirstName + ' ' + danes.LastName as AnesthName, " +
-                      "  h.HospitalName, dg.DiagnosisName  " +
-                      "from hlc_Presentation cf  " +
-                      "left join hlc_Doctor d on d.id = cf.DoctorId  " +
-                      "left join hlc_Doctor dasst on dasst.id = cf.AssistingID  " +
-                      "left join hlc_Doctor danes on danes.id = cf.AnesthID " +
-                      "left join hlc_Hospital h on h.ID = cf.HospitalId  " +
-                      "left join hlc_Diagnosis dg on dg.Id = cf.DiagnosisId  " +
-                      $" WHERE cf.Id = {id}";
-
+            var sql = "select p.*, f.PracticeName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName, coord.FirstName + ' ' + coord.LastName as CoordinatorName " +
+                      "from hlc_Presentation p " +
+                      "left join hlc_Practice f on f.ID = p.FacilityId " +
+                      "left join hlc_Department d on d.Id = p.DepartmentId " +
+                      "left join hlc_FacilityType ft on ft.Id = p.PresentationFacilityType " +
+                      "left join hlc_User coord on coord.UserID = p.CoordinatorID " +
+                      $"where p.id={id} and p.PresentationFacilityType <> 99 " +
+                      "union " +
+                      "select p.*, h.HospitalName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName, coord.FirstName + ' ' + coord.LastName as CoordinatorName " +
+                      "from hlc_Presentation p " +
+                      "left join hlc_Hospital h on h.ID = p.FacilityId " +
+                      "left join hlc_Department d on d.Id = p.DepartmentId " +
+                      "left join hlc_FacilityType ft on ft.Id = p.PresentationFacilityType " +
+                      "left join hlc_User coord on coord.UserID = p.CoordinatorID " +
+                      $"where p.id={id} and p.PresentationFacilityType = 99";
+            
             var results = GetListFromSql<Presentation>(sql).FirstOrDefault();
             return results;
-
-
         }
 
         internal bool Save(Presentation model)
