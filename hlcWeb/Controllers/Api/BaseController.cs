@@ -49,7 +49,9 @@ namespace hlcWeb.Controllers.Api
                 switch (environment)
                 {
                     case "LOCAL":
-                        connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\CorpApps\Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
+                        //connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\CorpApps\Sandbox\hlcWeb\hlcWeb\App_Data\hlcWeb_local.mdf;Integrated Security=True";
+                        connString =
+                            $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={System.AppDomain.CurrentDomain.BaseDirectory}App_Data\\hlcWeb_local.mdf;Integrated Security=True";
                         break;
 
                     default:
