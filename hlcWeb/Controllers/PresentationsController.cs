@@ -37,7 +37,7 @@ namespace hlcWeb.Controllers
             ViewBag.UserSelectList = _usersRepository.GetSelectList();
 
             var temp = _departmentsRepository.GetSelectList().ToList();
-            temp.Insert(0, new SelectListItem() { Value = "0", Text = "(Select this choice if the correct Department is not shown and enter in New Department below)" });
+            temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Department is not shown and enter in New Department below)" });
             ViewBag.DepartmentsSelectList = new SelectList(temp, "Value", "Text");
 
             if (id == 0)

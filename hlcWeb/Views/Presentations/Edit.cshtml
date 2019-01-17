@@ -48,7 +48,7 @@
         <div class="form-group hlc-control">
             @Html.LabelFor(m => m.DepartmentId, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.DepartmentId, (SelectList)ViewBag.DepartmentsSelectList, "Select Department to be presented to...", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.DropDownListFor(m => m.DepartmentId, (SelectList)ViewBag.DepartmentsSelectList, "(Select Department to be presented to)", new { @class = "form-control", style = "max-width:100%;" })
                 @Html.ValidationMessageFor(m => m.DepartmentId)
             </div>
         </div>
@@ -58,6 +58,30 @@
                 @Html.TextBoxFor(m => m.NewDepartment, new { @class = "form-control", disabled = "disabled" })
             </div>
         </div>
+        <br />
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
+            </div>
+        </div>
 
     }
 </div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#DepartmentId").change(function () {
+                if ($(this).val() === "-1") {
+                    $("#NewDepartment").prop("disabled", "");
+                } else {
+                    $("#NewDepartment").val("");
+                    $("#NewDepartment").prop("disabled", "disabled");
+                }
+            });
+
+        });
+</script>
+@Scripts.Render("~/bundles/jqueryval")
+}
