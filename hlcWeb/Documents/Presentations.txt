@@ -144,6 +144,20 @@ INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]
 GO
 INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (2, 'Anesthesiology', GetDate(), 'jholman');
 GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (3, 'Ethics', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (4, 'Risk Management', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (5, 'Legal', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (6, 'Surgeons', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (7, 'Nursing Staff', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (8, 'Pastoral Care', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (9, 'Patient Advocate', GetDate(), 'jholman');
+GO
 SET IDENTITY_INSERT [hlc_Department] OFF;
 
 ---------------------------------------------------------------------------------------------------------------

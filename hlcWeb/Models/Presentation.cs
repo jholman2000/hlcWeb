@@ -11,7 +11,7 @@ namespace hlcWeb.Models
     {
         public Presentation()
         {
-            PresentationFacilityType = PresentationFacilityType.Hospital;
+
         }
 
         public int Id { get; set; }
@@ -47,7 +47,9 @@ namespace hlcWeb.Models
 
         [Display(Name = Constants.Address)]
         [StringLength(80)]
-        public string ContactAddress { get; set; }
+        public string ContactAddress1 { get; set; }
+        [StringLength(80)]
+        public string ContactAddress2 { get; set; }
 
         [Display(Name = Constants.City)]
         [StringLength(50)]
@@ -103,7 +105,7 @@ namespace hlcWeb.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Preparation Meeting")]
-        public DateTime DatePreparation { get; set; }
+        public DateTime? DatePreparation { get; set; }
 
         // Following fields are populated after the Presentation is completed
 
@@ -111,7 +113,7 @@ namespace hlcWeb.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Case Date")]
-        public DateTime DatePresented { get; set; }
+        public DateTime? DatePresented { get; set; }
 
         [Display(Name = Constants.Audience)]
         [StringLength(250)]
@@ -156,5 +158,11 @@ namespace hlcWeb.Models
 
         [Computed]
         public string FacilityTypeName { get; set; }
+
+        [Computed]
+        [StringLength(80)]
+        [Display(Name = "New Department")]
+        public string NewDepartment { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿@model hlcWeb.Models.Presentation
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.Models.Presentation
 @{
     ViewBag.Title = "Presentation";
     var userRole = (string)Session["UserRole"];
@@ -6,3 +7,172 @@
 <div class="well">
     <i class="fa fa-bar-chart fa-2x fa-fw text-primary"></i><span class="h3"> @Model.Description</span>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Planning
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("Edit", "CaseFiles", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <table class="table table-condensed">
+                    <tbody>
+                    <tr>
+                        <td class="hlc-prompt" style="width: 100px;">Preliminary Date:</td>
+                        <td>@Model.DatePlanned.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt" style="width: 100px;">Preparation Date:</td>
+                        <td>@(Model.DatePreparation == DateTime.MinValue ? "" : Model.DatePreparation.ToShortDateString())</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">HLC Coordinator:</td>
+                        <td>@Model.CoordinatorName</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Facility:</td>
+                        <td>@Model.FacilityName</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Department:</td>
+                        <td>@Model.DepartmentName</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Contact:</td>
+                        <td>
+                            @Model.ContactName
+                            @if (!string.IsNullOrEmpty(Model.ContactTitle))
+                            {
+                                <br/>@Model.ContactTitle
+                            }
+                            @if (!string.IsNullOrEmpty(Model.ContactPhone))
+                            {
+                                <br/><a href="tel:@Model.ContactPhone">@Model.ContactPhone</a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.ContactEmailAddress))
+                            {
+                                <br/><a href="mailto:@Model.ContactEmailAddress">@Model.ContactEmailAddress</a>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Address:</td>
+                        <td>
+                            @Model.ContactAddress1
+                            @if (!string.IsNullOrEmpty(Model.ContactAddress2))
+                            {
+                                <br />@Model.ContactAddress2
+                            }
+                            <br/>@(Model.ContactCity) @(Model.ContactState) @(Model.ContactZip)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <i class="fa fa-@Model.IsCVRequired.Icon() fa-fw"></i> A CV is @Model.IsCVRequired.Not() required prior to presentation
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Created on:</td>
+                        <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
+                    </tr>
+                    @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
+                    {
+                        <tr>
+                            <td class="hlc-prompt">Updated on:</td>
+                            <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Presentation
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="@Url.Action("Edit", "CaseFiles", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                @if (Model.DatePresented == DateTime.MinValue)
+                {
+                    <div class="panel-body">
+                        <p>
+                            This presentation has not yet been given.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <td class="hlc-prompt" style="width: 120px;">Date of Presentation:</td>
+                            <td>@(Model.DatePresented == DateTime.MinValue ? "" : Model.DatePresented.ToShortDateString())</td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">Audience:</td>
+                            <td>@Model.Audience</td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">HLC Members:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="hlc-prompt">PVG Elders:</td>
+                            <td>@Model.PVGElders</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="MedicalHistory" class="panel panel-primary">
+                <div class="panel-heading">
+                    Goals
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'Goal');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body" data-hlc-text="@Model.Goal">                
+                    @if (string.IsNullOrEmpty(Model.Goal))
+                    {
+                        <p>
+                            No goals have been entered.
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.Raw(Model.Goal.ToHtml())
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (userRole == "Admin")
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-danger btn-sm" onclick="DeleteRecord('Presentations','@Model.Id','@Model.Description', 'Are you sure you wish to delete this presentation: @Model.Description?')"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+                <br />&nbsp;
+            </div>        
+        </div>
+    }
+
+</div>
+<script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
+<script src="@Url.Content("~/Scripts/hlc_DeleteRecord.js")"></script>

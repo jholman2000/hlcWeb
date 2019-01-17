@@ -1,0 +1,63 @@
+﻿@model hlcWeb.Models.Presentation
+
+@{
+    var action = (Model.Id == 0) ? "Add" : "Edit";
+    ViewBag.Title = $"{action} Case File";
+}
+
+<div class="well">
+    <i class="fa fa-bar-chart fa-2x fa-fw text-primary"></i><span class="h3"> @action Presentation</span>
+</div>
+<div class="container">
+    @using (Html.BeginForm("Edit", "Presentations", FormMethod.Post, new {@class = "form-horizontal"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.DateEntered)
+        @Html.HiddenFor(m => m.EnteredBy)
+        @Html.HiddenFor(m => m.DateLastUpdated)
+        @Html.HiddenFor(m => m.LastUpdatedBy)
+
+        if (action == "Add")
+        {
+            <div class="alert alert-info" role="alert">
+                Enter the basic details for this presentation below.  Once this information is entered, you will
+                be able to edit the Goals, Notes etc when you view the presentation.
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(m => m.DatePlanned, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.EditorFor(m => m.DatePlanned, new { type = "date", @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.DatePlanned)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.DatePreparation, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.EditorFor(m => m.DatePreparation, new { type = "date", @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.DatePreparation)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CoordinatorId, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.CoordinatorId, (SelectList)ViewBag.UserSelectList, "(Select coordinating HLC Member)", new { @class = "form-control", style = "max-width:100%;" })
+            </div>
+        </div>
+        <div class="form-group hlc-control">
+            @Html.LabelFor(m => m.DepartmentId, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.DepartmentId, (SelectList)ViewBag.DepartmentsSelectList, "Select Department to be presented to...", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.ValidationMessageFor(m => m.DepartmentId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-2 control-label">New Department: </div>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.NewDepartment, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        </div>
+
+    }
+</div>

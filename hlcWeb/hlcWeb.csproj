@@ -458,6 +458,7 @@
     <Content Include="Views\Reports\PVGMembersByHospital.cshtml" />
     <Content Include="Views\Presentations\Search.cshtml" />
     <Content Include="Views\Presentations\View.cshtml" />
+    <Content Include="Views\Presentations\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
