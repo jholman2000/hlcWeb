@@ -1,4 +1,5 @@
-﻿@model hlcWeb.Models.Presentation
+﻿@using hlcWeb.Models
+@model hlcWeb.Models.Presentation
 
 @{
     var action = (Model.Id == 0) ? "Add" : "Edit";
@@ -26,6 +27,13 @@
             </div>
         }
         <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+        </div>
+        <div class="form-group">
             @Html.LabelFor(m => m.DatePlanned, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
                 @Html.EditorFor(m => m.DatePlanned, new { type = "date", @class = "form-control", autofocus = "autofocus" })
@@ -42,13 +50,35 @@
         <div class="form-group">
             @Html.LabelFor(m => m.CoordinatorId, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.CoordinatorId, (SelectList)ViewBag.UserSelectList, "(Select coordinating HLC Member)", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.DropDownListFor(m => m.CoordinatorId, (SelectList) ViewBag.UserSelectList, "(Select coordinating HLC Member)", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.ValidationMessageFor(m => m.CoordinatorId)
+                </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PresentationFacilityType, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.EnumDropDownListFor(m => m.PresentationFacilityType, optionLabel: "Select...", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PresentationFacilityType)
+            </div>
+        </div>
+        <div id="PracticeIdDiv" class="form-group">
+            @Html.LabelFor(m => m.PracticeId, "Practice/Facility", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.PracticeId, (SelectList) ViewBag.PracticeSelectList, "Select Practice/Facility...", new {@class = "form-control", style = "max-width:100%;"})
+                @Html.ValidationMessageFor(m => m.PracticeId)
+            </div>
+        </div>
+        <div id="HospitalIdDiv" class="form-group">
+            @Html.LabelFor(m => m.HospitalId, "Hospital", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.HospitalId, (SelectList) ViewBag.HospitalSelectList, "Select Hospital...", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.ValidationMessageFor(m => m.HospitalId)
             </div>
         </div>
         <div class="form-group hlc-control">
             @Html.LabelFor(m => m.DepartmentId, new { @class = "col-sm-2 control-label" })
             <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.DepartmentId, (SelectList)ViewBag.DepartmentsSelectList, "(Select Department to be presented to)", new { @class = "form-control", style = "max-width:100%;" })
+                @Html.DropDownListFor(m => m.DepartmentId, (SelectList) ViewBag.DepartmentsSelectList, "(Select Department to be presented to)", new { @class = "form-control", style = "max-width:100%;" })
                 @Html.ValidationMessageFor(m => m.DepartmentId)
             </div>
         </div>
@@ -56,6 +86,56 @@
             <div class="col-sm-offset-2 col-sm-2 control-label">New Department: </div>
             <div class="col-sm-8">
                 @Html.TextBoxFor(m => m.NewDepartment, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactName, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control" })<br />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactTitle, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactTitle, new { @class = "form-control" })<br />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactPhone, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", type = "tel" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactEmailAddress, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactEmailAddress, new { @class = "form-control", type = "email" })
+                @Html.ValidationMessageFor(m => m.ContactEmailAddress)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactAddress1, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactAddress1, new { @class = "form-control" })<br />
+                @Html.TextBoxFor(m => m.ContactAddress1, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactCity, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactCity, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactState, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactState, new { @class = "form-control", style = "width:60px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ContactZip, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactZip, new { @class = "form-control", style = "width:120px;" })
             </div>
         </div>
         <br />
@@ -72,6 +152,12 @@
     <script>
         $(document).ready(function () {
 
+            toggleFacility($("#PresentationFacilityType").val());
+
+            $("#PresentationFacilityType").change(function() {
+                toggleFacility($("#PresentationFacilityType").val());
+            });
+
             $("#DepartmentId").change(function () {
                 if ($(this).val() === "-1") {
                     $("#NewDepartment").prop("disabled", "");
@@ -81,6 +167,35 @@
                 }
             });
 
+            // Check validity of form on submit
+            $("form").submit(function (e) {
+                var form = $(this);
+                debugger;
+                // Highlight errors
+                if (form.valid() === false) {
+                    form.find("div.form-group").each(function () {
+                        if ($(this).find("span.field-validation-error").length > 0)
+                            $(this).addClass("has-error");
+                        if ($(this).find("span.field-validation-valid").length > 0)
+                            $(this).removeClass("has-error");
+                    });
+                } else {
+                    // Required fields passed.  Perform special checks.
+                    debugger;
+                }
+                return true;
+            });
+
+            function toggleFacility(ftype) {
+                if (ftype === "@( (int) PresentationFacilityType.Hospital)") {
+                    $("#HospitalId").prop("disabled", "");
+                    $("#PracticeId").prop("disabled", "disabled");
+
+                } else {
+                    $("#HospitalId").prop("disabled", "disabled");
+                    $("#PracticeId").prop("disabled", "");
+                }
+            }
         });
 </script>
 @Scripts.Render("~/bundles/jqueryval")

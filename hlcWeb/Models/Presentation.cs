@@ -16,6 +16,7 @@ namespace hlcWeb.Models
 
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = Constants.Description)]
         [StringLength(120)]
         public string Description { get; set; }
@@ -67,7 +68,6 @@ namespace hlcWeb.Models
         [StringLength(12)]
         public string ContactPhone { get; set; }
 
-        [Required]
         [Display(Name = Constants.EmailAddress)]
         [EmailAddress]
         [StringLength(80)]
@@ -109,7 +109,6 @@ namespace hlcWeb.Models
 
         // Following fields are populated after the Presentation is completed
 
-        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Case Date")]
@@ -144,6 +143,16 @@ namespace hlcWeb.Models
         [StringLength(5000)]
         public string FollowUpTasks { get; set; }
 
+        // Following two properties are used on the Edit screen only
+        [Required(AllowEmptyStrings = true)]
+        [Display(Name = "Practice/Facility")]
+        [Computed]
+        public int PracticeId { get; set; }
+
+        [Required(AllowEmptyStrings = true)]
+        [Display(Name = Constants.HospitalId)]
+        [Computed]
+        public int HospitalId { get; set; }
 
         // Derived fields
 

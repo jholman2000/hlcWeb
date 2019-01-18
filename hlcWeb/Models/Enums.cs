@@ -127,7 +127,9 @@ namespace hlcWeb.Models
 
     public enum PresentationFacilityType
     {
+        [Display(Name = "Practice/Physician's office")]
         Practice = FacilityType.Practice,
+        [Display(Name = "Legal/Law firm")]
         Legal = FacilityType.Legal,
         Other = FacilityType.Other,
         Hospital = 99

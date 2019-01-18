@@ -25,7 +25,7 @@
         public const string PresentationFacilityType = "Facility Type";
         public const string FacilityId = "Facility";
         public const string DepartmentId = "Department";
-        public const string Name = "Name";
+        public const string Name = "Contact Name";
         public const string Title = "Title";
         public const string Address = "Address";
         public const string City = "City";
@@ -33,7 +33,7 @@
         public const string Zip = "Zip";
         public const string Phone = "Phone";
         public const string EmailAddress = "EmailAddress";
-        public const string CoordinatorId = "Coordinator";
+        public const string CoordinatorId = "HLC Coordinator";
         public const string IsCVRequired = "Is a CV required prior to presentation?";
         public const string Goal = "Goal";
         public const string ReferredBy = "Referred By";

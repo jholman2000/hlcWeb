@@ -28,7 +28,7 @@
                     @pres.DepartmentName
                     <span class="visible-xs">@pres.ContactName</span>
                 </td>
-                <td class="hidden-xs">@(pres.DatePresented == DateTime.MinValue ? "" : pres.DatePresented.ToShortDateString())</td>
+                <td class="hidden-xs">@(pres.DatePresented == DateTime.MinValue || pres.DatePresented == null ? "" : pres.DatePresented.Value.ToShortDateString())</td>
             </tr>
         }
         </tbody>

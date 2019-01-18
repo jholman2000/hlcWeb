@@ -14,7 +14,7 @@
                 <div class="panel-heading">
                     Planning
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit", "CaseFiles", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                        <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id})" class="hlc-panel-icon js-edit">
                             <i class="fa fa-edit" title="Edit"></i>
                         </a>
                     </span>
@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <td class="hlc-prompt" style="width: 100px;">Preparation Date:</td>
-                        <td>@(Model.DatePreparation == DateTime.MinValue ? "" : Model.DatePreparation.ToShortDateString())</td>
+                        <td>@(Model.DatePreparation == DateTime.MinValue || Model.DatePreparation == null ? "" : Model.DatePreparation.Value.ToShortDateString())</td>
                     </tr>
                     <tr>
                         <td class="hlc-prompt">HLC Coordinator:</td>
@@ -96,7 +96,7 @@
                 <div class="panel-heading">
                     Presentation
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit", "CaseFiles", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                        <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id})" class="hlc-panel-icon js-edit">
                             <i class="fa fa-edit" title="Edit"></i>
                         </a>
                     </span>
@@ -115,7 +115,7 @@
                         <tbody>
                         <tr>
                             <td class="hlc-prompt" style="width: 120px;">Date of Presentation:</td>
-                            <td>@(Model.DatePresented == DateTime.MinValue ? "" : Model.DatePresented.ToShortDateString())</td>
+                            <td>@(Model.DatePresented == DateTime.MinValue || Model.DatePresented == null ? "" : Model.DatePresented.Value.ToShortDateString())</td>
                         </tr>
                         <tr>
                             <td class="hlc-prompt">Audience:</td>
