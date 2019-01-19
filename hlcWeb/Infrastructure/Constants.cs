@@ -34,6 +34,7 @@
         public const string Phone = "Phone";
         public const string EmailAddress = "EmailAddress";
         public const string CoordinatorId = "HLC Coordinator";
+        public const string HLCAssigned = "HLC Assigned";
         public const string IsCVRequired = "Is a CV required prior to presentation?";
         public const string Goal = "Goal";
         public const string ReferredBy = "Referred By";

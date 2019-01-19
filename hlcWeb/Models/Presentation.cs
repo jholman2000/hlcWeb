@@ -77,6 +77,10 @@ namespace hlcWeb.Models
         [Display(Name = Constants.CoordinatorId)]
         public string CoordinatorId { get; set; }
 
+        [Display(Name = Constants.HLCAssigned)]
+        [StringLength(5000)]
+        public string HLCAssigned { get; set; }
+
         [AllowHtml]
         [Display(Name = Constants.Goal)]
         [StringLength(5000)]

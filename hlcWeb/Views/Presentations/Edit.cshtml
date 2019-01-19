@@ -4,6 +4,7 @@
 @{
     var action = (Model.Id == 0) ? "Add" : "Edit";
     ViewBag.Title = $"{action} Case File";
+    var hlcList = ((SelectList) ViewBag.UserSelectList).ToList();
 }
 
 <div class="well">
@@ -52,7 +53,46 @@
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.CoordinatorId, (SelectList) ViewBag.UserSelectList, "(Select coordinating HLC Member)", new { @class = "form-control", style = "max-width:100%;" })
                 @Html.ValidationMessageFor(m => m.CoordinatorId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.HLCAssigned, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-9">
+                @Html.TextAreaFor(m => m.HLCAssigned, new { @class = "form-control", @readonly = "true" })                
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#HLCAssignedDiv">Select...</button>
+            </div>
+            <div id="HLCAssignedDiv" class="collapsed collapse">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                        @for (int i = 0; i < hlcList.Count; i=i+2)
+                        {
+                            <div class="col-sm-5">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="HLCAssigned" value="@hlcList[i].Value" />
+                                        @hlcList[i].Text
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                @if ((i+1) < hlcList.Count) { 
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="HLCAssigned" value="@hlcList[i + 1].Value"/>
+                                        @hlcList[i + 1].Text
+                                    </label>
+                                </div>
+                                }
+                            </div>
+                        }
+                        {
+                            
+                        }
+                        Here I am!
                 </div>
+            </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.PresentationFacilityType, new { @class = "col-sm-2 control-label" })

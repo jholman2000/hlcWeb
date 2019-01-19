@@ -51,8 +51,9 @@ namespace hlcWeb.Controllers
                 model = new Presentation
                 {
                     DatePlanned = DateTime.Today,
-                    PresentationFacilityType = PresentationFacilityType.Hospital
-                };
+                    PresentationFacilityType = PresentationFacilityType.Hospital,
+                    HLCAssigned = "Jeffrey Holman, Gary Pelzer"
+            };
 
             }
             else
@@ -98,7 +99,7 @@ namespace hlcWeb.Controllers
                 model.DateEntered = DateTime.Now;
                 model.EnteredBy = Session["UserId"].ToString();
                 model.DateLastUpdated = model.DateEntered;
-                model.LastUpdatedBy = model.EnteredBy;
+                model.LastUpdatedBy = model.EnteredBy;                
             }
             else
             {
