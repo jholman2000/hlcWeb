@@ -71,7 +71,7 @@
                             <div class="col-sm-5">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="HLCAssigned" value="@hlcList[i].Value" />
+                                        <input type="checkbox" name="HLCAssignedChk" value="@hlcList[i].Text" />
                                         @hlcList[i].Text
                                     </label>
                                 </div>
@@ -80,17 +80,13 @@
                                 @if ((i+1) < hlcList.Count) { 
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="HLCAssigned" value="@hlcList[i + 1].Value"/>
+                                        <input type="checkbox" name="HLCAssignedChk" value="@hlcList[i + 1].Text"/>
                                         @hlcList[i + 1].Text
                                     </label>
                                 </div>
                                 }
                             </div>
-                        }
-                        {
-                            
-                        }
-                        Here I am!
+                        }                       
                 </div>
             </div>
         </div>
@@ -194,8 +190,14 @@
 
             toggleFacility($("#PresentationFacilityType").val());
 
+            setCheckBoxes("HLCAssignedChk", $("#HLCAssigned").text());
+
             $("#PresentationFacilityType").change(function() {
                 toggleFacility($("#PresentationFacilityType").val());
+            });
+
+            $("input[name='HLCAssignedChk']").change(function () {
+                getCheckBoxes("HLCAssignedChk", "HLCAssigned");
             });
 
             $("#DepartmentId").change(function () {
@@ -208,7 +210,7 @@
             });
 
             // Check validity of form on submit
-            $("form").submit(function (e) {
+            $("form").submit(function () {
                 var form = $(this);
                 debugger;
                 // Highlight errors
@@ -236,6 +238,27 @@
                     $("#PracticeId").prop("disabled", "");
                 }
             }
+
+            function getCheckBoxes(chkName, textName) {
+                $("#" + textName).text("");
+                var newValue = "";
+                $("input[name='" + chkName + "']").each(function () {
+                    if ($(this).prop("checked")) {
+                        newValue += $(this).val() + ", ";
+                    }
+                });
+                if (newValue !== "") {
+                    newValue = newValue.substring(0, newValue.length - 2);
+                }
+                $("#" + textName).text(newValue);
+            }
+
+            function setCheckBoxes(chkName, currentValue) {
+                $("input[name='" + chkName + "']").each(function () {
+                    $(this).prop("checked", currentValue.includes($(this).val()));
+                });
+            }
+
         });
 </script>
 @Scripts.Render("~/bundles/jqueryval")

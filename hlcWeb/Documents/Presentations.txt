@@ -186,6 +186,7 @@ CREATE TABLE [hlc_Presentation] (
 [ContactPhone] varchar(12) NULL ,
 [ContactEmailAddress] varchar(80) NULL ,
 [CoordinatorID] varchar(12) NULL ,  -- UserId
+[HLCAssigned] varchar(5000) NULL,
 [Goal] varchar(5000) NULL,
 [Notes] varchar(5000) NULL,
 [ReferredBy] varchar(5000) NULL,
