@@ -35,10 +35,12 @@
         public const string EmailAddress = "EmailAddress";
         public const string CoordinatorId = "HLC Coordinator";
         public const string HLCAssigned = "HLC Assigned";
-        public const string IsCVRequired = "Is a CV required prior to presentation?";
+        public const string HLCAttended = "HLC Members present";
+        public const string IsCVRequired = "CV Required?";
         public const string Goal = "Goal";
         public const string ReferredBy = "Referred By";
         public const string Audience = "Audience";
+        public const string PresenterId = "HLC Presenter";
         public const string PVGElders = "PVG Elders present";
         public const string PresentationTopic = "Presentation Topic";
         public const string QuestionsAddressed = "Questions Addressed";

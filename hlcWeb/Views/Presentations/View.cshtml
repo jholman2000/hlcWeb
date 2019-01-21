@@ -14,7 +14,7 @@
                 <div class="panel-heading">
                     Planning
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                        <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id, target="PLAN"})" class="hlc-panel-icon js-edit">
                             <i class="fa fa-edit" title="Edit"></i>
                         </a>
                     </span>
@@ -100,7 +100,7 @@
                 <div class="panel-heading">
                     Presentation
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id})" class="hlc-panel-icon js-edit">
+                        <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id, target="PRES"})" class="hlc-panel-icon js-edit">
                             <i class="fa fa-edit" title="Edit"></i>
                         </a>
                     </span>
@@ -126,8 +126,8 @@
                             <td>@Model.Audience</td>
                         </tr>
                         <tr>
-                            <td class="hlc-prompt">HLC Members:</td>
-                            <td></td>
+                            <td class="hlc-prompt">HLC Attended:</td>
+                            <td>@Model.HLCAttended</td>
                         </tr>
                         <tr>
                             <td class="hlc-prompt">PVG Elders:</td>

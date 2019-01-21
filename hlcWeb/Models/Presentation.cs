@@ -9,11 +9,6 @@ namespace hlcWeb.Models
     [Table("hlc_Presentation")]
     public class Presentation
     {
-        public Presentation()
-        {
-
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -115,14 +110,20 @@ namespace hlcWeb.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Case Date")]
+        [Display(Name = "Date Presented")]
         public DateTime? DatePresented { get; set; }
 
         [Display(Name = Constants.Audience)]
         [StringLength(250)]
         public string Audience { get; set; }
 
-        [AllowHtml]
+        [Display(Name = Constants.PresenterId)]
+        public string PresenterId { get; set; }
+
+        [Display(Name = Constants.HLCAttended)]
+        [StringLength(5000)]
+        public string HLCAttended { get; set; }
+
         [Display(Name = Constants.PVGElders)]
         [StringLength(5000)]
         public string PVGElders { get; set; }
@@ -147,7 +148,10 @@ namespace hlcWeb.Models
         [StringLength(5000)]
         public string FollowUpTasks { get; set; }
 
-        // Following two properties are used on the Edit screen only
+        // Following properties are used on the Edit screen only
+        [Computed]
+        public string TargetSection { get; set; }
+
         [Required(AllowEmptyStrings = true)]
         [Display(Name = "Practice/Facility")]
         [Computed]

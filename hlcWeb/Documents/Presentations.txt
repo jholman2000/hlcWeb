@@ -38,6 +38,7 @@ The second component includes data on the actual presentation:
 >>>>  How does this differ from Department above?  Can this be just a free-form field since you have Department?
 •	HLC Members attending (free form or pull from the login names) 
 o	Name 1 (presenter taking the lead)
+>>>>  Is this different from the coordinator above?  
 o	Name 2
 o	Name 3
 o	Name 4
@@ -185,7 +186,7 @@ CREATE TABLE [hlc_Presentation] (
 [ContactZip] varchar(10) NULL ,
 [ContactPhone] varchar(12) NULL ,
 [ContactEmailAddress] varchar(80) NULL ,
-[CoordinatorID] varchar(12) NULL ,  -- UserId
+[CoordinatorId] varchar(12) NULL ,  -- UserId
 [HLCAssigned] varchar(5000) NULL,
 [Goal] varchar(5000) NULL,
 [Notes] varchar(5000) NULL,
@@ -196,6 +197,8 @@ CREATE TABLE [hlc_Presentation] (
 
 [DatePresented] smalldatetime NULL ,
 [Audience] varchar(250) NULL,
+[PresenterId] varchar(12) NULL ,  -- UserId
+[HLCAttended] varchar(5000) NULL,
 [PVGElders] varchar(5000) NULL,
 [PresentationTopic] varchar(5000) NULL,
 [QuestionsAddressed] varchar(5000) NULL,

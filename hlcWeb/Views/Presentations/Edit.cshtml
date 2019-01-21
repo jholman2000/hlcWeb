@@ -5,6 +5,7 @@
     var action = (Model.Id == 0) ? "Add" : "Edit";
     ViewBag.Title = $"{action} Case File";
     var hlcList = ((SelectList) ViewBag.UserSelectList).ToList();
+    var pvgList = ((SelectList) ViewBag.PVGMembersSelectList).ToList();
 }
 
 <div class="well">
@@ -15,6 +16,7 @@
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.TargetSection)
         @Html.HiddenFor(m => m.DateEntered)
         @Html.HiddenFor(m => m.EnteredBy)
         @Html.HiddenFor(m => m.DateLastUpdated)
@@ -31,167 +33,295 @@
             <div class="panel-heading">
                 Planning
                 <span class="pull-right hidden-print hidden-xs">
-                    <a href="#" onclick="hlcExpandCollapse(this);" class="hlc-panel-icon" data-toggle="collapse" data-target="#PlanningDiv">
+                    <a href="#" id="PlanningAnchor" onclick="toggleExpandCollapse(this);" class="hlc-panel-icon" data-toggle="collapse" data-target="#PlanningDiv">
                         <i class="fa fa-caret-square-o-down" title="Collapse"></i>
                     </a>
                 </span>
             </div>
         </div>
         <div class="in" id="PlanningDiv">
-        <div class="form-group">
-            @Html.LabelFor(m => m.Description, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Description)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.DatePlanned, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.EditorFor(m => m.DatePlanned, new { type = "date", @class = "form-control", autofocus = "autofocus" })
-                @Html.ValidationMessageFor(m => m.DatePlanned)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.DatePreparation, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.EditorFor(m => m.DatePreparation, new { type = "date", @class = "form-control", autofocus = "autofocus" })
-                @Html.ValidationMessageFor(m => m.DatePreparation)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.CoordinatorId, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.CoordinatorId, (SelectList) ViewBag.UserSelectList, "(Select coordinating HLC Member)", new { @class = "form-control", style = "max-width:100%;" })
-                @Html.ValidationMessageFor(m => m.CoordinatorId)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.HLCAssigned, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-9">
-                @Html.TextAreaFor(m => m.HLCAssigned, new { @class = "form-control", @readonly = "true" })                
-            </div>
-            <div class="col-sm-1">
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#HLCAssignedDiv">Select...</button>
-            </div>
-            <div id="HLCAssignedDiv" class="collapsed collapse">
-                <div class="col-sm-2"></div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new {@class = "col-sm-2 control-label"})
                 <div class="col-sm-10">
-                        @for (int i = 0; i < hlcList.Count; i=i+2)
+                    @Html.TextBoxFor(m => m.Description, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Description)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DatePlanned, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.EditorFor(m => m.DatePlanned, new {type = "date", @class = "form-control", autofocus = "autofocus"})
+                    @Html.ValidationMessageFor(m => m.DatePlanned)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DatePreparation, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.EditorFor(m => m.DatePreparation, new {type = "date", @class = "form-control", autofocus = "autofocus"})
+                    @Html.ValidationMessageFor(m => m.DatePreparation)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CoordinatorId, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.CoordinatorId, (SelectList) ViewBag.UserSelectList, "(Select coordinating HLC Member)", new {@class = "form-control", style = "max-width:100%;"})
+                    @Html.ValidationMessageFor(m => m.CoordinatorId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.IsCVRequired, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.CheckBoxFor(m => m.IsCVRequired)
+                    Check here if a CV is required prior to presentation
+                </div>
+            </div>
+            @*<div class="form-group hlc-control">                
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.IsCVRequired)
+                            @Html.LabelFor(m => m.IsCVRequired, new { @class = "col-sm-2 control-label" })
+                        </label>
+                    </div>
+                </div>
+            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.HLCAssigned, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.HLCAssigned, new {@class = "form-control", @readonly = "true"})
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#HLCAssignedDiv">Select...</button>
+                </div>
+                <div id="HLCAssignedDiv" class="collapsed collapse">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        @for (int i = 0; i < hlcList.Count; i = i + 2)
                         {
                             <div class="col-sm-5">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="HLCAssignedChk" value="@hlcList[i].Text" />
+                                        <input type="checkbox" name="HLCAssignedChk" value="@hlcList[i].Text"/>
                                         @hlcList[i].Text
                                     </label>
                                 </div>
                             </div>
                             <div class="col-sm-5">
-                                @if ((i+1) < hlcList.Count) { 
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="HLCAssignedChk" value="@hlcList[i + 1].Text"/>
-                                        @hlcList[i + 1].Text
-                                    </label>
-                                </div>
+                                @if ((i + 1) < hlcList.Count)
+                                {
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="HLCAssignedChk" value="@hlcList[i + 1].Text"/>
+                                            @hlcList[i + 1].Text
+                                        </label>
+                                    </div>
                                 }
                             </div>
-                        }                       
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PresentationFacilityType, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.EnumDropDownListFor(m => m.PresentationFacilityType, optionLabel: "Select...", htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.PresentationFacilityType)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PracticeId, "Practice/Facility", new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.PracticeId, (SelectList) ViewBag.PracticeSelectList, "Select Practice/Facility...", new {@class = "form-control", style = "max-width:100%;"})
+                    @Html.ValidationMessageFor(m => m.PracticeId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.HospitalId, "Hospital", new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.HospitalId, (SelectList) ViewBag.HospitalSelectList, "Select Hospital...", new {@class = "form-control", style = "max-width:100%;"})
+                    @Html.ValidationMessageFor(m => m.HospitalId)
+                </div>
+            </div>
+            <div class="form-group hlc-control">
+                @Html.LabelFor(m => m.DepartmentId, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.DepartmentId, (SelectList) ViewBag.DepartmentsSelectList, "(Select Department to be presented to)", new {@class = "form-control", style = "max-width:100%;"})
+                    @Html.ValidationMessageFor(m => m.DepartmentId)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-2 control-label">New Department: </div>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.NewDepartment, new {@class = "form-control", disabled = "disabled"})
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactName, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactName, new {@class = "form-control"})<br/>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactTitle, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactTitle, new {@class = "form-control"})<br/>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactPhone, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactPhone, new {@class = "form-control", type = "tel"})
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactEmailAddress, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactEmailAddress, new {@class = "form-control", type = "email"})
+                    @Html.ValidationMessageFor(m => m.ContactEmailAddress)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactAddress1, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactAddress1, new {@class = "form-control"})<br/>
+                    @Html.TextBoxFor(m => m.ContactAddress1, new {@class = "form-control"})
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactCity, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactCity, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.ContactCity)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactState, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactState, new {@class = "form-control", style = "width:60px;"})
+                    @Html.ValidationMessageFor(m => m.ContactState)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactZip, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.ContactZip, new {@class = "form-control", style = "width:120px;"})
+                    @Html.ValidationMessageFor(m => m.ContactZip)
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.PresentationFacilityType, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.EnumDropDownListFor(m => m.PresentationFacilityType, optionLabel: "Select...", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.PresentationFacilityType)
+       
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Presentation
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" id="PresentAnchor" onclick="toggleExpandCollapse(this);" class="hlc-panel-icon" data-toggle="collapse" data-target="#PresentDiv">
+                        <i class="fa fa-caret-square-o-right" title="Expand"></i>
+                    </a>
+                </span>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.PracticeId, "Practice/Facility", new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.PracticeId, (SelectList) ViewBag.PracticeSelectList, "Select Practice/Facility...", new {@class = "form-control", style = "max-width:100%;"})
-                @Html.ValidationMessageFor(m => m.PracticeId)
+        <div id="PresentDiv" class="collapsed collapse">
+            <div class="form-group">
+                @Html.LabelFor(m => m.DatePresented, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.EditorFor(m => m.DatePresented, new { type = "date", @class = "form-control", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(m => m.DatePresented)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Audience, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Audience, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Audience)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PresenterId, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.PresenterId, (SelectList)ViewBag.UserSelectList, "(Select HLC Member presenting/taking the lead)", new { @class = "form-control", style = "max-width:100%;" })
+                    @Html.ValidationMessageFor(m => m.PresenterId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.HLCAttended, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.HLCAttended, new { @class = "form-control", @readonly = "true" })
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#HLCAttendedDiv">Select...</button>
+                </div>
+                <div id="HLCAttendedDiv" class="collapsed collapse">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        @for (int i = 0; i < hlcList.Count; i = i + 2)
+                        {
+                            <div class="col-sm-5">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="HLCAttendedChk" value="@hlcList[i].Text" />
+                                        @hlcList[i].Text
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                @if ((i + 1) < hlcList.Count)
+                                {
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="HLCAttendedChk" value="@hlcList[i + 1].Text" />
+                                            @hlcList[i + 1].Text
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PVGElders, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.PVGElders, new { @class = "form-control", @readonly = "true" })
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#PVGEldersDiv">Select...</button>
+                </div>
+                <div id="PVGEldersDiv" class="collapsed collapse">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        @for (int i = 0; i < pvgList.Count; i = i + 2)
+                        {
+                            <div class="col-sm-5">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="PVGEldersChk" value="@pvgList[i].Text" />
+                                        @pvgList[i].Text
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                @if ((i + 1) < pvgList.Count)
+                                {
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="PVGEldersChk" value="@pvgList[i + 1].Text" />
+                                            @pvgList[i + 1].Text
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.HospitalId, "Hospital", new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.HospitalId, (SelectList) ViewBag.HospitalSelectList, "Select Hospital...", new { @class = "form-control", style = "max-width:100%;" })
-                @Html.ValidationMessageFor(m => m.HospitalId)
-            </div>
-        </div>
-        <div class="form-group hlc-control">
-            @Html.LabelFor(m => m.DepartmentId, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.DepartmentId, (SelectList) ViewBag.DepartmentsSelectList, "(Select Department to be presented to)", new { @class = "form-control", style = "max-width:100%;" })
-                @Html.ValidationMessageFor(m => m.DepartmentId)
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-2 control-label">New Department: </div>
-            <div class="col-sm-8">
-                @Html.TextBoxFor(m => m.NewDepartment, new { @class = "form-control", disabled = "disabled" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactName, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control" })<br />
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactTitle, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactTitle, new { @class = "form-control" })<br />
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactPhone, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", type = "tel" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactEmailAddress, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactEmailAddress, new { @class = "form-control", type = "email" })
-                @Html.ValidationMessageFor(m => m.ContactEmailAddress)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactAddress1, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactAddress1, new { @class = "form-control" })<br />
-                @Html.TextBoxFor(m => m.ContactAddress1, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactCity, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactCity, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactState, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactState, new { @class = "form-control", style = "width:60px;" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ContactZip, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.ContactZip, new { @class = "form-control", style = "width:120px;" })
-            </div>
-        </div>
-        <br />
+
+        <br/>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" onclick="window.history.back();">Cancel</button>
             </div>
-        </div>
         </div>
     }
 </div>
@@ -199,16 +329,32 @@
     <script>
         $(document).ready(function () {
 
-            toggleFacility($("#PresentationFacilityType").val());
+            // Initial setup
+                toggleFacility($("#PresentationFacilityType").val());
 
-            setCheckBoxes("HLCAssignedChk", $("#HLCAssigned").text());
+                if ("@Model.TargetSection" === "PRES") {
+                    toggleExpandCollapse($("#PlanningAnchor"));
+                    toggleExpandCollapse($("#PresentAnchor"));
+                    $("#PlanningDiv").removeClass("in").addClass("collapsed").addClass("collapse");
+                    $("#PresentDiv").removeClass("collapsed").removeClass("collapse").addClass("in");
+                }
 
-            $("#PresentationFacilityType").change(function() {
+                setCheckBoxes("HLCAssignedChk", $("#HLCAssigned").text());
+                setCheckBoxes("HLCAttendedChk", $("#HLCAttended").text());
+                setCheckBoxes("PVGEldersChk",   $("#PVGElders").text());
+
+            $("#PresentationFacilityType").change(function () {
                 toggleFacility($("#PresentationFacilityType").val());
             });
 
             $("input[name='HLCAssignedChk']").change(function () {
                 getCheckBoxes("HLCAssignedChk", "HLCAssigned");
+            });
+            $("input[name='HLCAttendedChk']").change(function () {
+                getCheckBoxes("HLCAttendedChk", "HLCAttended");
+            });
+            $("input[name='PVGEldersChk']").change(function () {
+                getCheckBoxes("PVGEldersChk", "PVGElders");
             });
 
             $("#DepartmentId").change(function () {
@@ -223,7 +369,6 @@
             // Check validity of form on submit
             $("form").submit(function () {
                 var form = $(this);
-                debugger;
                 // Highlight errors
                 if (form.valid() === false) {
                     form.find("div.form-group").each(function () {
@@ -232,9 +377,6 @@
                         if ($(this).find("span.field-validation-valid").length > 0)
                             $(this).removeClass("has-error");
                     });
-                } else {
-                    // Required fields passed.  Perform special checks.
-                    debugger;
                 }
                 return true;
             });
@@ -270,16 +412,22 @@
                 });
             }
 
+            function toggleExpandCollapse(e) {
+                var i = $(e).find("i");
+                var state = i.prop("title").toUpperCase();
+                console.log("Current state: " + state);
+                i.removeClass("fa-caret-square-o-down").removeClass("fa-caret-square-o-right");
+                if (state === "COLLAPSE") {
+                    i.prop("title", "Expand");
+                    i.addClass("fa-caret-square-o-right");
+                } else {
+                    i.prop("title", "Collapse");
+                    i.addClass("fa-caret-square-o-down");
+                }
+            }
+
         });
 
-        function hlcExpandCollapse(e) {
-            var state = $(e).find("i").prop("title").toUpperCase();
-            console.log("Current state: " + state);
-            $(e).removeClass("fa-caret-square-o-down").removeClass("fa-caret-square-o-right");
-            if (state === "COLLAPSE") {
-                $(e).addClass("fa-caret-square-o-right");
-            }
-        }
-</script>
+    </script>
 @Scripts.Render("~/bundles/jqueryval")
 }
