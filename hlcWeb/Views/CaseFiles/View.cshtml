@@ -175,7 +175,7 @@
                 @if (string.IsNullOrEmpty(Model.MedicalHistory))
                 {
                     <p>
-                        No medical history entered.
+                        <em>No medical history entered.</em>
                     </p>
                 }
                 else
@@ -203,7 +203,7 @@
                 @if (string.IsNullOrEmpty(Model.TreatmentPlan))
                 {
                     <p>
-                        No treatment plan entered.
+                        <em>No treatment plan entered.</em>
                     </p>
                 }
                 else
@@ -227,17 +227,17 @@
                     </a>
                 </span>
             </div>
-            <div class="panel-body" data-hlc-text="@Model.PossibleStrategies">                    
+            <div class="panel-body" data-hlc-text="@Model.PossibleStrategies">
                 @if (string.IsNullOrEmpty(Model.PossibleStrategies))
                 {
                     <p>
-                        No strategies entered.
+                        <em>No strategies entered.</em>
                     </p>
                 }
                 else
                 {
                     @Html.Raw(Model.PossibleStrategies.ToHtml())
-                }                    
+                }
             </div>
         </div>
     </div>
@@ -257,7 +257,7 @@
                 @if (string.IsNullOrEmpty(Model.ArticlesShared))
                 {
                     <p>
-                        No articles shared have been entered.
+                        <em>No articles shared have been entered.</em>
                     </p>
                 }
                 else
@@ -285,7 +285,7 @@
                 @if (string.IsNullOrEmpty(Model.Outcome))
                 {
                     <p>
-                        No outcome entered.
+                        <em>No outcome entered.</em>
                     </p>
                 }
                 else

@@ -6,6 +6,9 @@
 }
 <div class="well">
     <i class="fa fa-bar-chart fa-2x fa-fw text-primary"></i><span class="h3"> @Model.Description</span>
+    <span class="pull-right hidden-print hidden-xs">
+            <button class="btn btn-primary btn-sm" onclick="alert('Print');"><i class="fa fa-print fa-lg"></i></button>
+    </span>
 </div>
 <div class="container">
     <div class="row">
@@ -109,7 +112,7 @@
                 {
                     <div class="panel-body">
                         <p>
-                            This presentation has not yet been given.
+                            <em>This presentation has not yet been given.</em>
                         </p>
                     </div>
                 }
@@ -141,7 +144,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div id="MedicalHistory" class="panel panel-primary">
+            <div id="Goal" class="panel panel-primary">
                 <div class="panel-heading">
                     Goals
                     <span class="pull-right hidden-print hidden-xs">
@@ -154,13 +157,181 @@
                     @if (string.IsNullOrEmpty(Model.Goal))
                     {
                         <p>
-                            No goals have been entered.
+                            <em>No goals have been entered.</em>
                         </p>
                     }
                     else
                     {
                         <p>
                             @Html.Raw(Model.Goal.ToHtml())
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Notes" class="panel panel-primary">
+                <div class="panel-heading">
+                    Planning Notes
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'Notes');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body" data-hlc-text="@Model.Notes">
+                    @if (string.IsNullOrEmpty(Model.Notes))
+                    {
+                        <p>
+                            <em>No Notes have been entered.</em>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.Raw(Model.Notes.ToHtml())
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="ReferredBy" class="panel panel-primary">
+                <div class="panel-heading">
+                    Referred By
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'ReferredBy');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body" data-hlc-text="@Model.ReferredBy">
+                    @if (string.IsNullOrEmpty(Model.ReferredBy))
+                    {
+                        <p>
+                            <em>No Referred By information has been entered.</em>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.Raw(Model.ReferredBy.ToHtml())
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="PresentationTopic" class="panel panel-primary">
+                <div class="panel-heading">
+                    Presentation Topic
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'PresentationTopic');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body" data-hlc-text="@Model.PresentationTopic">
+                    @if (string.IsNullOrEmpty(Model.PresentationTopic))
+                    {
+                        <p>
+                            <em>Presentation Topic has not been entered.</em>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.Raw(Model.PresentationTopic.ToHtml())
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="QuestionsAddressed" class="panel panel-primary">
+                <div class="panel-heading">
+                    Questions Addressed
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'QuestionsAddressed');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body" data-hlc-text="@Model.QuestionsAddressed">
+                    @if (string.IsNullOrEmpty(Model.QuestionsAddressed))
+                    {
+                        <p>
+                            <em>Questions Addressed has not been entered.</em>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.Raw(Model.QuestionsAddressed.ToHtml())
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="MaterialGiven" class="panel panel-primary">
+                <div class="panel-heading">
+                    Material Given
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'MaterialGiven');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body" data-hlc-text="@Model.MaterialGiven">
+                    @if (string.IsNullOrEmpty(Model.MaterialGiven))
+                    {
+                        <p>
+                            <em>Material Given has not been entered.</em>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.Raw(Model.MaterialGiven.ToHtml())
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="FollowUpTasks" class="panel panel-primary">
+                <div class="panel-heading">
+                    Follow-Up Tasks
+                    <span class="pull-right hidden-print hidden-xs">
+                        <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'FollowUpTasks');" class="hlc-panel-icon">
+                            <i class="fa fa-edit" title="Edit"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="panel-body" data-hlc-text="@Model.FollowUpTasks">
+                    @if (string.IsNullOrEmpty(Model.FollowUpTasks))
+                    {
+                        <p>
+                            <em>Follow-Up Tasks has not been entered.</em>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Html.Raw(Model.FollowUpTasks.ToHtml())
                         </p>
                     }
                 </div>

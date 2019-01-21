@@ -96,7 +96,7 @@ namespace hlcWeb.Controllers.Api
         }
 
         [HttpPost]
-        [Route("api/presentation/remove")]
+        [Route("api/presentations/remove")]
         public bool Remove(HlcDto dto)
         {
             try
@@ -112,6 +112,34 @@ namespace hlcWeb.Controllers.Api
                 return false;
             }
         }
+
+        #region Free-form text edit functions
+        [HttpPost]
+        [Route("api/presentations/gettext")]
+        public string GetText(HlcDto text)
+        {
+            var sql = $"select {text.FieldName} as FieldText from hlc_Presentation where Id={text.Id}";
+
+            return (GetMemberFromSql<HlcDto>(sql).FieldText);
+        }
+
+        [HttpPost]
+        [Route("api/presentations/savetext")]
+        public string SaveText(HlcDto text)
+        {
+            var sql = $"update hlc_Presentation set {text.FieldName} = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
+            try
+            {
+                ExecuteSql(sql);
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, text);
+                return "ERROR";
+            }
+        }
+        #endregion
 
     }
 }
