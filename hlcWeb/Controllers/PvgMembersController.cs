@@ -76,6 +76,8 @@ namespace hlcWeb.Controllers
                 model.PvgMember.LastUpdatedBy = Session["UserId"].ToString();
             }
 
+            model.PvgMember.State = model.PvgMember.State?.ToUpper();
+
             _pvgMemberRepository.Save(model);
 
             //if (_caseFileRepository.Save(model)) 

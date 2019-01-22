@@ -40,14 +40,7 @@ namespace hlcWeb.Controllers
         public ActionResult Edit(int id, string target = "PLAN")
         {
             Presentation model;
-            ViewBag.UserSelectList = _usersRepository.GetSelectList();
-            ViewBag.PracticeSelectList = _practiceRepository.GetSelectList(FacilityType.Legal);
-            ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
-            ViewBag.PVGMembersSelectList = _pvgRepository.GetSelectList();
-
-            var temp = _departmentsRepository.GetSelectList().ToList();
-            temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Department is not shown and enter in New Department below)" });
-            ViewBag.DepartmentsSelectList = new SelectList(temp, "Value", "Text");
+            InitViewBag();
 
             if (id == 0)
             {
@@ -55,8 +48,7 @@ namespace hlcWeb.Controllers
                 {
                     TargetSection = "PLAN",
                     DatePlanned = DateTime.Today,
-                    PresentationFacilityType = PresentationFacilityType.Hospital,
-                    HLCAssigned = "Jeffrey Holman, Gary Pelzer"
+                    PresentationFacilityType = PresentationFacilityType.Hospital
             };
 
             }
@@ -64,11 +56,11 @@ namespace hlcWeb.Controllers
             {
                 // Retrieve existing data and populate model
                 model = _presentationsRepository.Get(id);
-                model.TargetSection = target;
-                if (model == null)
+                if (model.Id == 0)
                     return RedirectToAction("Search", "Home",
                         new { msg = $"Presentation {id} was not found in the database." });
 
+                model.TargetSection = target;
                 if (model.PresentationFacilityType == PresentationFacilityType.Hospital)
                 {
                     model.HospitalId = model.FacilityId;
@@ -88,15 +80,7 @@ namespace hlcWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.UserSelectList = _usersRepository.GetSelectList();
-                ViewBag.PracticeSelectList = _practiceRepository.GetSelectList(FacilityType.Legal);
-                ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
-                ViewBag.PVGMembersSelectList = _pvgRepository.GetSelectList();
-
-                var temp = _departmentsRepository.GetSelectList().ToList();
-                temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Department is not shown and enter in New Department below)" });
-                ViewBag.DepartmentsSelectList = new SelectList(temp, "Value", "Text");
-
+                InitViewBag();
                 return View(model);
             }
 
@@ -129,10 +113,23 @@ namespace hlcWeb.Controllers
             model.FacilityId = model.PresentationFacilityType == PresentationFacilityType.Hospital
                 ? model.HospitalId
                 : model.PracticeId;
+            model.ContactState = model.ContactState?.ToUpper();
 
             _presentationsRepository.Save(model);
 
             return RedirectToAction("View", new { id = model.Id });
+        }
+
+        private void InitViewBag()
+        {
+            ViewBag.UserSelectList = _usersRepository.GetSelectList();
+            ViewBag.PracticeSelectList = _practiceRepository.GetSelectList(FacilityType.Legal);
+            ViewBag.HospitalSelectList = _hospitalRepository.GetSelectList();
+            ViewBag.PVGMembersSelectList = _pvgRepository.GetSelectList();
+
+            var temp = _departmentsRepository.GetSelectList().ToList();
+            temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Department is not shown and enter in New Department below)" });
+            ViewBag.DepartmentsSelectList = new SelectList(temp, "Value", "Text");
         }
     }
 }

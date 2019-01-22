@@ -325,3 +325,5 @@ INSERT INTO hlc_DayOfWeek VALUES(10,'Weekends');
 -- 1/19/2018: Alter table Doctor add fields for Assisting Doctor and Anesthesiologist
 ALTER TABLE hlc_CaseFile ADD AssistingID int NULL;
 ALTER TABLE hlc_CaseFile ADD AnesthID int NULL;
+
+1/22/2019 FIXED BUG: Adding a new Doctor and a new Practice (on the fly) fails because Practice.Id was required.

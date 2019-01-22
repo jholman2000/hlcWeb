@@ -62,6 +62,8 @@ namespace hlcWeb.Controllers
                 return View(model);
             }
 
+            model.Practice.State = model.Practice.State?.ToUpper();
+
             _practiceRepository.Save(model);
 
             return RedirectToAction("View", new { id = model.Practice.Id });

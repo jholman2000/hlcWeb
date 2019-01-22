@@ -40,10 +40,7 @@ namespace hlcWeb.Controllers
         {
 
             var viewModel = new DoctorContactViewModel();
-
-            var temp = _practiceRepository.GetSelectList(FacilityType.Practice).ToList();
-            temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Practice is not in the list and you may then add it below)" });
-            ViewBag.PracticeSelectList = new SelectList(temp, "Value", "Text");
+            InitViewBag();
 
             if (id == 0)
             {
@@ -73,9 +70,7 @@ namespace hlcWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var temp = _practiceRepository.GetSelectList(FacilityType.Practice).ToList();
-                temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Practice is not in the list and you may then add it below)" });
-                ViewBag.PracticeSelectList = new SelectList(temp, "Value", "Text");
+                InitViewBag();
                 return View(viewModel);
             }
 
@@ -104,6 +99,8 @@ namespace hlcWeb.Controllers
                 {
                     Practice = viewModel.Practice
                 };
+                practice.Practice.Id = 0;  // signal we are Inserting
+
                 _practiceRepository.Save(practice);
                 viewModel.PracticeId = practice.Practice.Id;
             }
@@ -114,6 +111,13 @@ namespace hlcWeb.Controllers
             //    returnMsg = $"Contact information for {model.FirstName + " " + model.LastName} was edited successfully.";
 
             return RedirectToAction("View", new {id= viewModel.Id});
+        }
+
+        private void InitViewBag()
+        {
+            var temp = _practiceRepository.GetSelectList(FacilityType.Practice).ToList();
+            temp.Insert(0, new SelectListItem() { Value = "-1", Text = "(Select this choice if the correct Practice is not in the list and you may then add it below)" });
+            ViewBag.PracticeSelectList = new SelectList(temp, "Value", "Text");
         }
 
         public ActionResult EditAttitudes(int id)

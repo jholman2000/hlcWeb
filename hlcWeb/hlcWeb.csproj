@@ -367,7 +367,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\hlc_DeleteRecord.js" />
@@ -459,6 +458,7 @@
     <Content Include="Views\Presentations\Search.cshtml" />
     <Content Include="Views\Presentations\View.cshtml" />
     <Content Include="Views\Presentations\Edit.cshtml" />
+    <Content Include="Views\Reports\PresentationPrint.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

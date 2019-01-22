@@ -1,0 +1,194 @@
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.Models.Presentation
+@{
+    ViewBag.Title = "Report: Case Files";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <title>HLC</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/apple-icon.png")" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        table {
+            font-size: 10px;
+        }
+        td {
+            vertical-align: top;
+        }
+        .table-prompt {
+            font-weight: bold;
+            font-size: 11px;
+            vertical-align: top;
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="visible-print" style="margin-top: -40px;"></div>
+        <table style="font-size: 10px;">
+            <thead>
+            <tr>
+                <th colspan="99">
+                    <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">Presentation: @Model.Description<br/>&nbsp;</span>
+                </th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="48%;" style="border: 1px solid lightgray;vertical-align: top; padding: 3px;">
+                    <!-- PLANNING -->
+                    <table width="100%" style="padding: 3px;">
+                        <tbody>
+                            <tr>
+                                <td class="table-prompt" style="width: 100px;">Preliminary Date:</td>
+                                <td>@Model.DatePlanned.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt" style="width: 100px;">Preparation Date:</td>
+                                <td>@(Model.DatePreparation == DateTime.MinValue || Model.DatePreparation == null ? "" : Model.DatePreparation.Value.ToShortDateString())</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">HLC Coordinator:</td>
+                                <td>@Model.CoordinatorName</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Facility:</td>
+                                <td>@Model.FacilityName</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Department:</td>
+                                <td>@Model.DepartmentName</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">HLC Assigned:</td>
+                                <td>@Model.HLCAssigned</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Contact:</td>
+                                <td>
+                                    @Model.ContactName
+                                    @if (!string.IsNullOrEmpty(Model.ContactTitle))
+                            {
+                                    <br />@Model.ContactTitle
+                            }
+                                    @if (!string.IsNullOrEmpty(Model.ContactPhone))
+                            {
+                                    <br /><a href="tel:@Model.ContactPhone">@Model.ContactPhone</a>
+                            }
+                                    @if (!string.IsNullOrEmpty(Model.ContactEmailAddress))
+                            {
+                                    <br /><a href="mailto:@Model.ContactEmailAddress">@Model.ContactEmailAddress</a>
+                            }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Address:</td>
+                                <td>
+                                    @Model.ContactAddress1
+                                    @if (!string.IsNullOrEmpty(Model.ContactAddress2))
+                            {
+                                    <br />@Model.ContactAddress2
+                            }
+                                    <br />@(Model.ContactCity) @(Model.ContactState) @(Model.ContactZip)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <i class="fa fa-@Model.IsCVRequired.Icon() fa-fw"></i> A CV is @Model.IsCVRequired.Not() required prior to presentation
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Created on:</td>
+                                <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
+                            </tr>
+                            @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
+                    {
+                            <tr>
+                                <td class="table-prompt">Updated on:</td>
+                                <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
+                            </tr>
+                    }
+                        </tbody>
+                    </table>
+                </td>
+                <td width="4%;" style="border: none;">&nbsp;</td>
+                <td width="48%;" style="border: 1px solid lightgray;vertical-align: top; padding: 3px;">
+                    <!-- PRESENTATION -->
+                    <table width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="table-prompt">Date of Presentation:</td>
+                                <td>@(Model.DatePresented == DateTime.MinValue || Model.DatePresented == null ? "" : Model.DatePresented.Value.ToShortDateString())</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Audience:</td>
+                                @if (!string.IsNullOrEmpty(Model.Audience)) { 
+                                <td>@Model.Audience</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        _____________________________________________ <br/>
+                                        &nbsp;<br/>
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">HLC Attended:</td>
+                                @if (!string.IsNullOrEmpty(Model.HLCAttended))
+                                {
+                                    <td>@Model.HLCAttended</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">PVG Elders:</td>
+                                @if (!string.IsNullOrEmpty(Model.PVGElders))
+                                {
+                                    <td>@Model.PVGElders</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                        _____________________________________________ <br />
+                                        &nbsp;<br />
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
