@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <title>HLC</title>
+    <title>HLC - Presentation</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
@@ -18,23 +18,32 @@
     @Scripts.Render("~/bundles/modernizr")
     <style>
         table {
-            font-size: 10px;
+            font-size: 11px;
+            border-collapse: inherit;
         }
         td {
             vertical-align: top;
+        }
+        hr {
+            border-top: 1px solid #ccc;
         }
         .table-prompt {
             font-weight: bold;
             font-size: 11px;
             vertical-align: top;
-            width: 60px;
+            width: 70px;
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="visible-print" style="margin-top: -40px;"></div>
-        <table style="font-size: 10px;">
+    <div class="well hidden-print" style="margin-top: -40px;">
+        <button id="PrintBtn" class="btn btn-primary btn-sm" onclick="window.print();"><i class="fa fa-print fa-lg"></i> Print</button>
+        <span class="pull-right">
+            <button id="Close" class="btn btn-primary btn-sm"  onclick="window.close();"><i class="fa fa-times fa-lg"></i> Close</button>
+        </span>
+    </div>
+    <div class="container">
+        <table>
             <thead>
             <tr>
                 <th colspan="99">
@@ -43,9 +52,9 @@
             </tr>
             </thead>
             <tr>
-                <td width="48%;" style="border: 1px solid lightgray;vertical-align: top; padding: 3px;">
+                <td width="48%;" style="border: 1px solid gray; padding: 3px;">
                     <!-- PLANNING -->
-                    <table width="100%" style="padding: 3px;">
+                    <table width="100%" style="padding: 4px;">
                         <tbody>
                             <tr>
                                 <td class="table-prompt" style="width: 100px;">Preliminary Date:</td>
@@ -121,13 +130,22 @@
                     </table>
                 </td>
                 <td width="4%;" style="border: none;">&nbsp;</td>
-                <td width="48%;" style="border: 1px solid lightgray;vertical-align: top; padding: 3px;">
+                <td width="48%;" style="border: 1px solid gray; padding: 3px;">
                     <!-- PRESENTATION -->
-                    <table width="100%">
+                    <table width="100%" style="padding: 4px;">
                         <tbody>
                             <tr>
-                                <td class="table-prompt">Date of Presentation:</td>
-                                <td>@(Model.DatePresented == DateTime.MinValue || Model.DatePresented == null ? "" : Model.DatePresented.Value.ToShortDateString())</td>
+                                <td class="table-prompt">Date Presented:</td>
+                                @if (!(Model.DatePresented == DateTime.MinValue || Model.DatePresented == null))
+                                {
+                                    <td>@Model.DatePresented.Value.ToShortDateString()</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <hr/>
+                                    </td>
+                                }
                             </tr>
                             <tr>
                                 <td class="table-prompt">Audience:</td>
@@ -137,10 +155,8 @@
                                 else
                                 {
                                     <td>
-                                        _____________________________________________ <br/>
-                                        &nbsp;<br/>
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
+                                        <hr/>
+                                        <hr/>
                                     </td>
                                 }
                             </tr>
@@ -153,14 +169,10 @@
                                 else
                                 {
                                     <td>
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr />
                                     </td>
                                 }
                             </tr>
@@ -173,20 +185,60 @@
                                 else
                                 {
                                     <td>
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
-                                        _____________________________________________ <br />
-                                        &nbsp;<br />
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr />
                                     </td>
                                 }
                             </tr>
                         </tbody>
                     </table>
                 </td>
+            </tr>
+        </table>
+        <br />
+        <table width="100%;">
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Goals</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.Goal))
+                {
+                    <td>
+
+                        <p>@Html.Raw(@Model.Goal.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr/>
+                        <hr/>
+                        <hr/>
+                        <hr/>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Planning Notes</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.Notes.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
             </tr>
         </table>
     </div>

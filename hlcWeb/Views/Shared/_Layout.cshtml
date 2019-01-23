@@ -76,9 +76,13 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="@Url.Action("MyProfile", "Users")"><i class="fa fa-cog"></i> My Profile</a></li>
+                            <li><a href="@Url.Action("MyProfile", "Users")"><i class="fa fa-user-o fa-fw"></i> My Profile</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="@Url.Action("Logoff", "Logon")"><i class="fa fa-power-off"></i> Sign out</a></li>
+                            @if (user.UserRole == "Admin")
+                            {
+                            <li><a href="@Url.Action("Menu","Admin", new {id = ""})"><i class="fa fa-cog fa-fw"></i> Administration</a></li>
+                            }
+                            <li><a href="@Url.Action("Logoff", "Logon")"><i class="fa fa-power-off fa-fw"></i> Sign out</a></li>
                         </ul>
                     </li>
                     @*END: User actions*@

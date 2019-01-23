@@ -16,7 +16,7 @@ namespace hlcWeb.Controllers.Api
                 ? "1=1"
                 : $"SpecialtyName LIKE '%{search}%'";
 
-            var sql = "SELECT ID, SpecialtyName, " +
+            var sql = "SELECT ID, SpecialtyName, SpecialtyCode, " +
                       "(SELECT COUNT(ID) FROM hlc_DoctorSpecialty ds WHERE ds.SpecialtyID = s.ID) as NumberOfDoctors " +
                       "FROM hlc_Specialty s " +
                       $"WHERE {where} ORDER BY SpecialtyName";

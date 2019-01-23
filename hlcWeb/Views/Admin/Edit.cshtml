@@ -1,0 +1,43 @@
+﻿@model List<hlcWeb.Models.LookupCode>
+<div class="well">
+    <i class="fa fa-cog fa-2x fa-fw text-primary"></i><span class="h3"> Administration - @ViewBag.Title</span>
+</div>
+<br />
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        <table style="width: 100%; padding: 3px;">
+            <tr>
+                <td width="100">New @ViewBag.ItemName: </td>
+                <td><input type="text" id="AddText" maxlength="80" style="width: 100%" /></td>
+                <td width="80"> <button class="btn btn-success"><i class="fa fa-plus fa-lg fa-fw" title="Edit"></i> Add</button></td>        
+            </tr>
+        </table>
+</div>
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <i class="fa @ViewBag.Icon hlc-fa"></i> @ViewBag.Title
+        </div>
+        <table id="searchTable" class="table table-condensed table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model)
+                {
+                    <tr>
+                        <td>@item.Description</td>
+                        <td style="text-align: right;">
+                            <button class="btn btn-primary btn-sm"><i class="fa fa-edit fa-lg fa-fw" title="Edit"></i></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg fa-fw" title="Delete" data-number-in-use="@item.AdditionalText"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
