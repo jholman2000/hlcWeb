@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web.Mvc;
@@ -48,6 +49,28 @@ namespace hlcWeb.Controllers.Api
                 model.Doctors = multi.Read<Doctor>().ToList();
             }
             return model;
+        }
+
+        /// <summary>
+        /// Save an updated Specialty name description
+        /// </summary>
+        /// <param name="text">Object contains Id, FieldText to save </param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("api/specialties/savetext")]
+        public string Save(HlcDto text)
+        {
+            var sql = $"update hlc_Specialty set SpecialtyName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
+            try
+            {
+                ExecuteSql(sql);
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, text);
+                return "ERROR";
+            }
         }
 
         internal SelectList GetSelectList(bool refresh = false)

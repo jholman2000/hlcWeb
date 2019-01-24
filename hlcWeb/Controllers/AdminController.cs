@@ -34,9 +34,10 @@ namespace hlcWeb.Controllers
             switch (item.ToUpper())
             {
                 case "SPEC":
-                    ViewBag.Title = "Specialties";
-                    ViewBag.ItemName = "Specialty";
-                    ViewBag.Icon = "fa-stethoscope";
+                    ViewBag.Title      = "Specialties";
+                    ViewBag.ItemName   = "Specialty";
+                    ViewBag.Icon       = "fa-stethoscope";
+                    ViewBag.Controller = "specialties";
                     itemList = _specialtyRepository.Search("*").Select(i => new LookupCode
                     {
                         Id = i.Id,
@@ -46,9 +47,10 @@ namespace hlcWeb.Controllers
                     break;
 
                 case "DIAG":
-                    ViewBag.Title = "Diagnoses";
-                    ViewBag.ItemName = "Diagnosis";
-                    ViewBag.Icon = "fa-list";
+                    ViewBag.Title      = "Diagnoses";
+                    ViewBag.ItemName   = "Diagnosis";
+                    ViewBag.Icon       = "fa-list";
+                    ViewBag.Controller = "diagnosis";
                     itemList = _diagnosisController.Search("").Select(i => new LookupCode
                     {
                         Id = i.Id,
@@ -58,9 +60,10 @@ namespace hlcWeb.Controllers
                     break;
 
                 case "DEPT":
-                    ViewBag.Title = "Departments";
-                    ViewBag.ItemName = "Department";
-                    ViewBag.Icon = "fa-list";
+                    ViewBag.Title      = "Departments";
+                    ViewBag.ItemName   = "Department";
+                    ViewBag.Icon       = "fa-list";
+                    ViewBag.Controller = "departments";
                     itemList = _departmentsRepository.Search("").Select(i => new LookupCode
                     {
                         Id = i.Id,

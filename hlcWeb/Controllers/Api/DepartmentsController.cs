@@ -71,6 +71,28 @@ namespace hlcWeb.Controllers.Api
 
         }
 
+        /// <summary>
+        /// Save an updated Diagnosis name description
+        /// </summary>
+        /// <param name="text">Object contains Id, FieldText to save </param>
+        /// <returns></returns>
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/departments/savetext")]
+        public string Save(HlcDto text)
+        {
+            var sql = $"update hlc_Department set DepartmentName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
+            try
+            {
+                ExecuteSql(sql);
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, text);
+                return "ERROR";
+            }
+        }
+
         internal SelectList GetSelectList(bool refresh = false)
         {
             ObjectCache cache = MemoryCache.Default;
