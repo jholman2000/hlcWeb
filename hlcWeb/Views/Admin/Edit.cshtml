@@ -58,7 +58,7 @@
                 var msg = "Are you sure you want to delete this @ViewBag.ItemName?";
                 debugger;
                 if (numinuse !== "0" && numinuse !== "") {
-                    msg += " There are currently <b>" + numinuse + "</b> data records using this value!"
+                    msg += " There are currently <b>" + numinuse + "</b> records referencing this @ViewBag.ItemName!  Those references will also be deleted."
                 }
                 DeleteLookup("@ViewBag.Controller", id, desc, msg);
             });

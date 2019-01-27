@@ -55,7 +55,7 @@ namespace hlcWeb.Controllers
                     {
                         Id = i.Id,
                         Description = i.DiagnosisName,
-                        AdditionalText = i.NumberOfCases.ToString()
+                        AdditionalText = i.NumberInUse.ToString()
                     }).ToList();
                     break;
 
@@ -67,7 +67,8 @@ namespace hlcWeb.Controllers
                     itemList = _departmentsRepository.Search("").Select(i => new LookupCode
                     {
                         Id = i.Id,
-                        Description = i.DepartmentName
+                        Description = i.DepartmentName,
+                        AdditionalText = i.NumberInUse.ToString()
                     }).ToList();
                     break;
 

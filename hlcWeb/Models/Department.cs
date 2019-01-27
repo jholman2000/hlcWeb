@@ -10,5 +10,9 @@ namespace hlcWeb.Models
         public string DepartmentName { get; set; }
         public DateTime DateEntered { get; set; }
         public string EnteredBy { get; set; }
+
+        [Computed]
+        public int NumberInUse { get; set; }
+
     }
 }

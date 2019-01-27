@@ -75,7 +75,7 @@ function hlcEditTextBox(title, controller, id, initValue) {
             if (result !== null) {
                 $.ajax({
                         method: "POST",
-                        url: "/api/" + controller + "/savetext",
+                        url: "/api/" + controller + "/update",
                         data: { Id: id, FieldText: result }
                     })
                     .done(function (msg) {

@@ -17,8 +17,9 @@ namespace hlcWeb.Controllers.Api
         {
             var where = $"DiagnosisName LIKE '{search}%' ";
 
-            var sql = "select Id, DiagnosisName, DateEntered, EnteredBy " +
-                      "from hlc_Diagnosis " +
+            var sql = "select Id, DiagnosisName, DateEntered, EnteredBy, " +
+                      "(SELECT COUNT(Id) FROM hlc_CaseFile cf WHERE cf.DiagnosisID = d.ID) as NumberInUse " +
+                      "from hlc_Diagnosis d " +
                       $" WHERE {where} ORDER BY DiagnosisName";
 
             var results = GetListFromSql<Diagnosis>(sql);
@@ -48,7 +49,6 @@ namespace hlcWeb.Controllers.Api
             return results;
         }
 
-
         internal bool Save(Diagnosis model)
         {
             try
@@ -73,13 +73,13 @@ namespace hlcWeb.Controllers.Api
         }
 
         /// <summary>
-        /// Save an updated Diagnosis name description
+        /// Edit a Diagnosis name description
         /// </summary>
         /// <param name="text">Object contains Id, FieldText to save </param>
         /// <returns></returns>
         [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("api/diagnosis/savetext")]
-        public string Save(HlcDto text)
+        [System.Web.Http.Route("api/diagnosis/update")]
+        public string Update(HlcDto text)
         {
             var sql = $"update hlc_Diagnosis set DiagnosisName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
             try
@@ -93,6 +93,26 @@ namespace hlcWeb.Controllers.Api
                 return "ERROR";
             }
         }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/diagnosis/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            try
+            {
+                var sql = $"delete from hlc_CaseFile ds WHERE DiagnosisID = {dto.Id};" +
+                          $"delete from hlc_Diagnosis where Id={dto.Id};";
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error deleting Specialty: {dto.Id}" });
+                return false;
+            }
+        }
+
 
         internal SelectList GetSelectList(bool refresh = false)
         {

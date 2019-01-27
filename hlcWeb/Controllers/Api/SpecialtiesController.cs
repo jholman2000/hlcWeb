@@ -52,13 +52,13 @@ namespace hlcWeb.Controllers.Api
         }
 
         /// <summary>
-        /// Save an updated Specialty name description
+        /// Edit a Specialty name description
         /// </summary>
         /// <param name="text">Object contains Id, FieldText to save </param>
         /// <returns></returns>
         [HttpPost]
-        [Route("api/specialties/savetext")]
-        public string Save(HlcDto text)
+        [Route("api/specialties/update")]
+        public string Update(HlcDto text)
         {
             var sql = $"update hlc_Specialty set SpecialtyName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
             try
@@ -70,6 +70,25 @@ namespace hlcWeb.Controllers.Api
             {
                 LogException(ex, text);
                 return "ERROR";
+            }
+        }
+
+        [HttpPost]
+        [Route("api/specialties/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            try
+            {
+                var sql = $"delete from hlc_DoctorSpecialty ds WHERE ds.SpecialtyID = {dto.Id};" +
+                          $"delete from hlc_Specialty where Id={dto.Id};";
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error deleting Specialty: {dto.Id}" });
+                return false;
             }
         }
 

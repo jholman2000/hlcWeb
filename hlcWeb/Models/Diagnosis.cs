@@ -12,7 +12,7 @@ namespace hlcWeb.Models
         public string EnteredBy { get; set; }
 
         [Computed]
-        public int NumberOfCases { get; set; }
+        public int NumberInUse { get; set; }
 
     }
 }

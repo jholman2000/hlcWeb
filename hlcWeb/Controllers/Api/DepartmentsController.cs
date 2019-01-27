@@ -16,8 +16,9 @@ namespace hlcWeb.Controllers.Api
         {
             var where = $"DepartmentName LIKE '{search}%' ";
 
-            var sql = "select Id, DepartmentName, DateEntered, EnteredBy " +
-                      "from hlc_Department " +
+            var sql = "select Id, DepartmentName, DateEntered, EnteredBy, " +
+                      "(SELECT COUNT(Id) FROM hlc_Presentation p WHERE p.DepartmentID = d.ID) as NumberInUse " +
+                      "from hlc_Department d" +
                       $" WHERE {where} ORDER BY DepartmentName";
 
             var results = GetListFromSql<Department>(sql);
@@ -71,14 +72,33 @@ namespace hlcWeb.Controllers.Api
 
         }
 
+        [HttpPost]
+        [Route("api/departments/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            try
+            {
+                var sql = $"delete from hlc_Presentation WHERE DepartmentID = {dto.Id};" +
+                          $"delete from hlc_Department where Id={dto.Id};";
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error deleting Specialty: {dto.Id}" });
+                return false;
+            }
+        }
+
         /// <summary>
-        /// Save an updated Diagnosis name description
+        /// Edit a Department name description
         /// </summary>
         /// <param name="text">Object contains Id, FieldText to save </param>
         /// <returns></returns>
         [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("api/departments/savetext")]
-        public string Save(HlcDto text)
+        [System.Web.Http.Route("api/departments/update")]
+        public string Update(HlcDto text)
         {
             var sql = $"update hlc_Department set DepartmentName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
             try
