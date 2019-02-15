@@ -73,14 +73,38 @@ namespace hlcWeb.Controllers.Api
             }
         }
 
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/specialties/add")]
+        public bool Add(HlcDto dto)
+        {
+            if (string.IsNullOrEmpty(dto.FieldText))
+                return false;
+
+            try
+            {
+                var sql = "insert into hlc_Specialty (SpecialtyName, SpecialtyCode) values " +
+                          $"('{dto.FieldText.Replace("'", "''")}', '');";
+
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error adding Specialty: {dto.Id}" });
+                return false;
+            }
+        }
+
         [HttpPost]
         [Route("api/specialties/remove")]
         public bool Remove(HlcDto dto)
         {
             try
             {
-                var sql = $"delete from hlc_DoctorSpecialty ds WHERE ds.SpecialtyID = {dto.Id};" +
-                          $"delete from hlc_Specialty where Id={dto.Id};";
+                //var sql = $"delete from hlc_DoctorSpecialty ds WHERE ds.SpecialtyID = {dto.Id};" +
+                //          $"delete from hlc_Specialty where Id={dto.Id};";
+                var sql = $"delete from hlc_Specialty where Id={dto.Id};";
                 ExecuteSql(sql);
 
                 return true;

@@ -72,21 +72,45 @@ namespace hlcWeb.Controllers.Api
 
         }
 
-        [HttpPost]
-        [Route("api/departments/remove")]
-        public bool Remove(HlcDto dto)
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/departments/add")]
+        public bool Add(HlcDto dto)
         {
+            if (string.IsNullOrEmpty(dto.FieldText))
+                return false;
+
             try
             {
-                var sql = $"delete from hlc_Presentation WHERE DepartmentID = {dto.Id};" +
-                          $"delete from hlc_Department where Id={dto.Id};";
+                var sql = "insert into hlc_Department (DepartmentName, DateEntered, EnteredBy) values " +
+                          $"('{dto.FieldText.Replace("'","''")}', getDate(), '{dto.UserId}');";
+
                 ExecuteSql(sql);
 
                 return true;
             }
             catch (Exception ex)
             {
-                LogException(ex, new { deleteOp = $"Error deleting Specialty: {dto.Id}" });
+                LogException(ex, new { deleteOp = $"Error adding Specialty: {dto.Id}" });
+                return false;
+            }
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/departments/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            try
+            {
+                //var sql = $"delete from hlc_Presentation WHERE DepartmentID = {dto.Id};" +
+                //          $"delete from hlc_Department where Id={dto.Id};";
+                var sql = $"delete from hlc_Department where Id={dto.Id};";
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error deleting Department: {dto.Id}" });
                 return false;
             }
         }

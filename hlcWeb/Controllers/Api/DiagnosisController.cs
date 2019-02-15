@@ -95,13 +95,37 @@ namespace hlcWeb.Controllers.Api
         }
 
         [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/diagnosis/add")]
+        public bool Add(HlcDto dto)
+        {
+            if (string.IsNullOrEmpty(dto.FieldText))
+                return false;
+
+            try
+            {
+                var sql = "insert into hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) values " +
+                          $"('{dto.FieldText.Replace("'", "''")}', getDate(), '{dto.UserId}');";
+
+                ExecuteSql(sql);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error adding Diagnosis: {dto.Id}" });
+                return false;
+            }
+        }
+
+        [System.Web.Http.HttpPost]
         [System.Web.Http.Route("api/diagnosis/remove")]
         public bool Remove(HlcDto dto)
         {
             try
             {
-                var sql = $"delete from hlc_CaseFile ds WHERE DiagnosisID = {dto.Id};" +
-                          $"delete from hlc_Diagnosis where Id={dto.Id};";
+                //var sql = $"delete from hlc_CaseFile ds WHERE DiagnosisID = {dto.Id};" +
+                //          $"delete from hlc_Diagnosis where Id={dto.Id};";
+                var sql = $"delete from hlc_Diagnosis where Id={dto.Id};";
                 ExecuteSql(sql);
 
                 return true;
