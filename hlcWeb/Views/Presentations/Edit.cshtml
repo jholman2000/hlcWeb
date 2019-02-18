@@ -75,16 +75,6 @@
                     Check here if a CV is required prior to presentation
                 </div>
             </div>
-            @*<div class="form-group hlc-control">                
-                <div class="col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            @Html.CheckBoxFor(m => m.IsCVRequired)
-                            @Html.LabelFor(m => m.IsCVRequired, new { @class = "col-sm-2 control-label" })
-                        </label>
-                    </div>
-                </div>
-            </div>*@
             <div class="form-group">
                 @Html.LabelFor(m => m.HLCAssigned, new {@class = "col-sm-2 control-label"})
                 <div class="col-sm-9">
@@ -233,6 +223,12 @@
                 <div class="col-sm-10">
                     @Html.TextBoxFor(m => m.Audience, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Audience)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">

@@ -56,14 +56,15 @@ namespace hlcWeb.Controllers.Api
         /// </summary>
         /// <param name="text">Object contains Id, FieldText to save </param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("api/specialties/update")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/specialties/update")]
         public string Update(HlcDto text)
         {
             var sql = $"update hlc_Specialty set SpecialtyName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
             try
             {
                 ExecuteSql(sql);
+                GetSelectList(true);
                 return "OK";
             }
             catch (Exception ex)
@@ -86,7 +87,7 @@ namespace hlcWeb.Controllers.Api
                           $"('{dto.FieldText.Replace("'", "''")}', '');";
 
                 ExecuteSql(sql);
-
+                GetSelectList(true);
                 return true;
             }
             catch (Exception ex)
@@ -96,8 +97,8 @@ namespace hlcWeb.Controllers.Api
             }
         }
 
-        [HttpPost]
-        [Route("api/specialties/remove")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/specialties/remove")]
         public bool Remove(HlcDto dto)
         {
             try
@@ -106,7 +107,7 @@ namespace hlcWeb.Controllers.Api
                 //          $"delete from hlc_Specialty where Id={dto.Id};";
                 var sql = $"delete from hlc_Specialty where Id={dto.Id};";
                 ExecuteSql(sql);
-
+                GetSelectList(true);
                 return true;
             }
             catch (Exception ex)

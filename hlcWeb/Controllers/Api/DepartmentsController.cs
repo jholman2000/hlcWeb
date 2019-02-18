@@ -85,7 +85,7 @@ namespace hlcWeb.Controllers.Api
                           $"('{dto.FieldText.Replace("'","''")}', getDate(), '{dto.UserId}');";
 
                 ExecuteSql(sql);
-
+                GetSelectList(true);
                 return true;
             }
             catch (Exception ex)
@@ -105,7 +105,7 @@ namespace hlcWeb.Controllers.Api
                 //          $"delete from hlc_Department where Id={dto.Id};";
                 var sql = $"delete from hlc_Department where Id={dto.Id};";
                 ExecuteSql(sql);
-
+                GetSelectList(true);
                 return true;
             }
             catch (Exception ex)
@@ -128,6 +128,7 @@ namespace hlcWeb.Controllers.Api
             try
             {
                 ExecuteSql(sql);
+                GetSelectList(true);
                 return "OK";
             }
             catch (Exception ex)

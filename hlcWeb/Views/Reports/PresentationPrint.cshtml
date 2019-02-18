@@ -240,6 +240,86 @@
                     </td>
                 }
             </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Referred By</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.ReferredBy))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.ReferredBy.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Presentation Topic</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.PresentationTopic))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.PresentationTopic.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Questions Addressed</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.QuestionsAddressed))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.QuestionsAddressed.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Follow-Up Tasks</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.FollowUpTasks))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.FollowUpTasks.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
         </table>
     </div>
 </body>

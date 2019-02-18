@@ -117,6 +117,10 @@ namespace hlcWeb.Models
         [StringLength(250)]
         public string Audience { get; set; }
 
+        [Display(Name = Constants.Address)]
+        [StringLength(80)]
+        public string Address { get; set; }
+
         [Display(Name = Constants.PresenterId)]
         public string PresenterId { get; set; }
 
