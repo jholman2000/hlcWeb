@@ -101,7 +101,7 @@ where p.id=3 and p.PresentationFacilityType = 99
 
 ---------------------------------------------------------------------------------------------------------------
 -- hlc_Practice:  Add capability to store other facility types (legal, etc) as well as descriptive notes
--- (Need to modify Azure)
+-- (Azure ran on 2/15/2019)
 --   FacilityType:	0 - Practice/Physician's office (default)
 --                  1 - Legal/Law firm
 --                  9 - Other
@@ -112,7 +112,7 @@ ALTER TABLE hlc_Practice ADD Notes varchar(5000) NULL;
 ---------------------------------------------------------------------------------------------------------------
 -- hlc_FacilityType
 --  Lookup table for PresentationFacilityType and FacilityType
---
+-- (Azure ran on 2/15/2019)
 DROP TABLE [hlc_FacilityType]
 GO
 CREATE TABLE [hlc_FacilityType] (
@@ -131,7 +131,7 @@ GO
 ---------------------------------------------------------------------------------------------------------------
 -- hlc_Department
 --  List of departments across all facilities where presentation is given
---
+--  (Azure ran on 2/15/2019)
 DROP TABLE [hlc_Department]
 GO
 CREATE TABLE [hlc_Department] (
@@ -165,6 +165,7 @@ SET IDENTITY_INSERT [hlc_Department] OFF;
 -- hlc_Presentation
 --  
 -- PresentationFacilityType: Same as FacilityType with 99 - Hospital added
+-- (Azure ran on 2/15/2019)
 DROP TABLE [hlc_Presentation]
 GO
 CREATE TABLE [hlc_Presentation] (
@@ -197,6 +198,7 @@ CREATE TABLE [hlc_Presentation] (
 
 [DatePresented] smalldatetime NULL ,
 [Audience] varchar(250) NULL,
+[Address] varchar(80) NULL,
 [PresenterId] varchar(12) NULL ,  -- UserId
 [HLCAttended] varchar(5000) NULL,
 [PVGElders] varchar(5000) NULL,
