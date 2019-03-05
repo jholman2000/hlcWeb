@@ -1,0 +1,213 @@
+﻿HLC Presentations
+=================
+
+1/6/19 Request from Mark:
+Jeff 
+
+Is it possible to add a Presentation section to the website? There would be 2 components to the information we need to gather.
+
+The first component is the need to track efforts to schedule a presentation to a Hospital (specific department), Practice, Legal entities, etc:
+
+•	Date
+•	Facility or Group Name (we could pull from the list of Hospitals and Practices, but would need the option to type in a name not in the database)
+>>>> I think that instead of allowing it here the user will have to create the Hospital/Practice/Facility first.    
+•	Department (perhaps a drop down list similar to the way you’ve created the Diagnosis field in the Case section).
+•	Contact Name (in most cases, this will not be a person in our database; however, there is a possibility that some Doctors from our database could be listed here)
+>>>> Ok, I will keep this Contact data as part of the Presentation data even though there are fields for Office Contact on the Practice/Facility.  I may look into
+>>>> the possibility of having a means of copying down the information from the Hospital/Practice/Facility record
+•	Contact Title (free form text)
+•	Contact Phone
+•	Contact Email
+•	Contact Address
+•	HLC Member Name who is coordinating communication (free form or pull down from the login names)
+>>>> This will be a dropdown of all HLC Members (users) for selecting ONE only
+•	Goal for meeting/Issues to address (free form text)
+•	Notes (free form text)
+•	Referred by (free form text)
+•	Is a CV required prior to presentation? (Yes/No)
+•	Preliminary Date for the Presentation
+•	Date for the Meeting to prepare for the Presentation
+•	Names of HLC Members with the preliminary assignment. (free form or pull from the login names)
+
+
+The second component includes data on the actual presentation:
+•	Date of Presentation
+•	Address
+>>>>  Why is this repeated here?  If it ends up a different address can you indicate it in the Notes above?
+•	Audience (perhaps a drop down list similar to the way you’ve created the Diagnosis field in the Case section. Here are some examples:  Administration, Ethics, Risk Management, Legal, Surgeons, Anesthesiologists, Nursing Staff, Pastoral Care, Patient Advocate)
+>>>>  How does this differ from Department above?  Can this be just a free-form field since you have Department?
+•	HLC Members attending (free form or pull from the login names) 
+o	Name 1 (presenter taking the lead)
+>>>>  Is this different from the coordinator above?  
+o	Name 2
+o	Name 3
+o	Name 4
+•	PVG Elders present (free form text)
+•	Presentation Topic (free form text)
+•	Questions addressed (free form text)
+•	Material given (free form text)
+•	Follow up tasks (free form text)
+
+It would be nice to have a report that could be printed and taken to the presentation enabling notes to be made on the form without having an iPad or computer at the meeting that could be distracting.
+
+Let me know if this is possible (or a subset of the request).
+
+Thank you!
+Mark
+---------------------------------------------------------------------------------------------------------------------------------
+
+Font Awesome:  fa-bar-chart 
+
+Existing Practices will be extended to include other facility types
+-------------------------------------------------------------------
+- Change screen name from "Practice" to "Practice/Facility""
+
+-- Query for Search
+with PresList as (
+select p.DatePlanned, p.Description, f.PracticeName as FacilityName, coord.FirstName + ' ' + coord.LastName as CoordinatorName, d.DepartmentName, p.ContactName, p.DatePresented
+from hlc_Presentation p
+left join hlc_Practice f on f.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.PresentationFacilityType <> 99
+union all
+select p.DatePlanned, p.Description, h.HospitalName as FacilityName, coord.FirstName + ' ' + coord.LastName as CoordinatorName, d.DepartmentName, p.ContactName, p.DatePresented
+from hlc_Presentation p
+left join hlc_Hospital h on h.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.PresentationFacilityType = 99
+)
+select * from PresList
+where FacilityName like '%ce%'
+
+-- Query for GET
+select p.*, f.PracticeName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName, coord.FirstName + ' ' + coord.LastName as CoordinatorName
+from hlc_Presentation p
+left join hlc_Practice f on f.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_FacilityType ft on ft.Id = p.PresentationFacilityType
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.id=3 and p.PresentationFacilityType <> 99
+union
+select p.*, h.HospitalName as FacilityName, d.DepartmentName, ft.Description as FacilityTypeName, coord.FirstName + ' ' + coord.LastName as CoordinatorName
+from hlc_Presentation p
+left join hlc_Hospital h on h.ID = p.FacilityId
+left join hlc_Department d on d.Id = p.DepartmentId
+left join hlc_FacilityType ft on ft.Id = p.PresentationFacilityType
+left join hlc_User coord on coord.UserID = p.CoordinatorID
+where p.id=3 and p.PresentationFacilityType = 99
+
+
+---------------------------------------------------------------------------------------------------------------
+-- hlc_Practice:  Add capability to store other facility types (legal, etc) as well as descriptive notes
+-- (Azure ran on 2/15/2019)
+--   FacilityType:	0 - Practice/Physician's office (default)
+--                  1 - Legal/Law firm
+--                  9 - Other
+ALTER TABLE hlc_Practice ADD FacilityType int NULL DEFAULT ((0));
+UPDATE hlc_Practice SET FacilityType=0 WHERE FacilityType is null;
+ALTER TABLE hlc_Practice ADD Notes varchar(5000) NULL;
+
+---------------------------------------------------------------------------------------------------------------
+-- hlc_FacilityType
+--  Lookup table for PresentationFacilityType and FacilityType
+-- (Azure ran on 2/15/2019)
+DROP TABLE [hlc_FacilityType]
+GO
+CREATE TABLE [hlc_FacilityType] (
+[Id] int NULL ,
+[Description] varchar(50) NULL 
+)
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (0, 'Practice/Physician''s office');
+GO
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (1, 'Legal/Law firm');
+GO
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (9, 'Other');
+GO
+INSERT INTO [hlc_FacilityType] ([Id], [Description]) VALUES (99, 'Hospital');
+GO
+
+---------------------------------------------------------------------------------------------------------------
+-- hlc_Department
+--  List of departments across all facilities where presentation is given
+--  (Azure ran on 2/15/2019)
+DROP TABLE [hlc_Department]
+GO
+CREATE TABLE [hlc_Department] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[DepartmentName] varchar(80) NULL ,
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL 
+)
+SET IDENTITY_INSERT [hlc_Department] ON;
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (1, 'Administration', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (2, 'Anesthesiology', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (3, 'Ethics', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (4, 'Risk Management', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (5, 'Legal', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (6, 'Surgeons', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (7, 'Nursing Staff', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (8, 'Pastoral Care', GetDate(), 'jholman');
+GO
+INSERT INTO [hlc_Department] ([Id], [DepartmentName], [DateEntered], [EnteredBy]) VALUES (9, 'Patient Advocate', GetDate(), 'jholman');
+GO
+SET IDENTITY_INSERT [hlc_Department] OFF;
+
+---------------------------------------------------------------------------------------------------------------
+-- hlc_Presentation
+--  
+-- PresentationFacilityType: Same as FacilityType with 99 - Hospital added
+-- (Azure ran on 2/15/2019)
+DROP TABLE [hlc_Presentation]
+GO
+CREATE TABLE [hlc_Presentation] (
+[Id] int NOT NULL IDENTITY(1,1) ,
+[Description] varchar(120),
+[DateEntered] smalldatetime NULL ,
+[EnteredBy] varchar(12) NULL ,
+[DateLastUpdated] smalldatetime NULL ,
+[LastUpdatedBy] varchar(12) NULL ,
+[PresentationFacilityType] int NULL DEFAULT ((99)),
+[FacilityId] int NULL,
+[DepartmentId] int NULL,
+[ContactName] varchar(80) NULL ,
+[ContactTitle] varchar(80) NULL ,
+[ContactAddress1] varchar(80) NULL ,
+[ContactAddress2] varchar(80) NULL ,
+[ContactCity] varchar(50) NULL ,
+[ContactState] char(2) NULL ,
+[ContactZip] varchar(10) NULL ,
+[ContactPhone] varchar(12) NULL ,
+[ContactEmailAddress] varchar(80) NULL ,
+[CoordinatorId] varchar(12) NULL ,  -- UserId
+[HLCAssigned] varchar(5000) NULL,
+[Goal] varchar(5000) NULL,
+[Notes] varchar(5000) NULL,
+[ReferredBy] varchar(5000) NULL,
+[IsCVRequired] bit NULL DEFAULT ((0)) ,
+[DatePlanned] smalldatetime NULL ,
+[DatePreparation] smalldatetime NULL ,
+
+[DatePresented] smalldatetime NULL ,
+[Audience] varchar(250) NULL,
+[Address] varchar(80) NULL,
+[PresenterId] varchar(12) NULL ,  -- UserId
+[HLCAttended] varchar(5000) NULL,
+[PVGElders] varchar(5000) NULL,
+[PresentationTopic] varchar(5000) NULL,
+[QuestionsAddressed] varchar(5000) NULL,
+[MaterialGiven] varchar(5000) NULL,
+[FollowUpTasks] varchar(5000) NULL
+)
+
+
+
+

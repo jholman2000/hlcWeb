@@ -4,6 +4,7 @@ using System.Linq;
 using Dapper.Contrib.Extensions;
 using hlcWeb.Models;
 using System.Web.Mvc;
+using System.Web.Http;
 using System.Runtime.Caching;
 
 namespace hlcWeb.Controllers.Api
@@ -11,18 +12,26 @@ namespace hlcWeb.Controllers.Api
     public class DiagnosisController : BaseController
     {
         [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("api/diagnosis/search")]
+        [System.Web.Http.Route("api/diagnosis/search/{search}")]
         public List<Diagnosis> Search(string search)
         {
             var where = $"DiagnosisName LIKE '{search}%' ";
 
-            var sql = "select Id, DiagnosisName, DateEntered, EnteredBy " +
-                      "from hlc_Diagnosis " +
+            var sql = "select Id, DiagnosisName, DateEntered, EnteredBy, " +
+                      "(SELECT COUNT(Id) FROM hlc_CaseFile cf WHERE cf.DiagnosisID = d.ID) as NumberInUse " +
+                      "from hlc_Diagnosis d " +
                       $" WHERE {where} ORDER BY DiagnosisName";
 
             var results = GetListFromSql<Diagnosis>(sql);
 
             return results;
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/diagnosis/search/all")]
+        public List<Diagnosis> Search()
+        {
+            return Search("");
         }
 
         /// <summary>
@@ -33,16 +42,12 @@ namespace hlcWeb.Controllers.Api
         public Diagnosis Get(int id)
         {
 
-            var sql = "select dg.*, " +
-                      "from hlc_Diagnosis dg " +
-                      $" WHERE dg.Id = {id}";
+            var sql = "select * from hlc_Diagnosis " +
+                      $" WHERE Id = {id}";
 
             var results = GetListFromSql<Diagnosis>(sql).FirstOrDefault();
             return results;
-
-
         }
-
 
         internal bool Save(Diagnosis model)
         {
@@ -66,6 +71,73 @@ namespace hlcWeb.Controllers.Api
             }
 
         }
+
+        /// <summary>
+        /// Edit a Diagnosis name description
+        /// </summary>
+        /// <param name="text">Object contains Id, FieldText to save </param>
+        /// <returns></returns>
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/diagnosis/update")]
+        public string Update(HlcDto text)
+        {
+            var sql = $"update hlc_Diagnosis set DiagnosisName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
+            try
+            {
+                ExecuteSql(sql);
+                GetSelectList(true);
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, text);
+                return "ERROR";
+            }
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/diagnosis/add")]
+        public bool Add(HlcDto dto)
+        {
+            if (string.IsNullOrEmpty(dto.FieldText))
+                return false;
+
+            try
+            {
+                var sql = "insert into hlc_Diagnosis (DiagnosisName, DateEntered, EnteredBy) values " +
+                          $"('{dto.FieldText.Replace("'", "''")}', getDate(), '{dto.UserId}');";
+
+                ExecuteSql(sql);
+                GetSelectList(true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error adding Diagnosis: {dto.Id}" });
+                return false;
+            }
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/diagnosis/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            try
+            {
+                //var sql = $"delete from hlc_CaseFile ds WHERE DiagnosisID = {dto.Id};" +
+                //          $"delete from hlc_Diagnosis where Id={dto.Id};";
+                var sql = $"delete from hlc_Diagnosis where Id={dto.Id};";
+                ExecuteSql(sql);
+                GetSelectList(true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error deleting Specialty: {dto.Id}" });
+                return false;
+            }
+        }
+
 
         internal SelectList GetSelectList(bool refresh = false)
         {

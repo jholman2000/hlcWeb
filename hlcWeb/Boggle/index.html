@@ -298,7 +298,6 @@
                             $("#LookupResults").append("<p><b>" + wordId + "</b> is a form of the word <b>" + rootWord + "</b></p> </br>");
                             msg = msg.substr(msg.indexOf(">") + 1);
                         }
-                        debugger;
                         // Parse and show correct word form and definitions
                         var defs = JSON.parse(msg);
                         // Get the correct case of the word and display as title

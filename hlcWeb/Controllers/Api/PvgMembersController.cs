@@ -144,7 +144,7 @@ namespace hlcWeb.Controllers.Api
                 var items = Search("")
                     .Select(s => new
                     {
-                        Text = s.LastName + ", " + s.FirstName,
+                        Text = s.FirstName + " " + s.LastName,
                         Value = s.Id
                     })
                     .ToList();

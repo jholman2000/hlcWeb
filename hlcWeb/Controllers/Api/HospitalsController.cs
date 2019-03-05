@@ -12,7 +12,9 @@ namespace hlcWeb.Controllers.Api
 {
     public class HospitalsController : BaseController
     {
-        internal List<Hospital> Search(string search)
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/hospitals/search/{search}")]
+        public List<Hospital> Search(string search)
         {
             var where = search == "*"
                 ? "1=1"
@@ -28,6 +30,13 @@ namespace hlcWeb.Controllers.Api
 
             return results;
 
+        }
+
+        [HttpGet]
+        [Route("api/hospitals/search/all")]
+        public List<Hospital> Search()
+        {
+            return Search("*");
         }
 
         /// <summary>

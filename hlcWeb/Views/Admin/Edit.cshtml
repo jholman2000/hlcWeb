@@ -1,0 +1,92 @@
+﻿@using hlcWeb.Models
+@model List<hlcWeb.Models.LookupCode>
+@{
+    var user = (User)Session["User"] ?? new User();
+}
+<div class="well">
+    <i class="fa fa-cog fa-2x fa-fw text-primary"></i><span class="h3"> Administration - @ViewBag.Title</span>
+</div>
+<br />
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        <table style="width: 100%; padding: 3px;">
+            <tr>
+                <td width="100">New @ViewBag.ItemName: </td>
+                <td>
+                    <input type="text" class="form-control" id="AddText" maxlength="80" style="width: 100%"/>
+                    <div id="ErrorMsg" class="alert alert-danger hide"></div>
+                </td>
+                <td width="80"> <button class="btn btn-success js-add"><i class="fa fa-plus fa-lg fa-fw" title="Add"></i> Add</button></td>        
+            </tr>
+        </table>
+</div>
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <i class="fa @ViewBag.Icon hlc-fa"></i> @ViewBag.Title
+        </div>
+        <table id="searchTable" class="table table-condensed table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model)
+                {
+                    <tr id="row_@item.Id">
+                        <td><span id="desc_@item.Id">@item.Description</span></td>
+                        <td style="text-align: right;">
+                            <button class="btn btn-primary btn-sm js-edit" data-id="@item.Id" data-description="@item.Description"><i class="fa fa-edit fa-lg fa-fw" title="Edit"></i></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-danger btn-sm js-delete" data-id="@item.Id" data-description="@item.Description" data-number-in-use="@item.AdditionalText"><i class="fa fa-trash fa-lg fa-fw" title="Delete" data-number-in-use="@item.AdditionalText"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+
+            $(".js-add").click(function () {
+                var newValue = $("#AddText").val();
+                if (newValue !== '') {                
+                    $.ajax({
+                            method: "POST",
+                            url: "/api/@ViewBag.Controller/add",
+                            data: { FieldText: newValue, UserId: '@user.UserId' }
+                        })
+                        .done(function (msg) {
+                            location.reload();
+                        })
+                        .fail(function (jqXhr) {
+                            $("#ErrorMsg").html("jqXhr.responseText").removeClass("hide");
+                        });
+                }
+            });
+
+            $(".js-edit").click(function () {
+                var id = $(this).data("id");
+                var desc = $(this).data("description");
+                hlcEditTextBox("@ViewBag.ItemName", "@ViewBag.Controller", id, desc);
+            });
+
+            $(".js-delete").click(function () {
+                var id = $(this).data("id");
+                var desc = $(this).data("description");
+                var numinuse = $(this).data("number-in-use");
+                var msg = "Are you sure you want to delete this @ViewBag.ItemName?";
+                if (numinuse !== 0 && numinuse !== "") {
+                    msg += " WARNING: There are currently <b>" + numinuse + "</b> records referencing this @ViewBag.ItemName!";
+                }
+                DeleteLookup("@ViewBag.Controller", id, desc, msg);
+            });
+        });
+    </script>
+    <script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
+    <script src="@Url.Content("~/Scripts/hlc_DeleteRecord.js")"></script>
+}

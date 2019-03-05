@@ -94,6 +94,8 @@ namespace hlcWeb.Controllers
                 }
             }
 
+            model.State = model.State?.ToUpper();
+
             _usersRepository.Save(model);
 
             //if (_doctorRepository.Save(model))

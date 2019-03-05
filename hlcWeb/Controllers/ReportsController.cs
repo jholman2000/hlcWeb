@@ -18,6 +18,7 @@ namespace hlcWeb.Controllers
         private readonly DiagnosisController _diagnosisRepository;
         private readonly Api.UsersController _userRepository;
         private readonly Api.SpecialtiesController _specialtyRepository;
+        private readonly Api.PresentationsController _presentationsRepository;
 
         public ReportsController()
         {
@@ -27,6 +28,7 @@ namespace hlcWeb.Controllers
             _diagnosisRepository = new DiagnosisController();
             _userRepository = new Api.UsersController();
             _specialtyRepository = new Api.SpecialtiesController();
+            _presentationsRepository = new Api.PresentationsController();
         }
 
         public ActionResult List()
@@ -268,5 +270,14 @@ namespace hlcWeb.Controllers
         }
         #endregion
 
+        #region Report: Presentation
+
+        public PartialViewResult PresentationPrint(int id)
+        {
+            var model = _presentationsRepository.Get(id);
+            return PartialView(model);
+
+        }
+        #endregion
     }
 }
