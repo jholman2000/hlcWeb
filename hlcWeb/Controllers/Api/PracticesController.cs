@@ -16,7 +16,7 @@ namespace hlcWeb.Controllers.Api
         {
             var where = search == "*"
                 ? "1=1"
-                : $"(PracticeName LIKE '{search}%' OR " +
+                : $"(PracticeName LIKE '%{search}%' OR " +
                   $"City LIKE '{search}%') ";
 
             var sql = "SELECT Id, PracticeName, Address1, City, State, OfficePhone1 " +
