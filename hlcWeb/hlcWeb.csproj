@@ -248,6 +248,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\desc.gif" />
     <Content Include="Documents\Presentations.txt" />
+    <Content Include="Documents\SetupAndTroubleshooting.txt" />
     <Content Include="Documents\SQL\hlc_Department.sql" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="icons\android-icon-144x144.png" />
