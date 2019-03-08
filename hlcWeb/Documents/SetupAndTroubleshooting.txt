@@ -1,0 +1,16 @@
+﻿
+
+
+
+Cannot open server 'quagv1i08c' requested by the login. Client with IP address '139.55.149.188' is not allowed to access the server.  
+To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall 
+rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+
+1. Log onto Azure Management portal from the machine needing access (your laptop) at https://portal.azure.com
+2. Select SQL databases and then select HLComm (quagv1i08c/HLComm)
+3. Select Set Server Firewall
+4. Click "+ Add Client IP" and then "Save"
+
+
+
+

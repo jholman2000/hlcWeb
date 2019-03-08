@@ -160,6 +160,19 @@
                                     </td>
                                 }
                             </tr>
+                        <tr>
+                            <td class="table-prompt">Address:</td>
+                            @if (!string.IsNullOrEmpty(Model.Address)) { 
+                                <td>@Model.Address</td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <hr/>
+                                    <hr/>
+                                </td>
+                            }
+                        </tr>
                             <tr>
                                 <td class="table-prompt">HLC Attended:</td>
                                 @if (!string.IsNullOrEmpty(Model.HLCAttended))
