@@ -20,7 +20,13 @@
         @Html.HiddenFor(m => m.DateEntered)
         @Html.HiddenFor(m => m.EnteredBy)
         @Html.HiddenFor(m => m.DateLastUpdated)
-        @Html.HiddenFor(m => m.LastUpdatedBy)
+        @Html.HiddenFor(m => m.Goal)
+        @Html.HiddenFor(m => m.Notes)
+        @Html.HiddenFor(m => m.ReferredBy)
+        @Html.HiddenFor(m => m.PresentationTopic)
+        @Html.HiddenFor(m => m.QuestionsAddressed)
+        @Html.HiddenFor(m => m.MaterialGiven)
+        @Html.HiddenFor(m => m.FollowUpTasks)
 
         if (action == "Add")
         {
