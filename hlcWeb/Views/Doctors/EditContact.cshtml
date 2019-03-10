@@ -143,6 +143,7 @@
             $("#PracticeId").change(function () {
                 if ($(this).val() === "-1") {
                     $("#NewPractice").show();
+                    $("#Practice_Id").val("-1");
                     $("#Practice_PracticeName").focus();
                 } else {
                     // Make sure the required fields have something to pass validations

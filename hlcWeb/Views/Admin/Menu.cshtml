@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Administration";
+}
+<div class="well">
+    <i class="fa fa-cog fa-2x fa-fw text-primary"></i><span class="h3"> Administration</span>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Lookup Table Maintenance
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Admin", new {item = "spec"})'"><i class="fa fa-stethoscope fa-lg fa-fw"></i></button>&nbsp;&nbsp;Add or change Specialties
+</div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Admin", new {item = "diag"})'"><i class="fa fa-list fa-lg fa-fw"></i></button>&nbsp;&nbsp;Add or change Diagnoses
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Admin", new {item = "dept"})'"><i class="fa fa-list fa-lg fa-fw"></i></button>&nbsp;&nbsp;Add or change Departments
+        </div>
+    </div>
+</div>
+

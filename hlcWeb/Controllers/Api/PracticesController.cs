@@ -12,16 +12,23 @@ namespace hlcWeb.Controllers.Api
 {
     public class PracticesController : BaseController
     {
-        public List<Practice> Search(string search)
+        public List<Practice> Search(string search, bool includeOnlyPractices = false)
         {
             var where = search == "*"
                 ? "1=1"
-                : $"PracticeName LIKE '{search}%' OR " +
-                  $"City LIKE '{search}%'";
+                : $"(PracticeName LIKE '%{search}%' OR " +
+                  $"City LIKE '{search}%') ";
 
             var sql = "SELECT Id, PracticeName, Address1, City, State, OfficePhone1 " +
                       "FROM hlc_Practice " +
-                      $"WHERE {where} ORDER BY PracticeName";
+                      $"WHERE {where} ";
+
+            if (includeOnlyPractices)
+            {
+                sql += " AND FacilityType=0 ";
+            }
+
+            sql += "ORDER BY PracticeName";
 
             var results = GetListFromSql<Practice>(sql);
 
@@ -68,7 +75,8 @@ namespace hlcWeb.Controllers.Api
                 {
                     Connection.Update(model.Practice);
                 }
-                GetSelectList(true);
+                GetSelectList(FacilityType.Practice, true);
+                GetSelectList(FacilityType.Legal, true);
                 return true;
             }
             catch (Exception ex)
@@ -78,29 +86,60 @@ namespace hlcWeb.Controllers.Api
             }
         }
 
-        internal SelectList GetSelectList(bool refresh = false)
+        /// <summary>
+        /// Returns a SelectList for populating dropdown lists containing either Practices only or all Practices/Facilities
+        /// </summary>
+        /// <param name="facilityType">Practice to retrieve all Practices only; Legal to retrieve all types</param>
+        /// <param name="refresh">Pass True to force a refresh of the SelectList</param>
+        /// <returns></returns>
+        internal SelectList GetSelectList(FacilityType facilityType, bool refresh = false)
         {
             ObjectCache cache = MemoryCache.Default;
 
-            var list = (SelectList)cache["PracticeSelectList"];
+            SelectList list;
 
-            if (refresh || list == null)
+            if (facilityType == FacilityType.Practice)
             {
-                var items = Search("")
-                    .Select(s => new
-                    {
-                        Text = s.PracticeName + (s.City != null ? " - " : "") + s.City + " " + s.State,
-                        Value = s.Id
-                    })
-                    .ToList();
-                list = new SelectList(items, "Value", "Text");
+                list = (SelectList) cache["PracticeSelectList"];
+                if (refresh || list == null)
+                {
+                    // Store just the Practices for use on the Doctor screen
+                    var items = Search("", true)
+                        .Select(s => new
+                        {
+                            Text = s.PracticeName + (s.City != null ? " - " : "") + s.City + " " + s.State,
+                            Value = s.Id
+                        })
+                        .ToList();
+                    list = new SelectList(items, "Value", "Text");
 
-                if (refresh) cache.Remove("PracticeSelectList");
-                cache.Add("PracticeSelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
+                    if (refresh) cache.Remove("PracticeSelectList");
+                    cache.Add("PracticeSelectList", list,
+                        new CacheItemPolicy {Priority = CacheItemPriority.NotRemovable});
+                }
+            }
+            else
+            {
+                list = (SelectList)cache["FacilitySelectList"];
+                if (refresh || list == null)
+                {
+
+                    // Store all Practices/Facilities for use on Presentation screen
+                    var itemsAll = Search("")
+                        .Select(s => new
+                        {
+                            Text = s.PracticeName + (s.City != null ? " - " : "") + s.City + " " + s.State,
+                            Value = s.Id
+                        })
+                        .ToList();
+                    list = new SelectList(itemsAll, "Value", "Text");
+
+                    if (refresh) cache.Remove("FacilitySelectList");
+                    cache.Add("FacilitySelectList", list, new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });                    
+                }
             }
 
             return list;
         }
-
     }
 }

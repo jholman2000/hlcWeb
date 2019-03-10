@@ -8,7 +8,7 @@ namespace hlcWeb.Models
         public int Id { get; set; }
         public string SpecialtyName { get; set; }
         public string SpecialtyCode { get; set; }
-        public string AreaOfExpertise { get; set; }
+        //public string AreaOfExpertise { get; set; }
 
         [Computed]
         public int NumberOfDoctors { get; set; }

@@ -1,0 +1,404 @@
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.Models.Presentation
+@{
+    ViewBag.Title = "Presentation";
+    var userRole = (string)Session["UserRole"];
+}
+<div class="well">
+    <i class="fa fa-bar-chart fa-2x fa-fw text-primary"></i><span class="h3"> @Model.Description</span>
+    <span class="pull-right hidden-print hidden-xs">
+            <button id="PrintBtn" class="btn btn-primary btn-sm"><i class="fa fa-print fa-lg"></i></button>
+    </span>
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-md-6 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Planning
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id, target="PLAN"})" class="hlc-panel-icon js-edit">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <td class="hlc-prompt" style="width: 100px;">Preliminary Date:</td>
+                    <td>@Model.DatePlanned.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt" style="width: 100px;">Preparation Date:</td>
+                    <td>@(Model.DatePreparation == DateTime.MinValue || Model.DatePreparation == null ? "" : Model.DatePreparation.Value.ToShortDateString())</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">HLC Coordinator:</td>
+                    <td>@Model.CoordinatorName</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Facility:</td>
+                    <td>@Model.FacilityName</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Department:</td>
+                    <td>@Model.DepartmentName</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">HLC Assigned:</td>
+                    <td>@Model.HLCAssigned</td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Contact:</td>
+                    <td>
+                        @Model.ContactName
+                        @if (!string.IsNullOrEmpty(Model.ContactTitle))
+                        {
+                            <br/>@Model.ContactTitle
+                        }
+                        @if (!string.IsNullOrEmpty(Model.ContactPhone))
+                        {
+                            <br/><a href="tel:@Model.ContactPhone">@Model.ContactPhone</a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.ContactEmailAddress))
+                        {
+                            <br/><a href="mailto:@Model.ContactEmailAddress">@Model.ContactEmailAddress</a>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Address:</td>
+                    <td>
+                        @Model.ContactAddress1
+                        @if (!string.IsNullOrEmpty(Model.ContactAddress2))
+                        {
+                            <br />@Model.ContactAddress2
+                        }
+                        <br/>@(Model.ContactCity) @(Model.ContactState) @(Model.ContactZip)
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <i class="fa fa-@Model.IsCVRequired.Icon() fa-fw"></i> A CV is @Model.IsCVRequired.Not() required prior to presentation
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hlc-prompt">Created on:</td>
+                    <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
+                </tr>
+                @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
+                {
+                    <tr>
+                        <td class="hlc-prompt">Updated on:</td>
+                        <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Presentation
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="@Url.Action("Edit", "Presentations", new {id = Model.Id, target="PRES"})" class="hlc-panel-icon js-edit">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            @if (Model.DatePresented == DateTime.MinValue)
+            {
+                <div class="panel-body">
+                    <p>
+                        <em>This presentation has not yet been given.</em>
+                    </p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-condensed">
+                    <tbody>
+                    <tr>
+                        <td class="hlc-prompt" style="width: 120px;">Date of Presentation:</td>
+                        <td>@(Model.DatePresented == DateTime.MinValue || Model.DatePresented == null ? "" : Model.DatePresented.Value.ToShortDateString())</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">Audience:</td>
+                        <td>@Model.Audience</td>
+                    </tr>
+                        <tr>
+                            <td class="hlc-prompt">Address:</td>
+                            <td>@Model.Audience</td>
+                        </tr>
+                    <tr>
+                        <td class="hlc-prompt">HLC Attended:</td>
+                        <td>@Model.HLCAttended</td>
+                    </tr>
+                    <tr>
+                        <td class="hlc-prompt">PVG Elders:</td>
+                        <td>@Model.PVGElders</td>
+                    </tr>
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="Goal" class="panel panel-primary">
+            <div class="panel-heading">
+                Goals
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'Goal');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.Goal">                
+                @if (string.IsNullOrEmpty(Model.Goal))
+                {
+                    <p>
+                        <em>No goals have been entered.</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.Goal.ToHtml())
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="Notes" class="panel panel-primary">
+            <div class="panel-heading">
+                Planning Notes
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'Notes');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.Notes">
+                @if (string.IsNullOrEmpty(Model.Notes))
+                {
+                    <p>
+                        <em>No Notes have been entered.</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.Notes.ToHtml())
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="ReferredBy" class="panel panel-primary">
+            <div class="panel-heading">
+                Referred By
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'ReferredBy');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.ReferredBy">
+                @if (string.IsNullOrEmpty(Model.ReferredBy))
+                {
+                    <p>
+                        <em>No Referred By information has been entered.</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.ReferredBy.ToHtml())
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="PresentationTopic" class="panel panel-primary">
+            <div class="panel-heading">
+                Presentation Topic
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'PresentationTopic');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.PresentationTopic">
+                @if (string.IsNullOrEmpty(Model.PresentationTopic))
+                {
+                    <p>
+                        <em>Presentation Topic has not been entered.</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.PresentationTopic.ToHtml())
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="QuestionsAddressed" class="panel panel-primary">
+            <div class="panel-heading">
+                Questions Addressed
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'QuestionsAddressed');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.QuestionsAddressed">
+                @if (string.IsNullOrEmpty(Model.QuestionsAddressed))
+                {
+                    <p>
+                        <em>Questions Addressed has not been entered.</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.QuestionsAddressed.ToHtml())
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="MaterialGiven" class="panel panel-primary">
+            <div class="panel-heading">
+                Material Given
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'MaterialGiven');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.MaterialGiven">
+                @if (string.IsNullOrEmpty(Model.MaterialGiven))
+                {
+                    <p>
+                        <em>Material Given has not been entered.</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.MaterialGiven.ToHtml())
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="FollowUpTasks" class="panel panel-primary">
+            <div class="panel-heading">
+                Follow-Up Tasks
+                <span class="pull-right hidden-print hidden-xs">
+                    <a href="#" onclick="hlcEditText('Presentations', '@Model.Id', 'FollowUpTasks');" class="hlc-panel-icon">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="panel-body" data-hlc-text="@Model.FollowUpTasks">
+                @if (string.IsNullOrEmpty(Model.FollowUpTasks))
+                {
+                    <p>
+                        <em>Follow-Up Tasks has not been entered.</em>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Html.Raw(Model.FollowUpTasks.ToHtml())
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (userRole == "Admin")
+{
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-danger btn-sm" onclick="DeleteRecord('Presentations','@Model.Id','@Model.Description', 'Are you sure you wish to delete this presentation: @Model.Description?')"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+            <br />&nbsp;
+        </div>        
+    </div>
+}
+
+</div>
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div id="printContainer" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#PrintBtn").click(function () {
+                var url = '@Url.Action("PresentationPrint", "Reports", new { id = Model.Id})';
+                var width  = Math.floor(screen.width * .90);
+                var height = Math.floor((screen.height - 40) * .75);
+
+                var params = 'width=' + width;
+                params += ', height=' + height;
+                params += ', top=' + Math.floor((screen.height - height)/2);
+                params += ', left=' + Math.floor((screen.width - width) / 2);
+                params += ', toolbar=no,menubar=no';
+                console.log(params);
+                window.open(url, "_blank", "width=800,toolbar=no,location=no,menubar=no");
+                //$.get(url,
+                //    function (data) {
+                //        $("#printContainer").html(data);
+                //        $("#printModal").modal("show");
+                //    });
+            });
+        });
+
+        function Print(id) {
+            var url = '@Url.Action("Search", "CaseFiles")';
+            window.open(url, '_blank', 'menubar=no,toolbar=no,location=no');
+        }
+    </script>
+    <script src="@Url.Content("~/Scripts/hlc_EditText.js")"></script>
+    <script src="@Url.Content("~/Scripts/hlc_DeleteRecord.js")"></script>
+}

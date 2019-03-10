@@ -161,22 +161,29 @@
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\BaseController.cs" />
     <Compile Include="Controllers\Api\CaseFilesController.cs" />
+    <Compile Include="Controllers\Api\DepartmentsController.cs" />
     <Compile Include="Controllers\Api\DiagnosisController.cs" />
     <Compile Include="Controllers\Api\DoctorsController.cs" />
     <Compile Include="Controllers\Api\HospitalsController.cs" />
     <Compile Include="Controllers\Api\NotesController.cs" />
     <Compile Include="Controllers\Api\PracticesController.cs" />
+    <Compile Include="Controllers\Api\PresentationsController.cs" />
     <Compile Include="Controllers\Api\PvgMembersController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\BoggleController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PresentationsController.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\LookupCode.cs" />
+    <Compile Include="Models\Presentation.cs" />
     <Compile Include="ViewModels\Reports\RptHospitalsByType.cs" />
     <Compile Include="Controllers\Api\SpecialtiesController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\CaseFilesController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalsController.cs" />
     <Compile Include="Controllers\LogonController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
@@ -236,6 +243,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\desc.gif" />
+    <Content Include="Documents\Presentations.txt" />
+    <Content Include="Documents\SetupAndTroubleshooting.txt" />
+    <Content Include="Documents\SQL\hlc_Department.sql" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="icons\android-icon-144x144.png" />
     <Content Include="icons\android-icon-192x192.png" />
@@ -356,7 +366,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\hlcWeb - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\hlcWeb - Web Deploy.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\hlc_DeleteRecord.js" />
@@ -445,6 +454,12 @@
     <Content Include="Views\Reports\PVGMembersAlpha.cshtml" />
     <Content Include="Views\Practices\EditDetails.cshtml" />
     <Content Include="Views\Reports\PVGMembersByHospital.cshtml" />
+    <Content Include="Views\Presentations\Search.cshtml" />
+    <Content Include="Views\Presentations\View.cshtml" />
+    <Content Include="Views\Presentations\Edit.cshtml" />
+    <Content Include="Views\Reports\PresentationPrint.cshtml" />
+    <Content Include="Views\Admin\Menu.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,339 @@
+﻿@using hlcWeb.Infrastructure
+@model hlcWeb.Models.Presentation
+@{
+    ViewBag.Title = "Report: Case Files";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <title>HLC - Presentation</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/apple-icon.png")" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        table {
+            font-size: 11px;
+            border-collapse: inherit;
+        }
+        td {
+            vertical-align: top;
+        }
+        hr {
+            border-top: 1px solid #ccc;
+        }
+        .table-prompt {
+            font-weight: bold;
+            font-size: 11px;
+            vertical-align: top;
+            width: 70px;
+        }
+    </style>
+</head>
+<body>
+    <div class="well hidden-print" style="margin-top: -40px;">
+        <button id="PrintBtn" class="btn btn-primary btn-sm" onclick="window.print();"><i class="fa fa-print fa-lg"></i> Print</button>
+        <span class="pull-right">
+            <button id="Close" class="btn btn-primary btn-sm"  onclick="window.close();"><i class="fa fa-times fa-lg"></i> Close</button>
+        </span>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+            <tr>
+                <th colspan="99">
+                    <i class="fa fa-heartbeat"></i> <strong>Hospital Liaison Committee</strong> <span class="hlc-report-hdg">Presentation: @Model.Description<br/>&nbsp;</span>
+                </th>
+            </tr>
+            </thead>
+            <tr>
+                <td width="48%;" style="border: 1px solid gray; padding: 3px;">
+                    <!-- PLANNING -->
+                    <table width="100%" style="padding: 4px;">
+                        <tbody>
+                            <tr>
+                                <td class="table-prompt" style="width: 100px;">Preliminary Date:</td>
+                                <td>@Model.DatePlanned.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt" style="width: 100px;">Preparation Date:</td>
+                                <td>@(Model.DatePreparation == DateTime.MinValue || Model.DatePreparation == null ? "" : Model.DatePreparation.Value.ToShortDateString())</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">HLC Coordinator:</td>
+                                <td>@Model.CoordinatorName</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Facility:</td>
+                                <td>@Model.FacilityName</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Department:</td>
+                                <td>@Model.DepartmentName</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">HLC Assigned:</td>
+                                <td>@Model.HLCAssigned</td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Contact:</td>
+                                <td>
+                                    @Model.ContactName
+                                    @if (!string.IsNullOrEmpty(Model.ContactTitle))
+                            {
+                                    <br />@Model.ContactTitle
+                            }
+                                    @if (!string.IsNullOrEmpty(Model.ContactPhone))
+                            {
+                                    <br /><a href="tel:@Model.ContactPhone">@Model.ContactPhone</a>
+                            }
+                                    @if (!string.IsNullOrEmpty(Model.ContactEmailAddress))
+                            {
+                                    <br /><a href="mailto:@Model.ContactEmailAddress">@Model.ContactEmailAddress</a>
+                            }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Address:</td>
+                                <td>
+                                    @Model.ContactAddress1
+                                    @if (!string.IsNullOrEmpty(Model.ContactAddress2))
+                            {
+                                    <br />@Model.ContactAddress2
+                            }
+                                    <br />@(Model.ContactCity) @(Model.ContactState) @(Model.ContactZip)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <i class="fa fa-@Model.IsCVRequired.Icon() fa-fw"></i> A CV is @Model.IsCVRequired.Not() required prior to presentation
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Created on:</td>
+                                <td>@Model.DateEntered.ToShortDateString() by @Model.EnteredBy</td>
+                            </tr>
+                            @if (Model.DateLastUpdated.Date != Model.DateEntered.Date && Model.DateLastUpdated != DateTime.MinValue)
+                    {
+                            <tr>
+                                <td class="table-prompt">Updated on:</td>
+                                <td>@Model.DateLastUpdated.ToShortDateString() by @Model.LastUpdatedBy</td>
+                            </tr>
+                    }
+                        </tbody>
+                    </table>
+                </td>
+                <td width="4%;" style="border: none;">&nbsp;</td>
+                <td width="48%;" style="border: 1px solid gray; padding: 3px;">
+                    <!-- PRESENTATION -->
+                    <table width="100%" style="padding: 4px;">
+                        <tbody>
+                            <tr>
+                                <td class="table-prompt">Date Presented:</td>
+                                @if (!(Model.DatePresented == DateTime.MinValue || Model.DatePresented == null))
+                                {
+                                    <td>@Model.DatePresented.Value.ToShortDateString()</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <hr/>
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">Audience:</td>
+                                @if (!string.IsNullOrEmpty(Model.Audience)) { 
+                                <td>@Model.Audience</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <hr/>
+                                        <hr/>
+                                    </td>
+                                }
+                            </tr>
+                        <tr>
+                            <td class="table-prompt">Address:</td>
+                            @if (!string.IsNullOrEmpty(Model.Address)) { 
+                                <td>@Model.Address</td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <hr/>
+                                    <hr/>
+                                </td>
+                            }
+                        </tr>
+                            <tr>
+                                <td class="table-prompt">HLC Attended:</td>
+                                @if (!string.IsNullOrEmpty(Model.HLCAttended))
+                                {
+                                    <td>@Model.HLCAttended</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td class="table-prompt">PVG Elders:</td>
+                                @if (!string.IsNullOrEmpty(Model.PVGElders))
+                                {
+                                    <td>@Model.PVGElders</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <table width="100%;">
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Goals</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.Goal))
+                {
+                    <td>
+
+                        <p>@Html.Raw(@Model.Goal.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr/>
+                        <hr/>
+                        <hr/>
+                        <hr/>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Planning Notes</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.Notes.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Referred By</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.ReferredBy))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.ReferredBy.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Presentation Topic</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.PresentationTopic))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.PresentationTopic.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Questions Addressed</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.QuestionsAddressed))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.QuestionsAddressed.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td style="border: 1px solid gray; padding: 1px 1px 1px 6px;"> Follow-Up Tasks</td>
+            </tr>
+            <tr>
+                @if (!string.IsNullOrEmpty(Model.FollowUpTasks))
+                {
+                    <td>
+                        <p>@Html.Raw(@Model.FollowUpTasks.ToHtml())</p>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <hr />
+                        <hr />
+                        <hr />
+                        <hr />
+                    </td>
+                }
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

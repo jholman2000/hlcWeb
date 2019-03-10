@@ -40,6 +40,7 @@ namespace hlcWeb.Controllers
             if (id == 0)
             {
                 model.Practice = new Practice();
+                model.Practice.FacilityType = FacilityType.Practice;
             }
             else
             {
@@ -61,10 +62,9 @@ namespace hlcWeb.Controllers
                 return View(model);
             }
 
-            _practiceRepository.Save(model);
+            model.Practice.State = model.Practice.State?.ToUpper();
 
-            //if (_hospitalRepository.Save(model)) 
-            //    returnMsg = $"Case File for {model.FirstName + " " + model.LastName} was edited successfully.";
+            _practiceRepository.Save(model);
 
             return RedirectToAction("View", new { id = model.Practice.Id });
         }

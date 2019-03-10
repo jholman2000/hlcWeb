@@ -1,4 +1,6 @@
-﻿@model hlcWeb.ViewModels.PracticeViewModel
+﻿@using hlcWeb.Infrastructure
+@using hlcWeb.Models
+@model hlcWeb.ViewModels.PracticeViewModel
 
 @{
     ViewBag.Title = "Practice";
@@ -12,9 +14,16 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Practice Information
+                    @if (Model.Practice?.FacilityType == FacilityType.Practice)
+                    {
+                        <text>Practice Information</text>
+                    }
+                    else
+                    {
+                        <text>Facility Information</text>
+                    }
                     <span class="pull-right hidden-print hidden-xs">
-                        <a href="@Url.Action("Edit","Practices", new {id = Model.Practice?.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
+                        <a href="@Url.Action("Edit", "Practices", new {id = Model.Practice?.Id})" class="hlc-panel-icon js-edit"><i class="fa fa-edit" title="Edit"></i></a>
                     </span>
                 </div>
                 <table class="table table-condensed">
@@ -67,23 +76,43 @@
         </div>
 
     </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Doctors at this Practice</div>
-                @if (Model?.Doctors == null || Model.Doctors.Count == 0)
-                {
-                    <div class="panel-body text-center">
-                        <em>There are no HLC Doctors at this Practice.</em>
+    @if (!string.IsNullOrEmpty(Model.Practice?.Notes))
+    {
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Notes</div>
+                    <div class="panel-body">
+                        <p>
+                            @Html.Raw(Model.Practice.Notes.ToHtml())
+                        </p>
                     </div>
-                }
-                else
-                {
-                    {Html.RenderPartial("DoctorList", Model.Doctors);}
-                }
+                </div>
             </div>
         </div>
-    </div>
+    }
+    @if (Model.Practice?.FacilityType == FacilityType.Practice)
+    {
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Doctors at this Practice</div>
+                    @if (Model?.Doctors == null || Model.Doctors.Count == 0)
+                    {
+                        <div class="panel-body text-center">
+                            <em>There are no HLC Doctors at this Practice.</em>
+                        </div>
+                    }
+                    else
+                    {
+                        {
+                            Html.RenderPartial("DoctorList", Model.Doctors);
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
 </div>
 @section scripts {
     <script src="@Url.Content("~/Scripts/hlc_search.js")"></script>

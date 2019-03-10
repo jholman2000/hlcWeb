@@ -4,8 +4,6 @@
      */
     var title = $("#" + field + " > .panel-heading").text().trim();
     var initValue = $("#" + field + " > .panel-body").data("hlc-text");
-    console.log("title: " + title);
-    console.log("initValue: " + initValue);
 
     bootbox.prompt({
         title: title,
@@ -50,13 +48,45 @@
     });
 }
 
-function hlcEditComment(controller, id, field, doctorId, userId) {
+function hlcEditTextBox(title, controller, id, initValue) {
     /*
-     * Pop-up window for editing comment blocks in HLC
+     * Pop-up window for editing a value in a textbox in HLC using Bootbox.js
      */
-    var title = $("#" + field + " > .panel-heading").text().trim();
-    var initValue = $("#" + field + " > .panel-body").data("hlc-text");
-    console.log("title: " + title);
-    console.log("initValue: " + initValue);
+    //var title = $("#" + field + " > .panel-heading").text().trim();
+    //var initValue = $("#" + field + " > .panel-body").data("hlc-text");
 
+    bootbox.prompt({
+        title: "Edit " + title,
+        size: "large",
+        inputType: 'text',
+        value: initValue,
+        buttons: {
+            confirm: {
+                label: 'Save',
+                className: 'btn-primary'
+            },
+            cancel: {
+                label: 'Cancel',
+                className: 'btn-default'
+            }
+        },
+        callback: function (result) {
+            //console.log("Bootbox returned: " + result);
+            if (result !== null) {
+                $.ajax({
+                        method: "POST",
+                        url: "/api/" + controller + "/update",
+                        data: { Id: id, FieldText: result }
+                    })
+                    .done(function (msg) {
+                        console.log("api returned: " + msg);
+                        $("#desc_" + id).html(result);
+                    })
+                    .fail(function (jqXhr) {
+                        alert(jqXhr.responseText);
+                    });
+
+            }
+        }
+    });
 }

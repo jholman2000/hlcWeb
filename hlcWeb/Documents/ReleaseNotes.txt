@@ -1,4 +1,75 @@
-﻿Hi Mark,
+﻿******************************************************************************************************************************
+*
+******************************************************************************************************************************
+Hi Mark,
+
+Sorry it's taken me a while to get back to you but I now have the Presentations update in place on the site.  I've been testing 
+it offline and finally got it moved up last night.  Below are the specifics of the things that have been changed/added.
+
+I'd still like to get together with you to go over the site and discuss any changes or issues you have noticed when using it.
+We never got around to doing that before.  Let me know if you would like to set something up.  My meetings are Friday nights 
+and Sunday noon and I usually get home by 6:00 weekdays.
+
+Go ahead and add a few pratice Presentations to see if you notice any issues and to see if I have the correct required fields
+set.
+
+Regards,
+Jeff Holman
+
+HLC SITE PRESENTATIONS RELEASE
+==============================
+
+Presentations
+-------------
+- You can now search and add Presentations to the site.  The data captured is based on the email you sent me in January.
+- Currently only Admin-level users can add or edit a Presentation but all users can view it. (Let me know if you would
+  like for all users to be able to Add/Edit)
+- When adding/editing, you can click the blue "Select..." button to the right of the HLC Assigned, HLC Members present and
+  PVG Elders present to expand an area with checkboxes listing the members/elders.  Checking or unchecking the names will 
+  update the grayed out textbox with a list of names in alphabetic order
+- Facility Type: Selecting Hospital will enable the "Select Hospital..." dropdown and selecting Practice/Legal/Other will 
+  enable the "Select Practice/Facility..." dropdown.  (See Practice/Facility below)
+- Department: There is a new table for Departments that have a few initial entries.  If you choose the "(Select this choice 
+  if the correct...)" option it will enable the "New Department:" textbox to create a new department on the fly
+- When you view the Presentation you can edit eh Goals, Planing Notes, etc.
+- When viewing Presentation, clicking the Edit icon on the Planning box will take you to the edit screen with the Planning section
+  expanded.  Clicking the Presentation Edit icon will open the edit window with the Planning section collapsed and
+  the Presentation section expanded, but you can expand/collapse either section as needed and edit.
+- When viewing the Presentation, you can click the Printer icon to open a new window with a printable version of the 
+  Presentation.  It has a few blank lines for the areas that have not been filled in so thst you can print this and take it
+  with you to the Presentation for making notes.  Keep in mind that printing from a web screen is browser dependent and
+  page breaks are not easily controlled.  Let me know how this layout works for you and if you will need additional lines
+  in the sections
+
+Practice/Facility
+-----------------
+- The Practices table has been expanded to include capturing "Legal/Law firm" and "Other".  The first dropdown on the screen
+  is where you indicate the type of entity being added.  Practice is the default.
+- A free-form Notes field has been added for recording any notes or comments for the Practice/Facility
+- When viewing the Practice/Facility, if it is a Practice then the list of "Doctors at the Practice" will appear.
+- When viewing, the Notes section only appears when there have been Notes entered.
+
+Administration
+--------------
+- When an Admin user is logged in, the dropdown menu under their name will show a new "Administration" option.  This option
+  opens a page where you can edit the list of Specialties, Diagnoses or Departments
+- You can Add New, Edit or Delete the three categories mentioned above.  This will help you to maintain these lists and
+  correct missplellings that may have happened when adding on-the-fly.
+- If you select to Delete one of the items, a confirmation screen will pop-up asking if you are sure.  This pop-up will
+  alert you if this code is currently being referenced by a record in the system.  You can still Delete a code if it is
+  in use but it will no longer display for the records that are currently pointing to it.
+
+Delete
+------
+- A "Delete" button is now available when viewing a Presentation, Case File or PVG Member.  Clicking this button and confirming
+  the Delete will physically delete the record from the database.
+
+
+******************************************************************************************************************************
+* INITIAL RELEASE
+******************************************************************************************************************************
+
+Hi Mark,
 
 At long last I'm ready to get with you to get you started with the new site!  I've actually been doen with it since mid-August 
 but things suddenly got very hectic.  Vicky ended up in the hospital for a few days unexpectedly (she's doing fine) and then

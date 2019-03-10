@@ -19,8 +19,8 @@ namespace hlcWeb.Controllers.Api
         /// <param name="search"></param>
         /// <param name="includeDeleted"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("api/doctors/search/{search}")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/doctors/search/{search}")]
         public List<Doctor> Search(string search, bool includeDeleted = true)
         {
             var where = search == "*"
@@ -36,6 +36,13 @@ namespace hlcWeb.Controllers.Api
             var results = GetListFromSql<Doctor>(sql);
 
             return results;
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/doctors/search/all")]
+        public List<Doctor> Search()
+        {
+            return Search("*");
         }
 
         /// <summary>

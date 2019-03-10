@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using Dapper.Contrib.Extensions;
+using hlcWeb.Infrastructure;
 
 namespace hlcWeb.Models
 {
@@ -12,6 +9,10 @@ namespace hlcWeb.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        [Display(Name = Constants.FacilityType)]
+        public FacilityType FacilityType { get; set; }
+        
         [Required]
         [Display(Name = "Practice Name")]
         [StringLength(80)]
@@ -52,8 +53,12 @@ namespace hlcWeb.Models
         [StringLength(250)]
         public string WebsiteUrl { get; set; }
 
-        [Display(Name = "Office Manager")]
+        [Display(Name = "Office Contact")]
         [StringLength(50)]
         public string OfficeManager { get; set; }
+
+        [Display(Name = "Notes")]
+        [StringLength(5000)]
+        public string Notes { get; set; }
     }
 }

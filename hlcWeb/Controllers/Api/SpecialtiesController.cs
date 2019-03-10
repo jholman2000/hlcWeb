@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web.Mvc;
@@ -16,7 +17,7 @@ namespace hlcWeb.Controllers.Api
                 ? "1=1"
                 : $"SpecialtyName LIKE '%{search}%'";
 
-            var sql = "SELECT ID, SpecialtyName, " +
+            var sql = "SELECT ID, SpecialtyName, SpecialtyCode, " +
                       "(SELECT COUNT(ID) FROM hlc_DoctorSpecialty ds WHERE ds.SpecialtyID = s.ID) as NumberOfDoctors " +
                       "FROM hlc_Specialty s " +
                       $"WHERE {where} ORDER BY SpecialtyName";
@@ -48,6 +49,72 @@ namespace hlcWeb.Controllers.Api
                 model.Doctors = multi.Read<Doctor>().ToList();
             }
             return model;
+        }
+
+        /// <summary>
+        /// Edit a Specialty name description
+        /// </summary>
+        /// <param name="text">Object contains Id, FieldText to save </param>
+        /// <returns></returns>
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/specialties/update")]
+        public string Update(HlcDto text)
+        {
+            var sql = $"update hlc_Specialty set SpecialtyName = '{text.FieldText?.Replace("'", "''")}' where Id={text.Id}";
+            try
+            {
+                ExecuteSql(sql);
+                GetSelectList(true);
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, text);
+                return "ERROR";
+            }
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/specialties/add")]
+        public bool Add(HlcDto dto)
+        {
+            if (string.IsNullOrEmpty(dto.FieldText))
+                return false;
+
+            try
+            {
+                var sql = "insert into hlc_Specialty (SpecialtyName, SpecialtyCode) values " +
+                          $"('{dto.FieldText.Replace("'", "''")}', '');";
+
+                ExecuteSql(sql);
+                GetSelectList(true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error adding Specialty: {dto.Id}" });
+                return false;
+            }
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/specialties/remove")]
+        public bool Remove(HlcDto dto)
+        {
+            try
+            {
+                //var sql = $"delete from hlc_DoctorSpecialty ds WHERE ds.SpecialtyID = {dto.Id};" +
+                //          $"delete from hlc_Specialty where Id={dto.Id};";
+                var sql = $"delete from hlc_Specialty where Id={dto.Id};";
+                ExecuteSql(sql);
+                GetSelectList(true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, new { deleteOp = $"Error deleting Specialty: {dto.Id}" });
+                return false;
+            }
         }
 
         internal SelectList GetSelectList(bool refresh = false)
