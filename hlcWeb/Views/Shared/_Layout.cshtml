@@ -32,7 +32,9 @@
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     @Styles.Render("~/Content/css")
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -92,9 +94,34 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+            <div id="map" style="width: 100%; height: 530px;"></div>
     </div>
 
     @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        window.onload = function() {
+            L.mapquest.key = 'O7D1EV8Bz7JcPgz5cT1OoyzH9zz1RPX2';
+
+            L.mapquest.geocoding().geocode('4003 Lawrence Daniel Drive, Matthews NC 28104', createMap);
+
+            function createMap(error, response) {
+                var location = response.results[0].locations[0];
+                var latLng = location.displayLatLng;
+                var map = L.mapquest.map('map', {
+                    center: latLng,
+                    layers: L.mapquest.tileLayer('map'),
+                    zoom: 15
+                });
+
+                var customIcon = L.mapquest.icons.circle({
+                    primaryColor: '#3b5998'
+                });
+
+                L.marker(latLng, { icon: customIcon }).addTo(map);
+            }
+        }
+    </script>
+
 </body>
 </html>
