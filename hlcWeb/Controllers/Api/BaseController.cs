@@ -84,15 +84,15 @@ namespace hlcWeb.Controllers.Api
 
             var request = new RestRequest { Method = Method.GET };
             request.AddHeader("Accept", "application/json");
-
-            request.AddJsonBody(new GeocodeRequest()
-            {
-                location = address,
-                options = new GeocodeRequestOptions()
-                {
-                    thumbMaps = "false"
-                }
-            });
+            request.AddParameter("location", "4003 Lawrence Daniel Drive, Matthews NC 28104");
+            //request.AddJsonBody(new GeocodeRequest()
+            //{
+            //    location = address,
+            //    options = new GeocodeRequestOptions()
+            //    {
+            //        thumbMaps = "false"
+            //    }
+            //});
 
             response = client.Execute(request);
 

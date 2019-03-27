@@ -110,7 +110,7 @@
                 console.log(result);
             }
 
-            L.mapquest.geocoding().geocode('4003 Lawrence Daniel Drive, Matthews NC 28104', createMap);
+            L.mapquest.geocoding().geocode('Charlotte, NC', createMap);
 
             function createMap(error, response) {
                 var location = response.results[0].locations[0];
@@ -118,7 +118,7 @@
                 var map = L.mapquest.map('map', {
                     center: latLng,
                     layers: L.mapquest.tileLayer('map'),
-                    zoom: 15
+                    zoom: 11
                 });
 
                 var customIcon = L.mapquest.icons.flag({
@@ -129,7 +129,7 @@
                     symbol: 'Hello'
                 });
 
-                L.marker(latLng, { icon: customIcon }).addTo(map);
+                L.marker({ lat: 35.115198, lng: -80.660078}, { icon: customIcon }).addTo(map);
             }
         }
     </script>
