@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using SimpleJson;
 
 namespace hlcWeb.Controllers
 {

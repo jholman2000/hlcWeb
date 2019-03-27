@@ -10,6 +10,9 @@ using System.Web.Script.Serialization;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using System.Configuration;
+using System.Net;
+using hlcWeb.Models;
+using RestSharp;
 
 namespace hlcWeb.Controllers.Api
 {
@@ -23,19 +26,6 @@ namespace hlcWeb.Controllers.Api
             _conn = new SqlConnection(GetConnectionString());
             _parameters = new Dictionary<string, object>();
         }
-
-        protected SqlConnection Connection
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_conn?.ConnectionString))
-                {
-                    _conn = new SqlConnection(GetConnectionString());
-                }
-                return _conn;
-            }
-        }
-
         private string GetConnectionString()
         {
             ObjectCache cache = MemoryCache.Default;
@@ -64,11 +54,57 @@ namespace hlcWeb.Controllers.Api
 
                 if (connString != null)
                     cache.Add("HLCConnection", connString,
-                        new CacheItemPolicy {Priority = CacheItemPriority.NotRemovable});
+                        new CacheItemPolicy { Priority = CacheItemPriority.NotRemovable });
             }
 
             return connString;
         }
+
+        protected SqlConnection Connection
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_conn?.ConnectionString))
+                {
+                    _conn = new SqlConnection(GetConnectionString());
+                }
+                return _conn;
+            }
+        }
+
+        #region Mapquest Geocoding methods
+
+        protected Geocode GeocodeAddress(string address)
+        {
+            var geocodedAddress = new Geocode();
+            var client = new RestClient();
+            IRestResponse response;
+
+            client.BaseUrl = new Uri($"http://www.mapquestapi.com/geocoding/v1/address?key=O7D1EV8Bz7JcPgz5cT1OoyzH9zz1RPX2");
+
+            var request = new RestRequest { Method = Method.GET };
+            request.AddHeader("Accept", "application/json");
+
+            request.AddJsonBody(new GeocodeRequest()
+            {
+                location = address,
+                options = new GeocodeRequestOptions()
+                {
+                    thumbMaps = "false"
+                }
+            });
+
+            response = client.Execute(request);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+
+            }
+
+            return geocodedAddress;
+        }
+        #endregion
+
 
         #region Generic SQL calls
 

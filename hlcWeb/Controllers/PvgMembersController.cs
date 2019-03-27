@@ -78,7 +78,19 @@ namespace hlcWeb.Controllers
 
             model.PvgMember.State = model.PvgMember.State?.ToUpper();
 
+            // Attempt to Geocode the PVG Member address
+            try
+            {
+                _pvgMemberRepository.GeocodeAddress();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
             _pvgMemberRepository.Save(model);
+
 
             //if (_caseFileRepository.Save(model)) 
             //    returnMsg = $"Case File for {model.FirstName + " " + model.LastName} was edited successfully.";

@@ -157,6 +157,10 @@ namespace hlcWeb.Controllers.Api
             return list;
         }
 
+        internal Geocode GeocodeAddress()
+        {
+            return GeocodeAddress("4003 Lawrence Daniel Drive, Matthews NC 28104");
+        }
     }
 
 }

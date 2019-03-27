@@ -103,6 +103,13 @@
         window.onload = function() {
             L.mapquest.key = 'O7D1EV8Bz7JcPgz5cT1OoyzH9zz1RPX2';
 
+            var geocoder = L.mapquest.geocoding();
+            geocoder.geocode(['4003 Lawrence Daniel Drive, Matthews NC 28104'], geocodingCallback);
+
+            function geocodingCallback(error, result) {
+                console.log(result);
+            }
+
             L.mapquest.geocoding().geocode('4003 Lawrence Daniel Drive, Matthews NC 28104', createMap);
 
             function createMap(error, response) {
@@ -114,8 +121,12 @@
                     zoom: 15
                 });
 
-                var customIcon = L.mapquest.icons.circle({
-                    primaryColor: '#3b5998'
+                var customIcon = L.mapquest.icons.flag({
+                    primaryColor: '#22407F',
+                    secondaryColor: '#3B5998',
+                    shadow: true,
+                    size: 'md',
+                    symbol: 'Hello'
                 });
 
                 L.marker(latLng, { icon: customIcon }).addTo(map);
