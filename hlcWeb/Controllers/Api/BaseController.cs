@@ -12,6 +12,7 @@ using Dapper.Contrib.Extensions;
 using System.Configuration;
 using System.Net;
 using hlcWeb.Models;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace hlcWeb.Controllers.Api
@@ -95,10 +96,12 @@ namespace hlcWeb.Controllers.Api
             //});
 
             response = client.Execute(request);
+            //"{\"info\":{\"statuscode\":0,\"copyright\":{\"text\":\"\\u00A9 2019 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"\\u00A9 2019 MapQuest, Inc.\"},\"messages\":[]},\"options\":{\"maxResults\":-1,\"thumbMaps\":true,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{\"location\":\"4003 Lawrence Daniel Drive, Matthews NC 28104\"},\"locations\":[{\"street\":\"4003 Lawrence Daniel Dr\",\"adminArea6\":\"\",\"adminArea6Type\":\"Neighborhood\",\"adminArea5\":\"Matthews\",\"adminArea5Type\":\"City\",\"adminArea4\":\"Union\",\"adminArea4Type\":\"County\",\"adminArea3\":\"NC\",\"adminArea3Type\":\"State\",\"adminArea1\":\"US\",\"adminArea1Type\":\"Country\",\"postalCode\":\"28104-4954\",\"geocodeQualityCode\":\"P1AAA\",\"geocodeQuality\":\"POINT\",\"dragPoint\":false,\"sideOfStreet\":\"R\",\"linkId\":\"r31132659|p134999097|n41922947\",\"unknownInput\":\"\",\"type\":\"s\",\"latLng\":{\"lat\":35.1154,\"lng\":-80.660078},\"displayLatLng\":{\"lat\":35.115198,\"lng\":-80.660072},\"mapUrl\":\"http://www.mapquestapi.com/staticmap/v5/map?key=O7D1EV8Bz7JcPgz5cT1OoyzH9zz1RPX2&type=map&size=225,160&locations=35.1154,-80.660078|marker-sm-50318A-1&scalebar=true&zoom=15&rand=-1349498300\"}]}]}"
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-
+                var responseJson = JObject.Parse(response.Content);
+                string rootWord = responseJson["results"][0]["lexicalEntries"].Last["inflectionOf"][0]["text"].ToString();
             }
 
             return geocodedAddress;
