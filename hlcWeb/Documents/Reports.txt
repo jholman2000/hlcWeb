@@ -1,5 +1,26 @@
 ﻿Reports
 =======
+--------------------------------------------------------------------------------
+10/31/2021  Special export of Doctors for a given Hospital requested by Mark
+
+select d.id, d.FirstName, d.LastName, d.MobilePhone, a.Description as Attitude, 
+       p.PracticeName, p.Address1, p.Address2, p.Address3, p.City, p.State, p.Zip,
+	STUFF((select ', ' + s.SpecialtyName
+	from hlc_DoctorSpecialty ds 
+	left join hlc_Specialty s on s.ID = ds.SpecialtyID 
+	where ds.DoctorID = d.ID order by SpecialtyName
+	            FOR XML PATH(''), TYPE
+	            ).value('.', 'NVARCHAR(MAX)') 
+	        ,1,2,'') Specialties       
+from hlc_DoctorHospital dh 
+left join hlc_Doctor d on d.ID = dh.DoctorID 
+left join hlc_Practice p on p.ID = d.PracticeID 
+left join hlc_attitude a on a.ID = d.Attitude 
+where dh.HospitalID = 18 -- Hospital ID
+order by d.LastName, d.FirstName
+
+
+-----------------------------------------------------------------------------
 
 -- Startup page last XX days changes----------------------------------------------------------------------------------
 -- Doctor Notes

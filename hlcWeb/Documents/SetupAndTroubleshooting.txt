@@ -1,5 +1,6 @@
 ﻿
 
+Data Source=tcp:quagv1i08c.database.windows.net,1433;Initial Catalog=HLComm;User ID=HLComm@quagv1i08c;Password=HLCnoblood2015
 
 
 Cannot open server 'quagv1i08c' requested by the login. Client with IP address '139.55.149.188' is not allowed to access the server.  
